@@ -4,8 +4,8 @@ var pictureScoreList = [];
 var pictureTimesList = [];
 var pictureMovesList = [];
 var memorySecondList = [];
-var PICcurrentnum = 1;
-var PictureScore = 0;
+var picCurrentNum = 1;
+var pictureScore = 0;
 var moves = 0;
 
 class PictureSequenceMemory extends StatefulWidget {
@@ -65,7 +65,7 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
       seconds = 0;
       waiting = false;
       guess = false;
-      var start = numberOfPics * (PICcurrentnum - 1);
+      var start = numberOfPics * (picCurrentNum - 1);
       var end = start + numberOfPics;
       pictures = [];
       pictures = getPictures(start, end, numberOfPics);
@@ -104,7 +104,7 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
     memoryTimer.cancel();
     memorySecondList.add(memorySeconds);
     setState(() {
-      PICcurrentnum += 1;
+      picCurrentNum += 1;
       waiting = true;
       pictures.shuffle();
       _tiles = [];
@@ -120,11 +120,11 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
     startTimer();
   }
 
-  late Timer pic_timer;
+  late Timer picTimer;
   int seconds = 0;
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
-    pic_timer = new Timer.periodic(
+    picTimer = new Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -149,13 +149,13 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
       }
     }
 
-    if (PICcurrentnum > this.numberOfTestsPIC) {
+    if (picCurrentNum > this.numberOfTestsPIC) {
       pictureTimesList.add(seconds);
       pictureScoreList.add(newScore);
       pictureMovesList.add(moves);
       sWidget.eventLogger.testEnded();
 
-      var picture_sequence_score =
+      var pictureSequenceScore =
           sWidget.activity.calculateScore({'pairs': pictureScoreList});
 
       RPPictureSequenceResult flankerResult =
@@ -165,18 +165,18 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
           pictureScoreList,
           pictureTimesList,
           memorySecondList,
-          picture_sequence_score);
+          pictureSequenceScore);
 
       sWidget.onResultChange(taskResults.results);
 
       if (sWidget.activity.includeResults) {
-        pic_timer.cancel();
+        picTimer.cancel();
         sWidget.eventLogger.resultsShown();
         setState(() {
           finished = true;
         });
       } else {
-        pic_timer.cancel();
+        picTimer.cancel();
         sWidget.eventLogger.resultsShown();
         setState(() {
           finished = true;
@@ -185,7 +185,7 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
     } else {
       pictureScoreList.add(seconds);
       pictureMovesList.add(moves);
-      pic_timer.cancel();
+      picTimer.cancel();
       resetTest();
     }
   }
@@ -261,6 +261,7 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
               ? waiting
                   ? Container()
                   : Column(children: [
+                      // ignore: deprecated_member_use
                       OutlineButton(
                         padding:
                             EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -284,6 +285,7 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ))
+                  // ignore: deprecated_member_use
                   : OutlineButton(
                       padding:
                           EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -355,6 +357,7 @@ class RPUIPictureSequenceMemoryActivityBody extends StatefulWidget {
       _RPUI_PictureSequenceMemoryActivityBodyState();
 }
 
+// ignore: camel_case_types
 class _RPUI_PictureSequenceMemoryActivityBodyState
     extends State<RPUIPictureSequenceMemoryActivityBody> {
   late ActivityStatus activityStatus;
@@ -494,7 +497,7 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  ${score}',
+            'results:  $score',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

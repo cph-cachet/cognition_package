@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:research_package/research_package.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,8 +17,8 @@ import 'package:carp_webservices/carp_services/carp_services.dart';
 
 import 'package:research_package/model.dart';
 
-cognitionDatum _$LightDatumFromJson(Map<String, dynamic> json) {
-  return cognitionDatum(
+CognitionDatum _$LightDatumFromJson(Map<String, dynamic> json) {
+  return CognitionDatum(
     testResults: json['testResults'] as Object,
   )
     ..id = json['id'] as String
@@ -28,7 +27,7 @@ cognitionDatum _$LightDatumFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['timestamp'] as String);
 }
 
-Map<String, dynamic> _$LightDatumToJson(cognitionDatum instance) {
+Map<String, dynamic> _$LightDatumToJson(CognitionDatum instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -43,16 +42,16 @@ Map<String, dynamic> _$LightDatumToJson(cognitionDatum instance) {
   return val;
 }
 
-class cognitionDatum extends Datum {
+class CognitionDatum extends Datum {
   DataFormat get format =>
       DataFormat.fromString('dk.cachet.carp.cognitiveAssessment');
 
   /// Intensity in Lux
   Object testResults;
 
-  cognitionDatum({this.testResults}) : super(multiDatum: false);
+  CognitionDatum({this.testResults}) : super(multiDatum: false);
 
-  factory cognitionDatum.fromJson(Map<String, dynamic> json) =>
+  factory CognitionDatum.fromJson(Map<String, dynamic> json) =>
       _$LightDatumFromJson(json);
   Map<String, dynamic> toJson() => _$LightDatumToJson(this);
 
@@ -67,9 +66,6 @@ class SurveyPage extends StatelessWidget {
 
   const SurveyPage({Key key, this.age, this.name, this.location, this.date})
       : super(key: key);
-
-  String _encode(Object object) =>
-      const JsonEncoder.withIndent(' ').convert(object);
 
   initiateCARP(num age, String name, String location, DateTime date,
       RPTaskResult result, int finalScore) async {
@@ -125,7 +121,7 @@ class SurveyPage extends StatelessWidget {
     CarpStudyProtocolManager manager = CarpStudyProtocolManager();
     await manager.initialize();
 
-    cognitionDatum datum = cognitionDatum(
+    CognitionDatum datum = CognitionDatum(
       testResults: {
         'name: ': name,
         'age: ': age,

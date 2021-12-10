@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.light().copyWith(
           primaryColor: Color(0xffC32C39),
+          // ignore: deprecated_member_use
           accentColor: Color(0xff003F6E),
           elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(
               backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -44,8 +45,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-cognitionDatum _$LightDatumFromJson(Map<String, dynamic> json) {
-  return cognitionDatum(
+CognitionDatum _$LightDatumFromJson(Map<String, dynamic> json) {
+  return CognitionDatum(
     testResults: json['testResults'] as Object,
   )
     ..id = json['id'] as String
@@ -54,7 +55,7 @@ cognitionDatum _$LightDatumFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['timestamp'] as String);
 }
 
-Map<String, dynamic> _$LightDatumToJson(cognitionDatum instance) {
+Map<String, dynamic> _$LightDatumToJson(CognitionDatum instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -69,16 +70,16 @@ Map<String, dynamic> _$LightDatumToJson(cognitionDatum instance) {
   return val;
 }
 
-class cognitionDatum extends Datum {
+class CognitionDatum extends Datum {
   DataFormat get format =>
       DataFormat.fromString('dk.cachet.carp.cognitiveAssessment');
 
   /// Intensity in Lux
   Object testResults;
 
-  cognitionDatum({this.testResults}) : super(multiDatum: false);
+  CognitionDatum({this.testResults}) : super(multiDatum: false);
 
-  factory cognitionDatum.fromJson(Map<String, dynamic> json) =>
+  factory CognitionDatum.fromJson(Map<String, dynamic> json) =>
       _$LightDatumFromJson(json);
   Map<String, dynamic> toJson() => _$LightDatumToJson(this);
 
@@ -135,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
     CarpStudyProtocolManager manager = CarpStudyProtocolManager();
     await manager.initialize();
 
-    cognitionDatum datum = cognitionDatum(
+    CognitionDatum datum = CognitionDatum(
       testResults: {'test1 score: ': 12345},
     );
 
@@ -243,13 +244,5 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       )),
     );
-  }
-
-  Widget _getIcon() {
-    if (fireBase) {
-      return Icon(Icons.check, size: 18);
-    } else {
-      return Icon(Icons.whatshot, size: 18);
-    }
   }
 }

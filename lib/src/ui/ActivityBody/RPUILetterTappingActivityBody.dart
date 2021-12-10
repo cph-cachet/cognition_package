@@ -182,6 +182,7 @@ class _RPUILetterTappingActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 shape: RoundedRectangleBorder(
@@ -205,6 +206,7 @@ class _RPUILetterTappingActivityBodyState
             Container(
               width: 100,
               height: 60,
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 child: Text('A'),
                 onPressed: () {

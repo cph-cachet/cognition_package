@@ -36,7 +36,7 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
   bool guess = false;
   bool finished = false;
   List<bool> dots = [];
-  var VisualScoreList = [];
+  var visualScoreList = [];
   int conCurrentNum = 1;
 
   /// fill list of dots with random values and add 2 to track the correct and wrong answers
@@ -169,17 +169,17 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
   void makeGuess() {
     if (conCurrentNum == numberOfTests) {
       sWidget.eventLogger.testEnded();
-      VisualScoreList.add(seconds);
+      visualScoreList.add(seconds);
       testTimer.cancel();
       seconds = 0;
 
-      var continuous_visual_tracking_score =
+      var continuousVisualTrackingScore =
           sWidget.activity.calculateScore({'mistakes': mistakes});
 
-      RPVisualTrackingResult VisualTrackingResult =
+      RPVisualTrackingResult visualTrackingResult =
           new RPVisualTrackingResult(identifier: 'visualTrackingTaskResult');
-      var taskResults = VisualTrackingResult.makeResult(
-          mistakes, VisualScoreList, continuous_visual_tracking_score);
+      var taskResults = visualTrackingResult.makeResult(
+          mistakes, visualScoreList, continuousVisualTrackingScore);
       sWidget.onResultChange(taskResults.results);
       if (sWidget.activity.includeResults) {
         sWidget.eventLogger.resultsShown();
@@ -188,7 +188,7 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
         });
       }
     } else {
-      VisualScoreList.add(seconds);
+      visualScoreList.add(seconds);
       testTimer.cancel();
       seconds = 0;
       conCurrentNum += 1;
@@ -218,6 +218,7 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
                           ? Container()
                           : Center(
                               child: Column(children: [
+                              // ignore: deprecated_member_use
                               OutlineButton(
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 24, vertical: 16),
@@ -262,6 +263,7 @@ class RPUIContinuousVisualTrackingActivityBody extends StatefulWidget {
       _RPUI_ContinuousVisualTrackingActivityBodyState();
 }
 
+// ignore: camel_case_types
 class _RPUI_ContinuousVisualTrackingActivityBodyState
     extends State<RPUIContinuousVisualTrackingActivityBody> {
   late ActivityStatus activityStatus;
@@ -364,7 +366,7 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  ${score}',
+            'results:  $score',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:research_package_demo_app/survey_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/cupertino.dart';
 
 class UserDemographicsPage extends StatefulWidget {
   @override
@@ -16,38 +14,6 @@ class _UserDemographicsPageState extends State<UserDemographicsPage> {
   String name;
   String location;
   DateTime _chosenDateTime;
-
-  void _showDatePicker(ctx) {
-    // showCupertinoModalPopup is a built-in function of the cupertino library
-    showCupertinoModalPopup(
-        context: ctx,
-        builder: (_) => Container(
-              height: 500,
-              color: Color.fromARGB(255, 255, 255, 255),
-              child: Column(
-                children: [
-                  Container(
-                    height: 400,
-                    child: CupertinoDatePicker(
-                        initialDateTime: DateTime.parse('2021-12-01 09:00:00'),
-                        use24hFormat: true,
-                        onDateTimeChanged: (val) {
-                          setState(() {
-                            _chosenDateTime = val;
-                          });
-                          print(val);
-                        }),
-                  ),
-
-                  // Close the modal
-                  CupertinoButton(
-                    child: Text('OK'),
-                    onPressed: () => Navigator.of(ctx).pop(),
-                  )
-                ],
-              ),
-            ));
-  }
 
   @override
   Widget build(BuildContext context) {

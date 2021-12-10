@@ -162,6 +162,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 shape: RoundedRectangleBorder(
@@ -207,6 +208,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
                   Container(
                       height: 80,
                       width: 160,
+                      // ignore: deprecated_member_use
                       child: OutlineButton(onPressed: () {
                         //on pressed - time is tracked if sequence has actually passed, otherwise no
                         if (seqPassed) {

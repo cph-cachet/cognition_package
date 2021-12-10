@@ -66,13 +66,13 @@ class _DelayedRecallState extends State<DelayedRecall> {
     timesTaken.add(seconds);
     _timer.cancel();
     resultsList3 = wordlist2;
-    var delayed_recall_score = sWidget.activity
+    var delayedRecallScore = sWidget.activity
         .calculateScore({'wordsList': wordlist, 'resultsList': resultsList3});
 
     RPDelayedRecallResult result =
         new RPDelayedRecallResult(identifier: 'DelayedRecallResult');
-    var taskResults = result.makeResult(
-        wordlist, resultsList3, seconds, delayed_recall_score);
+    var taskResults =
+        result.makeResult(wordlist, resultsList3, seconds, delayedRecallScore);
 
     sWidget.onResultChange(taskResults.results);
     if (sWidget.activity.includeResults) {
@@ -172,6 +172,7 @@ class _DelayedRecallState extends State<DelayedRecall> {
                     style: TextStyle(fontSize: 18),
                   ),
                 ))
+              // ignore: deprecated_member_use
               : OutlineButton(
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   shape: RoundedRectangleBorder(
@@ -204,6 +205,7 @@ class RPUIDelayedRecallActivityBody extends StatefulWidget {
       _RPUI_DelayedRecallActivityBodyState();
 }
 
+// ignore: camel_case_types
 class _RPUI_DelayedRecallActivityBodyState
     extends State<RPUIDelayedRecallActivityBody> {
   late ActivityStatus activityStatus;
@@ -306,7 +308,7 @@ class _RPUI_DelayedRecallActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  ${score}',
+            'results:  $score',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member, deprecated_member_use
+
 part of cognition_package_ui;
 
 class RPUITrailMakingActivityBody extends StatefulWidget {
@@ -145,7 +147,6 @@ class _RPUITrailMakingActivityBodyState
             ),
           ],
         );
-        break;
       case ActivityStatus.Test:
         canvasReady = buildCanvas(context);
         return FutureBuilder(
@@ -169,7 +170,6 @@ class _RPUITrailMakingActivityBodyState
             );
           },
         );
-        break;
       case ActivityStatus.Result:
         return Container(
           alignment: Alignment.center,
@@ -179,7 +179,6 @@ class _RPUITrailMakingActivityBodyState
             textAlign: TextAlign.center,
           ),
         );
-        break;
     }
   }
 }
@@ -346,7 +345,6 @@ class _PathTracker extends ChangeNotifier {
     }
   }
 
-  // TODO: add logic
   void deleteWrong() {
     if (!_isDraging) {
       _paths.removeLast();

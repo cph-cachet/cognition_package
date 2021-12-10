@@ -72,7 +72,7 @@ class FlankerCard extends StatelessWidget {
     return ret;
   }
 
-  void onSwipeRight(Offset) {
+  void onSwipeRight(offset) {
     if (direction == "→") {
       rightSwipe = rightSwipe + 1;
     } else {
@@ -81,7 +81,7 @@ class FlankerCard extends StatelessWidget {
     score = score + 1;
   }
 
-  void onSwipeLeft(Offset) {
+  void onSwipeLeft(offset) {
     if (direction == "←") {
       rightSwipe = rightSwipe + 1;
     } else {
@@ -124,6 +124,7 @@ class RPUIFlankerActivityBody extends StatefulWidget {
       _RPUI_FlankerActivityBodyState();
 }
 
+// ignore: camel_case_types
 class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
   late ActivityStatus activityStatus;
 
@@ -166,12 +167,12 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       if (this.mounted) {
         widget.eventLogger.testEnded();
 
-        var flanker_score =
+        var flankerScore =
             widget.activity.calculateScore({'mistakes': wrongSwipe});
         RPFlankerResult flankerResult =
             new RPFlankerResult(identifier: 'FlankerTaskResult');
         var taskResults = flankerResult.makeResult(
-            wrongSwipe, rightSwipe, seconds, flanker_score);
+            wrongSwipe, rightSwipe, seconds, flankerScore);
         testTimer.cancel();
         seconds = 0;
         widget.onResultChange(taskResults.results);
@@ -187,12 +188,12 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       if (this.mounted) {
         widget.eventLogger.testEnded();
-        var flanker_score =
+        var flankerScore =
             widget.activity.calculateScore({'mistakes': wrongSwipe});
         RPFlankerResult flankerResult =
             new RPFlankerResult(identifier: 'FlankerTaskResult');
         var taskResults = flankerResult.makeResult(
-            wrongSwipe, rightSwipe, seconds, flanker_score);
+            wrongSwipe, rightSwipe, seconds, flankerScore);
         testTimer.cancel();
         seconds = 0;
         widget.onResultChange(taskResults.results);
@@ -211,12 +212,12 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
     if (score == widget.activity.numberOfCards) {
       if (this.mounted) {
         widget.eventLogger.testEnded();
-        var flanker_score =
+        var flankerScore =
             widget.activity.calculateScore({'mistakes': wrongSwipe});
         RPFlankerResult flankerResult =
             new RPFlankerResult(identifier: 'FlankerTaskResult');
         var taskResults = flankerResult.makeResult(
-            wrongSwipe, rightSwipe, seconds, flanker_score);
+            wrongSwipe, rightSwipe, seconds, flankerScore);
         testTimer.cancel();
         widget.onResultChange(taskResults.results);
         if (widget.activity.includeResults) {
@@ -267,6 +268,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 shape: RoundedRectangleBorder(
@@ -296,7 +298,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  ${score}',
+            'results:  $score',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

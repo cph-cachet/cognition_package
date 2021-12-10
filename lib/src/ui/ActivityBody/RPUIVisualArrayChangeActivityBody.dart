@@ -196,12 +196,12 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
         right += 1;
         sWidget.eventLogger.testEnded();
 
-        var visual_array_change_score =
+        var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right});
         RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
             identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
-            wrong, right, times, memoryTimes, visual_array_change_score);
+            wrong, right, times, memoryTimes, visualArrayChangeScore);
 
         sWidget.onResultChange(taskResults.results);
         if (sWidget.activity.includeResults) {
@@ -219,12 +219,12 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
       wrong += 1;
       if (viscurrentNum > numberOfTests) {
         sWidget.eventLogger.testEnded();
-        var visual_array_change_score =
+        var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right});
         RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
             identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
-            wrong, right, times, memoryTimes, visual_array_change_score);
+            wrong, right, times, memoryTimes, visualArrayChangeScore);
 
         sWidget.onResultChange(taskResults.results);
         if (sWidget.activity.includeResults) {
@@ -248,12 +248,12 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
         visualScore += 1;
         right += 1;
         sWidget.eventLogger.testEnded();
-        var visual_array_change_score =
+        var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right});
         RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
             identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
-            wrong, right, times, memoryTimes, visual_array_change_score);
+            wrong, right, times, memoryTimes, visualArrayChangeScore);
 
         sWidget.onResultChange(taskResults.results);
         if (sWidget.activity.includeResults) {
@@ -270,12 +270,12 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
     } else {
       if (viscurrentNum > numberOfTests) {
         sWidget.eventLogger.testEnded();
-        var visual_array_change_score =
+        var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right});
         RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
             identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
-            wrong, right, times, memoryTimes, visual_array_change_score);
+            wrong, right, times, memoryTimes, visualArrayChangeScore);
 
         sWidget.onResultChange(taskResults.results);
         if (sWidget.activity.includeResults) {
@@ -384,6 +384,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                     ? waiting
                         ? Container()
                         : Column(children: [
+                            // ignore: deprecated_member_use
                             OutlineButton(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 24, vertical: 8),
@@ -414,6 +415,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                         : Row(children: [
                             Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 50),
+                                // ignore: deprecated_member_use
                                 child: OutlineButton(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 24, vertical: 16),
@@ -428,6 +430,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                                     style: TextStyle(fontSize: 18),
                                   ),
                                 )),
+                            // ignore: deprecated_member_use
                             OutlineButton(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 24, vertical: 16),
@@ -493,6 +496,7 @@ class RPUIVisualArrayChangeActivityBody extends StatefulWidget {
       _RPUI_VisualArrayChangeActivityBodyState();
 }
 
+// ignore: camel_case_types
 class _RPUI_VisualArrayChangeActivityBodyState
     extends State<RPUIVisualArrayChangeActivityBody> {
   late ActivityStatus activityStatus;
@@ -577,6 +581,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 shape: RoundedRectangleBorder(
@@ -612,7 +617,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  ${score}',
+            'results:  $score',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

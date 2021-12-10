@@ -88,12 +88,12 @@ class _WordRecallState extends State<WordRecall> {
       sWidget.eventLogger.testEnded();
       timesTaken.add(seconds);
       _timer.cancel();
-      var word_recall_score = sWidget.activity
+      var wordRecallScore = sWidget.activity
           .calculateScore({'wordsList': wordlist, 'resultsList': resultsList2});
       RPWordRecallResult result =
           new RPWordRecallResult(identifier: 'WordRecallResult');
       var taskResults = result.makeResult(
-          wordlist, resultsList1, resultsList2, timesTaken, word_recall_score);
+          wordlist, resultsList1, resultsList2, timesTaken, wordRecallScore);
 
       sWidget.onResultChange(taskResults.results);
       if (sWidget.activity.includeResults) {
@@ -229,6 +229,7 @@ class _WordRecallState extends State<WordRecall> {
               ? waiting
                   ? Container()
                   : Column(children: [
+                      // ignore: deprecated_member_use
                       OutlineButton(
                         padding:
                             EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -253,6 +254,7 @@ class _WordRecallState extends State<WordRecall> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ))
+                  // ignore: deprecated_member_use
                   : OutlineButton(
                       padding:
                           EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -286,6 +288,7 @@ class RPUIWordRecallActivityBody extends StatefulWidget {
       _RPUI_WordRecallActivityBodyState();
 }
 
+// ignore: camel_case_types
 class _RPUI_WordRecallActivityBodyState
     extends State<RPUIWordRecallActivityBody> {
   late ActivityStatus activityStatus;
@@ -424,7 +427,7 @@ class _RPUI_WordRecallActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  ${score}',
+            'results:  $score',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

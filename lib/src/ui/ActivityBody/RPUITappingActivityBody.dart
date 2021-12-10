@@ -100,6 +100,7 @@ class _RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 shape: RoundedRectangleBorder(
@@ -133,6 +134,7 @@ class _RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
                             Container(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 2.2,
+                              // ignore: deprecated_member_use
                               child: OutlineButton(
                                 onPressed: () {
                                   widget.eventLogger.addCorrectGesture(
@@ -146,6 +148,7 @@ class _RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
                             Container(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 2.2,
+                              // ignore: deprecated_member_use
                               child: OutlineButton(
                                 onPressed: () {
                                   widget.eventLogger.addCorrectGesture(

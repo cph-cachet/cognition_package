@@ -77,7 +77,7 @@ class _RPUIFlankerActivityBodyState
       if (!wasCorrect) {
         if (failedLast) {
           widget.eventLogger.addWrongGesture('Button tap',
-              'Test Finished after second fail - Tapped the order: ${tapOrder}. The correct order was: ${blocks.getRange(0, numberOfBlocks)}');
+              'Test Finished after second fail - Tapped the order: $tapOrder. The correct order was: ${blocks.getRange(0, numberOfBlocks)}');
           setState(() {
             taskInfo = 'Finished';
           });
@@ -92,7 +92,7 @@ class _RPUIFlankerActivityBodyState
           }
         } else {
           widget.eventLogger.addWrongGesture('Button tap',
-              'Failed first try - Tapped the order: ${tapOrder}. The correct order was: ${blocks.getRange(0, numberOfBlocks)}');
+              'Failed first try - Tapped the order: $tapOrder. The correct order was: ${blocks.getRange(0, numberOfBlocks)}');
           failedLast = true;
           setState(() {
             taskInfo = 'Try again';
@@ -146,6 +146,7 @@ class _RPUIFlankerActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 shape: RoundedRectangleBorder(
@@ -167,7 +168,6 @@ class _RPUIFlankerActivityBodyState
             ),
           ],
         );
-        break;
       case ActivityStatus.Test:
         return Padding(
           padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
@@ -204,7 +204,6 @@ class _RPUIFlankerActivityBodyState
             ],
           ),
         );
-        break;
       case ActivityStatus.Result:
         return Center(
           child: Text(
