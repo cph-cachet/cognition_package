@@ -21,6 +21,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cognition_package/model.dart';
 import 'package:flutter_swipable/flutter_swipable.dart';
+import 'package:reorderables/reorderables.dart';
 import 'package:research_package/research_package.dart';
 
 part 'src/ui/ActivityBody/RPUICorsiBlockTappingActivityBody.dart';
@@ -33,5 +34,7 @@ part 'src/ui/ActivityBody/RPUIStroopEffectActivityBody.dart';
 part 'src/ui/ActivityBody/RPUITappingActivityBody.dart';
 part 'src/ui/ActivityBody/RPUITrailMakingActivityBody.dart';
 part 'src/ui/ActivityBody/RPUIPictureSequenceMemoryActivityBody.dart';
+part 'src/ui/ActivityBody/RPUIWordRecallActivityBody.dart';
+part 'src/ui/ActivityBody/RPUIDelayedRecallActivityBody.dart';
 part 'src/ui/ActivityBody/RPUIVisualArrayChangeActivityBody.dart';
 part 'src/ui/ActivityBody/RPUIContinuousVisualTrackingActivityBody.dart';

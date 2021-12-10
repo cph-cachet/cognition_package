@@ -26,50 +26,50 @@ class _RPUIPairedAssociatesLearningActivityBody
   Timer t = new Timer(Duration(seconds: 0),
       () {}); //construct for further control of timer. Cancel at window collapse.
   List<String> containers = [
-    'packages/research_package/assets/images/nothing.png',
-    'packages/research_package/assets/images/nothing.png',
-    'packages/research_package/assets/images/nothing.png',
-    'packages/research_package/assets/images/nothing.png',
-    'packages/research_package/assets/images/nothing.png',
-    'packages/research_package/assets/images/nothing.png'
+    'packages/cognition_package/assets/images/nothing.png',
+    'packages/cognition_package/assets/images/nothing.png',
+    'packages/cognition_package/assets/images/nothing.png',
+    'packages/cognition_package/assets/images/nothing.png',
+    'packages/cognition_package/assets/images/nothing.png',
+    'packages/cognition_package/assets/images/nothing.png'
   ]; //a container can be empty, default values, or have a shape
   List<String> containerHide = [
-    'packages/research_package/assets/images/hidden.png',
-    'packages/research_package/assets/images/hidden.png',
-    'packages/research_package/assets/images/hidden.png',
-    'packages/research_package/assets/images/hidden.png',
-    'packages/research_package/assets/images/hidden.png',
-    'packages/research_package/assets/images/hidden.png'
+    'packages/cognition_package/assets/images/hidden.png',
+    'packages/cognition_package/assets/images/hidden.png',
+    'packages/cognition_package/assets/images/hidden.png',
+    'packages/cognition_package/assets/images/hidden.png',
+    'packages/cognition_package/assets/images/hidden.png',
+    'packages/cognition_package/assets/images/hidden.png'
   ];
   List<String> shapes0 = [
-    'packages/research_package/assets/images/shape1.png',
+    'packages/cognition_package/assets/images/shape1.png',
   ];
   List<String> shapes1 = [
-    'packages/research_package/assets/images/shape1.png',
-    'packages/research_package/assets/images/shape2.png'
+    'packages/cognition_package/assets/images/shape1.png',
+    'packages/cognition_package/assets/images/shape2.png'
   ]; //colors for inital logic setup
   List<String> shapes2 = [
-    'packages/research_package/assets/images/shape1.png',
-    'packages/research_package/assets/images/shape2.png',
-    'packages/research_package/assets/images/shape3.png'
+    'packages/cognition_package/assets/images/shape1.png',
+    'packages/cognition_package/assets/images/shape2.png',
+    'packages/cognition_package/assets/images/shape3.png'
   ];
   List<String> shapes3 = [
-    'packages/research_package/assets/images/shape1.png',
-    'packages/research_package/assets/images/shape2.png',
-    'packages/research_package/assets/images/shape3.png',
-    'packages/research_package/assets/images/shape4.png'
+    'packages/cognition_package/assets/images/shape1.png',
+    'packages/cognition_package/assets/images/shape2.png',
+    'packages/cognition_package/assets/images/shape3.png',
+    'packages/cognition_package/assets/images/shape4.png'
   ];
   List<String> shapes4 = [
-    'packages/research_package/assets/images/shape1.png',
-    'packages/research_package/assets/images/shape2.png',
-    'packages/research_package/assets/images/shape3.png',
-    'packages/research_package/assets/images/shape4.png',
-    'packages/research_package/assets/images/shape5.png',
+    'packages/cognition_package/assets/images/shape1.png',
+    'packages/cognition_package/assets/images/shape2.png',
+    'packages/cognition_package/assets/images/shape3.png',
+    'packages/cognition_package/assets/images/shape4.png',
+    'packages/cognition_package/assets/images/shape5.png',
   ];
 
   List<List> levels = []; //list of all levels. Add in init.
-  String matchObject = 'packages/research_package/assets/images/nothing.png';
-  String tempMatch = 'packages/research_package/assets/images/nothing.png';
+  String matchObject = 'packages/cognition_package/assets/images/nothing.png';
+  String tempMatch = 'packages/cognition_package/assets/images/nothing.png';
 
   @override
   initState() {
@@ -117,7 +117,7 @@ class _RPUIPairedAssociatesLearningActivityBody
     //fill containers with content
     for (int i = 0; i < containers.length; i++) {
       //let all containers be the same from start of levels.
-      containers[i] = 'packages/research_package/assets/images/nothing.png';
+      containers[i] = 'packages/cognition_package/assets/images/nothing.png';
     }
     tempMatch = level[_random.nextInt(level.length)]; //fill object with content
     List<int> containing = []; //list of containers that already has content
@@ -155,7 +155,7 @@ class _RPUIPairedAssociatesLearningActivityBody
       }
       await Future.delayed(Duration(seconds: 1));
       containerHide[peaking] =
-          'packages/research_package/assets/images/hidden.png'; //after time, set back to default
+          'packages/cognition_package/assets/images/hidden.png'; //after time, set back to default
     }
     if (this.mounted) {
       setState(() {
@@ -179,7 +179,7 @@ class _RPUIPairedAssociatesLearningActivityBody
       if (successes < levels.length && this.mounted) {
         //as long as there are more levels, go to next.
         setState(() {
-          matchObject = 'packages/research_package/assets/images/nothing.png';
+          matchObject = 'packages/cognition_package/assets/images/nothing.png';
           containerContent(levels[successes]);
           containerPeaker();
         });
@@ -205,7 +205,7 @@ class _RPUIPairedAssociatesLearningActivityBody
       mistakes++;
       if (this.mounted) {
         setState(() {
-          matchObject = 'packages/research_package/assets/images/nothing.png';
+          matchObject = 'packages/cognition_package/assets/images/nothing.png';
           containerContent(levels[successes]);
           containerPeaker();
         });
@@ -240,7 +240,7 @@ class _RPUIPairedAssociatesLearningActivityBody
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
-                            'packages/research_package/assets/images/PALintro.png'))),
+                            'packages/cognition_package/assets/images/PALintro.png'))),
               ),
             ),
             SizedBox(

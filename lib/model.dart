@@ -8,6 +8,9 @@
 library cognition_package_model;
 
 // Imports
+import 'dart:ffi';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:research_package/research_package.dart';
@@ -25,8 +28,17 @@ part 'src/model/step/activity_steps/RPTappingActivity.dart';
 part 'src/model/step/activity_steps/RPTrailMakingActivity.dart';
 part 'src/model/step/activity_steps/RPFlankerActivity.dart';
 part 'src/model/step/activity_steps/RPPictureSequenceMemoryActivity.dart';
+part 'src/model/step/activity_steps/RPWordRecallActivity.dart';
+part 'src/model/step/activity_steps/RPDelayedRecallActivity.dart';
 part 'src/model/step/activity_steps/RPVisualArrayChangeActivity.dart';
 part 'src/model/step/activity_steps/RPContinuousVisualTrackingActivity.dart';
+
+part 'src/result/RPVisualTrackingResult.dart';
+part 'src/result/RPFlankerResult.dart';
+part 'src/result/RPPictureSequenceResult.dart';
+part 'src/result/RPVisualArrayChangeResult.dart';
+part 'src/result/RPWordRecallResult.dart';
+part 'src/result/RPDelayedRecallResult.dart';
 
 // JSON
 part 'model.g.dart';

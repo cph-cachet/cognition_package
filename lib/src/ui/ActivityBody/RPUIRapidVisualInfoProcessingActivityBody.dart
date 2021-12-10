@@ -157,7 +157,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
-                            'packages/research_package/assets/images/RVIPintro.png'))),
+                            'packages/cognition_package/assets/images/RVIPintro.png'))),
               ),
             ),
             SizedBox(

@@ -11,7 +11,8 @@ class RPLetterTappingActivity extends RPActivityStep {
             includeResults: includeResults);
 
   @override
-  Widget stepBody(Function onResultChange, RPActivityEventLogger eventLogger) {
-    return RPUILetterTappingActivityBody(this, eventLogger, onResultChange());
+  Widget stepBody(dynamic Function(dynamic) onResultChange,
+      RPActivityEventLogger eventLogger) {
+    return RPUILetterTappingActivityBody(this, eventLogger, onResultChange);
   }
 }

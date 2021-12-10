@@ -16,7 +16,8 @@ class RPTappingActivity extends RPActivityStep {
   int lengthOfTest;
 
   @override
-  Widget stepBody(Function onResultChange, RPActivityEventLogger eventLogger) {
-    return RPUITappingActivityBody(this, eventLogger, onResultChange());
+  Widget stepBody(dynamic Function(dynamic) onResultChange,
+      RPActivityEventLogger eventLogger) {
+    return RPUITappingActivityBody(this, eventLogger, onResultChange);
   }
 }

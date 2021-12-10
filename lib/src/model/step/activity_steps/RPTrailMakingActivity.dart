@@ -18,9 +18,17 @@ class RPTrailMakingActivity extends RPActivityStep {
   TrailType trailType;
 
   @override
-  Widget stepBody(Function onResultChange, RPActivityEventLogger eventLogger) {
-    return RPUITrailMakingActivityBody(this, eventLogger, onResultChange());
+  Widget stepBody(dynamic Function(dynamic) onResultChange,
+      RPActivityEventLogger eventLogger) {
+    return RPUITrailMakingActivityBody(this, eventLogger, onResultChange);
   }
+}
+
+@override
+calculateScore(dynamic result) {
+  var sum = 5 - result['mistakeCount'];
+  print('trailmaking score: ' + sum.toString());
+  return sum;
 }
 
 /// The type of Trail used in a Trail Making Test.

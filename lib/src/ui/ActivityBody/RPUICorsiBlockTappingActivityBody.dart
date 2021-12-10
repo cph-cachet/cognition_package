@@ -141,7 +141,7 @@ class _RPUIFlankerActivityBodyState
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
-                            'packages/research_package/assets/images/Corsiintro.png'))),
+                            'packages/cognition_package/assets/images/Corsiintro.png'))),
               ),
             ),
             SizedBox(

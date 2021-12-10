@@ -16,8 +16,9 @@ class RPPairedAssociatesLearningActivity extends RPActivityStep {
   int maxTestDuration;
 
   @override
-  Widget stepBody(Function onResultChange, RPActivityEventLogger eventLogger) {
+  Widget stepBody(dynamic Function(dynamic) onResultChange,
+      RPActivityEventLogger eventLogger) {
     return RPUIPairedAssociatesLearningActivityBody(
-        this, eventLogger, onResultChange());
+        this, eventLogger, onResultChange);
   }
 }

@@ -24,7 +24,8 @@ class RPStroopEffectActivity extends RPActivityStep {
   int delayTime;
 
   @override
-  Widget stepBody(Function onResultChange, RPActivityEventLogger eventLogger) {
-    return RPUIStroopEffectActivityBody(this, eventLogger, onResultChange());
+  Widget stepBody(dynamic Function(dynamic) onResultChange,
+      RPActivityEventLogger eventLogger) {
+    return RPUIStroopEffectActivityBody(this, eventLogger, onResultChange);
   }
 }

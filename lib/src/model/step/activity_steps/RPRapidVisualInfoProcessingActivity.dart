@@ -24,8 +24,9 @@ class RPRapidVisualInfoProcessingActivity extends RPActivityStep {
   List<int> sequence;
 
   @override
-  Widget stepBody(Function onResultChange, RPActivityEventLogger eventLogger) {
+  Widget stepBody(dynamic Function(dynamic) onResultChange,
+      RPActivityEventLogger eventLogger) {
     return RPUIRapidVisualInfoProcessingActivityBody(
-        this, eventLogger, onResultChange());
+        this, eventLogger, onResultChange);
   }
 }

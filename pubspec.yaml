@@ -1,6 +1,6 @@
 name: cognition_package
 description: A Flutter framework for obtaining informed consent, showing surveys and collecting results.
-version: 0.2.0
+version: 0.1.0
 homepage: https://github.com/cph-cachet/research.package
 
 publish_to: none
@@ -19,8 +19,9 @@ dependencies:
     sdk: flutter
   audioplayers: ^0.18.0
   flutter_swipable: ^1.2.1
-  research_package: 
-    path: ../research.package
+
+  research_package: ^0.6.7
+  reorderables: ^0.4.1
 
 
 dev_dependencies:
@@ -35,41 +36,52 @@ flutter:
   # To add assets to your package, add an assets section, like this:
   assets:
     #mp files for letter A tapping test
-    - packages/research_package/assets/sounds/A.mp3
-    - packages/research_package/assets/sounds/B.mp3
-    - packages/research_package/assets/sounds/C.mp3
-    - packages/research_package/assets/sounds/D.mp3
-    - packages/research_package/assets/sounds/E.mp3
-    - packages/research_package/assets/sounds/F.mp3
-    - packages/research_package/assets/sounds/G.mp3
-    - packages/research_package/assets/sounds/H.mp3
-    - packages/research_package/assets/sounds/I.mp3
-    - packages/research_package/assets/sounds/J.mp3
-    - packages/research_package/assets/sounds/K.mp3
-    - packages/research_package/assets/sounds/L.mp3
-    - packages/research_package/assets/sounds/M.mp3
-    - packages/research_package/assets/sounds/N.mp3
-    - packages/research_package/assets/sounds/O.mp3
-    - packages/research_package/assets/sounds/P.mp3
-    - packages/research_package/assets/sounds/Q.mp3
-    - packages/research_package/assets/sounds/R.mp3
-    - packages/research_package/assets/sounds/S.mp3
-    - packages/research_package/assets/sounds/T.mp3
-    - packages/research_package/assets/sounds/U.mp3
-    - packages/research_package/assets/sounds/V.mp3
-    - packages/research_package/assets/sounds/W.mp3
-    - packages/research_package/assets/sounds/X.mp3
-    - packages/research_package/assets/sounds/Y.mp3
-    - packages/research_package/assets/sounds/Z.mp3
+    - packages/cognition_package/assets/sounds/A.mp3
+    - packages/cognition_package/assets/sounds/B.mp3
+    - packages/cognition_package/assets/sounds/C.mp3
+    - packages/cognition_package/assets/sounds/D.mp3
+    - packages/cognition_package/assets/sounds/E.mp3
+    - packages/cognition_package/assets/sounds/F.mp3
+    - packages/cognition_package/assets/sounds/G.mp3
+    - packages/cognition_package/assets/sounds/H.mp3
+    - packages/cognition_package/assets/sounds/I.mp3
+    - packages/cognition_package/assets/sounds/J.mp3
+    - packages/cognition_package/assets/sounds/K.mp3
+    - packages/cognition_package/assets/sounds/L.mp3
+    - packages/cognition_package/assets/sounds/M.mp3
+    - packages/cognition_package/assets/sounds/N.mp3
+    - packages/cognition_package/assets/sounds/O.mp3
+    - packages/cognition_package/assets/sounds/P.mp3
+    - packages/cognition_package/assets/sounds/Q.mp3
+    - packages/cognition_package/assets/sounds/R.mp3
+    - packages/cognition_package/assets/sounds/S.mp3
+    - packages/cognition_package/assets/sounds/T.mp3
+    - packages/cognition_package/assets/sounds/U.mp3
+    - packages/cognition_package/assets/sounds/V.mp3
+    - packages/cognition_package/assets/sounds/W.mp3
+    - packages/cognition_package/assets/sounds/X.mp3
+    - packages/cognition_package/assets/sounds/Y.mp3
+    - packages/cognition_package/assets/sounds/Z.mp3
+    - packages/cognition_package/assets/sounds/FACE.mp3
+    - packages/cognition_package/assets/sounds/VELVET.mp3
+    - packages/cognition_package/assets/sounds/CHURCH.mp3
+    - packages/cognition_package/assets/sounds/DAISY.mp3
+    - packages/cognition_package/assets/sounds/RED.mp3
+
+    - packages/cognition_package/assets/sounds/ICECREAM.mp3
+    - packages/cognition_package/assets/sounds/DESK.mp3
+    - packages/cognition_package/assets/sounds/BANANA.mp3
+    - packages/cognition_package/assets/sounds/VIOLIN.mp3
+    - packages/cognition_package/assets/sounds/GREEN.mp3
 
     # Test image assets for PAL
-    - packages/research_package/assets/images/nothing.png
-    - packages/research_package/assets/images/hidden.png
-    - packages/research_package/assets/images/shape1.png
-    - packages/research_package/assets/images/shape2.png
-    - packages/research_package/assets/images/shape3.png
-    - packages/research_package/assets/images/shape4.png
-    - packages/research_package/assets/images/shape5.png
+    - packages/cognition_package/assets/images/nothing.png
+    - packages/cognition_package/assets/images/hidden.png
+    - packages/cognition_package/assets/images/shape1.png
+    - packages/cognition_package/assets/images/shape2.png
+    - packages/cognition_package/assets/images/shape3.png
+    - packages/cognition_package/assets/images/shape4.png
+    - packages/cognition_package/assets/images/shape5.png
     - packages/cognition_package/assets/images/hourglass_blue.png
     - packages/cognition_package/assets/images/hourglass_red.png
     - packages/cognition_package/assets/images/hourglass_yellow.png
@@ -80,39 +92,49 @@ flutter:
     - packages/cognition_package/assets/images/arrow_red.png
     - packages/cognition_package/assets/images/arrow_yellow.png
 
+    - packages/cognition_package/assets/images/hourglass_1.png
+    - packages/cognition_package/assets/images/hourglass_2.png
+    - packages/cognition_package/assets/images/hourglass_3.png
+    - packages/cognition_package/assets/images/hourglass_4.png
+    - packages/cognition_package/assets/images/hourglass_1.png
+    - packages/cognition_package/assets/images/hourglass_5.png
+
+    - packages/cognition_package/assets/images/arrow_1.png
+    - packages/cognition_package/assets/images/arrow_2.png
+    - packages/cognition_package/assets/images/arrow_3.png
+    - packages/cognition_package/assets/images/arrow_4.png
+    - packages/cognition_package/assets/images/arrow_1.png
+    - packages/cognition_package/assets/images/arrow_5.png
+
+    - packages/cognition_package/assets/images/boomerang_1.png
+    - packages/cognition_package/assets/images/boomerang_2.png
+    - packages/cognition_package/assets/images/boomerang_3.png
+    - packages/cognition_package/assets/images/boomerang_4.png
+    - packages/cognition_package/assets/images/boomerang_1.png
+    - packages/cognition_package/assets/images/boomerang_5.png
+    
+    
+
     # Test intro images
-    - packages/research_package/assets/images/PALintro.png
-    - packages/research_package/assets/images/Corsiintro.png
-    - packages/research_package/assets/images/Reactionintro.png
-    - packages/research_package/assets/images/RVIPintro.png
-    - packages/research_package/assets/images/Stroopintro.png
-    - packages/research_package/assets/images/Tappingintro.png
-    - packages/research_package/assets/images/trailtype-a.png
-    - packages/research_package/assets/images/trailtype-b.png
-    - packages/research_package/assets/images/Letterintro.png
-  #  - images/a_dot_ham.jpeg
-  #
-  # For details regarding assets in packages, see
-  # https://flutter.io/assets-and-images/#from-packages
-  #
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.io/assets-and-images/#resolution-aware.
-  # To add custom fonts to your package, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts in packages, see
-  # https://flutter.io/custom-fonts/#from-packages
+    - packages/cognition_package/assets/images/PALintro.png
+    - packages/cognition_package/assets/images/Corsiintro.png
+    - packages/cognition_package/assets/images/Reactionintro.png
+    - packages/cognition_package/assets/images/RVIPintro.png
+    - packages/cognition_package/assets/images/Stroopintro.png
+    - packages/cognition_package/assets/images/Tappingintro.png
+    - packages/cognition_package/assets/images/trailtype-a.png
+    - packages/cognition_package/assets/images/trailtype-b.png
+    - packages/cognition_package/assets/images/Letterintro.png
+
+
+
+
+    - packages/cognition_package/assets/images/trailmaking_a.png
+    - packages/cognition_package/assets/images/trailmaking_b.png
+    - packages/cognition_package/assets/images/visual_tracking.png
+    - packages/cognition_package/assets/images/picture_sequence.png
+    - packages/cognition_package/assets/images/wordlist_recall.png
+    - packages/cognition_package/assets/images/letter_tapping.png
+    - packages/cognition_package/assets/images/flanker.png
+    - packages/cognition_package/assets/images/shape_recall.png
+    - packages/cognition_package/assets/images/delayed_recall.png

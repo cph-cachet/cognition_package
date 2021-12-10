@@ -75,8 +75,9 @@ class _RPUITrailMakingActivityBodyState
     _pathTracker.notifyListeners();
   }
 
-  void testConcluded(int result) {
-    widget.onResultChange({"Completion time": result});
+  void testConcluded(int result, int mistakes) {
+    int score = 5 - mistakes;
+    widget.onResultChange({"Completion time": result, "score": score});
     taskTime = result;
     if (widget.activity.includeResults) {
       widget.eventLogger.resultsShown();
@@ -97,11 +98,21 @@ class _RPUITrailMakingActivityBodyState
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 _isTypeA
                     ? 'Connect the boxes to each other by drawing lines between them in numerical order, starting at \'1\'.'
-                    : 'Connect the boxes to each other by drawing lines between them. You must alternate between letters and numbers and should order them alphabetically and numerically, respectively.',
+                    : 'Connect the boxes to each other by drawing lines between them.',
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                _isTypeA
+                    ? 'Connect the boxes to each other by drawing lines between them in numerical order, starting at \'1\'.'
+                    : 'You must alternate between letters and numbers and should order them alphabetically and numerically, respectively.',
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
@@ -110,8 +121,8 @@ class _RPUITrailMakingActivityBodyState
               padding: EdgeInsets.all(5),
               child: Container(
                 child: Image.asset(_isTypeA
-                    ? 'packages/research_package/assets/images/trailtype-a.png'
-                    : 'packages/research_package/assets/images/trailtype-b.png'),
+                    ? 'packages/cognition_package/assets/images/trailmaking_a.png'
+                    : 'packages/cognition_package/assets/images/trailmaking_b.png'),
               ),
             ),
             SizedBox(
@@ -181,7 +192,7 @@ class _TrailPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawRect(new Rect.fromLTWH(0.0, 0.0, size.width, size.height),
-        Paint()..color = Colors.white);
+        Paint()..color = Colors.transparent);
     for (_Location location in _pathsTracker._locations) {
       final textPainter = TextPainter(
         text: TextSpan(
@@ -238,6 +249,7 @@ class _PathTracker extends ChangeNotifier {
   late int index;
   late DateTime startTime;
   final RPActivityEventLogger gestureController;
+  int mistakeCount = 0;
 
   _PathTracker(this.gestureController, this._locations) {
     _paths = [];
@@ -263,7 +275,7 @@ class _PathTracker extends ChangeNotifier {
     }
   }
 
-  void updateCurrentPath(Offset newPos, Function(int) testConcluded) {
+  void updateCurrentPath(Offset newPos, Function(int, int) testConcluded) {
     if (_isDraging && !_isFinished) {
       Path path = _paths.last;
       path.lineTo(newPos.dx, newPos.dy);
@@ -280,6 +292,7 @@ class _PathTracker extends ChangeNotifier {
           gestureController.addWrongGesture('Draw path',
               'Drew a path which hit ${l.id} instead of the correct, next item ${nextLocation.id}');
           deleteWrong();
+          mistakeCount++;
           return;
         }
       }
@@ -302,7 +315,7 @@ class _PathTracker extends ChangeNotifier {
           gestureController.testEnded();
           gestureController.resultsShown();
           int secondsUsed = DateTime.now().difference(startTime).inSeconds;
-          testConcluded(secondsUsed);
+          testConcluded(secondsUsed, mistakeCount);
         }
       }
     }
@@ -377,7 +390,7 @@ class _TrailMakingLists {
       _Location('C', Offset(w * 0.85, h * 0.72)),
       _Location('4', Offset(w * 0.45, h * 0.60)),
       _Location('D', Offset(w * 0.60, h * 0.88)),
-      _Location('5', Offset(w * 0.12, h * 0.92)),
+      _Location('5', Offset(w * 0.12, h * 0.82)),
       _Location('E', Offset(w * 0.2, h * 0.50)),
     ];
   }

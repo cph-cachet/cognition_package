@@ -1,41 +1,48 @@
 part of cognition_package_ui;
 
 var score = 0;
+var wrongSwipe = 0;
+var rightSwipe = 0;
+bool even = false;
 
 class Flanker extends StatefulWidget {
+  final numberOfCards;
+  const Flanker({this.numberOfCards});
   @override
-  _FlankerState createState() => _FlankerState();
+  _FlankerState createState() => _FlankerState(numberOfCards);
 }
 
 class _FlankerState extends State<Flanker> {
-  // Dynamically load cards from database
+  final int numberOfCards;
   List<Widget> flankerCards = [];
-
   List<FlankerCard> cards(amount) {
     List<FlankerCard> cards = [];
     for (var i = 0; i < amount; i++) {
+      even = !even;
       if (Random().nextBool()) {
-        cards.add(FlankerCard("→"));
+        cards.add(
+          FlankerCard("→", even ? 0xff003F6E : 0xffC32C39),
+        );
       } else {
-        cards.add(FlankerCard("←"));
+        cards.add(FlankerCard("←", even ? 0xff003F6E : 0xffC32C39));
       }
     }
     return cards;
   }
 
+  _FlankerState(this.numberOfCards);
+
   @override
   initState() {
     super.initState();
-    flankerCards = cards(50);
+    flankerCards = cards(numberOfCards);
   }
 
   @override
   Widget build(BuildContext context) {
-    // Stack of cards that can be swiped. Set width, height, etc here.
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.height * 0.7,
-      // Important to keep as a stack to have overlay of cards.
       child: Stack(
         children: flankerCards,
       ),
@@ -43,20 +50,15 @@ class _FlankerState extends State<Flanker> {
   }
 }
 
-// https://pub.dev/packages/flutter_swipable
-
 class FlankerCard extends StatelessWidget {
-  // Made to distinguish cards
-  // Add your own applicable data here
-
+  final int color;
   final String direction;
-  FlankerCard(this.direction);
+  FlankerCard(this.direction, this.color);
 
   final String right = "→";
   final String left = "←";
 
   String distractors() {
-    print("new card");
     String ret = "";
     for (var i = 0; i < 3; i++) {
       if (i == 1) {
@@ -71,31 +73,32 @@ class FlankerCard extends StatelessWidget {
   }
 
   void onSwipeRight(Offset) {
-    print("swiped right");
     if (direction == "→") {
-      score = score + 1;
+      rightSwipe = rightSwipe + 1;
+    } else {
+      wrongSwipe = wrongSwipe + 1;
     }
-    print(score);
+    score = score + 1;
   }
 
   void onSwipeLeft(Offset) {
-    print("swiped left");
     if (direction == "←") {
-      score = score + 1;
+      rightSwipe = rightSwipe + 1;
+    } else {
+      wrongSwipe = wrongSwipe + 1;
     }
-    print(score);
+    score = score + 1;
   }
 
   @override
   Widget build(BuildContext context) {
     return Swipable(
-      // Set the swipable widget
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.7,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.0),
-          color: Color(0xFFFDA69D),
+          color: Color(color),
         ),
         child: Center(
             child: Text(
@@ -105,7 +108,6 @@ class FlankerCard extends StatelessWidget {
       ),
       onSwipeRight: onSwipeRight,
       onSwipeLeft: onSwipeLeft,
-      // onSwipeRight, left, up, down, cancel, etc...
     );
   }
 }
@@ -124,20 +126,10 @@ class RPUIFlankerActivityBody extends StatefulWidget {
 
 class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
   late ActivityStatus activityStatus;
-  int corsiSpan = 0;
-  late int highlightedBlockID;
-  late List<int> blocks;
-  List<int> tapOrder = [];
-  bool readyForTap = false;
-  bool finishedTask = false;
-  bool failedLast = false;
-  String taskInfo = '';
-  int numberOfBlocks = 2;
 
   @override
   initState() {
     super.initState();
-    blocks = List.generate(9, (index) => index);
     if (widget.activity.includeInstructions) {
       activityStatus = ActivityStatus.Instruction;
       widget.eventLogger.instructionStarted();
@@ -148,34 +140,62 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
     }
   }
 
+  late Timer testTimer;
+  int seconds = 0;
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    testTimer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (seconds < 0) {
+            timer.cancel();
+          } else {
+            seconds = seconds + 1;
+          }
+        },
+      ),
+    );
+  }
+
   void startTest() async {
-    setState(() {
-      taskInfo = 'Wait';
-      readyForTap = false;
-      tapOrder.clear();
-      blocks.shuffle();
-    });
+    startTimer();
     await Future.delayed(Duration(seconds: 1));
-    for (int i = 0; i < numberOfBlocks; i++) {
-      if (activityStatus == ActivityStatus.Test && this.mounted) {
-        setState(() {
-          highlightedBlockID = blocks[i];
-        });
+
+    if (score == widget.activity.numberOfCards) {
+      if (this.mounted) {
+        widget.eventLogger.testEnded();
+
+        var flanker_score =
+            widget.activity.calculateScore({'mistakes': wrongSwipe});
+        RPFlankerResult flankerResult =
+            new RPFlankerResult(identifier: 'FlankerTaskResult');
+        var taskResults = flankerResult.makeResult(
+            wrongSwipe, rightSwipe, seconds, flanker_score);
+        testTimer.cancel();
+        seconds = 0;
+        widget.onResultChange(taskResults.results);
+        if (widget.activity.includeResults) {
+          widget.eventLogger.resultsShown();
+          setState(() {
+            activityStatus = ActivityStatus.Result;
+          });
+        }
       }
-      await Future.delayed(Duration(milliseconds: 1000));
-    }
-    if (activityStatus == ActivityStatus.Test && this.mounted) {
-      setState(() {
-        readyForTap = true;
-        taskInfo = 'Go';
-      });
     }
 
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
-      //when time is up, change window and set result
       if (this.mounted) {
         widget.eventLogger.testEnded();
-        widget.onResultChange({"Correct swipes": score});
+        var flanker_score =
+            widget.activity.calculateScore({'mistakes': wrongSwipe});
+        RPFlankerResult flankerResult =
+            new RPFlankerResult(identifier: 'FlankerTaskResult');
+        var taskResults = flankerResult.makeResult(
+            wrongSwipe, rightSwipe, seconds, flanker_score);
+        testTimer.cancel();
+        seconds = 0;
+        widget.onResultChange(taskResults.results);
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
           setState(() {
@@ -188,6 +208,26 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
 
   @override
   Widget build(BuildContext context) {
+    if (score == widget.activity.numberOfCards) {
+      if (this.mounted) {
+        widget.eventLogger.testEnded();
+        var flanker_score =
+            widget.activity.calculateScore({'mistakes': wrongSwipe});
+        RPFlankerResult flankerResult =
+            new RPFlankerResult(identifier: 'FlankerTaskResult');
+        var taskResults = flankerResult.makeResult(
+            wrongSwipe, rightSwipe, seconds, flanker_score);
+        testTimer.cancel();
+        widget.onResultChange(taskResults.results);
+        if (widget.activity.includeResults) {
+          widget.eventLogger.resultsShown();
+          setState(() {
+            activityStatus = ActivityStatus.Result;
+          });
+        }
+      }
+    }
+
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -196,7 +236,17 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                'swipe the cards in the direction of the middle arrow on each card, disregarding all other arrows on the cards',
+                'Swipe the cards in the direction of the middle arrow on each card.',
+                style: TextStyle(fontSize: 20),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Ignore all other arrows on the cards, they are only there to distract you',
                 style: TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -212,7 +262,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
-                            'packages/research_package/assets/images/Corsiintro.png'))),
+                            'packages/cognition_package/assets/images/flanker.png'))),
               ),
             ),
             SizedBox(
@@ -238,13 +288,10 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
             ),
           ],
         );
-        break;
       case ActivityStatus.Test:
         return Scaffold(
-          // appBar: AppBar(
-          //   title: Text('FLANKER TEST SCORE: ${score}'),
-          // ),
-          body: Center(child: Flanker()),
+          body: Center(
+              child: Flanker(numberOfCards: widget.activity.numberOfCards)),
         );
       case ActivityStatus.Result:
         return Center(

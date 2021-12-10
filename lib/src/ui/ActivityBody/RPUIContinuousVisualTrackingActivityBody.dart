@@ -6,6 +6,7 @@ class ContinuousVisualTracking extends StatefulWidget {
   final amountOfDots;
   final trackingSpeed;
   final dotSize;
+
   const ContinuousVisualTracking({
     Key? key,
     required this.sWidget,
@@ -18,7 +19,7 @@ class ContinuousVisualTracking extends StatefulWidget {
   @override
   _ContinuousVisualTrackingState createState() =>
       _ContinuousVisualTrackingState(
-          sWidget, numberOfTest, amountOfDots, dotSize, trackingSpeed);
+          sWidget, numberOfTests, amountOfDots, dotSize, trackingSpeed);
 }
 
 class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
@@ -27,20 +28,21 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
   final int amountOfDots;
   final int dotSize;
   final Duration trackingSpeed;
-  // Dynamically load cards from database
 
+  int wrong = 0;
+  List<int> mistakes = [];
   List<int> rotation = [];
   bool waiting = false;
   bool guess = false;
   bool finished = false;
   List<bool> dots = [];
-  int wrong = 0;
+  var VisualScoreList = [];
   int conCurrentNum = 1;
 
-  // int connumberOfTest = 3;
-  // int amount = 10;
-  // Duration trackingSpeed1 = Duration(seconds: 10);
-
+  /// fill list of dots with random values and add 2 to track the correct and wrong answers
+  /// amount: amount of dots to add
+  /// constraint: the constraint of the list
+  /// avatarsize: the size of the dots
   List<AnimatedPositioned> getDots(int amount, constraints, avatarSize) {
     List<AnimatedPositioned> tDots = [];
     for (var i = 0; i < amount; i++) {
@@ -54,9 +56,12 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
                 rotation[(i + amount) + 5],
         child: GestureDetector(
             onTap: () {
-              setState(() {
-                wrong += 1;
-              });
+              if (guess) {
+                setState(() {
+                  wrong += 1;
+                  mistakes[conCurrentNum] = mistakes[conCurrentNum] + 1;
+                });
+              }
             },
             child: new CircleAvatar(
               radius: avatarSize / 2,
@@ -77,16 +82,18 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
                 rotation[i + amount + 5],
         child: GestureDetector(
             onTap: () {
-              setState(() {
-                dots[i] = true;
-                if (listEquals(dots, [true, true])) {
-                  makeGuess();
-                }
-              });
+              if (guess) {
+                setState(() {
+                  dots[i] = true;
+                  if (listEquals(dots, [true, true])) {
+                    makeGuess();
+                  }
+                });
+              }
             },
             child: new CircleAvatar(
               radius: avatarSize / 2,
-              backgroundColor: dots[i] ? Colors.green : Colors.grey,
+              backgroundColor: dots[i] ? Color(0xff1F669B) : Colors.grey,
             )),
       ));
     }
@@ -95,27 +102,17 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
 
   _ContinuousVisualTrackingState(this.sWidget, this.numberOfTests,
       this.amountOfDots, this.dotSize, this.trackingSpeed);
-  Timer? _timer;
   @override
   initState() {
-    print("numberOfTests: $numberOfTests");
-    print("amountOfDots: $amountOfDots");
-    print("dotSize: $dotSize");
-    print("trackingSpeed: $trackingSpeed");
+    mistakes = List.filled(numberOfTests + 1, 0);
+    mistakes[0] = -1;
     super.initState();
-    _timer = Timer.periodic(trackingSpeed, (Timer t) => shuffleCircles());
     rotation = getRotation();
     rotation.shuffle();
     dots = [true, true];
-    Timer(Duration(milliseconds: 10), startTest);
   }
 
-  @override
-  void dispose() {
-    _timer!.cancel();
-    super.dispose();
-  }
-
+  /// find new positions for all dots
   void shuffleCircles() {
     setState(() {
       rotation.shuffle();
@@ -124,59 +121,88 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
 
   List<int> getRotation() => List.generate(100, (index) => rng.nextInt(100));
 
+  /// reset the test
   void resetTest() async {
     setState(() {
-      dots = [true, true];
       waiting = false;
       guess = false;
-      rotation = getRotation();
-      _timer = Timer.periodic(trackingSpeed, (Timer t) => shuffleCircles());
-      Timer(trackingSpeed, startTest);
     });
   }
 
+  /// start the test
   void startTest() async {
     setState(() {
-      _timer!.cancel();
       rotation = getRotation();
+      dots = [false, false];
     });
-    //sleep(Duration(seconds: 2));
     await Future.delayed(trackingSpeed);
     setState(() {
       waiting = false;
       guess = true;
-      dots = [false, false];
     });
+    startTimer();
   }
 
+  /// Timer for the test
+  late Timer testTimer;
   var rng = new Random();
+  int seconds = 0;
 
+  /// start the timer
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    testTimer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (seconds < 0) {
+            timer.cancel();
+          } else {
+            seconds = seconds + 1;
+          }
+        },
+      ),
+    );
+  }
+
+  /// make a guess and check if its correct
   void makeGuess() {
-    print(conCurrentNum);
-    print(numberOfTests);
     if (conCurrentNum == numberOfTests) {
       sWidget.eventLogger.testEnded();
-      sWidget.onResultChange({"wrong taps: ": wrong});
+      VisualScoreList.add(seconds);
+      testTimer.cancel();
+      seconds = 0;
+
+      var continuous_visual_tracking_score =
+          sWidget.activity.calculateScore({'mistakes': mistakes});
+
+      RPVisualTrackingResult VisualTrackingResult =
+          new RPVisualTrackingResult(identifier: 'visualTrackingTaskResult');
+      var taskResults = VisualTrackingResult.makeResult(
+          mistakes, VisualScoreList, continuous_visual_tracking_score);
+      sWidget.onResultChange(taskResults.results);
       if (sWidget.activity.includeResults) {
-        _timer!.cancel();
         sWidget.eventLogger.resultsShown();
         setState(() {
           finished = true;
         });
       }
     } else {
-      _timer!.cancel();
+      VisualScoreList.add(seconds);
+      testTimer.cancel();
+      seconds = 0;
       conCurrentNum += 1;
       resetTest();
     }
   }
 
+  /// Build the main test phase
   @override
   Widget build(BuildContext context) => Scaffold(
           body: Center(
               child: Column(children: [
         Container(
-            height: MediaQuery.of(context).size.height - 235,
+            height: MediaQuery.of(context).size.height - 270,
             width: MediaQuery.of(context).size.width - 20,
             child: LayoutBuilder(builder: (context, constraints) {
               return Stack(
@@ -191,12 +217,28 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
                       ? waiting
                           ? Container()
                           : Center(
-                              child: Text("task $conCurrentNum/$numberOfTests"))
+                              child: Column(children: [
+                              OutlineButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 24, vertical: 16),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                onPressed: () {
+                                  startTest();
+                                },
+                                child: Text(
+                                  'Start',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
+                              Text("task $conCurrentNum/$numberOfTests")
+                            ]))
                       : finished
                           ? Center(
                               child: Container(
                               child: Text(
-                                'Correct',
+                                'Click next to continue',
                                 style: TextStyle(fontSize: 18),
                               ),
                             ))
@@ -223,68 +265,20 @@ class RPUIContinuousVisualTrackingActivityBody extends StatefulWidget {
 class _RPUI_ContinuousVisualTrackingActivityBodyState
     extends State<RPUIContinuousVisualTrackingActivityBody> {
   late ActivityStatus activityStatus;
-  int corsiSpan = 0;
-  late int highlightedBlockID;
-  late List<int> blocks;
-  List<int> tapOrder = [];
-  bool readyForTap = false;
-  bool finishedTask = false;
-  bool failedLast = false;
-  String taskInfo = '';
-  int numberOfBlocks = 2;
 
   @override
   initState() {
     super.initState();
-    blocks = List.generate(9, (index) => index);
     if (widget.activity.includeInstructions) {
       activityStatus = ActivityStatus.Instruction;
       widget.eventLogger.instructionStarted();
     } else {
       activityStatus = ActivityStatus.Test;
       widget.eventLogger.testStarted();
-      startTest();
     }
   }
 
-  void startTest() async {
-    setState(() {
-      taskInfo = 'Wait';
-      readyForTap = false;
-      tapOrder.clear();
-      blocks.shuffle();
-    });
-    await Future.delayed(Duration(seconds: 1));
-    for (int i = 0; i < numberOfBlocks; i++) {
-      if (activityStatus == ActivityStatus.Test && this.mounted) {
-        setState(() {
-          highlightedBlockID = blocks[i];
-        });
-      }
-      await Future.delayed(Duration(milliseconds: 1000));
-    }
-    if (activityStatus == ActivityStatus.Test && this.mounted) {
-      setState(() {
-        readyForTap = true;
-        taskInfo = 'Go';
-      });
-    }
-    // rpcontinuiusvisualresult
-    Timer(Duration(seconds: widget.activity.lengthOfTest), () {
-      //when time is up, change window and set result
-      if (this.mounted) {
-        widget.eventLogger.testEnded();
-        widget.onResultChange({"Correct swipes": score});
-        if (widget.activity.includeResults) {
-          widget.eventLogger.resultsShown();
-          setState(() {
-            activityStatus = ActivityStatus.Result;
-          });
-        }
-      }
-    });
-  }
-
+  /// build the activity with instructions, test and results
   @override
   Widget build(BuildContext context) {
     switch (activityStatus) {
@@ -295,8 +289,28 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                'Follow the green dots around the screen, once they stop and turn grey point them out',
-                style: TextStyle(fontSize: 20),
+                'Find the blue dots on the screen.',
+                style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Once ready, press "start" and the dots will turn grey and start moving.',
+                style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Follow the dots and click on them once all the dots stop moving',
+                style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -311,7 +325,7 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
-                            'packages/research_package/assets/images/Corsiintro.png'))),
+                            'packages/cognition_package/assets/images/visual_tracking.png'))),
               ),
             ),
             SizedBox(
@@ -328,7 +342,6 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
                   setState(() {
                     activityStatus = ActivityStatus.Test;
                   });
-                  startTest();
                 },
                 child: Text(
                   'Ready',

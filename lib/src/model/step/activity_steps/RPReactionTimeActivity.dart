@@ -20,7 +20,8 @@ class RPReactionTimeActivity extends RPActivityStep {
   int switchInterval;
 
   @override
-  Widget stepBody(Function onResultChange, RPActivityEventLogger eventLogger) {
-    return RPUIReactionTimeActivityBody(this, eventLogger, onResultChange());
+  Widget stepBody(dynamic Function(dynamic) onResultChange,
+      RPActivityEventLogger eventLogger) {
+    return RPUIReactionTimeActivityBody(this, eventLogger, onResultChange);
   }
 }

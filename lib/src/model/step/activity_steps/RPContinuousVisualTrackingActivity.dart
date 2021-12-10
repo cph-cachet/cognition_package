@@ -1,43 +1,63 @@
 part of cognition_package_model;
 
-/// A Rapid Visual Information Proccesing Test
+/// A Multiple Object Tracking Test
 @JsonSerializable()
 class RPContinuousVisualTrackingActivity extends RPActivityStep {
   /// Contructor for creating a Rapid Visual Information Processesing Test.
   RPContinuousVisualTrackingActivity(String identifier,
       {includeInstructions = true,
       includeResults = true,
-      this.interval = 9,
+      // this.interval = 9,
       this.lengthOfTest = 90,
       this.numberOfTests = 3,
       this.amountOfDots = 5,
       this.dotSize = 100,
-      this.trackingSpeed = const Duration(seconds: 5),
-      this.sequence = const [3, 6, 9]})
+      this.trackingSpeed = const Duration(seconds: 5)
+      // this.sequence = const [3, 6, 9]
+      })
       : super(identifier,
             includeInstructions: includeInstructions,
             includeResults: includeResults);
 
-  /// Interval in which numbers to display are picked (could be 9 (0-9)). Default is 9.
-  int interval;
-
   /// Test duration in seconds. Default is 90 seconds
   int lengthOfTest;
 
+  /// Amount of test repetitions. Default is 3
   int numberOfTests;
 
+  /// Amount of dots to be displayed. Default is 5
   int amountOfDots;
 
+  /// Size of the dots in pixels. Default is 100
   int dotSize;
 
+  /// the speed of the dots in seconds. Default is 5 seconds per move
   Duration trackingSpeed;
 
-  /// Sequence of numbers that is tracked. Default is 3,6,9
-  List<int> sequence;
-
+  /// override the activitybody with the UI body of the test
   @override
-  Widget stepBody(Function onResultChange, RPActivityEventLogger eventLogger) {
+  Widget stepBody(dynamic Function(dynamic) onResultChange,
+      RPActivityEventLogger eventLogger) {
     return RPUIContinuousVisualTrackingActivityBody(
-        this, eventLogger, onResultChange());
+        this, eventLogger, onResultChange);
+  }
+
+  /// override the AcitivityResult with the results calculation of the test
+  /// this is called when the test is finished
+  /// the result is a list of mistakes for each test repetition
+  /// the list is empty if no mistakes were made
+  /// for every repetition with 0 mistakes a score of 1 is added
+  /// the sum of repetitions with 0 mistakes is the final score
+  @override
+  calculateScore(dynamic result) {
+    var sum = 0;
+    List<int> mistakes = result['mistakes'];
+    for (var round in mistakes) {
+      if (round == 0) {
+        sum += 1;
+      }
+    }
+    print('continuos visual tracking score: ' + sum.toString());
+    return sum;
   }
 }

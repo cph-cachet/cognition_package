@@ -120,7 +120,7 @@ class _RPUIReactionTimeActivityBodyState
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
-                            'packages/research_package/assets/images/Reactionintro.png'))),
+                            'packages/cognition_package/assets/images/Reactionintro.png'))),
               ),
             ),
             SizedBox(

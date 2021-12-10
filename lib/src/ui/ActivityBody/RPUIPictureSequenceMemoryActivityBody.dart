@@ -1,23 +1,30 @@
 part of cognition_package_ui;
 
 var pictureScoreList = [];
-var numberOfTest = 3;
-var currentNum = 1;
+var pictureTimesList = [];
+var pictureMovesList = [];
+var memorySecondList = [];
+var PICcurrentnum = 1;
 var PictureScore = 0;
+var moves = 0;
 
 class PictureSequenceMemory extends StatefulWidget {
   final RPUIPictureSequenceMemoryActivityBody sWidget;
-  const PictureSequenceMemory({Key? key, required this.sWidget})
+  final numberOfTests;
+  final numberOfPics;
+  const PictureSequenceMemory(
+      {Key? key, required this.sWidget, this.numberOfTests, this.numberOfPics})
       : super(key: key);
 
   @override
   _PictureSequenceMemoryState createState() =>
-      _PictureSequenceMemoryState(sWidget);
+      _PictureSequenceMemoryState(sWidget, numberOfTests, numberOfPics);
 }
 
 class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   final RPUIPictureSequenceMemoryActivityBody sWidget;
-  // Dynamically load cards from database
+  final int numberOfTestsPIC;
+  final int numberOfPics;
   List<Picture> original = [];
   List<Picture> pictures = [];
   bool waiting = false;
@@ -40,45 +47,71 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
     'https://images.unsplash.com/photo-1585129819171-80b02d4c85b0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
   ];
 
-  _PictureSequenceMemoryState(this.sWidget);
-  List<Picture> getPictures() => List.generate(
-        4,
+  _PictureSequenceMemoryState(
+      this.sWidget, this.numberOfTestsPIC, this.numberOfPics);
+
+  List<Picture> getPictures(int start, int end, int num) => List.generate(
+        num,
         (index) => Picture(
           name: index.toString(),
-          urlImage: urlImages[index],
+          urlImage: urlImages[index + start],
         ),
       );
 
   void resetTest() async {
-    print("resetting now");
+    memorySeconds = 0;
+    startMemoryTimer();
     setState(() {
       seconds = 0;
       waiting = false;
       guess = false;
+      var start = numberOfPics * (PICcurrentnum - 1);
+      var end = start + numberOfPics;
+      pictures = [];
+      pictures = getPictures(start, end, numberOfPics);
       pictures.shuffle();
+      _tiles = [];
+      for (int i = 0; i < numberOfPics; i++) {
+        _tiles.add(buildPicture(i, pictures[i]));
+      }
       original = [];
+      moves = 0;
       for (Picture picl in pictures) {
-        print(picl.name);
         original.add(picl);
       }
     });
   }
 
+  late Timer memoryTimer;
+  int memorySeconds = 0;
+  void startMemoryTimer() {
+    const oneSec = const Duration(seconds: 1);
+    memoryTimer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (seconds < 0) {
+            timer.cancel();
+          } else {
+            memorySeconds = memorySeconds + 1;
+          }
+        },
+      ),
+    );
+  }
+
   void startTest() async {
-    print("trying now");
+    memoryTimer.cancel();
+    memorySecondList.add(memorySeconds);
     setState(() {
-      currentNum += 1;
+      PICcurrentnum += 1;
       waiting = true;
       pictures.shuffle();
+      _tiles = [];
+      for (int i = 0; i < numberOfPics; i++) {
+        _tiles.add(buildPicture(i, pictures[i]));
+      }
     });
-    for (Picture pic in original) {
-      print(pic.name);
-    }
-    print("----------");
-    for (Picture picl in pictures) {
-      print(picl.name);
-    }
-    //sleep(Duration(seconds: 2));
     await Future.delayed(Duration(seconds: 2));
     setState(() {
       waiting = false;
@@ -87,11 +120,11 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
     startTimer();
   }
 
-  late Timer _timer;
+  late Timer pic_timer;
   int seconds = 0;
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    pic_timer = new Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -106,157 +139,173 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   }
 
   void makeGuess() {
-    print("GUESS IS: ");
-    for (Picture picl in pictures) {
-      print(picl.name);
+    var newScore = 0;
+    for (var i = 1; i < pictures.length; i++) {
+      var picPair = [pictures[i - 1].name, pictures[i].name];
+      var picPair2 = [original[i - 1].name, original[i].name];
+
+      if (listEquals(picPair, picPair2)) {
+        newScore += 1;
+      }
     }
-    if (listEquals(pictures, original)) {
-      print("Good Job");
-      if (currentNum > numberOfTest) {
-        pictureScoreList.add(seconds);
-        sWidget.eventLogger.testEnded();
-        sWidget.onResultChange({"scores: ": pictureScoreList});
-        if (sWidget.activity.includeResults) {
-          _timer.cancel();
-          sWidget.eventLogger.resultsShown();
-          setState(() {
-            finished = true;
-          });
-        }
+
+    if (PICcurrentnum > this.numberOfTestsPIC) {
+      pictureTimesList.add(seconds);
+      pictureScoreList.add(newScore);
+      pictureMovesList.add(moves);
+      sWidget.eventLogger.testEnded();
+
+      var picture_sequence_score =
+          sWidget.activity.calculateScore({'pairs': pictureScoreList});
+
+      RPPictureSequenceResult flankerResult =
+          new RPPictureSequenceResult(identifier: 'PictureSequenceResult');
+      var taskResults = flankerResult.makeResult(
+          pictureMovesList,
+          pictureScoreList,
+          pictureTimesList,
+          memorySecondList,
+          picture_sequence_score);
+
+      sWidget.onResultChange(taskResults.results);
+
+      if (sWidget.activity.includeResults) {
+        pic_timer.cancel();
+        sWidget.eventLogger.resultsShown();
+        setState(() {
+          finished = true;
+        });
       } else {
-        pictureScoreList.add(seconds);
-        _timer.cancel();
-        resetTest();
+        pic_timer.cancel();
+        sWidget.eventLogger.resultsShown();
+        setState(() {
+          finished = true;
+        });
       }
     } else {
-      print("Try Again");
+      pictureScoreList.add(seconds);
+      pictureMovesList.add(moves);
+      pic_timer.cancel();
+      resetTest();
     }
   }
+
+  late List<Widget> _tiles;
 
   @override
   initState() {
     super.initState();
-    pictures = getPictures();
+    pictures = getPictures(0, this.numberOfPics, this.numberOfPics);
+
     pictures.shuffle();
     for (Picture picl in pictures) {
-      print(picl.name);
       original.add(picl);
     }
+    _tiles = [];
+    memorySeconds = 0;
+    for (int i = 0; i < numberOfPics; i++) {
+      _tiles.add(buildPicture(i, pictures[i]));
+    }
+    startMemoryTimer();
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-          body: Center(
-              child: Column(children: [
-        Container(
-          height: MediaQuery.of(context).size.height - 210,
-          width: MediaQuery.of(context).size.width - 20,
-          child: !guess
-              ? !waiting
-                  ? ReorderableListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: pictures.length,
-                      onReorder: (oldIndex, newIndex) => setState(() {
-                        final index =
-                            newIndex > oldIndex ? newIndex - 1 : newIndex;
+  Widget build(BuildContext context) {
+    void _onReorder(int oldIndex, int newIndex) {
+      setState(() {
+        moves = moves + 1;
+        final picture = _tiles.removeAt(oldIndex);
+        _tiles.insert(newIndex, picture);
+        final _picture = pictures.removeAt(oldIndex);
+        pictures.insert(newIndex, _picture);
+      });
+    }
 
-                        final picture = pictures.removeAt(oldIndex);
-                        pictures.insert(index, picture);
-                      }),
-                      itemBuilder: (context, index) {
-                        final picture = pictures[index];
+    wrap(bool reorder) => ReorderableWrap(
+          needsLongPressDraggable: reorder,
+          spacing: 8.0,
+          runSpacing: 4.0,
+          padding: const EdgeInsets.all(8),
+          children: _tiles,
+          onReorder: _onReorder,
+        );
 
-                        return Padding(
-                            key: ValueKey(picture),
-                            padding: EdgeInsets.all(5),
-                            child: buildNonDraggablePicture(index, picture));
-                      },
-                    )
-                  : Center(
-                      child: Container(
-                          child: Text(
-                      "wait",
-                      style: TextStyle(fontSize: 25),
-                    )))
-              : !waiting
-                  ? ReorderableListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: pictures.length,
-                      onReorder: (oldIndex, newIndex) => setState(() {
-                        final index =
-                            newIndex > oldIndex ? newIndex - 1 : newIndex;
-
-                        final picture = pictures.removeAt(oldIndex);
-                        pictures.insert(index, picture);
-                      }),
-                      itemBuilder: (context, index) {
-                        final picture = pictures[index];
-
-                        return Padding(
-                            key: ValueKey(picture),
-                            padding: EdgeInsets.all(5),
-                            child: buildPicture(index, picture));
-                      },
-                    )
-                  : Center(
-                      child: Container(
-                          child: Text(
-                      "wait",
-                      style: TextStyle(fontSize: 25),
-                    ))),
-        ),
-        Container(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width / 2,
-            child: !guess
-                ? waiting
-                    ? Container()
-                    : Column(children: [
-                        OutlineButton(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          onPressed: () {
-                            startTest();
-                          },
-                          child: Text(
-                            'Ready',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                        Text("task $currentNum/$numberOfTest")
-                      ])
-                : finished
-                    ? Center(
-                        child: Container(
+    return Scaffold(
+        body: Center(
+            child: Column(children: [
+      Container(
+        height: MediaQuery.of(context).size.height - 280,
+        width: MediaQuery.of(context).size.width,
+        child: !guess
+            ? !waiting
+                ? wrap(true)
+                : Center(
+                    child: Container(
                         child: Text(
-                          'Correct',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ))
-                    : OutlineButton(
+                    "wait",
+                    style: TextStyle(fontSize: 25),
+                  )))
+            : !waiting
+                ? wrap(false)
+                : Center(
+                    child: Container(
+                        child: Text(
+                    "wait",
+                    style: TextStyle(fontSize: 25),
+                  ))),
+      ),
+      Container(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width / 2,
+          child: !guess
+              ? waiting
+                  ? Container()
+                  : Column(children: [
+                      OutlineButton(
                         padding:
                             EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6),
                         ),
                         onPressed: () {
-                          makeGuess();
+                          startTest();
                         },
                         child: Text(
-                          'Guess',
+                          'Start',
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
-          ),
+                    ])
+              : finished
+                  ? Center(
+                      child: Container(
+                      child: Text(
+                        'Click next to continue',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ))
+                  : OutlineButton(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      onPressed: () {
+                        makeGuess();
+                      },
+                      child: Text(
+                        'Guess',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
         ),
-      ])));
+      ),
+    ])));
+  }
 
   Widget buildPicture(int index, Picture picture) => Container(
-      height: 125,
-      width: 50,
+      height: 110,
+      width: 110,
       key: ValueKey(picture),
       child: ReorderableDragStartListener(
           index: index,
@@ -309,20 +358,10 @@ class RPUIPictureSequenceMemoryActivityBody extends StatefulWidget {
 class _RPUI_PictureSequenceMemoryActivityBodyState
     extends State<RPUIPictureSequenceMemoryActivityBody> {
   late ActivityStatus activityStatus;
-  int corsiSpan = 0;
-  late int highlightedBlockID;
-  late List<int> blocks;
-  List<int> tapOrder = [];
-  bool readyForTap = false;
-  bool finishedTask = false;
-  bool failedLast = false;
-  String taskInfo = '';
-  int numberOfBlocks = 2;
 
   @override
   initState() {
     super.initState();
-    blocks = List.generate(9, (index) => index);
     if (widget.activity.includeInstructions) {
       activityStatus = ActivityStatus.Instruction;
       widget.eventLogger.instructionStarted();
@@ -334,30 +373,7 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
   }
 
   void startTest() async {
-    setState(() {
-      taskInfo = 'Wait';
-      readyForTap = false;
-      tapOrder.clear();
-      blocks.shuffle();
-    });
-    await Future.delayed(Duration(seconds: 1));
-    for (int i = 0; i < numberOfBlocks; i++) {
-      if (activityStatus == ActivityStatus.Test && this.mounted) {
-        setState(() {
-          highlightedBlockID = blocks[i];
-        });
-      }
-      await Future.delayed(Duration(milliseconds: 1000));
-    }
-    if (activityStatus == ActivityStatus.Test && this.mounted) {
-      setState(() {
-        readyForTap = true;
-        taskInfo = 'Go';
-      });
-    }
-
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
-      //when time is up, change window and set result
       if (this.mounted) {
         widget.eventLogger.testEnded();
         widget.onResultChange({"Correct swipes": score});
@@ -381,8 +397,54 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                'memorize the order of images, once ready click the button and the images will change positions, drag and drop the images to their original positions',
-                style: TextStyle(fontSize: 20),
+                'Memorize the order of images.',
+                style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: RichText(
+                text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'Once memorized click the ',
+                          style: TextStyle(fontSize: 16)),
+                      TextSpan(
+                          text: '"ready" ',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xff003F6E),
+                              fontWeight: FontWeight.bold)),
+                      TextSpan(
+                          text: 'button and the images will change positions.',
+                          style: TextStyle(fontSize: 16)),
+                    ]),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: RichText(
+                text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      TextSpan(
+                          text:
+                              'Drag and drop the images to their original positions and press ',
+                          style: TextStyle(fontSize: 16)),
+                      TextSpan(
+                          text: '"guess" ',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xff003F6E),
+                              fontWeight: FontWeight.bold)),
+                    ]),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -397,15 +459,18 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
-                            'packages/research_package/assets/images/Corsiintro.png'))),
+                            'packages/cognition_package/assets/images/picture_sequence.png'))),
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xffC32C39),
+                  fixedSize: const Size(300, 60),
+                ),
+                child: Text(
+                  "Ready",
+                  style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
                   widget.eventLogger.instructionEnded();
@@ -415,22 +480,17 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
                   });
                   startTest();
                 },
-                child: Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
-                ),
               ),
             ),
           ],
         );
-        break;
       case ActivityStatus.Test:
         return Scaffold(
-          // appBar: AppBar(
-          //   title: Text('FLANKER TEST SCORE: ${score}'),
-          // ),
-          body: Center(child: PictureSequenceMemory(sWidget: widget)),
-        );
+            body: Center(
+                child: PictureSequenceMemory(
+                    sWidget: widget,
+                    numberOfTests: widget.activity.numberOfTests,
+                    numberOfPics: widget.activity.numberOfPics)));
       case ActivityStatus.Result:
         return Center(
           child: Text(

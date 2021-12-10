@@ -24,7 +24,7 @@ class _RPUILetterTappingActivityBodyState
   late Timer timer;
   late bool shouldTap;
   late bool lastWasTapped;
-  late bool wasTapped;
+  bool wasTapped = false;
   int letterIndex = 0;
   late ActivityStatus activityStatus;
   List<String> alphabet = [
@@ -77,7 +77,8 @@ class _RPUILetterTappingActivityBodyState
   initState() {
     super.initState();
     soundService = SoundService(alphabet
-        .map((item) => ('../packages/research_package/assets/sounds/$item.mp3'))
+        .map(
+            (item) => ('../packages/cognition_package/assets/sounds/$item.mp3'))
         .toList());
     currentLetter = 'F';
     lastLetter = '';
@@ -101,14 +102,15 @@ class _RPUILetterTappingActivityBodyState
     for (String letter in mocaTestList) {
       if (!this.mounted) break;
       soundService
-          .play('../packages/research_package/assets/sounds/$letter.mp3');
+          .play('../packages/cognition_package/assets/sounds/$letter.mp3');
       updateLetter(letter);
       await Future.delayed(Duration(milliseconds: 1000));
       if (letterIndex < 29) letterIndex += 1;
     }
     updateLetter('');
     if (this.mounted) {
-      widget.onResultChange(errors);
+      int score = errors < 2 ? 1 : 0;
+      widget.onResultChange({"amount fo errors": errors, "score": score});
       widget.eventLogger.testEnded();
       if (widget.activity.includeResults) {
         widget.eventLogger.resultsShown();
@@ -149,7 +151,17 @@ class _RPUILetterTappingActivityBodyState
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                'Turn your sound on! Then, tap the button on the next screen, whenever you hear the letter "A" being said.',
+                'Turn your sound on!',
+                style: TextStyle(fontSize: 20),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 20,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Then, tap the button on the next screen, whenever you hear the letter "A" being said.',
                 style: TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -165,7 +177,7 @@ class _RPUILetterTappingActivityBodyState
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
-                            'packages/research_package/assets/images/Letterintro.png'))),
+                            'packages/cognition_package/assets/images/letter_tapping.png'))),
               ),
             ),
             SizedBox(

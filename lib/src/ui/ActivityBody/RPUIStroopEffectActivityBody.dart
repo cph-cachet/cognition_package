@@ -173,7 +173,7 @@ class _RPUIStroopEffectActivityBodyState
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
-                            'packages/research_package/assets/images/Stroopintro.png'))),
+                            'packages/cognition_package/assets/images/Stroopintro.png'))),
               ),
             ),
             SizedBox(

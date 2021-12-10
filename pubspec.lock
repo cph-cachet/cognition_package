@@ -14,7 +14,7 @@ packages:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.1"
+    version: "1.7.2"
   archive:
     dependency: transitive
     description:
@@ -316,7 +316,7 @@ packages:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.0"
+    version: "1.7.0"
   mime:
     dependency: transitive
     description:
@@ -429,13 +429,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  reorderables:
+    dependency: "direct main"
+    description:
+      name: reorderables
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.1"
   research_package:
     dependency: "direct main"
     description:
-      path: "../research.package"
-      relative: true
-    source: path
-    version: "0.6.6"
+      name: research_package
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.7"
   rxdart:
     dependency: "direct main"
     description:

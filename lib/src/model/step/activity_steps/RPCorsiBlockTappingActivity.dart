@@ -12,8 +12,8 @@ class RPCorsiBlockTappingActivity extends RPActivityStep {
             includeResults: includeResults);
 
   @override
-  Widget stepBody(Function onResultChange, RPActivityEventLogger eventLogger) {
-    return RPUICorsiBlockTappingActivityBody(
-        this, eventLogger, onResultChange());
+  Widget stepBody(dynamic Function(dynamic) onResultChange,
+      RPActivityEventLogger eventLogger) {
+    return RPUICorsiBlockTappingActivityBody(this, eventLogger, onResultChange);
   }
 }

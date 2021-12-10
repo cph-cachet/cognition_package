@@ -1,0 +1,21 @@
+part of cognition_package_model;
+
+/// A Multiple Object Tracking Test Result
+@JsonSerializable()
+class RPVisualTrackingResult extends RPActivityResult {
+  RPVisualTrackingResult({required String identifier})
+      : super(identifier: identifier);
+
+  /// make result for Multiple Object Tracking test
+  /// mistakes: number of mistakes made in each repetition
+  /// times: time taken to finish the test
+  /// score: score of the test calculated in model class
+  RPActivityResult makeResult(
+      List<dynamic> mistakes, List<dynamic> times, int score) {
+    var res = new RPActivityResult(identifier: identifier);
+    res.results.addAll({"mistakes": mistakes});
+    res.results.addAll({"times": times});
+    res.results.addAll({"score": score});
+    return res;
+  }
+}

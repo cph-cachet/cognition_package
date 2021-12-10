@@ -2,15 +2,22 @@ part of cognition_package_ui;
 
 class VisualArrayChange extends StatefulWidget {
   final RPUIVisualArrayChangeActivityBody sWidget;
-  const VisualArrayChange({Key? key, required this.sWidget}) : super(key: key);
+  final numberOfTests;
+  final waitTime;
+
+  const VisualArrayChange(
+      {Key? key, required this.sWidget, this.numberOfTests, this.waitTime})
+      : super(key: key);
 
   @override
-  _VisualArrayChangeState createState() => _VisualArrayChangeState(sWidget);
+  _VisualArrayChangeState createState() =>
+      _VisualArrayChangeState(sWidget, numberOfTests, waitTime);
 }
 
 class _VisualArrayChangeState extends State<VisualArrayChange> {
   final RPUIVisualArrayChangeActivityBody sWidget;
-  // Dynamically load cards from database
+  final int numberOfTests;
+  final int waitTime;
   List<Shape> original = [];
   List<Shape> pictures = [];
   List<Shape> top = [];
@@ -26,38 +33,37 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
   bool changed = false;
   int visualScore = 0;
   int viscurrentNum = 1;
-  int visnumberOfTest = 3;
 
-  List<String> shapes = [
-    'packages/cognitive_package/assets/images/arrow_blue.png',
-    'packages/cognitive_package/assets/images/arrow_red.png',
-    'packages/cognitive_package/assets/images/arrow_yellow.png',
-    'packages/cognitive_package/assets/images/top_blue.png',
-    'packages/cognitive_package/assets/images/top_red.png',
-    'packages/cognitive_package/assets/images/top_yellow.png',
-    'packages/cognitive_package/assets/images/hourglass_blue.png',
-    'packages/cognitive_package/assets/images/hourglass_red.png',
-    'packages/cognitive_package/assets/images/hourglass_yellow.png',
-  ];
+  int right = 0;
+  int wrong = 0;
+  var memoryTimes = [];
+  var times = [];
+
   List<String> arrows = [
-    'packages/cognitive_package/assets/images/arrow_blue.png',
-    'packages/cognitive_package/assets/images/arrow_red.png',
-    'packages/cognitive_package/assets/images/arrow_yellow.png'
+    'packages/cognition_package/assets/images/arrow_1.png',
+    'packages/cognition_package/assets/images/arrow_2.png',
+    'packages/cognition_package/assets/images/arrow_3.png',
+    'packages/cognition_package/assets/images/arrow_4.png',
+    'packages/cognition_package/assets/images/arrow_5.png',
   ];
 
   List<String> tops = [
-    'packages/cognitive_package/assets/images/top_blue.png',
-    'packages/cognitive_package/assets/images/top_red.png',
-    'packages/cognitive_package/assets/images/top_yellow.png',
+    'packages/cognition_package/assets/images/boomerang_1.png',
+    'packages/cognition_package/assets/images/boomerang_2.png',
+    'packages/cognition_package/assets/images/boomerang_3.png',
+    'packages/cognition_package/assets/images/boomerang_4.png',
+    'packages/cognition_package/assets/images/boomerang_5.png',
   ];
 
   List<String> hourglasses = [
-    'packages/cognitive_package/assets/images/hourglass_blue.png',
-    'packages/cognitive_package/assets/images/hourglass_red.png',
-    'packages/cognitive_package/assets/images/hourglass_yellow.png',
+    'packages/cognition_package/assets/images/hourglass_1.png',
+    'packages/cognition_package/assets/images/hourglass_2.png',
+    'packages/cognition_package/assets/images/hourglass_3.png',
+    'packages/cognition_package/assets/images/hourglass_4.png',
+    'packages/cognition_package/assets/images/hourglass_5.png',
   ];
 
-  _VisualArrayChangeState(this.sWidget);
+  _VisualArrayChangeState(this.sWidget, this.numberOfTests, this.waitTime);
   List<Shape> getPictures(List<String> list) => List.generate(
         3,
         (index) => Shape(
@@ -73,15 +79,15 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
     top = getPictures(tops);
     hourglass = getPictures(hourglasses);
     arrow = getPictures(arrows);
-    pictures = getPictures(shapes);
     padding = getPadding();
     rotation = getRotation();
     color = getColor();
     pictures.shuffle();
     for (Shape picl in pictures) {
-      print(picl.name);
       original.add(picl);
     }
+    memorySeconds = 0;
+    startMemoryTimer();
   }
 
   List<int> getRotation() => List.generate(6, (index) => rng.nextInt(100));
@@ -96,36 +102,32 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
           rng.nextInt(100).toDouble()));
 
   void resetTest() async {
-    print("resetting now");
     setState(() {
       changed = false;
       waiting = false;
       guess = false;
       pictures.shuffle();
-      //shapes.shuffle();
       padding = getPadding();
       rotation = getRotation();
       color = getColor();
       original = [];
       for (Shape picl in pictures) {
-        print(picl.name);
         original.add(picl);
       }
     });
+    memorySeconds = 0;
+    startMemoryTimer();
   }
 
   void startTest() async {
-    print("trying now");
+    memoryTimer.cancel();
+    memoryTimes.add(memorySeconds);
+    memorySeconds = 0;
 
     if (rng.nextBool()) {
-      print("CHANGE THE FUCKING COLORS");
-      //print(color);
       List<int> og = color;
-      print("OG: $og");
       color = getColor();
       if (color != og) {
-        print("Changed colors");
-        print("Color: $color");
         changed = true;
       }
     }
@@ -137,8 +139,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
       padding.shuffle();
       rotation = getRotation();
     });
-    //sleep(Duration(seconds: 2));
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: waitTime));
     setState(() {
       waiting = false;
       guess = true;
@@ -166,15 +167,44 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
     );
   }
 
+  late Timer memoryTimer;
+  int memorySeconds = 0;
+  void startMemoryTimer() {
+    const oneSec = const Duration(seconds: 1);
+    memoryTimer = new Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (seconds < 0) {
+            timer.cancel();
+          } else {
+            memorySeconds = memorySeconds + 1;
+          }
+        },
+      ),
+    );
+  }
+
   void same() {
+    _timer.cancel();
+    times.add(seconds);
+    seconds = 0;
+
     if (!changed) {
-      print("Good Job");
-      if (viscurrentNum > visnumberOfTest) {
+      if (viscurrentNum > numberOfTests) {
         visualScore += 1;
+        right += 1;
         sWidget.eventLogger.testEnded();
-        sWidget.onResultChange({"scores: ": visualScore});
+
+        var visual_array_change_score =
+            sWidget.activity.calculateScore({'correct': right});
+        RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
+            identifier: 'visualArrayChangeResults');
+        var taskResults = flankerResult.makeResult(
+            wrong, right, times, memoryTimes, visual_array_change_score);
+
+        sWidget.onResultChange(taskResults.results);
         if (sWidget.activity.includeResults) {
-          _timer.cancel();
           sWidget.eventLogger.resultsShown();
           setState(() {
             finished = true;
@@ -182,91 +212,81 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
         }
       } else {
         visualScore += 1;
-        _timer.cancel();
+        right += 1;
         resetTest();
       }
     } else {
-      print("bad Job");
-      if (viscurrentNum > visnumberOfTest) {
+      wrong += 1;
+      if (viscurrentNum > numberOfTests) {
         sWidget.eventLogger.testEnded();
-        sWidget.onResultChange({"scores: ": visualScore});
+        var visual_array_change_score =
+            sWidget.activity.calculateScore({'correct': right});
+        RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
+            identifier: 'visualArrayChangeResults');
+        var taskResults = flankerResult.makeResult(
+            wrong, right, times, memoryTimes, visual_array_change_score);
+
+        sWidget.onResultChange(taskResults.results);
         if (sWidget.activity.includeResults) {
-          _timer.cancel();
           sWidget.eventLogger.resultsShown();
           setState(() {
             finished = true;
           });
         }
       } else {
-        _timer.cancel();
         resetTest();
       }
     }
   }
 
   void different() {
+    _timer.cancel();
+    times.add(seconds);
+    seconds = 0;
     if (changed) {
-      print("Good Job");
-      if (viscurrentNum > visnumberOfTest) {
+      if (viscurrentNum > numberOfTests) {
         visualScore += 1;
+        right += 1;
         sWidget.eventLogger.testEnded();
-        sWidget.onResultChange({"scores: ": visualScore});
-        if (sWidget.activity.includeResults) {
-          _timer.cancel();
-          sWidget.eventLogger.resultsShown();
-          setState(() {
-            finished = true;
-          });
-        }
-      } else {
-        visualScore += 1;
-        _timer.cancel();
-        resetTest();
-      }
-    } else {
-      print("bad Job");
-      if (viscurrentNum > visnumberOfTest) {
-        sWidget.eventLogger.testEnded();
-        sWidget.onResultChange({"scores: ": visualScore});
-        if (sWidget.activity.includeResults) {
-          _timer.cancel();
-          sWidget.eventLogger.resultsShown();
-          setState(() {
-            finished = true;
-          });
-        }
-      } else {
-        _timer.cancel();
-        resetTest();
-      }
-    }
-  }
+        var visual_array_change_score =
+            sWidget.activity.calculateScore({'correct': right});
+        RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
+            identifier: 'visualArrayChangeResults');
+        var taskResults = flankerResult.makeResult(
+            wrong, right, times, memoryTimes, visual_array_change_score);
 
-  void makeGuess() {
-    print("GUESS IS: ");
-    for (Shape picl in pictures) {
-      print(picl.name);
-    }
-    if (listEquals(pictures, original)) {
-      print("Good Job");
-      if (currentNum > numberOfTest) {
-        pictureScoreList.add(seconds);
-        sWidget.eventLogger.testEnded();
-        sWidget.onResultChange({"scores: ": pictureScoreList});
+        sWidget.onResultChange(taskResults.results);
         if (sWidget.activity.includeResults) {
-          _timer.cancel();
           sWidget.eventLogger.resultsShown();
           setState(() {
             finished = true;
           });
         }
       } else {
-        pictureScoreList.add(seconds);
-        _timer.cancel();
+        visualScore += 1;
+        right += 1;
         resetTest();
       }
     } else {
-      print("Try Again");
+      if (viscurrentNum > numberOfTests) {
+        sWidget.eventLogger.testEnded();
+        var visual_array_change_score =
+            sWidget.activity.calculateScore({'correct': right});
+        RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
+            identifier: 'visualArrayChangeResults');
+        var taskResults = flankerResult.makeResult(
+            wrong, right, times, memoryTimes, visual_array_change_score);
+
+        sWidget.onResultChange(taskResults.results);
+        if (sWidget.activity.includeResults) {
+          sWidget.eventLogger.resultsShown();
+          setState(() {
+            finished = true;
+          });
+        }
+      } else {
+        resetTest();
+      }
     }
   }
 
@@ -275,7 +295,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
           body: Center(
               child: Column(children: [
         Container(
-          height: MediaQuery.of(context).size.height - 235,
+          height: MediaQuery.of(context).size.height - 270,
           width: MediaQuery.of(context).size.width - 20,
           child: !waiting
               ? LayoutBuilder(builder: (context, constraints) {
@@ -365,6 +385,8 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                         ? Container()
                         : Column(children: [
                             OutlineButton(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 8),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(6),
                               ),
@@ -372,17 +394,20 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                                 startTest();
                               },
                               child: Text(
-                                'Ready',
+                                'Start',
                                 style: TextStyle(fontSize: 18),
                               ),
                             ),
-                            Text("task $viscurrentNum/$visnumberOfTest")
+                            Padding(
+                                padding: EdgeInsets.only(top: 6),
+                                child:
+                                    Text("task $viscurrentNum/$numberOfTests"))
                           ])
                     : finished
                         ? Center(
                             child: Container(
                             child: Text(
-                              'Correct',
+                              'Click next to continue',
                               style: TextStyle(fontSize: 18),
                             ),
                           ))
@@ -471,20 +496,10 @@ class RPUIVisualArrayChangeActivityBody extends StatefulWidget {
 class _RPUI_VisualArrayChangeActivityBodyState
     extends State<RPUIVisualArrayChangeActivityBody> {
   late ActivityStatus activityStatus;
-  int corsiSpan = 0;
-  late int highlightedBlockID;
-  late List<int> blocks;
-  List<int> tapOrder = [];
-  bool readyForTap = false;
-  bool finishedTask = false;
-  bool failedLast = false;
-  String taskInfo = '';
-  int numberOfBlocks = 2;
 
   @override
   initState() {
     super.initState();
-    blocks = List.generate(9, (index) => index);
     if (widget.activity.includeInstructions) {
       activityStatus = ActivityStatus.Instruction;
       widget.eventLogger.instructionStarted();
@@ -496,28 +511,6 @@ class _RPUI_VisualArrayChangeActivityBodyState
   }
 
   void startTest() async {
-    setState(() {
-      taskInfo = 'Wait';
-      readyForTap = false;
-      tapOrder.clear();
-      blocks.shuffle();
-    });
-    await Future.delayed(Duration(seconds: 1));
-    for (int i = 0; i < numberOfBlocks; i++) {
-      if (activityStatus == ActivityStatus.Test && this.mounted) {
-        setState(() {
-          highlightedBlockID = blocks[i];
-        });
-      }
-      await Future.delayed(Duration(milliseconds: 1000));
-    }
-    if (activityStatus == ActivityStatus.Test && this.mounted) {
-      setState(() {
-        readyForTap = true;
-        taskInfo = 'Go';
-      });
-    }
-
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       //when time is up, change window and set result
       if (this.mounted) {
@@ -543,7 +536,27 @@ class _RPUI_VisualArrayChangeActivityBodyState
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                'memorize the colors of the shapes, once ready the shapes will change positions, in their new positions indicate if any of the shapes changed color or if all shapes remained the same',
+                'Memorize the colors of the shapes.',
+                style: TextStyle(fontSize: 20),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Text(
+                'Once ready the shapes will change positions.',
+                style: TextStyle(fontSize: 20),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Text(
+                'Indicate if ANY of the shapes changed color or if ALL shapes remained the same',
                 style: TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -559,7 +572,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
-                            'packages/research_package/assets/images/Corsiintro.png'))),
+                            'packages/cognition_package/assets/images/shape_recall.png'))),
               ),
             ),
             SizedBox(
@@ -585,13 +598,16 @@ class _RPUI_VisualArrayChangeActivityBodyState
             ),
           ],
         );
-        break;
       case ActivityStatus.Test:
         return Scaffold(
           // appBar: AppBar(
           //   title: Text('FLANKER TEST SCORE: ${score}'),
           // ),
-          body: Center(child: VisualArrayChange(sWidget: widget)),
+          body: Center(
+              child: VisualArrayChange(
+                  sWidget: widget,
+                  numberOfTests: widget.activity.numberOfTests,
+                  waitTime: widget.activity.waitTime)),
         );
       case ActivityStatus.Result:
         return Center(
