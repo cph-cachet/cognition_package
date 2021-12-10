@@ -85,7 +85,7 @@ class _RPUIStroopEffectActivityBodyState
       if (this.mounted) {
         setState(() {});
         widget.onResultChange(
-            {"mistakes": mistakes, "correct taps": correctTaps});
+            {'mistakes': mistakes, 'correct taps': correctTaps});
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
           setState(() {

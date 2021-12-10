@@ -79,7 +79,7 @@ class _RPUITrailMakingActivityBodyState
 
   void testConcluded(int result, int mistakes) {
     int score = 5 - mistakes;
-    widget.onResultChange({"Completion time": result, "score": score});
+    widget.onResultChange({'Completion time': result, 'score': score});
     taskTime = result;
     if (widget.activity.includeResults) {
       widget.eventLogger.resultsShown();

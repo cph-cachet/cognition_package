@@ -56,7 +56,7 @@ class _RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       //when time is up, change window and set result
       widget.eventLogger.testEnded();
-      widget.onResultChange({"Total taps": taps});
+      widget.onResultChange({'Total taps': taps});
       if (widget.activity.includeResults) {
         widget.eventLogger.resultsShown();
         if (this.mounted) {

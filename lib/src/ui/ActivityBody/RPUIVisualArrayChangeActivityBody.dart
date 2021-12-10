@@ -371,7 +371,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
               : Center(
                   child: Container(
                       child: Text(
-                  "wait",
+                  'wait',
                   style: TextStyle(fontSize: 25),
                 ))),
         ),
@@ -402,7 +402,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                             Padding(
                                 padding: EdgeInsets.only(top: 6),
                                 child:
-                                    Text("task $viscurrentNum/$numberOfTests"))
+                                    Text('task $viscurrentNum/$numberOfTests'))
                           ])
                     : finished
                         ? Center(
@@ -519,7 +519,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
       //when time is up, change window and set result
       if (this.mounted) {
         widget.eventLogger.testEnded();
-        widget.onResultChange({"Correct swipes": score});
+        widget.onResultChange({'Correct swipes': score});
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
           setState(() {

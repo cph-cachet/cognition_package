@@ -14,10 +14,10 @@ class RPDelayedRecallResult extends RPActivityResult {
   RPActivityResult makeResult(List<String> wordlist, List<String> resultlist,
       int timeTaken, int score) {
     var res = new RPActivityResult(identifier: identifier);
-    res.results.addAll({"wordlist delayed": wordlist});
-    res.results.addAll({"resultlist3": resultlist});
-    res.results.addAll({"time taken": timeTaken});
-    res.results.addAll({"score": score});
+    res.results.addAll({'wordlist delayed': wordlist});
+    res.results.addAll({'resultlist3': resultlist});
+    res.results.addAll({'time taken': timeTaken});
+    res.results.addAll({'score': score});
     return res;
   }
 }

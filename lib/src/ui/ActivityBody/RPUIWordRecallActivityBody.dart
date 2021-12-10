@@ -142,7 +142,7 @@ class _WordRecallState extends State<WordRecall> {
                 : Center(
                     child: Container(
                         child: Text(
-                    "listen",
+                    'listen',
                     style: TextStyle(fontSize: 25),
                   )))
             : !waiting
@@ -218,7 +218,7 @@ class _WordRecallState extends State<WordRecall> {
                 : Center(
                     child: Container(
                         child: Text(
-                    "wait",
+                    'wait',
                     style: TextStyle(fontSize: 25),
                   ))),
       ),
@@ -403,7 +403,7 @@ class _RPUI_WordRecallActivityBodyState
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 ),
                 child: Text(
-                  "Ready",
+                  'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {

@@ -249,7 +249,7 @@ class _UserDemographicsPageState extends State<UserDemographicsPage> {
                       fixedSize: const Size(300, 60),
                     ),
                     child: Text(
-                      "Continue to Survey",
+                      'Continue to Survey',
                       style: TextStyle(fontSize: 18),
                     ),
                     onPressed: () {
@@ -268,13 +268,13 @@ class _UserDemographicsPageState extends State<UserDemographicsPage> {
                     child: Column(
                       children: <Widget>[
                         Text(
-                          "by Continuing I confirm that i have read and agree to this",
+                          'by Continuing I confirm that i have read and agree to this',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 16),
                         ),
                         Container(height: 5),
                         Text(
-                          "informed consent",
+                          'informed consent',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16,

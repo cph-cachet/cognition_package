@@ -13,9 +13,9 @@ class RPVisualTrackingResult extends RPActivityResult {
   RPActivityResult makeResult(
       List<dynamic> mistakes, List<dynamic> times, int score) {
     var res = new RPActivityResult(identifier: identifier);
-    res.results.addAll({"mistakes": mistakes});
-    res.results.addAll({"times": times});
-    res.results.addAll({"score": score});
+    res.results.addAll({'mistakes': mistakes});
+    res.results.addAll({'times': times});
+    res.results.addAll({'score': score});
     return res;
   }
 }

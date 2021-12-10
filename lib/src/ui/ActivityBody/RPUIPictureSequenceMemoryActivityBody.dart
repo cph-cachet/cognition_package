@@ -242,7 +242,7 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
                 : Center(
                     child: Container(
                         child: Text(
-                    "wait",
+                    'wait',
                     style: TextStyle(fontSize: 25),
                   )))
             : !waiting
@@ -250,7 +250,7 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
                 : Center(
                     child: Container(
                         child: Text(
-                    "wait",
+                    'wait',
                     style: TextStyle(fontSize: 25),
                   ))),
       ),
@@ -379,7 +379,7 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       if (this.mounted) {
         widget.eventLogger.testEnded();
-        widget.onResultChange({"Correct swipes": score});
+        widget.onResultChange({'Correct swipes': score});
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
           setState(() {
@@ -472,7 +472,7 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
-                  "Ready",
+                  'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {

@@ -281,7 +281,7 @@ class _RPUI_DelayedRecallActivityBodyState
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
-                  "Ready",
+                  'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {

@@ -21,10 +21,10 @@ class _FlankerState extends State<Flanker> {
       even = !even;
       if (Random().nextBool()) {
         cards.add(
-          FlankerCard("→", even ? 0xff003F6E : 0xffC32C39),
+          FlankerCard('→', even ? 0xff003F6E : 0xffC32C39),
         );
       } else {
-        cards.add(FlankerCard("←", even ? 0xff003F6E : 0xffC32C39));
+        cards.add(FlankerCard('←', even ? 0xff003F6E : 0xffC32C39));
       }
     }
     return cards;
@@ -55,25 +55,25 @@ class FlankerCard extends StatelessWidget {
   final String direction;
   FlankerCard(this.direction, this.color);
 
-  final String right = "→";
-  final String left = "←";
+  final String right = '→';
+  final String left = '←';
 
   String distractors() {
-    String ret = "";
+    String ret = '';
     for (var i = 0; i < 3; i++) {
       if (i == 1) {
         ret += direction;
       } else if (Random().nextBool()) {
-        ret += "←←";
+        ret += '←←';
       } else {
-        ret += "→→";
+        ret += '→→';
       }
     }
     return ret;
   }
 
   void onSwipeRight(offset) {
-    if (direction == "→") {
+    if (direction == '→') {
       rightSwipe = rightSwipe + 1;
     } else {
       wrongSwipe = wrongSwipe + 1;
@@ -82,7 +82,7 @@ class FlankerCard extends StatelessWidget {
   }
 
   void onSwipeLeft(offset) {
-    if (direction == "←") {
+    if (direction == '←') {
       rightSwipe = rightSwipe + 1;
     } else {
       wrongSwipe = wrongSwipe + 1;

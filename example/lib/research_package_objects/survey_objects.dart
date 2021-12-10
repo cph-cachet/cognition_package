@@ -2,9 +2,9 @@ import 'package:cognition_package/model.dart';
 import 'package:research_package/model.dart';
 
 RPCompletionStep completionStep =
-    RPCompletionStep(identifier: "completionID", title: "Finished")
-      ..title = "Finished"
-      ..text = "Thank you for taking the tests";
+    RPCompletionStep(identifier: 'completionID', title: 'Finished')
+      ..title = 'Finished'
+      ..text = 'Thank you for taking the tests';
 
 RPActivityStep tappingStep = RPTappingActivity(
   'Tapping step ID',
@@ -69,7 +69,7 @@ RPActivityStep continuousVisualTracking = RPContinuousVisualTrackingActivity(
     includeResults: false);
 
 RPOrderedTask surveyTask = RPOrderedTask(
-  identifier: "surveyTaskID",
+  identifier: 'surveyTaskID',
   steps: [
     activityStepTrail,
     continuousVisualTracking,

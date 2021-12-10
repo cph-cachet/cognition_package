@@ -1,15 +1,25 @@
 part of cognition_package_ui;
 
+/// stateful widget for initiating the [_ContinuousVisualTrackingState] class
 class ContinuousVisualTracking extends StatefulWidget {
-  final RPUIContinuousVisualTrackingActivityBody sWidget;
+  /// property to pass on the top level widget
+  final RPUIContinuousVisualTrackingActivityBody topLevelWidget;
+
+  /// the number of tests to run
   final numberOfTests;
+
+  /// the number of dots to display
   final amountOfDots;
+
+  /// the speed of the dots in milliseconds
   final trackingSpeed;
+
+  /// the size of the dots to display
   final dotSize;
 
   const ContinuousVisualTracking({
     Key? key,
-    required this.sWidget,
+    required this.topLevelWidget,
     this.numberOfTests,
     this.amountOfDots,
     this.dotSize,
@@ -19,9 +29,10 @@ class ContinuousVisualTracking extends StatefulWidget {
   @override
   _ContinuousVisualTrackingState createState() =>
       _ContinuousVisualTrackingState(
-          sWidget, numberOfTests, amountOfDots, dotSize, trackingSpeed);
+          topLevelWidget, numberOfTests, amountOfDots, dotSize, trackingSpeed);
 }
 
+/// state class for [ContinuousVisualTracking]
 class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
   final RPUIContinuousVisualTrackingActivityBody sWidget;
   final int numberOfTests;
@@ -233,7 +244,7 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
                                   style: TextStyle(fontSize: 18),
                                 ),
                               ),
-                              Text("task $conCurrentNum/$numberOfTests")
+                              Text('task $conCurrentNum/$numberOfTests')
                             ]))
                       : finished
                           ? Center(
@@ -245,7 +256,7 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
                             ))
                           : Center(
                               child:
-                                  Text("Press the previously colored dots")))),
+                                  Text('Press the previously colored dots')))),
         )
       ])));
 }
@@ -358,7 +369,7 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
             child: Scaffold(
                 body: ContinuousVisualTracking(
                     key: widget.key,
-                    sWidget: widget,
+                    topLevelWidget: widget,
                     numberOfTests: widget.activity.numberOfTests,
                     amountOfDots: widget.activity.amountOfDots,
                     dotSize: widget.activity.dotSize,

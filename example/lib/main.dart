@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool buttonReady = true;
 
   initiateCARP() async {
-    final String uri = "https://cans.cachet.dk/";
+    final String uri = 'https://cans.cachet.dk/';
 
     // configure an app that points to the CARP web service
     CarpApp app = CarpApp(
@@ -183,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.all(22.0),
               child: Image.asset(
-                "assets/images/mcat-logo.png",
+                'assets/images/mcat-logo.png',
                 height: 80,
               ),
             ),
@@ -193,19 +193,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "Welcome to the alpha-testing of cognitive tests Package, developed by Ossi Kallunki",
+                      'Welcome to the alpha-testing of cognitive tests Package, developed by Ossi Kallunki',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     Container(height: 50),
                     Text(
-                      "If you have any issues or questions feel free to contact us at",
+                      'If you have any issues or questions feel free to contact us at',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     Container(height: 5),
                     Text(
-                      "ossi0004@gmail.com",
+                      'ossi0004@gmail.com',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 16,
@@ -223,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
-                  "Get started",
+                  'Get started',
                   style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
@@ -239,7 +239,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Padding(
         padding: const EdgeInsets.all(22.0),
         child: Image.asset(
-          "assets/images/Cachet-logo-white.png",
+          'assets/images/Cachet-logo-white.png',
           height: 50,
         ),
       )),

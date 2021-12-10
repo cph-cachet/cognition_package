@@ -14,11 +14,11 @@ class RPPictureSequenceResult extends RPActivityResult {
   RPActivityResult makeResult(List<dynamic> moves, List<dynamic> scores,
       List<dynamic> times, List<dynamic> memoryTimes, int score) {
     var res = new RPActivityResult(identifier: identifier);
-    res.results.addAll({"Amount of moves": moves});
-    res.results.addAll({"Amount of correct pairs": scores});
-    res.results.addAll({"Time taken to memorize": memoryTimes});
-    res.results.addAll({"Time taken to move pictures": times});
-    res.results.addAll({"score": score});
+    res.results.addAll({'Amount of moves': moves});
+    res.results.addAll({'Amount of correct pairs': scores});
+    res.results.addAll({'Time taken to memorize': memoryTimes});
+    res.results.addAll({'Time taken to move pictures': times});
+    res.results.addAll({'score': score});
     return res;
   }
 }

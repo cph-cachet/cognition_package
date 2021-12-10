@@ -37,8 +37,8 @@ class RPWordRecallActivity extends RPActivityStep {
   /// score is calculated in Delayed Recall Activity
   @override
   calculateScore(dynamic result) {
-    List<String> wordList = result["wordsList"];
-    List<String> resultsList = result["resultsList"];
+    List<String> wordList = result['wordsList'];
+    List<String> resultsList = result['resultsList'];
     resultsList = resultsList.map((result) => result.toLowerCase()).toList();
     var sum = 0;
     for (int i = 0; i < resultsList.length; i++) {

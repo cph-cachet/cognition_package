@@ -99,7 +99,7 @@ class _RPUIPairedAssociatesLearningActivityBody
     containerPeaker();
     t = Timer(Duration(seconds: widget.activity.maxTestDuration), () {
       //when time is up, change window and set result
-      widget.onResultChange({"successes": successes, "mistakes": mistakes});
+      widget.onResultChange({'successes': successes, 'mistakes': mistakes});
       widget.eventLogger.testEnded();
       if (widget.activity.includeResults) {
         widget.eventLogger.resultsShown();
@@ -224,7 +224,7 @@ class _RPUIPairedAssociatesLearningActivityBody
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                "A screen with 6 tiles will appear. What is underneath each of them, will be revealed one by one. Click the tile matching the object in the middle, when the reveal is done.",
+                'A screen with 6 tiles will appear. What is underneath each of them, will be revealed one by one. Click the tile matching the object in the middle, when the reveal is done.',
                 style: TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,

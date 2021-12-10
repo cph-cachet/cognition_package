@@ -69,7 +69,7 @@ class SurveyPage extends StatelessWidget {
 
   initiateCARP(num age, String name, String location, DateTime date,
       RPTaskResult result, int finalScore) async {
-    final String uri = "https://cans.cachet.dk/";
+    final String uri = 'https://cans.cachet.dk/';
 
     // configure an app that points to the CARP web service
     CarpApp app = CarpApp(
@@ -131,7 +131,7 @@ class SurveyPage extends StatelessWidget {
         'testResults: ': result.results
       },
     );
-    print("here you idiot wtf");
+    print('here you idiot wtf');
     // create a CARP data point
     final DataPoint data = DataPoint.fromData(datum)
       ..carpHeader.studyId = studyDeploymentId
@@ -139,7 +139,7 @@ class SurveyPage extends StatelessWidget {
     print(app.studyDeploymentId);
     print(CarpService().app.studyDeploymentId);
     // post it to the CARP server, which returns the ID of the data point
-    print("here you idiot wtf");
+    print('here you idiot wtf');
     int dataPointId =
         await CarpService().getDataPointReference().postDataPoint(data);
 
@@ -153,7 +153,7 @@ class SurveyPage extends StatelessWidget {
 
   void resultCallback(RPTaskResult result) async {
     //printWrapped(_encode(result));
-    print("hello there i have the result");
+    print('hello there i have the result');
     int finalScore = 6;
     result.results.forEach((key, value) {
       print(key);

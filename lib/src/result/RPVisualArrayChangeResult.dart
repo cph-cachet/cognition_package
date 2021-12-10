@@ -15,11 +15,11 @@ class RPVisualArrayChangeResult extends RPActivityResult {
   RPActivityResult makeResult(int wrong, int right, List<dynamic> times,
       List<dynamic> memoryTimes, int score) {
     var res = new RPActivityResult(identifier: identifier);
-    res.results.addAll({"Wrong guesses": wrong});
-    res.results.addAll({"Right guesses": right});
-    res.results.addAll({"Time taken to memorize": memoryTimes});
-    res.results.addAll({"Time taken to guess": times});
-    res.results.addAll({"score": score});
+    res.results.addAll({'Wrong guesses': wrong});
+    res.results.addAll({'Right guesses': right});
+    res.results.addAll({'Time taken to memorize': memoryTimes});
+    res.results.addAll({'Time taken to guess': times});
+    res.results.addAll({'score': score});
     return res;
   }
 }

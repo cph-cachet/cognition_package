@@ -31,7 +31,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
   List<bool> listIndexes = [
     true
   ]; //booleans for keeping track of lowest index - for registering a sequence has passed
-  String seq1s = ""; //string for display of sequence
+  String seq1s = ''; //string for display of sequence
   List<int> curSeq = []; //numbers that have appeared on screen in a list
   List<int> delaysList =
       []; //list of delay from seqPassed is set true, to button is pressed
@@ -44,7 +44,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
   initState() {
     super.initState();
     for (int i = 0; i < widget.activity.sequence.length; i++) {
-      seq1s = seq1s + widget.activity.sequence[i].toString() + "  ";
+      seq1s = seq1s + widget.activity.sequence[i].toString() + '  ';
     }
     for (int i = 0; i < widget.activity.sequence.length; i++) {
       //adds bools according to sequence lengths
@@ -81,10 +81,10 @@ class _RPUIRapidVisualInfoProcessingActivityBody
       if (this.mounted) {
         widget.eventLogger.testEnded();
         widget.onResultChange({
-          "Correct taps": goodTaps,
-          "incorrect taps": badTaps,
-          "passed sequences": seqPassed,
-          "Delay on correct taps": delaysList,
+          'Correct taps': goodTaps,
+          'incorrect taps': badTaps,
+          'passed sequences': seqPassed,
+          'Delay on correct taps': delaysList,
         });
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
@@ -200,7 +200,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("Number:", style: TextStyle(fontSize: 24)),
+                      Text('Number:', style: TextStyle(fontSize: 24)),
                       Text('$newNum', style: TextStyle(fontSize: 40)),
                     ],
                   ),

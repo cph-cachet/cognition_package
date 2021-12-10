@@ -79,9 +79,9 @@ class _RPUIReactionTimeActivityBodyState
         result = (result / rtList.length)
             .round(); //calculate average delay from test.
         widget.onResultChange({
-          "avg. reaction time": result,
-          "Wrong taps": wrongTaps,
-          "Correct taps": correctTaps
+          'avg. reaction time': result,
+          'Wrong taps': wrongTaps,
+          'Correct taps': correctTaps
         });
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
@@ -164,7 +164,7 @@ class _RPUIReactionTimeActivityBodyState
                             lightOn = false;
                             correctTaps++;
                             widget.eventLogger.addCorrectGesture(
-                                "Correct Screen Tap",
+                                'Correct Screen Tap',
                                 'Tapped the screen after ${_sw.elapsedMilliseconds} ms');
                             _sw.stop();
                             rtList.add(_sw
@@ -175,7 +175,7 @@ class _RPUIReactionTimeActivityBodyState
                         } else {
                           allowGreen = false;
                           wrongTaps++;
-                          widget.eventLogger.addWrongGesture("Wrong Screen Tap",
+                          widget.eventLogger.addWrongGesture('Wrong Screen Tap',
                               'Tapped the screen before the screen was green');
                           setState(() {
                             alert = 'Too quick';

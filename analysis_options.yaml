@@ -1,0 +1,9 @@
+# include: package:lints/core.yaml
+
+  # analyzer:
+  #   errors:
+  #     prefer_single_quotes: error
+
+  # linter:
+  #   rules:
+  #     prefer_single_quotes: true
