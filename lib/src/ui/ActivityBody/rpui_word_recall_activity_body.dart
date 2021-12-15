@@ -7,9 +7,10 @@ List<String> resultsList2 = [];
 
 class WordRecall extends StatefulWidget {
   final RPUIWordRecallActivityBody sWidget;
-  final numberOfTests;
+  final int numberOfTests;
 
-  const WordRecall({Key? key, required this.sWidget, this.numberOfTests})
+  const WordRecall(
+      {Key? key, required this.sWidget, required this.numberOfTests})
       : super(key: key);
 
   @override
@@ -67,8 +68,8 @@ class _WordRecallState extends State<WordRecall> {
   late Timer _timer;
   int seconds = 0;
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -91,7 +92,7 @@ class _WordRecallState extends State<WordRecall> {
       var wordRecallScore = sWidget.activity
           .calculateScore({'wordsList': wordlist, 'resultsList': resultsList2});
       RPWordRecallResult result =
-          new RPWordRecallResult(identifier: 'WordRecallResult');
+          RPWordRecallResult(identifier: 'WordRecallResult');
       var taskResults = result.makeResult(
           wordlist, resultsList1, resultsList2, timesTaken, wordRecallScore);
 

@@ -49,14 +49,14 @@ class _RPUIFlankerActivityBodyState
     });
     await Future.delayed(Duration(seconds: 1));
     for (int i = 0; i < numberOfBlocks; i++) {
-      if (activityStatus == ActivityStatus.Test && this.mounted) {
+      if (activityStatus == ActivityStatus.Test && mounted) {
         setState(() {
           highlightedBlockID = blocks[i];
         });
       }
       await Future.delayed(Duration(milliseconds: 1000));
     }
-    if (activityStatus == ActivityStatus.Test && this.mounted) {
+    if (activityStatus == ActivityStatus.Test && mounted) {
       setState(() {
         readyForTap = true;
         taskInfo = 'Go';
@@ -82,7 +82,7 @@ class _RPUIFlankerActivityBodyState
             taskInfo = 'Finished';
           });
           await Future.delayed(Duration(milliseconds: 700));
-          this.widget.onResultChange(corsiSpan);
+          widget.onResultChange(corsiSpan);
           widget.eventLogger.testEnded();
           if (widget.activity.includeResults) {
             widget.eventLogger.resultsShown();

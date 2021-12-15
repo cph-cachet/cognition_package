@@ -100,7 +100,7 @@ class _RPUILetterTappingActivityBodyState
     });
     await Future.delayed(Duration(seconds: 2));
     for (String letter in mocaTestList) {
-      if (!this.mounted) break;
+      if (!mounted) break;
       soundService
           .play('../packages/cognition_package/assets/sounds/$letter.mp3');
       updateLetter(letter);
@@ -108,7 +108,7 @@ class _RPUILetterTappingActivityBodyState
       if (letterIndex < 29) letterIndex += 1;
     }
     updateLetter('');
-    if (this.mounted) {
+    if (mounted) {
       int score = errors < 2 ? 1 : 0;
       widget.onResultChange({'amount fo errors': errors, 'score': score});
       widget.eventLogger.testEnded();
@@ -214,9 +214,9 @@ class _RPUILetterTappingActivityBodyState
                   if (currentLetter != 'A' && lastLetter != 'A') {
                     errors += 1;
                     String s =
-                        '${(letterIndex > 0) ? mocaTestList.getRange(0, letterIndex) : ''}' +
-                            '>$currentLetter<' +
-                            '${mocaTestList.getRange(letterIndex + 1, mocaTestList.length)}';
+                        '${(letterIndex > 0) ? mocaTestList.getRange(0, letterIndex) : ''}'
+                        '>$currentLetter<'
+                        '${mocaTestList.getRange(letterIndex + 1, mocaTestList.length)}';
                     widget.eventLogger.addWrongGesture(
                         'Button tap', 'Pressed button on wrong letter: $s');
                   }

@@ -10,10 +10,13 @@ var moves = 0;
 
 class PictureSequenceMemory extends StatefulWidget {
   final RPUIPictureSequenceMemoryActivityBody sWidget;
-  final numberOfTests;
-  final numberOfPics;
+  final int numberOfTests;
+  final int numberOfPics;
   const PictureSequenceMemory(
-      {Key? key, required this.sWidget, this.numberOfTests, this.numberOfPics})
+      {Key? key,
+      required this.sWidget,
+      required this.numberOfTests,
+      required this.numberOfPics})
       : super(key: key);
 
   @override
@@ -85,8 +88,8 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   late Timer memoryTimer;
   int memorySeconds = 0;
   void startMemoryTimer() {
-    const oneSec = const Duration(seconds: 1);
-    memoryTimer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    memoryTimer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -123,8 +126,8 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   late Timer picTimer;
   int seconds = 0;
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    picTimer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    picTimer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -149,7 +152,7 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
       }
     }
 
-    if (picCurrentNum > this.numberOfTestsPIC) {
+    if (picCurrentNum > numberOfTestsPIC) {
       pictureTimesList.add(seconds);
       pictureScoreList.add(newScore);
       pictureMovesList.add(moves);
@@ -159,7 +162,7 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
           sWidget.activity.calculateScore({'pairs': pictureScoreList});
 
       RPPictureSequenceResult flankerResult =
-          new RPPictureSequenceResult(identifier: 'PictureSequenceResult');
+          RPPictureSequenceResult(identifier: 'PictureSequenceResult');
       var taskResults = flankerResult.makeResult(
           pictureMovesList,
           pictureScoreList,
@@ -195,7 +198,7 @@ class _PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   @override
   initState() {
     super.initState();
-    pictures = getPictures(0, this.numberOfPics, this.numberOfPics);
+    pictures = getPictures(0, numberOfPics, numberOfPics);
 
     pictures.shuffle();
     for (Picture picl in pictures) {
@@ -377,7 +380,7 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
 
   void startTest() async {
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
-      if (this.mounted) {
+      if (mounted) {
         widget.eventLogger.testEnded();
         widget.onResultChange({'Correct swipes': score});
         if (widget.activity.includeResults) {

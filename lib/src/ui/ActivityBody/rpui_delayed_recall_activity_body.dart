@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 part of cognition_package_ui;
 
 var timesTaken2 = [];
@@ -5,9 +7,10 @@ List<String> resultsList3 = [];
 
 class DelayedRecall extends StatefulWidget {
   final RPUIDelayedRecallActivityBody sWidget;
-  final numberOfTests;
+  final int numberOfTests;
 
-  const DelayedRecall({Key? key, required this.sWidget, this.numberOfTests})
+  const DelayedRecall(
+      {Key? key, required this.sWidget, required this.numberOfTests})
       : super(key: key);
 
   @override
@@ -46,7 +49,7 @@ class _DelayedRecallState extends State<DelayedRecall> {
   late Timer _timer;
   int seconds = 0;
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
+    const oneSec = Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
       (Timer timer) => setState(

@@ -6,24 +6,24 @@ class ContinuousVisualTracking extends StatefulWidget {
   final RPUIContinuousVisualTrackingActivityBody topLevelWidget;
 
   /// the number of tests to run
-  final numberOfTests;
+  final int numberOfTests;
 
   /// the number of dots to display
-  final amountOfDots;
+  final int amountOfDots;
 
   /// the speed of the dots in milliseconds
-  final trackingSpeed;
+  final Duration trackingSpeed;
 
   /// the size of the dots to display
-  final dotSize;
+  final int dotSize;
 
   const ContinuousVisualTracking({
     Key? key,
     required this.topLevelWidget,
-    this.numberOfTests,
-    this.amountOfDots,
-    this.dotSize,
-    this.trackingSpeed,
+    required this.numberOfTests,
+    required this.amountOfDots,
+    required this.dotSize,
+    required this.trackingSpeed,
   }) : super(key: key);
 
   @override
@@ -57,7 +57,7 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
   List<AnimatedPositioned> getDots(int amount, constraints, avatarSize) {
     List<AnimatedPositioned> tDots = [];
     for (var i = 0; i < amount; i++) {
-      tDots.add(new AnimatedPositioned(
+      tDots.add(AnimatedPositioned(
         duration: trackingSpeed,
         left: avatarSize +
             (constraints.biggest.width - 2 * avatarSize) / 100.0 * rotation[i],
@@ -74,14 +74,14 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
                 });
               }
             },
-            child: new CircleAvatar(
+            child: CircleAvatar(
               radius: avatarSize / 2,
               backgroundColor: Colors.grey,
             )),
       ));
     }
     for (var i = 0; i < 2; i++) {
-      tDots.add(new AnimatedPositioned(
+      tDots.add(AnimatedPositioned(
         duration: trackingSpeed,
         left: avatarSize +
             (constraints.biggest.width - 2 * avatarSize) /
@@ -102,7 +102,7 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
                 });
               }
             },
-            child: new CircleAvatar(
+            child: CircleAvatar(
               radius: avatarSize / 2,
               backgroundColor: dots[i] ? Color(0xff1F669B) : Colors.grey,
             )),
@@ -156,13 +156,13 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
 
   /// Timer for the test
   late Timer testTimer;
-  var rng = new Random();
+  var rng = Random();
   int seconds = 0;
 
   /// start the timer
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    testTimer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    testTimer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -188,7 +188,7 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
           sWidget.activity.calculateScore({'mistakes': mistakes});
 
       RPVisualTrackingResult visualTrackingResult =
-          new RPVisualTrackingResult(identifier: 'visualTrackingTaskResult');
+          RPVisualTrackingResult(identifier: 'visualTrackingTaskResult');
       var taskResults = visualTrackingResult.makeResult(
           mistakes, visualScoreList, continuousVisualTrackingScore);
       sWidget.onResultChange(taskResults.results);

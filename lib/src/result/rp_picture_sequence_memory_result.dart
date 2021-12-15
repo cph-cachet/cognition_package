@@ -13,7 +13,7 @@ class RPPictureSequenceResult extends RPActivityResult {
   /// score: score of the test calculated in model class
   RPActivityResult makeResult(List<dynamic> moves, List<dynamic> scores,
       List<dynamic> times, List<dynamic> memoryTimes, int score) {
-    var res = new RPActivityResult(identifier: identifier);
+    var res = RPActivityResult(identifier: identifier);
     res.results.addAll({'Amount of moves': moves});
     res.results.addAll({'Amount of correct pairs': scores});
     res.results.addAll({'Time taken to memorize': memoryTimes});

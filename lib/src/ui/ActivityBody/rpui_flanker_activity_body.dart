@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 part of cognition_package_ui;
 
 var score = 0;
@@ -6,8 +8,8 @@ var rightSwipe = 0;
 bool even = false;
 
 class Flanker extends StatefulWidget {
-  final numberOfCards;
-  const Flanker({this.numberOfCards});
+  final int numberOfCards;
+  const Flanker({required this.numberOfCards});
   @override
   _FlankerState createState() => _FlankerState(numberOfCards);
 }
@@ -144,7 +146,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
   late Timer testTimer;
   int seconds = 0;
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
+    const oneSec = Duration(seconds: 1);
     testTimer = new Timer.periodic(
       oneSec,
       (Timer timer) => setState(
@@ -164,7 +166,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
     await Future.delayed(Duration(seconds: 1));
 
     if (score == widget.activity.numberOfCards) {
-      if (this.mounted) {
+      if (mounted) {
         widget.eventLogger.testEnded();
 
         var flankerScore =
@@ -186,7 +188,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
     }
 
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
-      if (this.mounted) {
+      if (mounted) {
         widget.eventLogger.testEnded();
         var flankerScore =
             widget.activity.calculateScore({'mistakes': wrongSwipe});
@@ -210,7 +212,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
   @override
   Widget build(BuildContext context) {
     if (score == widget.activity.numberOfCards) {
-      if (this.mounted) {
+      if (mounted) {
         widget.eventLogger.testEnded();
         var flankerScore =
             widget.activity.calculateScore({'mistakes': wrongSwipe});

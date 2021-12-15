@@ -1,7 +1,7 @@
 # Cognition Package
 
 [![pub package](https://img.shields.io/pub/v/research_package.svg)](https://pub.dartlang.org/packages/research_package)
-[![style: lint](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lint)
+[![style: recommended](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lints)
 [![github stars](https://img.shields.io/github/stars/cph-cachet/cognition_package.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://github.com/cph-cachet/cognition_package)
 [![MIT License](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
@@ -58,6 +58,15 @@ The [Cognition_package Flutter API](https://pub.dev/documentation/research_packa
 ## Example Application
 
 There is an [example app](https://github.com/ossi0004/speciale_cognition_app) which demonstrates the different features of Cognition Package as implemented in a Flutter app.
+
+In the [example](/example) several configuration file can be found. A `.env` file has to be placed in the example folder for the application to work properly and the following constants has to be defined in this `.env` file: 
+`````
+USERNAME = ...
+PASSWORD = ...
+URI = ...
+ID = ...
+````
+These environmental variables are necessary to upload the data to the CARP server. if you want to use the example app locally, the `.env` is not necessary.
 
 ## Who is backing this project?
 

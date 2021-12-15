@@ -15,7 +15,7 @@ class RPUIRapidVisualInfoProcessingActivityBody extends StatefulWidget {
 
 class _RPUIRapidVisualInfoProcessingActivityBody
     extends State<RPUIRapidVisualInfoProcessingActivityBody> {
-  final _random = new Random();
+  final _random = Random();
   String texthint =
       'Tap the button in the next window, whenever all numbers in a given sequence has appeared on screen, in the given order. The numbers do not have to come in succession.';
   int newNum = 0; //int for next random generated number on screen
@@ -24,7 +24,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
   int seqsPassed =
       0; //number of times the given sequence passed: cap for good taps
   Duration displayTime =
-      new Duration(seconds: 1); //amount of time each number is displayed
+      Duration(seconds: 1); //amount of time each number is displayed
   late ActivityStatus activityStatus;
   bool seqPassed =
       false; //if a sequence has passed or not, meaning a tap would be a correct tap if true
@@ -35,7 +35,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
   List<int> curSeq = []; //numbers that have appeared on screen in a list
   List<int> delaysList =
       []; //list of delay from seqPassed is set true, to button is pressed
-  final _sw = new Stopwatch();
+  final _sw = Stopwatch();
 
   //Todo: determine how test results are evaluated: Hit sequences, delay in doing so, and false taps are recorded
   //seqsPassed can be different that good and bad taps total! Meaning tap should have occured but didnt, before next full sequence.
@@ -66,7 +66,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
         //periodic timer to update number on screen - starts in init currently.
         displayTime, (Timer t) {
       //make sure window is mounted and that test is live before setting state.
-      if (activityStatus == ActivityStatus.Test && this.mounted) {
+      if (activityStatus == ActivityStatus.Test && mounted) {
         setState(() {
           numGenerator();
           sequenceChecker(widget.activity
@@ -78,7 +78,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
     });
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       //when time is up, change window and set result
-      if (this.mounted) {
+      if (mounted) {
         widget.eventLogger.testEnded();
         widget.onResultChange({
           'Correct taps': goodTaps,
@@ -141,7 +141,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
-                '$texthint',
+                texthint,
                 style: TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -171,7 +171,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
                 onPressed: () {
                   widget.eventLogger.instructionEnded();
                   widget.eventLogger.testStarted();
-                  if (this.mounted) {
+                  if (mounted) {
                     setState(() {
                       activityStatus = ActivityStatus.Test;
                     });

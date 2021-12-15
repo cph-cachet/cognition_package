@@ -52,7 +52,7 @@ class _RPUIReactionTimeActivityBodyState
     //determines when light is changed, and starts timer when screen turns green. only called when light is red.
     timer = _random.nextInt(widget.activity.switchInterval) + 1;
     lightTimer = Timer(Duration(seconds: timer), () {
-      if (this.mounted && allowGreen) {
+      if (mounted && allowGreen) {
         setState(() {
           alert = ''; //"too quick alert set to nothing when light is green"
           lightOn = true; //turn on green light
@@ -68,7 +68,7 @@ class _RPUIReactionTimeActivityBodyState
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       widget.eventLogger.testEnded();
       widget.eventLogger.resultsShown();
-      if (this.mounted) {
+      if (mounted) {
         if (rtList.isEmpty) {
           //if nothing was pressed during the whole test, add 0.
           rtList.add(0);
@@ -182,7 +182,7 @@ class _RPUIReactionTimeActivityBodyState
                           });
                           await Future.delayed(
                               Duration(seconds: 1)); //display feedback
-                          if (this.mounted) {
+                          if (mounted) {
                             allowGreen = true;
                             setState(() {
                               alert = '';

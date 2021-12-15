@@ -12,7 +12,7 @@ class RPVisualTrackingResult extends RPActivityResult {
   /// score: score of the test calculated in model class
   RPActivityResult makeResult(
       List<dynamic> mistakes, List<dynamic> times, int score) {
-    var res = new RPActivityResult(identifier: identifier);
+    var res = RPActivityResult(identifier: identifier);
     res.results.addAll({'mistakes': mistakes});
     res.results.addAll({'times': times});
     res.results.addAll({'score': score});

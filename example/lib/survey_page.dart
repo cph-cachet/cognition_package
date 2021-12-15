@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:research_package/research_package.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'research_package_objects/survey_objects.dart';
@@ -43,6 +44,7 @@ Map<String, dynamic> _$LightDatumToJson(CognitionDatum instance) {
 }
 
 class CognitionDatum extends Datum {
+  @override
   DataFormat get format =>
       DataFormat.fromString('dk.cachet.carp.cognitiveAssessment');
 
@@ -53,23 +55,26 @@ class CognitionDatum extends Datum {
 
   factory CognitionDatum.fromJson(Map<String, dynamic> json) =>
       _$LightDatumFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$LightDatumToJson(this);
 
+  @override
   String toString() => super.toString() + ', testResults: $testResults';
 }
 
 class SurveyPage extends StatelessWidget {
-  final age;
-  final name;
-  final location;
-  final date;
+  final int age;
+  final String name;
+  final String location;
+  final DateTime date;
 
   const SurveyPage({Key key, this.age, this.name, this.location, this.date})
       : super(key: key);
 
   initiateCARP(num age, String name, String location, DateTime date,
       RPTaskResult result, int finalScore) async {
-    final String uri = 'https://cans.cachet.dk/';
+    final String uri = dotenv.env['URI'];
+    // print(uri);
 
     // configure an app that points to the CARP web service
     CarpApp app = CarpApp(
@@ -85,8 +90,8 @@ class SurveyPage extends StatelessWidget {
     CarpService().configure(app);
 
     // authenticate at CARP
-    await CarpService()
-        .authenticate(username: 'ossi0004@gmail.com', password: 'UKU76rdm');
+    await CarpService().authenticate(
+        username: dotenv.env['USERNAME'], password: dotenv.env['PASSWORD']);
 
     final currentuser = await CarpService().getCurrentUserProfile();
     print(currentuser.accountId);
@@ -105,8 +110,9 @@ class SurveyPage extends StatelessWidget {
     // print(studyDeploymentId);
 
     //CarpService().app.studyDeploymentId = studyDeploymentId;
-    CarpService().app.studyDeploymentId =
-        '53739388-91d3-40ac-9333-bfc8b504f05b';
+    CarpService().app.studyDeploymentId = dotenv.env['ID'];
+
+    // '53739388-91d3-40ac-9333-bfc8b504f05b'; // FINAL
     // 'f53c3724-3cab-4e25-b212-67a1fdf9e739'; // speciale PROD
     // 'a245a612-9b1f-4b66-946f-3524fb480e57'; // final speciale
     // '05a521bf-1632-482e-9a0d-d17f0593f1c7'; // MOCA test 2
@@ -147,7 +153,7 @@ class SurveyPage extends StatelessWidget {
   }
 
   void printWrapped(String text) {
-    final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
+    final pattern = RegExp('.{1,800}'); // 800 is the size of each chunk
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
 

@@ -14,7 +14,7 @@ class RPVisualArrayChangeResult extends RPActivityResult {
   /// score: score of the test calculated in model class
   RPActivityResult makeResult(int wrong, int right, List<dynamic> times,
       List<dynamic> memoryTimes, int score) {
-    var res = new RPActivityResult(identifier: identifier);
+    var res = RPActivityResult(identifier: identifier);
     res.results.addAll({'Wrong guesses': wrong});
     res.results.addAll({'Right guesses': right});
     res.results.addAll({'Time taken to memorize': memoryTimes});

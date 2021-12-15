@@ -21,11 +21,10 @@ class _RPUIStroopEffectActivityBodyState
   int totalWords = 0;
   int cWordIndex = 0;
   int wColorIndex = 0;
-  final _random = new Random();
-  Timer t = new Timer(Duration(seconds: 0),
+  final _random = Random();
+  Timer t = Timer(Duration(seconds: 0),
       () {}); //construct for further control of timer. Cancel at window collapse.
-  Timer pulseTimer =
-      new Timer(Duration(seconds: 0), () {}); //pulse timer control
+  Timer pulseTimer = Timer(Duration(seconds: 0), () {}); //pulse timer control
 
   //bool testLive = false; //test going on, screen flag
   //bool testBegin = true; //pre test screen flag
@@ -71,7 +70,7 @@ class _RPUIStroopEffectActivityBodyState
   }
 
   void startTest() {
-    if (this.mounted) {
+    if (mounted) {
       widget.eventLogger.instructionEnded();
       widget.eventLogger.testStarted();
       setState(() {
@@ -82,7 +81,7 @@ class _RPUIStroopEffectActivityBodyState
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       //when time is up, change window and set result
       widget.eventLogger.testEnded();
-      if (this.mounted) {
+      if (mounted) {
         setState(() {});
         widget.onResultChange(
             {'mistakes': mistakes, 'correct taps': correctTaps});
@@ -102,7 +101,7 @@ class _RPUIStroopEffectActivityBodyState
     disableButton = true;
     pulseTimer.cancel();
     //make sure window is mounted and that test is live before setting state.
-    if (this.mounted && activityStatus == ActivityStatus.Test) {
+    if (mounted && activityStatus == ActivityStatus.Test) {
       setState(() {
         cWord = '----';
         wColor = Colors.black;
@@ -116,7 +115,7 @@ class _RPUIStroopEffectActivityBodyState
       await Future.delayed(Duration(
           milliseconds:
               widget.activity.delayTime)); //delay before showing next word
-      if (this.mounted && activityStatus == ActivityStatus.Test) {
+      if (mounted && activityStatus == ActivityStatus.Test) {
         setState(() {
           cWordIndex = _random.nextInt(possColorsString.length);
           wColorIndex = _random.nextInt(possColors.length);
@@ -262,7 +261,7 @@ class _RPUIStroopEffectActivityBodyState
         width: MediaQuery.of(context).size.width / 5,
         child: MaterialButton(
           shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(5),
               side: BorderSide(color: Colors.black, width: 3)),
           color: backgroundButtons[
               buttonNum], //set background on buttons for feedback
@@ -274,7 +273,7 @@ class _RPUIStroopEffectActivityBodyState
                 //if a button was pressed, produce new word
                 correctTaps++;
                 totalWords++;
-                if (this.mounted && activityStatus == ActivityStatus.Test) {
+                if (mounted && activityStatus == ActivityStatus.Test) {
                   setState(() {
                     backgroundButtons[buttonNum] =
                         Colors.green; //set feedback color
@@ -285,7 +284,7 @@ class _RPUIStroopEffectActivityBodyState
               } else {
                 mistakes++;
                 totalWords++;
-                if (this.mounted && activityStatus == ActivityStatus.Test) {
+                if (mounted && activityStatus == ActivityStatus.Test) {
                   setState(() {
                     backgroundButtons[buttonNum] = Colors.red;
                   });
@@ -298,7 +297,7 @@ class _RPUIStroopEffectActivityBodyState
           },
           child: FittedBox(
             fit: BoxFit.fitWidth,
-            child: Text('$buttonCode', style: TextStyle(fontSize: 19)),
+            child: Text(buttonCode, style: TextStyle(fontSize: 19)),
           ),
         )));
   }

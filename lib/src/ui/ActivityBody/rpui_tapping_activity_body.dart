@@ -40,14 +40,14 @@ class _RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
     widget.eventLogger.instructionEnded();
     widget.eventLogger.testStarted();
     for (int i = 3; i > 0; i--) {
-      if (this.mounted) {
+      if (mounted) {
         setState(() {
           countdown = i.toString();
         });
       }
       await Future.delayed(Duration(seconds: 1));
     }
-    if (this.mounted) {
+    if (mounted) {
       //remove countdown text
       setState(() {
         counting = false;
@@ -59,7 +59,7 @@ class _RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
       widget.onResultChange({'Total taps': taps});
       if (widget.activity.includeResults) {
         widget.eventLogger.resultsShown();
-        if (this.mounted) {
+        if (mounted) {
           setState(() {
             activityStatus = ActivityStatus.Result;
           });

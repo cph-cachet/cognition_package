@@ -2,11 +2,14 @@ part of cognition_package_ui;
 
 class VisualArrayChange extends StatefulWidget {
   final RPUIVisualArrayChangeActivityBody sWidget;
-  final numberOfTests;
-  final waitTime;
+  final int numberOfTests;
+  final int waitTime;
 
   const VisualArrayChange(
-      {Key? key, required this.sWidget, this.numberOfTests, this.waitTime})
+      {Key? key,
+      required this.sWidget,
+      required this.numberOfTests,
+      required this.waitTime})
       : super(key: key);
 
   @override
@@ -147,13 +150,13 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
     startTimer();
   }
 
-  var rng = new Random();
+  var rng = Random();
 
   late Timer _timer;
   int seconds = 0;
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -170,8 +173,8 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
   late Timer memoryTimer;
   int memorySeconds = 0;
   void startMemoryTimer() {
-    const oneSec = const Duration(seconds: 1);
-    memoryTimer = new Timer.periodic(
+    const oneSec = Duration(seconds: 1);
+    memoryTimer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -198,8 +201,8 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
 
         var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right});
-        RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
-            identifier: 'visualArrayChangeResults');
+        RPVisualArrayChangeResult flankerResult =
+            RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
@@ -221,8 +224,8 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right});
-        RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
-            identifier: 'visualArrayChangeResults');
+        RPVisualArrayChangeResult flankerResult =
+            RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
@@ -250,8 +253,8 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right});
-        RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
-            identifier: 'visualArrayChangeResults');
+        RPVisualArrayChangeResult flankerResult =
+            RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
@@ -272,8 +275,8 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right});
-        RPVisualArrayChangeResult flankerResult = new RPVisualArrayChangeResult(
-            identifier: 'visualArrayChangeResults');
+        RPVisualArrayChangeResult flankerResult =
+            RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
@@ -302,7 +305,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                   final avatarSize = 100.0;
                   return Stack(
                     children: [
-                      new Positioned(
+                      Positioned(
                           left: avatarSize +
                               (constraints.biggest.width - 2 * avatarSize) /
                                   100.0 *
@@ -311,7 +314,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                               (constraints.biggest.height - 2 * avatarSize) /
                                   100.0 *
                                   rotation[1],
-                          child: new CircleAvatar(
+                          child: CircleAvatar(
                               radius: avatarSize / 2,
                               child: Container(
                                 decoration: BoxDecoration(
@@ -323,7 +326,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                                         fit: BoxFit.scaleDown)),
                               ),
                               backgroundColor: Colors.transparent)),
-                      new Positioned(
+                      Positioned(
                           left: avatarSize +
                               (constraints.biggest.width - 2 * avatarSize) /
                                   100.0 *
@@ -332,7 +335,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                               (constraints.biggest.height - 2 * avatarSize) /
                                   100.0 *
                                   rotation[3],
-                          child: new CircleAvatar(
+                          child: CircleAvatar(
                               radius: avatarSize / 2,
                               child: Container(
                                 decoration: BoxDecoration(
@@ -344,7 +347,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                                         fit: BoxFit.scaleDown)),
                               ),
                               backgroundColor: Colors.transparent)),
-                      new Positioned(
+                      Positioned(
                           left: avatarSize +
                               (constraints.biggest.width - 2 * avatarSize) /
                                   100.0 *
@@ -353,7 +356,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                               (constraints.biggest.height - 2 * avatarSize) /
                                   100.0 *
                                   rotation[5],
-                          child: new CircleAvatar(
+                          child: CircleAvatar(
                               radius: avatarSize / 2,
                               child: Container(
                                 decoration: BoxDecoration(
@@ -517,7 +520,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
   void startTest() async {
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       //when time is up, change window and set result
-      if (this.mounted) {
+      if (mounted) {
         widget.eventLogger.testEnded();
         widget.onResultChange({'Correct swipes': score});
         if (widget.activity.includeResults) {

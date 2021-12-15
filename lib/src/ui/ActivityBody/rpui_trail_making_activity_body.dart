@@ -83,7 +83,7 @@ class _RPUITrailMakingActivityBodyState
     taskTime = result;
     if (widget.activity.includeResults) {
       widget.eventLogger.resultsShown();
-      if (this.mounted) {
+      if (mounted) {
         setState(() {
           activityStatus = ActivityStatus.Result;
         });
@@ -184,13 +184,13 @@ class _RPUITrailMakingActivityBodyState
 }
 
 class _TrailPainter extends CustomPainter {
-  _PathTracker _pathsTracker;
+  final _PathTracker _pathsTracker;
 
   _TrailPainter(this._pathsTracker) : super(repaint: _pathsTracker);
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawRect(new Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height),
         Paint()..color = Colors.transparent);
     for (_Location location in _pathsTracker._locations) {
       final textPainter = TextPainter(
@@ -238,7 +238,7 @@ class _TrailPainter extends CustomPainter {
 
 class _PathTracker extends ChangeNotifier {
   late List<Path> _paths;
-  late List<_Location> _locations;
+  late final List<_Location> _locations;
   late bool _isDraging;
   bool _isFinished = false;
   late bool goodStart;

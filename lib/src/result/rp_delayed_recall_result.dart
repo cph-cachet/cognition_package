@@ -13,7 +13,7 @@ class RPDelayedRecallResult extends RPActivityResult {
   /// score: score of the test calculated in model class
   RPActivityResult makeResult(List<String> wordlist, List<String> resultlist,
       int timeTaken, int score) {
-    var res = new RPActivityResult(identifier: identifier);
+    var res = RPActivityResult(identifier: identifier);
     res.results.addAll({'wordlist delayed': wordlist});
     res.results.addAll({'resultlist3': resultlist});
     res.results.addAll({'time taken': timeTaken});

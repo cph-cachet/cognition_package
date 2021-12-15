@@ -15,7 +15,7 @@ class RPUIPairedAssociatesLearningActivityBody extends StatefulWidget {
 
 class _RPUIPairedAssociatesLearningActivityBody
     extends State<RPUIPairedAssociatesLearningActivityBody> {
-  final _random = new Random();
+  final _random = Random();
   late ActivityStatus activityStatus;
   bool buttonsDisabled =
       true; //diable when peaking tiles and when checking result
@@ -23,7 +23,7 @@ class _RPUIPairedAssociatesLearningActivityBody
       0; //introduce int that can be 0, 1 and 2 for three possibilities. (indicates if, and which icon to show)
   int successes = 0;
   int mistakes = 0;
-  Timer t = new Timer(Duration(seconds: 0),
+  Timer t = Timer(Duration(seconds: 0),
       () {}); //construct for further control of timer. Cancel at window collapse.
   List<String> containers = [
     'packages/cognition_package/assets/images/nothing.png',
@@ -103,7 +103,7 @@ class _RPUIPairedAssociatesLearningActivityBody
       widget.eventLogger.testEnded();
       if (widget.activity.includeResults) {
         widget.eventLogger.resultsShown();
-        if (this.mounted) {
+        if (mounted) {
           setState(() {
             activityStatus = ActivityStatus.Result;
           });
@@ -148,7 +148,7 @@ class _RPUIPairedAssociatesLearningActivityBody
         peaking = _random.nextInt(containers.length);
       }
       peaked.add(peaking);
-      if (this.mounted) {
+      if (mounted) {
         setState(() {
           containerHide[peaking] = containers[peaking]; //reveal tile
         });
@@ -157,7 +157,7 @@ class _RPUIPairedAssociatesLearningActivityBody
       containerHide[peaking] =
           'packages/cognition_package/assets/images/hidden.png'; //after time, set back to default
     }
-    if (this.mounted) {
+    if (mounted) {
       setState(() {
         matchObject = tempMatch;
       });
@@ -176,7 +176,7 @@ class _RPUIPairedAssociatesLearningActivityBody
       widget.eventLogger.addCorrectGesture('Button tap',
           'The tile tapped and match object matched. Level $successes succeeded, by pressing button number $buttonNum.');
       await Future.delayed(Duration(seconds: 1)); //display feedback
-      if (successes < levels.length && this.mounted) {
+      if (successes < levels.length && mounted) {
         //as long as there are more levels, go to next.
         setState(() {
           matchObject = 'packages/cognition_package/assets/images/nothing.png';
@@ -203,7 +203,7 @@ class _RPUIPairedAssociatesLearningActivityBody
       await Future.delayed(Duration(seconds: 1)); //display feedback
       //if a mistake has been made, repeat current step.
       mistakes++;
-      if (this.mounted) {
+      if (mounted) {
         setState(() {
           matchObject = 'packages/cognition_package/assets/images/nothing.png';
           containerContent(levels[successes]);
@@ -331,7 +331,7 @@ class _RPUIPairedAssociatesLearningActivityBody
       border: Border.all(
         width: 3,
       ),
-      borderRadius: new BorderRadius.circular(5),
+      borderRadius: BorderRadius.circular(5),
       image: DecorationImage(fit: BoxFit.fill, image: AssetImage(matchObject)),
     );
   }
@@ -358,7 +358,7 @@ class _RPUIPairedAssociatesLearningActivityBody
         ),
         child: MaterialButton(
           shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(5),
               side: BorderSide(color: Colors.black, width: 3)),
           onPressed: () {
             if (!buttonsDisabled) {

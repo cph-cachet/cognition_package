@@ -17,27 +17,27 @@ import 'package:research_package/research_package.dart';
 // Importing the UI library from Research Package
 import 'package:cognition_package/ui.dart';
 
-part 'src/model/step/activity_steps/RPCorsiBlockTappingActivity.dart';
-part 'src/model/step/activity_steps/RPLetterTappingActivity.dart';
-part 'src/model/step/activity_steps/RPPairedAssociatesLearningActivity.dart';
-part 'src/model/step/activity_steps/RPRapidVisualInfoProcessingActivity.dart';
-part 'src/model/step/activity_steps/RPReactionTimeActivity.dart';
-part 'src/model/step/activity_steps/RPStroopEffectActivity.dart';
-part 'src/model/step/activity_steps/RPTappingActivity.dart';
-part 'src/model/step/activity_steps/RPTrailMakingActivity.dart';
-part 'src/model/step/activity_steps/RPFlankerActivity.dart';
-part 'src/model/step/activity_steps/RPPictureSequenceMemoryActivity.dart';
-part 'src/model/step/activity_steps/RPWordRecallActivity.dart';
-part 'src/model/step/activity_steps/RPDelayedRecallActivity.dart';
-part 'src/model/step/activity_steps/RPVisualArrayChangeActivity.dart';
-part 'src/model/step/activity_steps/RPContinuousVisualTrackingActivity.dart';
+part 'src/model/step/activity_steps/rp_corsi_block_tapping_activity.dart';
+part 'src/model/step/activity_steps/rp_letter_tapping_activity.dart';
+part 'src/model/step/activity_steps/rp_paired_associative_learning_activity.dart';
+part 'src/model/step/activity_steps/rp_rapid_visual_info_processing_activity.dart';
+part 'src/model/step/activity_steps/rp_reaction_time_activity.dart';
+part 'src/model/step/activity_steps/rp_stroop_effect_activity.dart';
+part 'src/model/step/activity_steps/rp_tapping_activity.dart';
+part 'src/model/step/activity_steps/rp_trail_making_activity.dart';
+part 'src/model/step/activity_steps/rp_flanker_activity.dart';
+part 'src/model/step/activity_steps/rp_picture_sequence_memory_activity.dart';
+part 'src/model/step/activity_steps/rp_word_recall_activity.dart';
+part 'src/model/step/activity_steps/rp_delayed_recall_activity.dart';
+part 'src/model/step/activity_steps/rp_visual_array_change_activity.dart';
+part 'src/model/step/activity_steps/rp_continuous_visual_tracking_activity.dart';
 
-part 'src/result/RPVisualTrackingResult.dart';
-part 'src/result/RPFlankerResult.dart';
-part 'src/result/RPPictureSequenceResult.dart';
-part 'src/result/RPVisualArrayChangeResult.dart';
-part 'src/result/RPWordRecallResult.dart';
-part 'src/result/RPDelayedRecallResult.dart';
+part 'src/result/rp_visual_tracking_result.dart';
+part 'src/result/rp_flanker_result.dart';
+part 'src/result/rp_picture_sequence_memory_result.dart';
+part 'src/result/rp_visual_array_change_result.dart';
+part 'src/result/rp_word_recall_result.dart';
+part 'src/result/rp_delayed_recall_result.dart';
 
 // JSON
 part 'model.g.dart';

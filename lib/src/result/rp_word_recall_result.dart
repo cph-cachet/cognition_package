@@ -14,7 +14,7 @@ class RPWordRecallResult extends RPActivityResult {
   /// score: score of the test calculated in model class
   RPActivityResult makeResult(List<String> wordlist, List<String> resultlist1,
       List<String> resultlist2, List<dynamic> timesTaken, int score) {
-    var res = new RPActivityResult(identifier: identifier);
+    var res = RPActivityResult(identifier: identifier);
     res.results.addAll({'wordlist': wordlist});
     res.results.addAll({'resultlist1': resultlist1});
     res.results.addAll({'resultlist2': resultlist2});
