@@ -1,10 +1,18 @@
 part of cognition_package_ui;
 
+/// The [RPUIStroopEffectActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUIStroopEffectActivityBody extends StatefulWidget {
+  /// The [RPUIStroopEffectActivityBody] activity.
   final RPStroopEffectActivity activity;
+
+  /// The results function for the [RPUIStroopEffectActivityBody].
   final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIStroopEffectActivityBody].
   final RPActivityEventLogger eventLogger;
 
+  /// The [RPUIStroopEffectActivityBody] constructor.
   RPUIStroopEffectActivityBody(
       this.activity, this.eventLogger, this.onResultChange);
 

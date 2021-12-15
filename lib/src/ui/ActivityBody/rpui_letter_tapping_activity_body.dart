@@ -1,10 +1,18 @@
 part of cognition_package_ui;
 
+/// The [RPUILetterTappingActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUILetterTappingActivityBody extends StatefulWidget {
+  /// The [RPUILetterTappingActivityBody] activity.
   final RPLetterTappingActivity activity;
+
+  /// The results function for the [RPUILetterTappingActivityBody].
   final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUILetterTappingActivityBody].
   final RPActivityEventLogger eventLogger;
 
+  /// The [RPUILetterTappingActivityBody] constructor.
   RPUILetterTappingActivityBody(
       this.activity, this.eventLogger, this.onResultChange);
 
@@ -15,7 +23,7 @@ class RPUILetterTappingActivityBody extends StatefulWidget {
 
 class _RPUILetterTappingActivityBodyState
     extends State<RPUILetterTappingActivityBody> {
-  late SoundService soundService;
+  late _SoundService soundService;
   late AudioCache player;
   late AudioPlayer audioPlayer;
   late String currentLetter;
@@ -76,7 +84,7 @@ class _RPUILetterTappingActivityBodyState
   @override
   initState() {
     super.initState();
-    soundService = SoundService(alphabet
+    soundService = _SoundService(alphabet
         .map(
             (item) => ('../packages/cognition_package/assets/sounds/$item.mp3'))
         .toList());
@@ -283,10 +291,10 @@ class _RPUILetterTappingActivityBodyState
   }
 }
 
-class SoundService {
+class _SoundService {
   final List<String> files;
 
-  SoundService(this.files) {
+  _SoundService(this.files) {
     player.loadAll(files);
   }
 

@@ -1,11 +1,164 @@
 part of cognition_package_ui;
 
-class VisualArrayChange extends StatefulWidget {
+/// The [RPUIVisualArrayChangeActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
+class RPUIVisualArrayChangeActivityBody extends StatefulWidget {
+  /// The [RPUIVisualArrayChangeActivityBody] activity.
+  final RPVisualArrayChangeActivity activity;
+
+  /// The results function for the [RPUIVisualArrayChangeActivityBody].
+  final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIVisualArrayChangeActivityBody].
+  final RPActivityEventLogger eventLogger;
+
+  /// The [RPUIVisualArrayChangeActivityBody] constructor.
+  RPUIVisualArrayChangeActivityBody(
+      this.activity, this.eventLogger, this.onResultChange);
+
+  @override
+  _RPUI_VisualArrayChangeActivityBodyState createState() =>
+      _RPUI_VisualArrayChangeActivityBodyState();
+}
+
+// ignore: camel_case_types
+class _RPUI_VisualArrayChangeActivityBodyState
+    extends State<RPUIVisualArrayChangeActivityBody> {
+  late ActivityStatus activityStatus;
+
+  @override
+  initState() {
+    super.initState();
+    if (widget.activity.includeInstructions) {
+      activityStatus = ActivityStatus.Instruction;
+      widget.eventLogger.instructionStarted();
+    } else {
+      activityStatus = ActivityStatus.Test;
+      widget.eventLogger.testStarted();
+      startTest();
+    }
+  }
+
+  void startTest() async {
+    Timer(Duration(seconds: widget.activity.lengthOfTest), () {
+      //when time is up, change window and set result
+      if (mounted) {
+        widget.eventLogger.testEnded();
+        widget.onResultChange({'Correct swipes': flankerScore});
+        if (widget.activity.includeResults) {
+          widget.eventLogger.resultsShown();
+          setState(() {
+            activityStatus = ActivityStatus.Result;
+          });
+        }
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    switch (activityStatus) {
+      case ActivityStatus.Instruction:
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Memorize the colors of the shapes.',
+                style: TextStyle(fontSize: 20),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Text(
+                'Once ready the shapes will change positions.',
+                style: TextStyle(fontSize: 20),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Text(
+                'Indicate if ANY of the shapes changed color or if ALL shapes remained the same',
+                style: TextStyle(fontSize: 20),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5),
+              child: Container(
+                height: MediaQuery.of(context).size.height / 2.5,
+                width: MediaQuery.of(context).size.width / 1.1,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage(
+                            'packages/cognition_package/assets/images/shape_recall.png'))),
+              ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              // ignore: deprecated_member_use
+              child: OutlineButton(
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                onPressed: () {
+                  widget.eventLogger.instructionEnded();
+                  widget.eventLogger.testStarted();
+                  setState(() {
+                    activityStatus = ActivityStatus.Test;
+                  });
+                  startTest();
+                },
+                child: Text(
+                  'Ready',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          ],
+        );
+      case ActivityStatus.Test:
+        return Scaffold(
+          // appBar: AppBar(
+          //   title: Text('FLANKER TEST SCORE: ${score}'),
+          // ),
+          body: Center(
+              child: _VisualArrayChange(
+                  sWidget: widget,
+                  numberOfTests: widget.activity.numberOfTests,
+                  waitTime: widget.activity.waitTime)),
+        );
+      case ActivityStatus.Result:
+        return Center(
+          child: Text(
+            'results:  $flankerScore',
+            style: TextStyle(fontSize: 22),
+            textAlign: TextAlign.center,
+          ),
+        );
+      default:
+        return Container();
+    }
+  }
+}
+
+class _VisualArrayChange extends StatefulWidget {
   final RPUIVisualArrayChangeActivityBody sWidget;
   final int numberOfTests;
   final int waitTime;
 
-  const VisualArrayChange(
+  const _VisualArrayChange(
       {Key? key,
       required this.sWidget,
       required this.numberOfTests,
@@ -17,15 +170,15 @@ class VisualArrayChange extends StatefulWidget {
       _VisualArrayChangeState(sWidget, numberOfTests, waitTime);
 }
 
-class _VisualArrayChangeState extends State<VisualArrayChange> {
+class _VisualArrayChangeState extends State<_VisualArrayChange> {
   final RPUIVisualArrayChangeActivityBody sWidget;
   final int numberOfTests;
   final int waitTime;
-  List<Shape> original = [];
-  List<Shape> pictures = [];
-  List<Shape> top = [];
-  List<Shape> arrow = [];
-  List<Shape> hourglass = [];
+  List<_Shape> original = [];
+  List<_Shape> pictures = [];
+  List<_Shape> top = [];
+  List<_Shape> arrow = [];
+  List<_Shape> hourglass = [];
   List<EdgeInsets> padding = [];
   List<int> rotation = [];
   List<int> color = [];
@@ -67,9 +220,9 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
   ];
 
   _VisualArrayChangeState(this.sWidget, this.numberOfTests, this.waitTime);
-  List<Shape> getPictures(List<String> list) => List.generate(
+  List<_Shape> getPictures(List<String> list) => List.generate(
         3,
-        (index) => Shape(
+        (index) => _Shape(
           name: index.toString(),
           urlImage: list[index],
           index: index,
@@ -86,7 +239,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
     rotation = getRotation();
     color = getColor();
     pictures.shuffle();
-    for (Shape picl in pictures) {
+    for (_Shape picl in pictures) {
       original.add(picl);
     }
     memorySeconds = 0;
@@ -114,7 +267,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
       rotation = getRotation();
       color = getColor();
       original = [];
-      for (Shape picl in pictures) {
+      for (_Shape picl in pictures) {
         original.add(picl);
       }
     });
@@ -453,7 +606,7 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
         )
       ])));
 
-  Widget buildShape(int index, Shape picture, double left, double top,
+  Widget buildShape(int index, _Shape picture, double left, double top,
           double right, double bottom) =>
       Padding(
           padding: padding[picture.index],
@@ -474,159 +627,14 @@ class _VisualArrayChangeState extends State<VisualArrayChange> {
                       )))));
 }
 
-class Shape {
+class _Shape {
   String name;
   String urlImage;
   int index;
 
-  Shape({
+  _Shape({
     required this.name,
     required this.urlImage,
     required this.index,
   });
-}
-
-class RPUIVisualArrayChangeActivityBody extends StatefulWidget {
-  final RPVisualArrayChangeActivity activity;
-  final Function(dynamic) onResultChange;
-  final RPActivityEventLogger eventLogger;
-
-  RPUIVisualArrayChangeActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
-
-  @override
-  _RPUI_VisualArrayChangeActivityBodyState createState() =>
-      _RPUI_VisualArrayChangeActivityBodyState();
-}
-
-// ignore: camel_case_types
-class _RPUI_VisualArrayChangeActivityBodyState
-    extends State<RPUIVisualArrayChangeActivityBody> {
-  late ActivityStatus activityStatus;
-
-  @override
-  initState() {
-    super.initState();
-    if (widget.activity.includeInstructions) {
-      activityStatus = ActivityStatus.Instruction;
-      widget.eventLogger.instructionStarted();
-    } else {
-      activityStatus = ActivityStatus.Test;
-      widget.eventLogger.testStarted();
-      startTest();
-    }
-  }
-
-  void startTest() async {
-    Timer(Duration(seconds: widget.activity.lengthOfTest), () {
-      //when time is up, change window and set result
-      if (mounted) {
-        widget.eventLogger.testEnded();
-        widget.onResultChange({'Correct swipes': score});
-        if (widget.activity.includeResults) {
-          widget.eventLogger.resultsShown();
-          setState(() {
-            activityStatus = ActivityStatus.Result;
-          });
-        }
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    switch (activityStatus) {
-      case ActivityStatus.Instruction:
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Memorize the colors of the shapes.',
-                style: TextStyle(fontSize: 20),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Text(
-                'Once ready the shapes will change positions.',
-                style: TextStyle(fontSize: 20),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Text(
-                'Indicate if ANY of the shapes changed color or if ALL shapes remained the same',
-                style: TextStyle(fontSize: 20),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                            'packages/cognition_package/assets/images/shape_recall.png'))),
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                onPressed: () {
-                  widget.eventLogger.instructionEnded();
-                  widget.eventLogger.testStarted();
-                  setState(() {
-                    activityStatus = ActivityStatus.Test;
-                  });
-                  startTest();
-                },
-                child: Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
-          ],
-        );
-      case ActivityStatus.Test:
-        return Scaffold(
-          // appBar: AppBar(
-          //   title: Text('FLANKER TEST SCORE: ${score}'),
-          // ),
-          body: Center(
-              child: VisualArrayChange(
-                  sWidget: widget,
-                  numberOfTests: widget.activity.numberOfTests,
-                  waitTime: widget.activity.waitTime)),
-        );
-      case ActivityStatus.Result:
-        return Center(
-          child: Text(
-            'results:  $score',
-            style: TextStyle(fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
-        );
-      default:
-        return Container();
-    }
-  }
 }

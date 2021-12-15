@@ -22,13 +22,17 @@ class RPTrailMakingActivity extends RPActivityStep {
       RPActivityEventLogger eventLogger) {
     return RPUITrailMakingActivityBody(this, eventLogger, onResultChange);
   }
-}
 
-@override
-calculateScore(dynamic result) {
-  var sum = 5 - result['mistakeCount'];
-  print('trailmaking score: ' + sum.toString());
-  return sum;
+  /// override the AcitivityResult with the results calculation of the test
+  /// this is called when the test is finished
+  /// [results] is number of mistakes made in the trailmaking task
+  /// maximum score is 5 with -1 for each mistake made
+  @override
+  calculateScore(dynamic result) {
+    var sum = 5 - result['mistakeCount'];
+    print('trailmaking score: ' + sum.toString());
+    return sum;
+  }
 }
 
 /// The type of Trail used in a Trail Making Test.

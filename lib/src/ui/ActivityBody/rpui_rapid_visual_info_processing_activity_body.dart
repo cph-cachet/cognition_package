@@ -1,10 +1,18 @@
 part of cognition_package_ui;
 
+/// The [RPUIRapidVisualInfoProcessingActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUIRapidVisualInfoProcessingActivityBody extends StatefulWidget {
+  /// The [RPUIRapidVisualInfoProcessingActivityBody] activity.
   final RPRapidVisualInfoProcessingActivity activity;
+
+  /// The results function for the [RPUIRapidVisualInfoProcessingActivityBody].
   final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIRapidVisualInfoProcessingActivityBody].
   final RPActivityEventLogger eventLogger;
 
+  /// The [RPUIRapidVisualInfoProcessingActivityBody] constructor.
   RPUIRapidVisualInfoProcessingActivityBody(
       this.activity, this.eventLogger, this.onResultChange);
 

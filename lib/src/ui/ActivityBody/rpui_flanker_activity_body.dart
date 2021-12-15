@@ -1,124 +1,18 @@
-// ignore_for_file: unnecessary_new
-
 part of cognition_package_ui;
 
-var score = 0;
-var wrongSwipe = 0;
-var rightSwipe = 0;
-bool even = false;
-
-class Flanker extends StatefulWidget {
-  final int numberOfCards;
-  const Flanker({required this.numberOfCards});
-  @override
-  _FlankerState createState() => _FlankerState(numberOfCards);
-}
-
-class _FlankerState extends State<Flanker> {
-  final int numberOfCards;
-  List<Widget> flankerCards = [];
-  List<FlankerCard> cards(amount) {
-    List<FlankerCard> cards = [];
-    for (var i = 0; i < amount; i++) {
-      even = !even;
-      if (Random().nextBool()) {
-        cards.add(
-          FlankerCard('→', even ? 0xff003F6E : 0xffC32C39),
-        );
-      } else {
-        cards.add(FlankerCard('←', even ? 0xff003F6E : 0xffC32C39));
-      }
-    }
-    return cards;
-  }
-
-  _FlankerState(this.numberOfCards);
-
-  @override
-  initState() {
-    super.initState();
-    flankerCards = cards(numberOfCards);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.7,
-      child: Stack(
-        children: flankerCards,
-      ),
-    );
-  }
-}
-
-class FlankerCard extends StatelessWidget {
-  final int color;
-  final String direction;
-  FlankerCard(this.direction, this.color);
-
-  final String right = '→';
-  final String left = '←';
-
-  String distractors() {
-    String ret = '';
-    for (var i = 0; i < 3; i++) {
-      if (i == 1) {
-        ret += direction;
-      } else if (Random().nextBool()) {
-        ret += '←←';
-      } else {
-        ret += '→→';
-      }
-    }
-    return ret;
-  }
-
-  void onSwipeRight(offset) {
-    if (direction == '→') {
-      rightSwipe = rightSwipe + 1;
-    } else {
-      wrongSwipe = wrongSwipe + 1;
-    }
-    score = score + 1;
-  }
-
-  void onSwipeLeft(offset) {
-    if (direction == '←') {
-      rightSwipe = rightSwipe + 1;
-    } else {
-      wrongSwipe = wrongSwipe + 1;
-    }
-    score = score + 1;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Swipable(
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
-        height: MediaQuery.of(context).size.height * 0.7,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-          color: Color(color),
-        ),
-        child: Center(
-            child: Text(
-          distractors(),
-          style: TextStyle(fontSize: 55, color: Colors.white),
-        )),
-      ),
-      onSwipeRight: onSwipeRight,
-      onSwipeLeft: onSwipeLeft,
-    );
-  }
-}
-
+/// The [RPUIFlankerActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUIFlankerActivityBody extends StatefulWidget {
+  /// The [RPUIFlankerActivityBody] activity.
   final RPFlankerActivity activity;
+
+  /// The results function for the [RPUIFlankerActivityBody].
   final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIFlankerActivityBody].
   final RPActivityEventLogger eventLogger;
 
+  /// The [RPUIFlankerActivityBody] constructor.
   RPUIFlankerActivityBody(this.activity, this.eventLogger, this.onResultChange);
 
   @override
@@ -147,7 +41,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
   int seconds = 0;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
-    testTimer = new Timer.periodic(
+    testTimer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -165,14 +59,14 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
     startTimer();
     await Future.delayed(Duration(seconds: 1));
 
-    if (score == widget.activity.numberOfCards) {
+    if (flankerScore == widget.activity.numberOfCards) {
       if (mounted) {
         widget.eventLogger.testEnded();
 
         var flankerScore =
             widget.activity.calculateScore({'mistakes': wrongSwipe});
         RPFlankerResult flankerResult =
-            new RPFlankerResult(identifier: 'FlankerTaskResult');
+            RPFlankerResult(identifier: 'FlankerTaskResult');
         var taskResults = flankerResult.makeResult(
             wrongSwipe, rightSwipe, seconds, flankerScore);
         testTimer.cancel();
@@ -193,7 +87,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
         var flankerScore =
             widget.activity.calculateScore({'mistakes': wrongSwipe});
         RPFlankerResult flankerResult =
-            new RPFlankerResult(identifier: 'FlankerTaskResult');
+            RPFlankerResult(identifier: 'FlankerTaskResult');
         var taskResults = flankerResult.makeResult(
             wrongSwipe, rightSwipe, seconds, flankerScore);
         testTimer.cancel();
@@ -211,13 +105,13 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
 
   @override
   Widget build(BuildContext context) {
-    if (score == widget.activity.numberOfCards) {
+    if (flankerScore == widget.activity.numberOfCards) {
       if (mounted) {
         widget.eventLogger.testEnded();
         var flankerScore =
             widget.activity.calculateScore({'mistakes': wrongSwipe});
         RPFlankerResult flankerResult =
-            new RPFlankerResult(identifier: 'FlankerTaskResult');
+            RPFlankerResult(identifier: 'FlankerTaskResult');
         var taskResults = flankerResult.makeResult(
             wrongSwipe, rightSwipe, seconds, flankerScore);
         testTimer.cancel();
@@ -295,12 +189,12 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       case ActivityStatus.Test:
         return Scaffold(
           body: Center(
-              child: Flanker(numberOfCards: widget.activity.numberOfCards)),
+              child: _Flanker(numberOfCards: widget.activity.numberOfCards)),
         );
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  $score',
+            'results:  $flankerScore',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -308,5 +202,122 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       default:
         return Container();
     }
+  }
+}
+
+/// score counter for the flanker task used in [RPUIFlankerActivityBody]
+int flankerScore = 0;
+
+/// counter for the wrong swipes in the flanker task used in [RPUIFlankerActivityBody]
+int wrongSwipe = 0;
+
+/// counter for the right swipes in the flanker task used in [RPUIFlankerActivityBody]
+int rightSwipe = 0;
+
+class _Flanker extends StatefulWidget {
+  final int numberOfCards;
+  const _Flanker({required this.numberOfCards});
+  @override
+  _FlankerState createState() => _FlankerState(numberOfCards);
+}
+
+class _FlankerState extends State<_Flanker> {
+  final int numberOfCards;
+  bool even = false;
+  List<Widget> flankerCards = [];
+  List<_FlankerCard> cards(amount) {
+    List<_FlankerCard> cards = [];
+    for (var i = 0; i < amount; i++) {
+      even = !even;
+      if (Random().nextBool()) {
+        cards.add(
+          _FlankerCard('→', even ? 0xff003F6E : 0xffC32C39),
+        );
+      } else {
+        cards.add(_FlankerCard('←', even ? 0xff003F6E : 0xffC32C39));
+      }
+    }
+    return cards;
+  }
+
+  _FlankerState(this.numberOfCards);
+
+  @override
+  initState() {
+    super.initState();
+    flankerCards = cards(numberOfCards);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.7,
+      child: Stack(
+        children: flankerCards,
+      ),
+    );
+  }
+}
+
+class _FlankerCard extends StatelessWidget {
+  final int color;
+  final String direction;
+  _FlankerCard(this.direction, this.color);
+
+  final String right = '→';
+  final String left = '←';
+
+  String distractors() {
+    String ret = '';
+    for (var i = 0; i < 3; i++) {
+      if (i == 1) {
+        ret += direction;
+      } else if (Random().nextBool()) {
+        ret += '←←';
+      } else {
+        ret += '→→';
+      }
+    }
+    return ret;
+  }
+
+  void onSwipeRight(offset) {
+    if (direction == '→') {
+      rightSwipe = rightSwipe + 1;
+    } else {
+      wrongSwipe = wrongSwipe + 1;
+    }
+    flankerScore = flankerScore + 1;
+  }
+
+  void onSwipeLeft(offset) {
+    if (direction == '←') {
+      rightSwipe = rightSwipe + 1;
+    } else {
+      wrongSwipe = wrongSwipe + 1;
+    }
+    flankerScore = flankerScore + 1;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Swipable(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.9,
+        height: MediaQuery.of(context).size.height * 0.7,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16.0),
+          color: Color(color),
+        ),
+        child: Center(
+            child: Text(
+          distractors(),
+          style: TextStyle(fontSize: 55, color: Colors.white),
+        )),
+      ),
+      onSwipeRight: onSwipeRight,
+      onSwipeLeft: onSwipeLeft,
+    );
   }
 }

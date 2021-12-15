@@ -1,10 +1,18 @@
 part of cognition_package_ui;
 
+/// The [RPUICorsiBlockTappingActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUICorsiBlockTappingActivityBody extends StatefulWidget {
+  /// The [RPUICorsiBlockTappingActivityBody] activity.
   final RPCorsiBlockTappingActivity activity;
+
+  /// The results function for the [RPUICorsiBlockTappingActivityBody].
   final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUICorsiBlockTappingActivityBody].
   final RPActivityEventLogger eventLogger;
 
+  /// The [RPUICorsiBlockTappingActivityBody] constructor.
   RPUICorsiBlockTappingActivityBody(
       this.activity, this.eventLogger, this.onResultChange);
 
@@ -13,6 +21,7 @@ class RPUICorsiBlockTappingActivityBody extends StatefulWidget {
       _RPUIFlankerActivityBodyState();
 }
 
+/// state class for [_ContinuousVisualTrackingActivityBody]
 class _RPUIFlankerActivityBodyState
     extends State<RPUICorsiBlockTappingActivityBody> {
   late ActivityStatus activityStatus;

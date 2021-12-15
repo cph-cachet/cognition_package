@@ -1,10 +1,18 @@
 part of cognition_package_ui;
 
+/// The [RPUITappingActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUITappingActivityBody extends StatefulWidget {
+  /// The [RPUITappingActivityBody] activity.
   final RPTappingActivity activity;
+
+  /// The results function for the [RPUITappingActivityBody].
   final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUITappingActivityBody].
   final RPActivityEventLogger eventLogger;
 
+  /// The [RPUITappingActivityBody] constructor.
   RPUITappingActivityBody(this.activity, this.eventLogger, this.onResultChange);
 
   @override

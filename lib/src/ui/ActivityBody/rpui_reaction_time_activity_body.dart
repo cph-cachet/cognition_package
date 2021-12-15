@@ -1,10 +1,18 @@
 part of cognition_package_ui;
 
+/// The [RPUIReactionTimeActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUIReactionTimeActivityBody extends StatefulWidget {
+  /// The [RPUIReactionTimeActivityBody] activity.
   final RPReactionTimeActivity activity;
+
+  /// The results function for the [RPUIReactionTimeActivityBody].
   final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIReactionTimeActivityBody].
   final RPActivityEventLogger eventLogger;
 
+  /// The [RPUIReactionTimeActivityBody] constructor.
   RPUIReactionTimeActivityBody(
       this.activity, this.eventLogger, this.onResultChange);
 

@@ -1,10 +1,18 @@
 part of cognition_package_ui;
 
+/// The [RPUIPairedAssociatesLearningActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUIPairedAssociatesLearningActivityBody extends StatefulWidget {
+  /// The [RPUIPairedAssociatesLearningActivityBody] activity.
   final RPPairedAssociatesLearningActivity activity;
+
+  /// The results function for the [RPUIPairedAssociatesLearningActivityBody].
   final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIPairedAssociatesLearningActivityBody].
   final RPActivityEventLogger eventLogger;
 
+  /// The [RPUIPairedAssociatesLearningActivityBody] constructor.
   RPUIPairedAssociatesLearningActivityBody(
       this.activity, this.eventLogger, this.onResultChange);
 

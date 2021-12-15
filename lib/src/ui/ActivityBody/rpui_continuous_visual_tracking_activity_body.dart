@@ -1,7 +1,137 @@
 part of cognition_package_ui;
 
-/// stateful widget for initiating the [_ContinuousVisualTrackingState] class
-class ContinuousVisualTracking extends StatefulWidget {
+/// The [RPUIContinuousVisualTrackingActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
+class RPUIContinuousVisualTrackingActivityBody extends StatefulWidget {
+  final RPContinuousVisualTrackingActivity activity;
+  final Function(dynamic) onResultChange;
+  final RPActivityEventLogger eventLogger;
+
+  RPUIContinuousVisualTrackingActivityBody(
+      this.activity, this.eventLogger, this.onResultChange);
+
+  @override
+  _RPUI_ContinuousVisualTrackingActivityBodyState createState() =>
+      _RPUI_ContinuousVisualTrackingActivityBodyState();
+}
+
+// ignore: camel_case_types
+class _RPUI_ContinuousVisualTrackingActivityBodyState
+    extends State<RPUIContinuousVisualTrackingActivityBody> {
+  late ActivityStatus activityStatus;
+
+  @override
+  initState() {
+    super.initState();
+    if (widget.activity.includeInstructions) {
+      activityStatus = ActivityStatus.Instruction;
+      widget.eventLogger.instructionStarted();
+    } else {
+      activityStatus = ActivityStatus.Test;
+      widget.eventLogger.testStarted();
+    }
+  }
+
+  /// build the activity with instructions, test and results
+  @override
+  Widget build(BuildContext context) {
+    switch (activityStatus) {
+      case ActivityStatus.Instruction:
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Find the blue dots on the screen.',
+                style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Once ready, press "start" and the dots will turn grey and start moving.',
+                style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Follow the dots and click on them once all the dots stop moving',
+                style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5),
+              child: Container(
+                height: MediaQuery.of(context).size.height / 2.5,
+                width: MediaQuery.of(context).size.width / 1.1,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage(
+                            'packages/cognition_package/assets/images/visual_tracking.png'))),
+              ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              // ignore: deprecated_member_use
+              child: OutlineButton(
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                onPressed: () {
+                  widget.eventLogger.instructionEnded();
+                  widget.eventLogger.testStarted();
+                  setState(() {
+                    activityStatus = ActivityStatus.Test;
+                  });
+                },
+                child: Text(
+                  'Ready',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          ],
+        );
+      case ActivityStatus.Test:
+        return Center(
+            child: Scaffold(
+                body: _ContinuousVisualTrackingActivityBody(
+                    key: widget.key,
+                    topLevelWidget: widget,
+                    numberOfTests: widget.activity.numberOfTests,
+                    amountOfDots: widget.activity.amountOfDots,
+                    dotSize: widget.activity.dotSize,
+                    trackingSpeed: widget.activity.trackingSpeed)));
+      case ActivityStatus.Result:
+        return Center(
+          child: Text(
+            'results:  $flankerScore',
+            style: TextStyle(fontSize: 22),
+            textAlign: TextAlign.center,
+          ),
+        );
+      default:
+        return Container();
+    }
+  }
+}
+
+/// The [_ContinuousVisualTrackingActivityBody] class defines the UI for the
+/// continuous visual tracking task.
+class _ContinuousVisualTrackingActivityBody extends StatefulWidget {
   /// property to pass on the top level widget
   final RPUIContinuousVisualTrackingActivityBody topLevelWidget;
 
@@ -17,7 +147,8 @@ class ContinuousVisualTracking extends StatefulWidget {
   /// the size of the dots to display
   final int dotSize;
 
-  const ContinuousVisualTracking({
+  /// the [continuousVisualTrackingActivityBody] constructor
+  const _ContinuousVisualTrackingActivityBody({
     Key? key,
     required this.topLevelWidget,
     required this.numberOfTests,
@@ -27,13 +158,14 @@ class ContinuousVisualTracking extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ContinuousVisualTrackingState createState() =>
-      _ContinuousVisualTrackingState(
+  _ContinuousVisualTrackingActivityBodyState createState() =>
+      _ContinuousVisualTrackingActivityBodyState(
           topLevelWidget, numberOfTests, amountOfDots, dotSize, trackingSpeed);
 }
 
-/// state class for [ContinuousVisualTracking]
-class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
+/// state class for [_ContinuousVisualTrackingActivityBody]
+class _ContinuousVisualTrackingActivityBodyState
+    extends State<_ContinuousVisualTrackingActivityBody> {
   final RPUIContinuousVisualTrackingActivityBody sWidget;
   final int numberOfTests;
   final int amountOfDots;
@@ -42,7 +174,7 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
 
   int wrong = 0;
   List<int> mistakes = [];
-  List<int> rotation = [];
+  List<int> positions = [];
   bool waiting = false;
   bool guess = false;
   bool finished = false;
@@ -60,11 +192,11 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
       tDots.add(AnimatedPositioned(
         duration: trackingSpeed,
         left: avatarSize +
-            (constraints.biggest.width - 2 * avatarSize) / 100.0 * rotation[i],
+            (constraints.biggest.width - 2 * avatarSize) / 100.0 * positions[i],
         top: avatarSize +
             (constraints.biggest.height - 2 * avatarSize) /
                 100.0 *
-                rotation[(i + amount) + 5],
+                positions[(i + amount) + 5],
         child: GestureDetector(
             onTap: () {
               if (guess) {
@@ -86,11 +218,11 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
         left: avatarSize +
             (constraints.biggest.width - 2 * avatarSize) /
                 100.0 *
-                rotation[i + amount],
+                positions[i + amount],
         top: avatarSize +
             (constraints.biggest.height - 2 * avatarSize) /
                 100.0 *
-                rotation[i + amount + 5],
+                positions[i + amount + 5],
         child: GestureDetector(
             onTap: () {
               if (guess) {
@@ -111,26 +243,28 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
     return tDots;
   }
 
-  _ContinuousVisualTrackingState(this.sWidget, this.numberOfTests,
+  _ContinuousVisualTrackingActivityBodyState(this.sWidget, this.numberOfTests,
       this.amountOfDots, this.dotSize, this.trackingSpeed);
   @override
   initState() {
     mistakes = List.filled(numberOfTests + 1, 0);
     mistakes[0] = -1;
     super.initState();
-    rotation = getRotation();
-    rotation.shuffle();
+    positions = generatePositions();
+    positions.shuffle();
     dots = [true, true];
   }
 
   /// find new positions for all dots
-  void shuffleCircles() {
+  void shuffleDots() {
     setState(() {
-      rotation.shuffle();
+      positions.shuffle();
     });
   }
 
-  List<int> getRotation() => List.generate(100, (index) => rng.nextInt(100));
+  /// generate new positions for all dots
+  List<int> generatePositions() =>
+      List.generate(100, (index) => rng.nextInt(100));
 
   /// reset the test
   void resetTest() async {
@@ -143,7 +277,7 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
   /// start the test
   void startTest() async {
     setState(() {
-      rotation = getRotation();
+      positions = generatePositions();
       dots = [false, false];
     });
     await Future.delayed(trackingSpeed);
@@ -259,131 +393,4 @@ class _ContinuousVisualTrackingState extends State<ContinuousVisualTracking> {
                                   Text('Press the previously colored dots')))),
         )
       ])));
-}
-
-class RPUIContinuousVisualTrackingActivityBody extends StatefulWidget {
-  final RPContinuousVisualTrackingActivity activity;
-  final Function(dynamic) onResultChange;
-  final RPActivityEventLogger eventLogger;
-
-  RPUIContinuousVisualTrackingActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
-
-  @override
-  _RPUI_ContinuousVisualTrackingActivityBodyState createState() =>
-      _RPUI_ContinuousVisualTrackingActivityBodyState();
-}
-
-// ignore: camel_case_types
-class _RPUI_ContinuousVisualTrackingActivityBodyState
-    extends State<RPUIContinuousVisualTrackingActivityBody> {
-  late ActivityStatus activityStatus;
-
-  @override
-  initState() {
-    super.initState();
-    if (widget.activity.includeInstructions) {
-      activityStatus = ActivityStatus.Instruction;
-      widget.eventLogger.instructionStarted();
-    } else {
-      activityStatus = ActivityStatus.Test;
-      widget.eventLogger.testStarted();
-    }
-  }
-
-  /// build the activity with instructions, test and results
-  @override
-  Widget build(BuildContext context) {
-    switch (activityStatus) {
-      case ActivityStatus.Instruction:
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Find the blue dots on the screen.',
-                style: TextStyle(fontSize: 16),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Once ready, press "start" and the dots will turn grey and start moving.',
-                style: TextStyle(fontSize: 16),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Follow the dots and click on them once all the dots stop moving',
-                style: TextStyle(fontSize: 16),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                            'packages/cognition_package/assets/images/visual_tracking.png'))),
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                onPressed: () {
-                  widget.eventLogger.instructionEnded();
-                  widget.eventLogger.testStarted();
-                  setState(() {
-                    activityStatus = ActivityStatus.Test;
-                  });
-                },
-                child: Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
-          ],
-        );
-      case ActivityStatus.Test:
-        return Center(
-            child: Scaffold(
-                body: ContinuousVisualTracking(
-                    key: widget.key,
-                    topLevelWidget: widget,
-                    numberOfTests: widget.activity.numberOfTests,
-                    amountOfDots: widget.activity.amountOfDots,
-                    dotSize: widget.activity.dotSize,
-                    trackingSpeed: widget.activity.trackingSpeed)));
-      case ActivityStatus.Result:
-        return Center(
-          child: Text(
-            'results:  $score',
-            style: TextStyle(fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
-        );
-      default:
-        return Container();
-    }
-  }
 }

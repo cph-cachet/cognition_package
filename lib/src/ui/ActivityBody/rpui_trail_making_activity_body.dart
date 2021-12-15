@@ -1,12 +1,20 @@
-// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member, deprecated_member_use
+// ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
 
 part of cognition_package_ui;
 
+/// The [RPUITrailMakingActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUITrailMakingActivityBody extends StatefulWidget {
+  /// The [RPUITrailMakingActivityBody] activity.
   final RPTrailMakingActivity activity;
+
+  /// The results function for the [RPUITrailMakingActivityBody].
   final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUITrailMakingActivityBody].
   final RPActivityEventLogger eventLogger;
 
+  /// The [RPUITrailMakingActivityBody] constructor.
   RPUITrailMakingActivityBody(
       this.activity, this.eventLogger, this.onResultChange);
 
@@ -129,6 +137,7 @@ class _RPUITrailMakingActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
+              // ignore: deprecated_member_use
               child: OutlineButton(
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 shape: RoundedRectangleBorder(

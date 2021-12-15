@@ -1,7 +1,7 @@
 part of cognition_package_model;
 
 /// A Delayed Recall Test
-/// Must be used after a Word Recall Test
+/// Must be used after a [RPWordRecallActivity]
 @JsonSerializable()
 class RPDelayedRecallActivity extends RPActivityStep {
   /// Contructor for creating a Rapid Visual Information Processesing Test.

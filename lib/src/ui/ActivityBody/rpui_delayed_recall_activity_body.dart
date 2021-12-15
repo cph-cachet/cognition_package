@@ -1,15 +1,147 @@
-// ignore_for_file: unnecessary_new
-
 part of cognition_package_ui;
 
-var timesTaken2 = [];
-List<String> resultsList3 = [];
+/// The [RPUIDelayedRecallActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
+class RPUIDelayedRecallActivityBody extends StatefulWidget {
+  /// The [RPUIDelayedRecallActivityBody] activity.
+  final RPDelayedRecallActivity activity;
 
-class DelayedRecall extends StatefulWidget {
+  /// The results function for the [RPUIDelayedRecallActivityBody].
+  final Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIDelayedRecallActivityBody].
+  final RPActivityEventLogger eventLogger;
+
+  /// The [RPUIDelayedRecallActivityBody] constructor.
+  RPUIDelayedRecallActivityBody(
+      this.activity, this.eventLogger, this.onResultChange);
+
+  @override
+  _RPUI_DelayedRecallActivityBodyState createState() =>
+      _RPUI_DelayedRecallActivityBodyState();
+}
+
+// ignore: camel_case_types
+class _RPUI_DelayedRecallActivityBodyState
+    extends State<RPUIDelayedRecallActivityBody> {
+  late ActivityStatus activityStatus;
+
+  var score = 0;
+
+  @override
+  initState() {
+    super.initState();
+    if (widget.activity.includeInstructions) {
+      activityStatus = ActivityStatus.Instruction;
+      widget.eventLogger.instructionStarted();
+    } else {
+      activityStatus = ActivityStatus.Test;
+      widget.eventLogger.testStarted();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    switch (activityStatus) {
+      case ActivityStatus.Instruction:
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Remember all the words you recall from the exercise earlier?',
+                style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: RichText(
+                text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      TextSpan(
+                          text:
+                              'Write the words you recall in the boxes and click ',
+                          style: TextStyle(fontSize: 16)),
+                      TextSpan(
+                          text: '"guess" ',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xff003F6E),
+                              fontWeight: FontWeight.bold)),
+                    ]),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(5),
+              child: Container(
+                height: MediaQuery.of(context).size.height / 2.5,
+                width: MediaQuery.of(context).size.width / 1.1,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage(
+                            'packages/cognition_package/assets/images/delayed_recall.png'))),
+              ),
+            ),
+            SizedBox(
+              //width: MediaQuery.of(context).size.width / 2,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xffC32C39),
+                  fixedSize: const Size(300, 60),
+                ),
+                child: Text(
+                  'Ready',
+                  style: TextStyle(fontSize: 18),
+                ),
+                onPressed: () {
+                  widget.eventLogger.instructionEnded();
+                  widget.eventLogger.testStarted();
+                  setState(() {
+                    activityStatus = ActivityStatus.Test;
+                  });
+                },
+              ),
+            ),
+          ],
+        );
+      case ActivityStatus.Test:
+        return Scaffold(
+            // appBar: AppBar(
+            //   title: Text('FLANKER TEST SCORE: ${score}'),
+            // ),
+            body: Center(
+                child: _DelayedRecall(
+          sWidget: widget,
+          numberOfTests: widget.activity.numberOfTests,
+        )));
+      case ActivityStatus.Result:
+        return Center(
+          child: Text(
+            'results:  $score',
+            style: TextStyle(fontSize: 22),
+            textAlign: TextAlign.center,
+          ),
+        );
+      default:
+        return Container();
+    }
+  }
+}
+
+class _DelayedRecall extends StatefulWidget {
   final RPUIDelayedRecallActivityBody sWidget;
   final int numberOfTests;
 
-  const DelayedRecall(
+  const _DelayedRecall(
       {Key? key, required this.sWidget, required this.numberOfTests})
       : super(key: key);
 
@@ -18,17 +150,19 @@ class DelayedRecall extends StatefulWidget {
       _DelayedRecallState(sWidget, numberOfTests);
 }
 
-class _DelayedRecallState extends State<DelayedRecall> {
+class _DelayedRecallState extends State<_DelayedRecall> {
   final RPUIDelayedRecallActivityBody sWidget;
   final int numberOfTests;
-
+  var timesTaken2 = [];
+  List<String> resultsList3 = [];
+  var timesTaken = [];
   List<String> wordlist = ['banana', 'icecream', 'violin', 'desk', 'green'];
   List<String> wordlist2 = ['', '', '', '', ''];
   bool waiting = false;
   bool guess = false;
   bool finished = false;
   int time = 0;
-  late SoundService soundService;
+  late _SoundService soundService;
 
   _DelayedRecallState(this.sWidget, this.numberOfTests);
 
@@ -50,7 +184,7 @@ class _DelayedRecallState extends State<DelayedRecall> {
   int seconds = 0;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
-    _timer = new Timer.periodic(
+    _timer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -73,7 +207,7 @@ class _DelayedRecallState extends State<DelayedRecall> {
         .calculateScore({'wordsList': wordlist, 'resultsList': resultsList3});
 
     RPDelayedRecallResult result =
-        new RPDelayedRecallResult(identifier: 'DelayedRecallResult');
+        RPDelayedRecallResult(identifier: 'DelayedRecallResult');
     var taskResults =
         result.makeResult(wordlist, resultsList3, seconds, delayedRecallScore);
 
@@ -192,132 +326,5 @@ class _DelayedRecallState extends State<DelayedRecall> {
         ),
       ),
     ])));
-  }
-}
-
-class RPUIDelayedRecallActivityBody extends StatefulWidget {
-  final RPDelayedRecallActivity activity;
-  final Function(dynamic) onResultChange;
-  final RPActivityEventLogger eventLogger;
-
-  RPUIDelayedRecallActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
-
-  @override
-  _RPUI_DelayedRecallActivityBodyState createState() =>
-      _RPUI_DelayedRecallActivityBodyState();
-}
-
-// ignore: camel_case_types
-class _RPUI_DelayedRecallActivityBodyState
-    extends State<RPUIDelayedRecallActivityBody> {
-  late ActivityStatus activityStatus;
-
-  @override
-  initState() {
-    super.initState();
-    if (widget.activity.includeInstructions) {
-      activityStatus = ActivityStatus.Instruction;
-      widget.eventLogger.instructionStarted();
-    } else {
-      activityStatus = ActivityStatus.Test;
-      widget.eventLogger.testStarted();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    switch (activityStatus) {
-      case ActivityStatus.Instruction:
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Remember all the words you recall from the exercise earlier?',
-                style: TextStyle(fontSize: 16),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: RichText(
-                text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text:
-                              'Write the words you recall in the boxes and click ',
-                          style: TextStyle(fontSize: 16)),
-                      TextSpan(
-                          text: '"guess" ',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff003F6E),
-                              fontWeight: FontWeight.bold)),
-                    ]),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                            'packages/cognition_package/assets/images/delayed_recall.png'))),
-              ),
-            ),
-            SizedBox(
-              //width: MediaQuery.of(context).size.width / 2,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xffC32C39),
-                  fixedSize: const Size(300, 60),
-                ),
-                child: Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
-                ),
-                onPressed: () {
-                  widget.eventLogger.instructionEnded();
-                  widget.eventLogger.testStarted();
-                  setState(() {
-                    activityStatus = ActivityStatus.Test;
-                  });
-                },
-              ),
-            ),
-          ],
-        );
-      case ActivityStatus.Test:
-        return Scaffold(
-            // appBar: AppBar(
-            //   title: Text('FLANKER TEST SCORE: ${score}'),
-            // ),
-            body: Center(
-                child: DelayedRecall(
-          sWidget: widget,
-          numberOfTests: widget.activity.numberOfTests,
-        )));
-      case ActivityStatus.Result:
-        return Center(
-          child: Text(
-            'results:  $score',
-            style: TextStyle(fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
-        );
-      default:
-        return Container();
-    }
   }
 }
