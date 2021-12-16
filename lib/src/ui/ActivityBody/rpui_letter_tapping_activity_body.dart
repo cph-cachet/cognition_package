@@ -118,7 +118,7 @@ class _RPUILetterTappingActivityBodyState
     updateLetter('');
     if (mounted) {
       int score = errors < 2 ? 1 : 0;
-      widget.onResultChange({'amount fo errors': errors, 'score': score});
+      widget.onResultChange({'amount of errors': errors, 'score': score});
       widget.eventLogger.testEnded();
       if (widget.activity.includeResults) {
         widget.eventLogger.resultsShown();

@@ -15,4 +15,12 @@ class RPLetterTappingActivity extends RPActivityStep {
       RPActivityEventLogger eventLogger) {
     return RPUILetterTappingActivityBody(this, eventLogger, onResultChange);
   }
+
+  @override
+  calculateScore(dynamic result) {
+    var errors = result['errors'];
+    int score = errors < 2 ? 1 : 0;
+    print('trailmaking score: ' + score.toString());
+    return score;
+  }
 }
