@@ -41,9 +41,9 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(10),
               child: Text(
-                'Find the blue dots on the screen.',
+                'Find the blue dots on the next screen. These are the targets dots.',
                 style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -51,9 +51,9 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(10),
               child: Text(
-                'Once ready, press "start" and the dots will turn grey and start moving.',
+                'Once ready, press "start" and the target dots will turn grey and start moving.',
                 style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -61,9 +61,19 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(10),
               child: Text(
-                'Follow the dots and click on them once all the dots stop moving',
+                'Follow the target dots around the screen',
+                style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                'Once the dots stop moving find and click on the target dots and they will turn the original color.',
                 style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -113,6 +123,7 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
                     topLevelWidget: widget,
                     numberOfTests: widget.activity.numberOfTests,
                     amountOfDots: widget.activity.amountOfDots,
+                    amountOfTargets: widget.activity.amountOfTargets,
                     dotSize: widget.activity.dotSize,
                     trackingSpeed: widget.activity.trackingSpeed)));
       case ActivityStatus.Result:
@@ -141,6 +152,8 @@ class _ContinuousVisualTrackingActivityBody extends StatefulWidget {
   /// the number of dots to display
   final int amountOfDots;
 
+  final int amountOfTargets;
+
   /// the speed of the dots in milliseconds
   final Duration trackingSpeed;
 
@@ -153,14 +166,15 @@ class _ContinuousVisualTrackingActivityBody extends StatefulWidget {
     required this.topLevelWidget,
     required this.numberOfTests,
     required this.amountOfDots,
+    required this.amountOfTargets,
     required this.dotSize,
     required this.trackingSpeed,
   }) : super(key: key);
 
   @override
   _ContinuousVisualTrackingActivityBodyState createState() =>
-      _ContinuousVisualTrackingActivityBodyState(
-          topLevelWidget, numberOfTests, amountOfDots, dotSize, trackingSpeed);
+      _ContinuousVisualTrackingActivityBodyState(topLevelWidget, numberOfTests,
+          amountOfDots, amountOfTargets, dotSize, trackingSpeed);
 }
 
 /// state class for [_ContinuousVisualTrackingActivityBody]
@@ -169,6 +183,7 @@ class _ContinuousVisualTrackingActivityBodyState
   final RPUIContinuousVisualTrackingActivityBody sWidget;
   final int numberOfTests;
   final int amountOfDots;
+  final int amountOfTargets;
   final int dotSize;
   final Duration trackingSpeed;
 
@@ -179,6 +194,7 @@ class _ContinuousVisualTrackingActivityBodyState
   bool guess = false;
   bool finished = false;
   List<bool> dots = [];
+  List<bool> distractors = [];
   var visualScoreList = [];
   int conCurrentNum = 1;
 
@@ -186,7 +202,8 @@ class _ContinuousVisualTrackingActivityBodyState
   /// amount: amount of dots to add
   /// constraint: the constraint of the list
   /// avatarsize: the size of the dots
-  List<AnimatedPositioned> getDots(int amount, constraints, avatarSize) {
+  List<AnimatedPositioned> getDots(
+      int amount, int targetAmount, constraints, avatarSize) {
     List<AnimatedPositioned> tDots = [];
     for (var i = 0; i < amount; i++) {
       tDots.add(AnimatedPositioned(
@@ -198,21 +215,26 @@ class _ContinuousVisualTrackingActivityBodyState
                 100.0 *
                 positions[(i + amount) + 5],
         child: GestureDetector(
-            onTap: () {
+            onTap: () async {
               if (guess) {
                 setState(() {
+                  distractors[i] = true;
                   wrong += 1;
                   mistakes[conCurrentNum] = mistakes[conCurrentNum] + 1;
+                });
+                await Future.delayed(Duration(milliseconds: 250));
+                setState(() {
+                  distractors[i] = false;
                 });
               }
             },
             child: CircleAvatar(
               radius: avatarSize / 2,
-              backgroundColor: Colors.grey,
+              backgroundColor: distractors[i] ? Color(0xffFF0000) : Colors.grey,
             )),
       ));
     }
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < targetAmount; i++) {
       tDots.add(AnimatedPositioned(
         duration: trackingSpeed,
         left: avatarSize +
@@ -228,7 +250,8 @@ class _ContinuousVisualTrackingActivityBodyState
               if (guess) {
                 setState(() {
                   dots[i] = true;
-                  if (listEquals(dots, [true, true])) {
+                  var targetsFound = dots.where((item) => item == true).length;
+                  if (targetsFound == targetAmount) {
                     makeGuess();
                   }
                 });
@@ -243,8 +266,13 @@ class _ContinuousVisualTrackingActivityBodyState
     return tDots;
   }
 
-  _ContinuousVisualTrackingActivityBodyState(this.sWidget, this.numberOfTests,
-      this.amountOfDots, this.dotSize, this.trackingSpeed);
+  _ContinuousVisualTrackingActivityBodyState(
+      this.sWidget,
+      this.numberOfTests,
+      this.amountOfDots,
+      this.amountOfTargets,
+      this.dotSize,
+      this.trackingSpeed);
   @override
   initState() {
     mistakes = List.filled(numberOfTests + 1, 0);
@@ -252,7 +280,8 @@ class _ContinuousVisualTrackingActivityBodyState
     super.initState();
     positions = generatePositions();
     positions.shuffle();
-    dots = [true, true];
+    dots = List.filled(amountOfTargets, true);
+    distractors = List.filled(amountOfDots, false);
   }
 
   /// find new positions for all dots
@@ -278,7 +307,7 @@ class _ContinuousVisualTrackingActivityBodyState
   void startTest() async {
     setState(() {
       positions = generatePositions();
-      dots = [false, false];
+      dots = List.filled(amountOfTargets, false);
     });
     await Future.delayed(trackingSpeed);
     setState(() {
@@ -351,7 +380,8 @@ class _ContinuousVisualTrackingActivityBodyState
             width: MediaQuery.of(context).size.width - 20,
             child: LayoutBuilder(builder: (context, constraints) {
               return Stack(
-                  children: getDots(amountOfDots, constraints, dotSize));
+                  children: getDots(
+                      amountOfDots, amountOfTargets, constraints, dotSize));
             })),
         Container(
           child: Padding(

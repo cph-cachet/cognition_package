@@ -8,6 +8,7 @@ class RPVisualArrayChangeActivity extends RPActivityStep {
     String identifier, {
     includeInstructions = true,
     includeResults = true,
+    this.numberOfShapes = 3,
     // this.interval = 9,
     this.lengthOfTest = 90,
     this.waitTime = 2,
@@ -22,6 +23,8 @@ class RPVisualArrayChangeActivity extends RPActivityStep {
 
   /// number of tests to run. Default is 3
   int numberOfTests;
+
+  int numberOfShapes;
 
   /// wait time between tests in seconds. Default is 2 seconds
   int waitTime;

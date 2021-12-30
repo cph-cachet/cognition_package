@@ -55,37 +55,38 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
     );
   }
 
+  late Timer flankerTimer;
+  int flankerSeconds = 0;
+  void startFlankerTimer() {
+    const oneSec = Duration(milliseconds: 1);
+    flankerTimer = Timer.periodic(
+      oneSec,
+      (Timer timer) => setState(
+        () {
+          if (flankerSeconds < 0) {
+            timer.cancel();
+          } else {
+            flankerSeconds = flankerSeconds + 1;
+          }
+        },
+      ),
+    );
+  }
+
   void startTest() async {
     startTimer();
     await Future.delayed(Duration(seconds: 1));
-
-    if (flankerScore == widget.activity.numberOfCards) {
-      if (mounted) {
-        widget.eventLogger.testEnded();
-
-        var flankerScore =
-            widget.activity.calculateScore({'mistakes': wrongSwipe});
-        RPFlankerResult flankerResult =
-            RPFlankerResult(identifier: 'FlankerTaskResult');
-        var taskResults = flankerResult.makeResult(
-            wrongSwipe, rightSwipe, seconds, flankerScore);
-        testTimer.cancel();
-        seconds = 0;
-        widget.onResultChange(taskResults.results);
-        if (widget.activity.includeResults) {
-          widget.eventLogger.resultsShown();
-          setState(() {
-            activityStatus = ActivityStatus.Result;
-          });
-        }
-      }
-    }
-
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       if (mounted) {
         widget.eventLogger.testEnded();
-        var flankerScore =
-            widget.activity.calculateScore({'mistakes': wrongSwipe});
+        print("flanker scoring begins 2");
+        var flankerScore = widget.activity.calculateScore({
+          'mistakes': wrongSwipe,
+          'correct': rightSwipe,
+          'congruentTimes': congruentTimes,
+          'incongruentTimes': incongruentTimes
+        });
+        print("done the score");
         RPFlankerResult flankerResult =
             RPFlankerResult(identifier: 'FlankerTaskResult');
         var taskResults = flankerResult.makeResult(
@@ -106,10 +107,17 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
   @override
   Widget build(BuildContext context) {
     if (flankerScore == widget.activity.numberOfCards) {
+      flankerScore = 0;
       if (mounted) {
         widget.eventLogger.testEnded();
-        var flankerScore =
-            widget.activity.calculateScore({'mistakes': wrongSwipe});
+        print("flanker scoring begins 3");
+        var flankerScore = widget.activity.calculateScore({
+          'mistakes': wrongSwipe,
+          'correct': rightSwipe,
+          'congruentTimes': congruentTimes,
+          'incongruentTimes': incongruentTimes
+        });
+        print("done the score");
         RPFlankerResult flankerResult =
             RPFlankerResult(identifier: 'FlankerTaskResult');
         var taskResults = flankerResult.makeResult(
@@ -131,10 +139,10 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Swipe the cards in the direction of the middle arrow on each card.',
-                style: TextStyle(fontSize: 20),
+                'Each card has 5 arrows on it.',
+                style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -143,8 +151,18 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
             Padding(
               padding: EdgeInsets.all(20),
               child: Text(
+                'Swipe the cards in the direction of the middle arrow on each card.',
+                style: TextStyle(fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
                 'Ignore all other arrows on the cards, they are only there to distract you',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -189,7 +207,9 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       case ActivityStatus.Test:
         return Scaffold(
           body: Center(
-              child: _Flanker(numberOfCards: widget.activity.numberOfCards)),
+              child: _Flanker(
+                  numberOfCards: widget.activity.numberOfCards,
+                  parentClass: this)),
         );
       case ActivityStatus.Result:
         return Center(
@@ -214,16 +234,22 @@ int wrongSwipe = 0;
 /// counter for the right swipes in the flanker task used in [RPUIFlankerActivityBody]
 int rightSwipe = 0;
 
+List<int> congruentTimes = [];
+List<int> incongruentTimes = [];
+
 class _Flanker extends StatefulWidget {
   final int numberOfCards;
-  const _Flanker({required this.numberOfCards});
+  final _RPUI_FlankerActivityBodyState parentClass;
+  const _Flanker({required this.numberOfCards, required this.parentClass});
   @override
-  _FlankerState createState() => _FlankerState(numberOfCards);
+  _FlankerState createState() => _FlankerState(numberOfCards, parentClass);
 }
 
 class _FlankerState extends State<_Flanker> {
   final int numberOfCards;
+  final _RPUI_FlankerActivityBodyState parentClass;
   bool even = false;
+
   List<Widget> flankerCards = [];
   List<_FlankerCard> cards(amount) {
     List<_FlankerCard> cards = [];
@@ -231,16 +257,18 @@ class _FlankerState extends State<_Flanker> {
       even = !even;
       if (Random().nextBool()) {
         cards.add(
-          _FlankerCard('→', even ? 0xff003F6E : 0xffC32C39),
+          _FlankerCard('→', even ? 0xff003F6E : 0xffC32C39, parentClass),
         );
       } else {
-        cards.add(_FlankerCard('←', even ? 0xff003F6E : 0xffC32C39));
+        cards.add(
+            _FlankerCard('←', even ? 0xff003F6E : 0xffC32C39, parentClass));
       }
     }
+    parentClass.startFlankerTimer();
     return cards;
   }
 
-  _FlankerState(this.numberOfCards);
+  _FlankerState(this.numberOfCards, this.parentClass);
 
   @override
   initState() {
@@ -263,20 +291,26 @@ class _FlankerState extends State<_Flanker> {
 class _FlankerCard extends StatelessWidget {
   final int color;
   final String direction;
-  _FlankerCard(this.direction, this.color);
+  final _RPUI_FlankerActivityBodyState parentClass;
+  _FlankerCard(this.direction, this.color, this.parentClass);
 
   final String right = '→';
   final String left = '←';
+  final bool congruent = Random().nextBool();
 
-  String distractors() {
+  String stimuli() {
     String ret = '';
-    for (var i = 0; i < 3; i++) {
-      if (i == 1) {
+    for (var i = 0; i < 5; i++) {
+      if (i == 2) {
         ret += direction;
-      } else if (Random().nextBool()) {
-        ret += '←←';
+      } else if (congruent) {
+        ret += direction;
       } else {
-        ret += '→→';
+        if (direction == '→') {
+          ret += '←';
+        } else {
+          ret += '→';
+        }
       }
     }
     return ret;
@@ -285,19 +319,31 @@ class _FlankerCard extends StatelessWidget {
   void onSwipeRight(offset) {
     if (direction == '→') {
       rightSwipe = rightSwipe + 1;
+      if (congruent) {
+        congruentTimes.add(parentClass.flankerSeconds);
+      } else {
+        incongruentTimes.add(parentClass.flankerSeconds);
+      }
     } else {
       wrongSwipe = wrongSwipe + 1;
     }
     flankerScore = flankerScore + 1;
+    parentClass.flankerSeconds = 0;
   }
 
   void onSwipeLeft(offset) {
     if (direction == '←') {
       rightSwipe = rightSwipe + 1;
+      if (congruent) {
+        congruentTimes.add(parentClass.flankerSeconds);
+      } else {
+        incongruentTimes.add(parentClass.flankerSeconds);
+      }
     } else {
       wrongSwipe = wrongSwipe + 1;
     }
     flankerScore = flankerScore + 1;
+    parentClass.flankerSeconds = 0;
   }
 
   @override
@@ -312,7 +358,7 @@ class _FlankerCard extends StatelessWidget {
         ),
         child: Center(
             child: Text(
-          distractors(),
+          stimuli(),
           style: TextStyle(fontSize: 55, color: Colors.white),
         )),
       ),

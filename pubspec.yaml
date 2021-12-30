@@ -118,6 +118,20 @@ flutter:
     - packages/cognition_package/assets/images/boomerang_5.png
     
     
+    - packages/cognition_package/assets/images/bean_1.png
+    - packages/cognition_package/assets/images/bean_2.png
+    - packages/cognition_package/assets/images/bean_3.png
+    - packages/cognition_package/assets/images/bean_4.png
+    - packages/cognition_package/assets/images/bean_1.png
+    - packages/cognition_package/assets/images/bean_5.png
+
+    - packages/cognition_package/assets/images/bowl_1.png
+    - packages/cognition_package/assets/images/bowl_2.png
+    - packages/cognition_package/assets/images/bowl_3.png
+    - packages/cognition_package/assets/images/bowl_4.png
+    - packages/cognition_package/assets/images/bowl_1.png
+    - packages/cognition_package/assets/images/bowl_5.png
+    
 
     # Test intro images
     - packages/cognition_package/assets/images/PALintro.png

@@ -137,6 +137,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
               child: _VisualArrayChange(
                   sWidget: widget,
                   numberOfTests: widget.activity.numberOfTests,
+                  numberOfShapes: widget.activity.numberOfShapes,
                   waitTime: widget.activity.waitTime)),
         );
       case ActivityStatus.Result:
@@ -156,29 +157,34 @@ class _RPUI_VisualArrayChangeActivityBodyState
 class _VisualArrayChange extends StatefulWidget {
   final RPUIVisualArrayChangeActivityBody sWidget;
   final int numberOfTests;
+  final int numberOfShapes;
   final int waitTime;
 
   const _VisualArrayChange(
       {Key? key,
       required this.sWidget,
       required this.numberOfTests,
+      required this.numberOfShapes,
       required this.waitTime})
       : super(key: key);
 
   @override
   _VisualArrayChangeState createState() =>
-      _VisualArrayChangeState(sWidget, numberOfTests, waitTime);
+      _VisualArrayChangeState(sWidget, numberOfTests, numberOfShapes, waitTime);
 }
 
 class _VisualArrayChangeState extends State<_VisualArrayChange> {
   final RPUIVisualArrayChangeActivityBody sWidget;
   final int numberOfTests;
+  final int numberOfShapes;
   final int waitTime;
   List<_Shape> original = [];
   List<_Shape> pictures = [];
   List<_Shape> top = [];
   List<_Shape> arrow = [];
   List<_Shape> hourglass = [];
+  List<_Shape> bowl = [];
+  List<_Shape> bean = [];
   List<EdgeInsets> padding = [];
   List<int> rotation = [];
   List<int> color = [];
@@ -219,9 +225,61 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
     'packages/cognition_package/assets/images/hourglass_5.png',
   ];
 
-  _VisualArrayChangeState(this.sWidget, this.numberOfTests, this.waitTime);
+  List<String> beans = [
+    'packages/cognition_package/assets/images/bean_1.png',
+    'packages/cognition_package/assets/images/bean_2.png',
+    'packages/cognition_package/assets/images/bean_3.png',
+    'packages/cognition_package/assets/images/bean_4.png',
+    'packages/cognition_package/assets/images/bean_5.png',
+  ];
+
+  List<String> bowls = [
+    'packages/cognition_package/assets/images/bowl_1.png',
+    'packages/cognition_package/assets/images/bowl_2.png',
+    'packages/cognition_package/assets/images/bowl_3.png',
+    'packages/cognition_package/assets/images/bowl_4.png',
+    'packages/cognition_package/assets/images/bowl_5.png',
+  ];
+
+  List<Positioned> makeShapes(int numberOfShapes, constraints, avatarSize) {
+    List<Positioned> shapes = [];
+    top = getPictures(tops);
+    hourglass = getPictures(hourglasses);
+    arrow = getPictures(arrows);
+    bowl = getPictures(bowls);
+    bean = getPictures(beans);
+    var shape = [arrow, top, hourglass, bowl, bean];
+
+    for (int i = 0; i < numberOfShapes; i++) {
+      shapes.add(
+        Positioned(
+            left: avatarSize +
+                (constraints.biggest.width - 2 * avatarSize) /
+                    100.0 *
+                    rotation[i],
+            top: avatarSize +
+                (constraints.biggest.height - 2 * avatarSize) /
+                    100.0 *
+                    rotation[i + 1],
+            child: CircleAvatar(
+                radius: avatarSize / 2,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      image: DecorationImage(
+                          image: AssetImage(shape[i][color[i]].urlImage),
+                          fit: BoxFit.scaleDown)),
+                ),
+                backgroundColor: Colors.transparent)),
+      );
+    }
+    return shapes;
+  }
+
+  _VisualArrayChangeState(
+      this.sWidget, this.numberOfTests, this.numberOfShapes, this.waitTime);
   List<_Shape> getPictures(List<String> list) => List.generate(
-        3,
+        5,
         (index) => _Shape(
           name: index.toString(),
           urlImage: list[index],
@@ -246,8 +304,9 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
     startMemoryTimer();
   }
 
-  List<int> getRotation() => List.generate(6, (index) => rng.nextInt(100));
-  List<int> getColor() => List.generate(3, (index) => rng.nextInt(3));
+  List<Positioned> shapes = [];
+  List<int> getRotation() => List.generate(10, (index) => rng.nextInt(100));
+  List<int> getColor() => List.generate(5, (index) => rng.nextInt(5));
 
   List<EdgeInsets> getPadding() => List.generate(
       4,
@@ -353,7 +412,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
         sWidget.eventLogger.testEnded();
 
         var visualArrayChangeScore =
-            sWidget.activity.calculateScore({'correct': right});
+            sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
         RPVisualArrayChangeResult flankerResult =
             RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
@@ -376,7 +435,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
       if (viscurrentNum > numberOfTests) {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
-            sWidget.activity.calculateScore({'correct': right});
+            sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
         RPVisualArrayChangeResult flankerResult =
             RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
@@ -405,7 +464,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
         right += 1;
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
-            sWidget.activity.calculateScore({'correct': right});
+            sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
         RPVisualArrayChangeResult flankerResult =
             RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
@@ -427,7 +486,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
       if (viscurrentNum > numberOfTests) {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
-            sWidget.activity.calculateScore({'correct': right});
+            sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
         RPVisualArrayChangeResult flankerResult =
             RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
         var taskResults = flankerResult.makeResult(
@@ -457,71 +516,73 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
               ? LayoutBuilder(builder: (context, constraints) {
                   final avatarSize = 100.0;
                   return Stack(
-                    children: [
-                      Positioned(
-                          left: avatarSize +
-                              (constraints.biggest.width - 2 * avatarSize) /
-                                  100.0 *
-                                  rotation[0],
-                          top: avatarSize +
-                              (constraints.biggest.height - 2 * avatarSize) /
-                                  100.0 *
-                                  rotation[1],
-                          child: CircleAvatar(
-                              radius: avatarSize / 2,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            hourglass[color[0]].urlImage),
-                                        fit: BoxFit.scaleDown)),
-                              ),
-                              backgroundColor: Colors.transparent)),
-                      Positioned(
-                          left: avatarSize +
-                              (constraints.biggest.width - 2 * avatarSize) /
-                                  100.0 *
-                                  rotation[2],
-                          top: avatarSize +
-                              (constraints.biggest.height - 2 * avatarSize) /
-                                  100.0 *
-                                  rotation[3],
-                          child: CircleAvatar(
-                              radius: avatarSize / 2,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            arrow[color[1]].urlImage),
-                                        fit: BoxFit.scaleDown)),
-                              ),
-                              backgroundColor: Colors.transparent)),
-                      Positioned(
-                          left: avatarSize +
-                              (constraints.biggest.width - 2 * avatarSize) /
-                                  100.0 *
-                                  rotation[4],
-                          top: avatarSize +
-                              (constraints.biggest.height - 2 * avatarSize) /
-                                  100.0 *
-                                  rotation[5],
-                          child: CircleAvatar(
-                              radius: avatarSize / 2,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    image: DecorationImage(
-                                        image:
-                                            AssetImage(top[color[2]].urlImage),
-                                        fit: BoxFit.scaleDown)),
-                              ),
-                              backgroundColor: Colors.transparent)),
-                    ],
+                    children:
+                        makeShapes(numberOfShapes, constraints, avatarSize),
+                    // [
+                    // Positioned(
+                    //     left: avatarSize +
+                    //         (constraints.biggest.width - 2 * avatarSize) /
+                    //             100.0 *
+                    //             rotation[0],
+                    //     top: avatarSize +
+                    //         (constraints.biggest.height - 2 * avatarSize) /
+                    //             100.0 *
+                    //             rotation[1],
+                    //     child: CircleAvatar(
+                    //         radius: avatarSize / 2,
+                    //         child: Container(
+                    //           decoration: BoxDecoration(
+                    //               borderRadius:
+                    //                   BorderRadius.all(Radius.circular(20)),
+                    //               image: DecorationImage(
+                    //                   image: AssetImage(
+                    //                       hourglass[color[0]].urlImage),
+                    //                   fit: BoxFit.scaleDown)),
+                    //         ),
+                    //         backgroundColor: Colors.transparent)),
+                    // Positioned(
+                    //     left: avatarSize +
+                    //         (constraints.biggest.width - 2 * avatarSize) /
+                    //             100.0 *
+                    //             rotation[2],
+                    //     top: avatarSize +
+                    //         (constraints.biggest.height - 2 * avatarSize) /
+                    //             100.0 *
+                    //             rotation[3],
+                    //     child: CircleAvatar(
+                    //         radius: avatarSize / 2,
+                    //         child: Container(
+                    //           decoration: BoxDecoration(
+                    //               borderRadius:
+                    //                   BorderRadius.all(Radius.circular(20)),
+                    //               image: DecorationImage(
+                    //                   image: AssetImage(
+                    //                       arrow[color[1]].urlImage),
+                    //                   fit: BoxFit.scaleDown)),
+                    //         ),
+                    //         backgroundColor: Colors.transparent)),
+                    // Positioned(
+                    //     left: avatarSize +
+                    //         (constraints.biggest.width - 2 * avatarSize) /
+                    //             100.0 *
+                    //             rotation[4],
+                    //     top: avatarSize +
+                    //         (constraints.biggest.height - 2 * avatarSize) /
+                    //             100.0 *
+                    //             rotation[5],
+                    //     child: CircleAvatar(
+                    //         radius: avatarSize / 2,
+                    //         child: Container(
+                    //           decoration: BoxDecoration(
+                    //               borderRadius:
+                    //                   BorderRadius.all(Radius.circular(20)),
+                    //               image: DecorationImage(
+                    //                   image:
+                    //                       AssetImage(top[color[2]].urlImage),
+                    //                   fit: BoxFit.scaleDown)),
+                    //         ),
+                    //         backgroundColor: Colors.transparent)),
+                    // ],
                   );
                 })
               : Center(

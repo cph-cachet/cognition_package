@@ -37,7 +37,7 @@ RPActivityStep stroopEffect = RPStroopEffectActivity(
 );
 
 RPActivityStep flanker = RPFlankerActivity('Flanker step ID',
-    lengthOfTest: 30, numberOfCards: 25, includeResults: false);
+    lengthOfTest: 300, numberOfCards: 10, includeResults: false);
 
 RPActivityStep pictureSequenceMemory = RPPictureSequenceMemoryActivity(
     'PictureSequenceMemory step ID',
@@ -71,14 +71,14 @@ RPActivityStep continuousVisualTracking = RPContinuousVisualTrackingActivity(
 RPOrderedTask surveyTask = RPOrderedTask(
   identifier: 'surveyTaskID',
   steps: [
-    activityStepTrail,
-    continuousVisualTracking,
-    wordRecall,
-    pictureSequenceMemory,
-    activityStepLetterTapping,
-    flanker,
+    // activityStepTrail,
+    // continuousVisualTracking,
+    // wordRecall,
+    // pictureSequenceMemory,
+    // activityStepLetterTapping,
+    // flanker,
     visualArrayChange,
-    delayedRecall,
-    completionStep,
+    // delayedRecall,
+    // completionStep,
   ],
 );

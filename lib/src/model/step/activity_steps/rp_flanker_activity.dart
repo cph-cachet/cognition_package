@@ -36,10 +36,22 @@ class RPFlankerActivity extends RPActivityStep {
   /// else a score of 1 is returned
   @override
   calculateScore(dynamic result) {
-    var sum = 1;
-    if (result['mistakes'] > 2) {
+    var accuracy = result['correct'] / (result['correct'] + result['mistakes']);
+
+    int conSum = result['congruentTimes'].fold(0, (p, c) => p + c);
+    var meanCongruent = conSum / result['congruentTimes'].length;
+
+    int inconSum = result['incongruentTimes'].fold(0, (p, c) => p + c);
+    var meanIncongruent = inconSum / result['incongruentTimes'].length;
+
+    var sum = 0;
+    if (meanIncongruent - meanCongruent < 500) {
+      sum = 1;
+    }
+    if (accuracy < 0.73) {
       sum = 0;
     }
+
     print('flanker score: ' + sum.toString());
     return sum;
   }

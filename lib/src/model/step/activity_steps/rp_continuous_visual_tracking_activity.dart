@@ -11,6 +11,7 @@ class RPContinuousVisualTrackingActivity extends RPActivityStep {
       this.lengthOfTest = 90,
       this.numberOfTests = 3,
       this.amountOfDots = 5,
+      this.amountOfTargets = 2,
       this.dotSize = 100,
       this.trackingSpeed = const Duration(seconds: 5)
       // this.sequence = const [3, 6, 9]
@@ -27,6 +28,8 @@ class RPContinuousVisualTrackingActivity extends RPActivityStep {
 
   /// Amount of dots to be displayed. Default is 5
   int amountOfDots;
+
+  int amountOfTargets;
 
   /// Size of the dots in pixels. Default is 100
   int dotSize;
@@ -53,7 +56,7 @@ class RPContinuousVisualTrackingActivity extends RPActivityStep {
     var sum = 0;
     List<int> mistakes = result['mistakes'];
     for (var round in mistakes) {
-      if (round == 0) {
+      if (round > amountOfTargets) {
         sum += 1;
       }
     }
