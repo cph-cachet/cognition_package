@@ -64,7 +64,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       (Timer timer) => setState(
         () {
           if (flankerSeconds < 0) {
-            timer.cancel();
+            flankerTimer.cancel();
           } else {
             flankerSeconds = flankerSeconds + 1;
           }
@@ -92,6 +92,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
         var taskResults = flankerResult.makeResult(
             wrongSwipe, rightSwipe, seconds, flankerScore);
         testTimer.cancel();
+        flankerTimer.cancel();
         seconds = 0;
         widget.onResultChange(taskResults.results);
         if (widget.activity.includeResults) {
@@ -123,6 +124,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
         var taskResults = flankerResult.makeResult(
             wrongSwipe, rightSwipe, seconds, flankerScore);
         testTimer.cancel();
+        flankerTimer.cancel();
         widget.onResultChange(taskResults.results);
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();

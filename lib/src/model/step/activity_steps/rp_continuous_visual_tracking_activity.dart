@@ -56,7 +56,7 @@ class RPContinuousVisualTrackingActivity extends RPActivityStep {
     var sum = 0;
     List<int> mistakes = result['mistakes'];
     for (var round in mistakes) {
-      if (round > amountOfTargets) {
+      if (round < amountOfTargets) {
         sum += 1;
       }
     }

@@ -341,7 +341,9 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
           pictureScoreList,
           pictureTimesList,
           memorySecondList,
-          pictureSequenceScore);
+          pictureSequenceScore,
+          original,
+          pictures);
 
       sWidget.onResultChange(taskResults.results);
 

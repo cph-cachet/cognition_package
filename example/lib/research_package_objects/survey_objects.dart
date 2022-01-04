@@ -71,14 +71,14 @@ RPActivityStep continuousVisualTracking = RPContinuousVisualTrackingActivity(
 RPOrderedTask surveyTask = RPOrderedTask(
   identifier: 'surveyTaskID',
   steps: [
-    // activityStepTrail,
-    // continuousVisualTracking,
-    // wordRecall,
-    // pictureSequenceMemory,
-    // activityStepLetterTapping,
-    // flanker,
+    activityStepTrail,
+    continuousVisualTracking,
+    wordRecall,
+    pictureSequenceMemory,
+    activityStepLetterTapping,
+    flanker,
     visualArrayChange,
-    // delayedRecall,
-    // completionStep,
+    delayedRecall,
+    completionStep,
   ],
 );
