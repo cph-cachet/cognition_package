@@ -272,6 +272,10 @@ class _WordRecallState extends State<_WordRecall> {
         setState(() {
           finished = true;
         });
+      } else {
+        setState(() {
+          finished = true;
+        });
       }
     } else {
       resultsList1 = wordlist2;
@@ -421,7 +425,7 @@ class _WordRecallState extends State<_WordRecall> {
                   ? Center(
                       child: Container(
                       child: Text(
-                        'Correct',
+                        'Click next to continue',
                         style: TextStyle(fontSize: 18),
                       ),
                     ))

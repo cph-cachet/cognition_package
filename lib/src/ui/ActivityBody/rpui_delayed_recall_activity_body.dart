@@ -217,6 +217,10 @@ class _DelayedRecallState extends State<_DelayedRecall> {
       setState(() {
         finished = true;
       });
+    } else {
+      setState(() {
+        finished = true;
+      });
     }
   }
 

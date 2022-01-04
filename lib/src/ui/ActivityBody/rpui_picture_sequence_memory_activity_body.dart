@@ -255,6 +255,16 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
       for (_Picture picl in pictures) {
         original.add(picl);
       }
+      for (int i = 0; i < pictures.length; i++) {
+        if (i > 0 && i < pictures.length - 1) {
+          pictures[i - 1].left = pictures[i].name;
+          pictures[i].right = pictures[i + 1].name;
+        } else if (i == 0) {
+          pictures[i].right = pictures[i + 1].name;
+        } else if (i == pictures.length - 1) {
+          pictures[i - 1].left = pictures[i].name;
+        }
+      }
     });
   }
 
@@ -316,12 +326,26 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
 
   void makeGuess() {
     var newScore = 0;
-    for (var i = 1; i < pictures.length; i++) {
-      var picPair = [pictures[i - 1].name, pictures[i].name];
-      var picPair2 = [original[i - 1].name, original[i].name];
-
-      if (listEquals(picPair, picPair2)) {
-        newScore += 1;
+    for (var i = 0; i < pictures.length; i++) {
+      if (i > 0 && i < pictures.length - 1) {
+        if (pictures[i].left == pictures[i - 1].name) {
+          print("left neighbor correct: " + i.toString());
+          newScore += 1;
+        }
+        if (pictures[i].right == pictures[i + 1].name) {
+          print("right neighbor correct: " + i.toString());
+          newScore += 1;
+        }
+      } else if (i == 0) {
+        if (pictures[i].right == pictures[i + 1].name) {
+          print("left neighbor correct: " + i.toString());
+          newScore += 1;
+        }
+      } else if (i == pictures.length - 1) {
+        if (pictures[i].left == pictures[i - 1].name) {
+          print("right neighbor correct: " + i.toString());
+          newScore += 1;
+        }
       }
     }
 
@@ -378,6 +402,16 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
     pictures.shuffle();
     for (_Picture picl in pictures) {
       original.add(picl);
+    }
+    for (int i = 0; i < pictures.length; i++) {
+      if (i > 0 && i < pictures.length - 1) {
+        pictures[i - 1].left = pictures[i].name;
+        pictures[i].right = pictures[i + 1].name;
+      } else if (i == 0) {
+        pictures[i].right = pictures[i + 1].name;
+      } else if (i == pictures.length - 1) {
+        pictures[i - 1].left = pictures[i].name;
+      }
     }
     _tiles = [];
     memorySeconds = 0;
@@ -515,9 +549,13 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
 class _Picture {
   String name;
   String urlImage;
+  String left;
+  String right;
 
   _Picture({
     required this.name,
     required this.urlImage,
+    this.left = "",
+    this.right = "",
   });
 }

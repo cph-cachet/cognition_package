@@ -53,7 +53,7 @@ class RPContinuousVisualTrackingActivity extends RPActivityStep {
   /// the sum of repetitions with 0 mistakes is the final score
   @override
   calculateScore(dynamic result) {
-    var sum = 0;
+    var sum = -1;
     List<int> mistakes = result['mistakes'];
     for (var round in mistakes) {
       if (round < amountOfTargets) {

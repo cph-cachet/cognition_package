@@ -498,6 +498,10 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
           setState(() {
             finished = true;
           });
+        } else {
+          setState(() {
+            finished = true;
+          });
         }
       } else {
         resetTest();
@@ -518,71 +522,6 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                   return Stack(
                     children:
                         makeShapes(numberOfShapes, constraints, avatarSize),
-                    // [
-                    // Positioned(
-                    //     left: avatarSize +
-                    //         (constraints.biggest.width - 2 * avatarSize) /
-                    //             100.0 *
-                    //             rotation[0],
-                    //     top: avatarSize +
-                    //         (constraints.biggest.height - 2 * avatarSize) /
-                    //             100.0 *
-                    //             rotation[1],
-                    //     child: CircleAvatar(
-                    //         radius: avatarSize / 2,
-                    //         child: Container(
-                    //           decoration: BoxDecoration(
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(20)),
-                    //               image: DecorationImage(
-                    //                   image: AssetImage(
-                    //                       hourglass[color[0]].urlImage),
-                    //                   fit: BoxFit.scaleDown)),
-                    //         ),
-                    //         backgroundColor: Colors.transparent)),
-                    // Positioned(
-                    //     left: avatarSize +
-                    //         (constraints.biggest.width - 2 * avatarSize) /
-                    //             100.0 *
-                    //             rotation[2],
-                    //     top: avatarSize +
-                    //         (constraints.biggest.height - 2 * avatarSize) /
-                    //             100.0 *
-                    //             rotation[3],
-                    //     child: CircleAvatar(
-                    //         radius: avatarSize / 2,
-                    //         child: Container(
-                    //           decoration: BoxDecoration(
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(20)),
-                    //               image: DecorationImage(
-                    //                   image: AssetImage(
-                    //                       arrow[color[1]].urlImage),
-                    //                   fit: BoxFit.scaleDown)),
-                    //         ),
-                    //         backgroundColor: Colors.transparent)),
-                    // Positioned(
-                    //     left: avatarSize +
-                    //         (constraints.biggest.width - 2 * avatarSize) /
-                    //             100.0 *
-                    //             rotation[4],
-                    //     top: avatarSize +
-                    //         (constraints.biggest.height - 2 * avatarSize) /
-                    //             100.0 *
-                    //             rotation[5],
-                    //     child: CircleAvatar(
-                    //         radius: avatarSize / 2,
-                    //         child: Container(
-                    //           decoration: BoxDecoration(
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(20)),
-                    //               image: DecorationImage(
-                    //                   image:
-                    //                       AssetImage(top[color[2]].urlImage),
-                    //                   fit: BoxFit.scaleDown)),
-                    //         ),
-                    //         backgroundColor: Colors.transparent)),
-                    // ],
                   );
                 })
               : Center(
