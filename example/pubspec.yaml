@@ -43,7 +43,7 @@ dependencies:
   carp_webservices: ^0.31.1
   carp_core: ^0.31.1
 
-  research_package: ^0.6.7
+  research_package: ^0.7.1
 
   # research_package:
   #   path: ../research_package
