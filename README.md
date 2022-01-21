@@ -8,7 +8,7 @@
 Cognition Package is a Flutter [package](https://pub.dartlang.org/packages/research_package) for building cognitive tests for study apps on Android and iOS built using [CARP Research Package](https://pub.dartlang.org/packages/research_package) using [Flutter](https://flutter.dev).
 
 
-Cognition Package is a Flutter implementation of a Cognitive test battery including 14 valdiated gold-standard cognitive tests spanning all 8 Neurocognitive domains:
+Cognition Package is a Flutter implementation of a Cognitive test battery including 14 validated gold-standard cognitive tests spanning all 8 Neurocognitive domains:
 1. Sensation
 2. Perception
 3. Motor skills and construction
@@ -18,7 +18,7 @@ Cognition Package is a Flutter implementation of a Cognitive test battery includ
 7. Processing speed
 8. Language and verbal skills
 
-The tests in Cognition Package are implemented as ActivitySteps from [Research Package](https://pub.dartlang.org/packages/research_package). They derive from Apple’s ResearchKit’s Active Tasks, but where transformed to Steps instead, so that they may be used inside a RPTask along with other types of Steps. Each test consists of 3 key sections - the instructions for the test, the test itself and the results of the test.
+The tests in Cognition Package are implemented as ActivitySteps from [Research Package](https://pub.dartlang.org/packages/research_package). They derive from Apple’s ResearchKit’s Active Tasks but were transformed to Steps instead so that they may be used inside an RPTask along with other types of Steps. Each test consists of 3 key sections - the instructions for the test, the test itself, and the test results.
 
 Each test includes 3 classes that define it, 
 
@@ -26,10 +26,10 @@ Each test includes 3 classes that define it,
 2. The UI class which describes how the test is rendered on screen and the logic of running the test.
 3. The Results class which describes the data collected from the test and adds it to the list of all results from the study.
 
-The overarching goal of Cognition Package is to enable developers and researchers to design and build cross-platform (iOS and Android) cognitive assessment applications that rely on validated gold-standard cognitive tests. 
+The overarching goal of the Cognition Package is to enable developers and researchers to design and build cross-platform (iOS and Android) cognitive assessment applications that rely on validated gold-standard cognitive tests. 
 
 When combined with [Research Package](https://pub.dartlang.org/packages/research_package), Cognition Package meets the requirements of most scientific research, including capturing participant consent, extensible input tasks, and the security and privacy needs necessary for IRB approval.
-The current set of cognitive tests in Cognition Package are:
+The current set of cognitive tests in the Cognition Package are:
 
 1. [Multiple Object Tracking (MOT)](https://www.cambridgecognition.com/cantab/cognitive-tests/attention/adaptive-tracking-task-att/)
 2. [Corsi Block Tapping(CBT)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5619435/)
