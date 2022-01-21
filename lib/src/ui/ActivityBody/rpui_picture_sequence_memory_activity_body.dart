@@ -21,6 +21,9 @@ class RPUIPictureSequenceMemoryActivityBody extends StatefulWidget {
       _RPUI_PictureSequenceMemoryActivityBodyState();
 }
 
+/// score counter for the picture sequence memory task used in [RPUIPictureSequenceMemoryActivityBody]
+int pictureSequenceScore = 0;
+
 // ignore: camel_case_types
 class _RPUI_PictureSequenceMemoryActivityBodyState
     extends State<RPUIPictureSequenceMemoryActivityBody> {
@@ -43,7 +46,7 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       if (mounted) {
         widget.eventLogger.testEnded();
-        widget.onResultChange({'Correct swipes': flankerScore});
+        widget.onResultChange({'Correct swipes': pictureSequenceScore});
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
           setState(() {
@@ -161,7 +164,7 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  $flankerScore',
+            'results:  $pictureSequenceScore',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -355,12 +358,12 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
       pictureMovesList.add(moves);
       sWidget.eventLogger.testEnded();
 
-      var pictureSequenceScore =
+      pictureSequenceScore =
           sWidget.activity.calculateScore({'pairs': pictureScoreList});
 
-      RPPictureSequenceResult flankerResult =
+      RPPictureSequenceResult pictureSequenceResult =
           RPPictureSequenceResult(identifier: 'PictureSequenceResult');
-      var taskResults = flankerResult.makeResult(
+      var taskResults = pictureSequenceResult.makeResult(
           pictureMovesList,
           pictureScoreList,
           pictureTimesList,

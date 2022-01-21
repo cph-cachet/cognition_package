@@ -160,7 +160,7 @@ class _RPUI_WordRecallActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  $flankerScore',
+            'results:  $wordRecallScore',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -170,6 +170,9 @@ class _RPUI_WordRecallActivityBodyState
     }
   }
 }
+
+/// score counter for the word recall task used in [RPUIWordRecallActivityBody]
+int wordRecallScore = 0;
 
 class _WordRecall extends StatefulWidget {
   final RPUIWordRecallActivityBody sWidget;
@@ -259,7 +262,7 @@ class _WordRecallState extends State<_WordRecall> {
       sWidget.eventLogger.testEnded();
       timesTaken.add(seconds);
       _timer.cancel();
-      var wordRecallScore = sWidget.activity
+      wordRecallScore = sWidget.activity
           .calculateScore({'wordsList': wordlist, 'resultsList': resultsList2});
       RPWordRecallResult result =
           RPWordRecallResult(identifier: 'WordRecallResult');

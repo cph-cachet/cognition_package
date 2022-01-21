@@ -182,14 +182,24 @@ void main() {
     test('Flanker score should be calculated correctly : 0', () {
       RPActivityStep flanker = RPFlankerActivity('Flanker step ID',
           lengthOfTest: 30, numberOfCards: 25, includeResults: false);
-      var score = flanker.calculateScore({'mistakes': 10});
+      var score = flanker.calculateScore({
+        'mistakes': 6,
+        'correct': 14,
+        'congruentTimes': [1, 2, 3, 4, 5],
+        'incongruentTimes': [10, 12, 13, 14, 15]
+      });
       expect(score, 0);
     });
 
     test('Flanker score should be calculated correctly : 1', () {
       RPActivityStep flanker = RPFlankerActivity('Flanker step ID',
           lengthOfTest: 30, numberOfCards: 25, includeResults: false);
-      var score = flanker.calculateScore({'mistakes': 1});
+      var score = flanker.calculateScore({
+        'mistakes': 1,
+        'correct': 24,
+        'congruentTimes': [1, 2, 3, 4, 5],
+        'incongruentTimes': [1, 3, 3, 2, 1]
+      });
       expect(score, 1);
     });
   });

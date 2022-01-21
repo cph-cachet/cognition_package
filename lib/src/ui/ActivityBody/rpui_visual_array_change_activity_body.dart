@@ -21,6 +21,9 @@ class RPUIVisualArrayChangeActivityBody extends StatefulWidget {
       _RPUI_VisualArrayChangeActivityBodyState();
 }
 
+/// score counter for the visual array change task used in [RPUIVisualArrayChangeActivityBody]
+int visualArrayChangeScore = 0;
+
 // ignore: camel_case_types
 class _RPUI_VisualArrayChangeActivityBodyState
     extends State<RPUIVisualArrayChangeActivityBody> {
@@ -44,7 +47,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
       //when time is up, change window and set result
       if (mounted) {
         widget.eventLogger.testEnded();
-        widget.onResultChange({'Correct swipes': flankerScore});
+        widget.onResultChange({'Correct swipes': visualArrayChangeScore});
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
           setState(() {
@@ -130,9 +133,6 @@ class _RPUI_VisualArrayChangeActivityBodyState
         );
       case ActivityStatus.Test:
         return Scaffold(
-          // appBar: AppBar(
-          //   title: Text('FLANKER TEST SCORE: ${score}'),
-          // ),
           body: Center(
               child: _VisualArrayChange(
                   sWidget: widget,
@@ -143,7 +143,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  $flankerScore',
+            'results:  $visualArrayChangeScore',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -411,11 +411,11 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
         right += 1;
         sWidget.eventLogger.testEnded();
 
-        var visualArrayChangeScore =
+        visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
-        RPVisualArrayChangeResult flankerResult =
+        RPVisualArrayChangeResult visualArrayChangeResult =
             RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
-        var taskResults = flankerResult.makeResult(
+        var taskResults = visualArrayChangeResult.makeResult(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
         sWidget.onResultChange(taskResults.results);
@@ -436,9 +436,9 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
-        RPVisualArrayChangeResult flankerResult =
+        RPVisualArrayChangeResult visualArrayChangeResult =
             RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
-        var taskResults = flankerResult.makeResult(
+        var taskResults = visualArrayChangeResult.makeResult(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
         sWidget.onResultChange(taskResults.results);
@@ -465,9 +465,9 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
-        RPVisualArrayChangeResult flankerResult =
+        RPVisualArrayChangeResult visualArrayChangeResult =
             RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
-        var taskResults = flankerResult.makeResult(
+        var taskResults = visualArrayChangeResult.makeResult(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
         sWidget.onResultChange(taskResults.results);
@@ -487,9 +487,9 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
-        RPVisualArrayChangeResult flankerResult =
+        RPVisualArrayChangeResult visualArrayChangeResult =
             RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
-        var taskResults = flankerResult.makeResult(
+        var taskResults = visualArrayChangeResult.makeResult(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
         sWidget.onResultChange(taskResults.results);

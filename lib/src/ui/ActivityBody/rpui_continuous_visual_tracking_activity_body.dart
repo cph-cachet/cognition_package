@@ -15,6 +15,9 @@ class RPUIContinuousVisualTrackingActivityBody extends StatefulWidget {
       _RPUI_ContinuousVisualTrackingActivityBodyState();
 }
 
+/// score counter for the continuous visual tracking task used in [RPUIContinuousVisualTrackingActivityBody]
+int continuousVisualTrackingScore = 0;
+
 // ignore: camel_case_types
 class _RPUI_ContinuousVisualTrackingActivityBodyState
     extends State<RPUIContinuousVisualTrackingActivityBody> {
@@ -129,7 +132,7 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  $flankerScore',
+            'results:  $continuousVisualTrackingScore',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -347,7 +350,7 @@ class _ContinuousVisualTrackingActivityBodyState
       testTimer.cancel();
       seconds = 0;
 
-      var continuousVisualTrackingScore =
+      continuousVisualTrackingScore =
           sWidget.activity.calculateScore({'mistakes': mistakes});
 
       RPVisualTrackingResult visualTrackingResult =

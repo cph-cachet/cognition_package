@@ -115,9 +115,6 @@ class _RPUI_DelayedRecallActivityBodyState
         );
       case ActivityStatus.Test:
         return Scaffold(
-            // appBar: AppBar(
-            //   title: Text('FLANKER TEST SCORE: ${score}'),
-            // ),
             body: Center(
                 child: _DelayedRecall(
           sWidget: widget,

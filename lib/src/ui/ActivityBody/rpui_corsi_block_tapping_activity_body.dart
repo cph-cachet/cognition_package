@@ -17,12 +17,11 @@ class RPUICorsiBlockTappingActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUIFlankerActivityBodyState createState() =>
-      _RPUIFlankerActivityBodyState();
+  _RPUICorsiActivityBodyState createState() => _RPUICorsiActivityBodyState();
 }
 
 /// state class for [_ContinuousVisualTrackingActivityBody]
-class _RPUIFlankerActivityBodyState
+class _RPUICorsiActivityBodyState
     extends State<RPUICorsiBlockTappingActivityBody> {
   late ActivityStatus activityStatus;
   int corsiSpan = 0;
