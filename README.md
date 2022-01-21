@@ -1,6 +1,6 @@
 # Cognition Package
 
-[![pub package](https://img.shields.io/pub/v/cognition_package.svg)](https://pub.dartlang.org/packages/research_package)
+[![pub package](https://img.shields.io/pub/v/cognition_package.svg)](https://pub.dartlang.org/packages/cognition_package)
 [![style: recommended](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lints)
 [![github stars](https://img.shields.io/github/stars/cph-cachet/cognition_package.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://github.com/cph-cachet/cognition_package)
 [![MIT License](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
