@@ -52,15 +52,15 @@ Cognition Package is part of the overall [CACHET Research Platform (CARP)](https
 
 There is a set of tutorials, describing:
 
-- the overall [software architecture](https://carp.cachet.dk/research-package-api/) of Cognition Package
-- how to create a [cognitive assessment application](https://www.researchpackage.org/cognitive-tests)
+- the overall [software architecture](https://carp.cachet.dk/cognition-package/) of Cognition Package
+- how to create a [cognitive test](https://carp.cachet.dk/creating-a-cognitive-tests/)
 - how to implement your own [test](https://www.researchpackage.org/cognitive-tests#implementing-your-own-test)
 
-The [Cognition_package Flutter API](https://pub.dev/documentation/research_package/latest/) is available (and maintained) as part of the package release at pub.dev.
+The [Cognition_package Flutter API](https://pub.dev/documentation/cognition_package/latest/) is available (and maintained) as part of the package release at pub.dev.
 
 ## Example Application
 
-There is an [example app](https://github.com/ossi0004/speciale_cognition_app) which demonstrates the different features of Cognition Package as implemented in a Flutter app.
+There is an [example app](/example) which demonstrates the different features of Cognition Package as implemented in a Flutter app.
 
 In the [example](/example) several configuration file can be found. A `.env` file has to be placed in the example folder for the application to work properly and the following constants has to be defined in this `.env` file: 
 `````
@@ -86,4 +86,4 @@ Besides general help for enhacement and quality assurance (bug fixing), we welco
 
 This software is copyright (c) [Copenhagen Center for Health Technology (CACHET)](https://www.cachet.dk/) 
 at the [Technical University of Denmark (DTU)](https://www.dtu.dk).
-This software is available 'as-is' under a [MIT license](https://github.com/cph-cachet/research.package/blob/master/LICENSE).
+This software is available 'as-is' under a [MIT license](https://github.com/cph-cachet/cognition_package/blob/master/LICENSE).
