@@ -5,10 +5,13 @@
 [![github stars](https://img.shields.io/github/stars/cph-cachet/cognition_package.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://github.com/cph-cachet/cognition_package)
 [![MIT License](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
-Cognition Package is a Flutter [package](https://pub.dartlang.org/packages/cognition_package) for building cognitive tests for study apps on Android and iOS built using [CARP Research Package](https://pub.dartlang.org/packages/research_package) using [Flutter](https://flutter.dev).
+Cognition Package is a Flutter [package](https://pub.dartlang.org/packages/cognition_package) for building cognitive tests for study apps on Android and iOS built using [CARP Research Package](https://pub.dartlang.org/packages/research_package).
 
+The overarching goal of the Cognition Package is to enable developers and researchers to design and build cross-platform (iOS and Android) cognitive assessment applications that rely on validated gold-standard cognitive tests. 
+When combined with [Research Package](https://pub.dartlang.org/packages/research_package), Cognition Package meets the requirements of most scientific research, including capturing participant consent, extensible input tasks, and the security and privacy needs necessary for IRB approval.
 
 Cognition Package is a Flutter implementation of a Cognitive test battery including 14 validated gold-standard cognitive tests spanning all 8 Neurocognitive domains:
+
 1. Sensation
 2. Perception
 3. Motor skills and construction
@@ -18,17 +21,15 @@ Cognition Package is a Flutter implementation of a Cognitive test battery includ
 7. Processing speed
 8. Language and verbal skills
 
-The tests in Cognition Package are implemented as ActivitySteps from [Research Package](https://pub.dartlang.org/packages/research_package). They derive from Apple’s ResearchKit’s Active Tasks but were transformed to Steps instead so that they may be used inside an RPTask along with other types of Steps. Each test consists of 3 key sections - the instructions for the test, the test itself, and the test results.
+Each test in Cognition Package is implemented as an [`RPActivityStep`](https://pub.dev/documentation/research_package/latest/research_package_model/RPActivityStep-class.html) from [Research Package](https://pub.dartlang.org/packages/research_package). 
+As such, they may be used inside an [`RPTask`](https://pub.dev/documentation/research_package/latest/research_package_model/RPTask-class.html) along with other types of [`RPStep`](https://pub.dev/documentation/research_package/latest/research_package_model/RPStep-class.html)s. 
 
-Each test includes 3 classes that define it, 
+Each test consists of 3 key sections - the instructions for the test, the test itself, and the test results. Hence, each test includes 3 classes that defines it:
 
-1. The model class which extends ActivityStep and defines the parameters available for the specific test (eg. length of the test, the amount of repetitions), as well as the function to calculate the final score of the test after it is run.
+1. The model class which extends `RPActivityStep` and defines the parameters available for the specific test (eg. length of the test, the amount of repetitions), as well as the function to calculate the final score of the test after it is run.
 2. The UI class which describes how the test is rendered on screen and the logic of running the test.
-3. The Results class which describes the data collected from the test and adds it to the list of all results from the study.
+3. The [`RPResult`](https://pub.dev/documentation/research_package/latest/research_package_model/RPResult-class.html) class which describes the data collected from the test and adds it to the list of all results from the task.
 
-The overarching goal of the Cognition Package is to enable developers and researchers to design and build cross-platform (iOS and Android) cognitive assessment applications that rely on validated gold-standard cognitive tests. 
-
-When combined with [Research Package](https://pub.dartlang.org/packages/research_package), Cognition Package meets the requirements of most scientific research, including capturing participant consent, extensible input tasks, and the security and privacy needs necessary for IRB approval.
 The current set of cognitive tests in the Cognition Package are:
 
 1. [Multiple Object Tracking (MOT)](https://www.cambridgecognition.com/cantab/cognitive-tests/attention/adaptive-tracking-task-att/)
@@ -52,38 +53,38 @@ Cognition Package is part of the overall [CACHET Research Platform (CARP)](https
 
 There is a set of tutorials, describing:
 
+- the overall [software architecture](https://carp.cachet.dk/research-package/) of Research Package
 - the overall [software architecture](https://carp.cachet.dk/cognition-package/) of Cognition Package
-- how to create a [cognitive test](https://carp.cachet.dk/creating-a-cognitive-tests/)
-- how to implement your own [test](https://www.researchpackage.org/cognitive-tests#implementing-your-own-test)
-
-The [Cognition_package Flutter API](https://pub.dev/documentation/cognition_package/latest/) is available (and maintained) as part of the package release at pub.dev.
+- how to create a [cognitive test](https://carp.cachet.dk/creating-cognitive-tests/)
+- the [cognition_package Flutter API](https://pub.dev/documentation/cognition_package/latest/) is available (and maintained) as part of the package release at pub.dev.
 
 ## Example Application
 
-There is an [example app](/example) which demonstrates the different features of Cognition Package as implemented in a Flutter app.
+There is an [example app](https://github.com/cph-cachet/cognition_package/tree/main/example) which demonstrates the different features of Cognition Package as implemented in a Flutter app.
 
-In the [example](/example) several configuration file can be found. A `.env` file has to be placed in the example folder for the application to work properly and the following constants has to be defined in this `.env` file: 
+In the [example](https://github.com/cph-cachet/cognition_package/tree/main/example) several configuration file can be found. A `.env` file has to be placed in the example folder for the application to work properly and the following constants has to be defined in this `.env` file:
+
 `````
 USERNAME = ...
 PASSWORD = ...
 URI = ...
 ID = ...
 `````
-These environmental variables are necessary to upload the data to the CARP server. if you want to use the example app locally, the `.env` is not necessary.
+
+These environmental variables are necessary to upload the data to the CARP server. If you want to use the example app locally, the `.env` is not necessary.
 
 ## Who is backing this project?
 
 Cognition Package is made by the [Copenhagen Center for Health Technology (CACHET)](https://www.cachet.dk/) and is a component in the [CACHET Research Platform (CARP)](https://carp.cachet.dk), which is used in a number of applications and studies. 
-The current project maintainer is [Ossi kallunki](https://github.com/ossi0004).
+The current project maintainer is [Ossi Kallunki](https://github.com/ossi0004).
 
 ## How can I contribute?
 
 We are more than happy to take contributions and feedback. 
 Use the [Issues](https://github.com/cph-cachet/cognition_package/issues) page to file an issue or feature request. 
-Besides general help for enhacement and quality assurance (bug fixing), we welcome input on new answer types.
+Besides general help for enhacement and quality assurance (bug fixing), we welcome input on new cognitive tests.
 
 ## License
 
-This software is copyright (c) [Copenhagen Center for Health Technology (CACHET)](https://www.cachet.dk/) 
-at the [Technical University of Denmark (DTU)](https://www.dtu.dk).
+This software is copyright (c) [Copenhagen Center for Health Technology (CACHET)](https://www.cachet.dk/) at the [Technical University of Denmark (DTU)](https://www.dtu.dk).
 This software is available 'as-is' under a [MIT license](https://github.com/cph-cachet/cognition_package/blob/master/LICENSE).

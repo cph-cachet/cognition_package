@@ -16,8 +16,6 @@ import 'package:carp_webservices/carp_services/carp_services.dart';
 // import 'package:carp_webservices/carp_auth/carp_auth.dart';
 // import 'package:carp_core/carp_core.dart';
 
-import 'package:research_package/model.dart';
-
 CognitionDatum _$LightDatumFromJson(Map<String, dynamic> json) {
   return CognitionDatum(
     testResults: json['testResults'] as Object,
