@@ -25,7 +25,7 @@ class _RPUICorsiActivityBodyState
     extends State<RPUICorsiBlockTappingActivityBody> {
   late ActivityStatus activityStatus;
   int corsiSpan = 0;
-  late int highlightedBlockID;
+  int highlightedBlockID = 500;
   late List<int> blocks;
   List<int> tapOrder = [];
   bool readyForTap = false;
@@ -61,11 +61,13 @@ class _RPUICorsiActivityBodyState
         setState(() {
           highlightedBlockID = blocks[i];
         });
+        print('highlightedBlockID: $highlightedBlockID');
       }
       await Future.delayed(Duration(milliseconds: 1000));
     }
     if (activityStatus == ActivityStatus.Test && mounted) {
       setState(() {
+        highlightedBlockID = 500;
         readyForTap = true;
         taskInfo = 'Go';
       });

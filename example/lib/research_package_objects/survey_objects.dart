@@ -71,6 +71,13 @@ RPActivityStep continuousVisualTracking = RPContinuousVisualTrackingActivity(
 RPOrderedTask surveyTask = RPOrderedTask(
   identifier: 'surveyTaskID',
   steps: [
+    // reactionTimeStep,
+    // activityStepLetterTapping,
+    // pairedAssociatesLearningStep,
+    // tappingStep,
+    // corsiBlockTapping,
+    // stroopEffect,
+    // rapidVisualInfoProcessingStep,
     activityStepTrail,
     continuousVisualTracking,
     wordRecall,

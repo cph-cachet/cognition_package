@@ -110,14 +110,6 @@ class SurveyPage extends StatelessWidget {
     //CarpService().app.studyDeploymentId = studyDeploymentId;
     CarpService().app.studyDeploymentId = dotenv.env['ID'];
 
-    // '53739388-91d3-40ac-9333-bfc8b504f05b'; // FINAL
-    // 'f53c3724-3cab-4e25-b212-67a1fdf9e739'; // speciale PROD
-    // 'a245a612-9b1f-4b66-946f-3524fb480e57'; // final speciale
-    // '05a521bf-1632-482e-9a0d-d17f0593f1c7'; // MOCA test 2
-    // '0d3100b9-14b2-4322-8a6a-f47964743f51'; // MOCA trial 1
-    // 'bd7abf65-48ff-4a1c-824f-2f8ce29eb981';
-    //'f78de90e-f521-4b26-ae3f-1f13a513a0c8';
-
     // -----------------------------------------------
     // EXAMPLE OF GETTING A STUDY PROTOCOL FROM CARP
     // -----------------------------------------------
@@ -143,7 +135,6 @@ class SurveyPage extends StatelessWidget {
     print(app.studyDeploymentId);
     print(CarpService().app.studyDeploymentId);
     // post it to the CARP server, which returns the ID of the data point
-    print('here you idiot wtf');
     int dataPointId =
         await CarpService().getDataPointReference().postDataPoint(data);
 
@@ -157,7 +148,6 @@ class SurveyPage extends StatelessWidget {
 
   void resultCallback(RPTaskResult result) async {
     //printWrapped(_encode(result));
-    print('hello there i have the result');
     int finalScore = 6;
     result.results.forEach((key, value) {
       print(key);

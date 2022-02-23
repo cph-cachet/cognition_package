@@ -1,3 +1,8 @@
+## 1.0.3
+- fixed visual bug in stroop effect test
+- fixed bug in corsi bloc tapping test
+- updated example app
+
 ## 1.0.2
 - updated README.md
 - updated pubspec.yaml

@@ -250,7 +250,7 @@ class _RPUIStroopEffectActivityBodyState
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          'Wrong answers or missed words: $mistakes',
+                          'Mistakes made: $mistakes',
                           style: TextStyle(fontSize: 22),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 20,
