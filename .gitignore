@@ -76,3 +76,5 @@ build/
 !**/ios/**/default.perspectivev3
 example/pubspec.lock
 pubspec.lock
+*.lock
+*.lock
