@@ -32,19 +32,19 @@ Each test consists of 3 key sections - the instructions for the test, the test i
 
 The current set of cognitive tests in the Cognition Package are:
 
-1. [Multiple Object Tracking (MOT)](https://www.cambridgecognition.com/cantab/cognitive-tests/attention/adaptive-tracking-task-att/)
-2. [Corsi Block Tapping(CBT)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5619435/)
-3. [Verbal Recognition Memory (VRM)](https://www.cambridgecognition.com/cantab/cognitive-tests/memory/verbal-recognition-memory-vrm/)
+1. [Multiple Object Tracking](https://en.wikipedia.org/wiki/Multiple_object_tracking)
+2. [Corsi Block Tapping](https://en.wikipedia.org/wiki/Corsi_block-tapping_test)
+3. [Verbal Recognition Memory](https://link.springer.com/referenceworkentry/10.1007/978-0-387-79948-3_1162)
 4. [Delayed Recall](https://www.psychdb.com/cognitive-testing/moca#delayed-recall)
-5. [Flanker](https://cognitionlab.com/project/flanker-task/)
+5. [Flanker](https://en.wikipedia.org/wiki/Eriksen_flanker_task)
 6. [Letter Tapping](https://www.psychdb.com/cognitive-testing/moca#attention-vigilance)
-7. [Paired Associative Learning (PAL)](https://www.cambridgecognition.com/cantab/cognitive-tests/memory/paired-associates-learning-pal/)
-8. [Picture Sequence Memory (PSMT)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4254833/)
-9. [Rapid Visual Information Processing (RVP)](https://www.cambridgecognition.com/cantab/cognitive-tests/attention/rapid-visual-information-processing-rvp/)
-10. [Reaction Time (RTI)](https://www.cambridgecognition.com/cantab/cognitive-tests/attention/reaction-time-rti/)
-11. [Stroop Effect](https://www.frontiersin.org/articles/10.3389/fpsyg.2017.00557/full)
-12. [Finger Tapping](https://www.sciencedirect.com/topics/medicine-and-dentistry/finger-tapping-test)
-13. [Trail Making](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3141679/)
+7. [Paired Associative Learning](https://www.cambridgecognition.com/cantab/cognitive-tests/memory/paired-associates-learning-pal/)
+8. [Picture Sequence Memory](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4254833/)
+9. [Rapid Visual Information Processing](https://www.cambridgecognition.com/cantab/cognitive-tests/attention/rapid-visual-information-processing-rvp/)
+10. [Reaction Time](https://www.psytoolkit.org/lessons/simple_choice_rts.html)
+11. [Stroop Effect](https://en.wikipedia.org/wiki/Stroop_effect)
+12. [Finger Tapping](https://link.springer.com/referenceworkentry/10.1007/978-1-4419-1698-3_343)
+13. [Trail Making](https://en.wikipedia.org/wiki/Trail_Making_Test)
 14. [Visual Array Change](https://jov.arvojournals.org/article.aspx?articleid=2422328)
 
 Cognition Package is part of the overall [CACHET Research Platform (CARP)](https://carp.cachet.dk) which also provides a Flutter package for mobile and wearable sensing called [CARP Mobile Sensing](https://pub.dev/packages/carp_mobile_sensing). 
@@ -83,6 +83,36 @@ The current project maintainer is [Ossi Kallunki](https://github.com/ossi0004).
 We are more than happy to take contributions and feedback. 
 Use the [Issues](https://github.com/cph-cachet/cognition_package/issues) page to file an issue or feature request. 
 Besides general help for enhacement and quality assurance (bug fixing), we welcome input on new cognitive tests.
+
+## Copyright
+
+Note that the tests in this package is **subject to different copyright terms**. 
+You must investigate if you can use these tests for your specific purpose, and if you need to obtain a permission from the copyright holders.
+
+In the table below, we have provided links to copyright statements (where applicable), which you may want to consult, if you're using a test. If it states **(c) CACHET** this implies that the test is designe by us, and 
+hence copyright (MIT license) to CACHET.
+
+However, as per the [MIT license](https://github.com/cph-cachet/cognition_package/blob/master/LICENSE), *this software is provided "as is" and in no event shall the authors (i.e., us) be liabable for any claim - including copyright issues - arising from the use of this software*.
+
+
+
+| **Test**      | **Copyright**                                                 | 
+|---------------|---------------------------------------------------------------|
+| Multiple Object Tracking | (c) CACHET  | 
+| Corsi Block Tapping | [PsyToolkit](https://www.psytoolkit.org/copyright.html) | 
+| Verbal Recognition Memory | [MoCa](https://www.mocatest.org/permission/) | 
+| Delayed Recall | [MoCa](https://www.mocatest.org/permission/) | 
+| Flanker | (c) CACHET  | 
+| Letter Tapping | [MoCa](https://www.mocatest.org/permission/) | 
+| Paired Associative Learning | [Cambridge Cognition Ltd](https://www.cambridgecognition.com/company/terms-of-use) | 
+| Picture Sequence Memory | [NIHTB-CB](https://www.healthmeasures.net/images/nihtoolbox/NIH_Toolbox_Emotion_zip_file/Terms_of_Use_HM_approved_1-12-17_-_Updated_Copyright_Notices.pdf) | 
+| Rapid Visual Information Processing |  [Cambridge Cognition Ltd](https://www.cambridgecognition.com/company/terms-of-use) | 
+| Reaction Time | (c) CACHET  | 
+| Stroop Effect | (c) CACHET  | 
+| Finger Tapping | (c) CACHET | 
+| Trail Making | [public domain](https://datashare.nida.nih.gov/instrument/trail-making-test) | 
+| Visual Array Change | (c) CACHET  | 
+
 
 ## License
 
