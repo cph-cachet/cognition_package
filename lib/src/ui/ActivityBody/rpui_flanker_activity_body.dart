@@ -173,8 +173,8 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
             Padding(
               padding: EdgeInsets.all(5),
               child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
+                height: 250,
+                width: 250,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
@@ -216,7 +216,7 @@ class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  $flankerScore',
+            'Correct swipes:  $rightSwipe',
             style: TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

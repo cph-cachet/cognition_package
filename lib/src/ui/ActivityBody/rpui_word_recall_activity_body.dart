@@ -105,9 +105,7 @@ class _RPUI_WordRecallActivityBodyState
                       TextSpan(
                           text: '"guess" ',
                           style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff003F6E),
-                              fontWeight: FontWeight.bold)),
+                              fontSize: 16, fontWeight: FontWeight.bold)),
                     ]),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -116,10 +114,10 @@ class _RPUI_WordRecallActivityBodyState
             ),
             Container(height: 0),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: EdgeInsets.all(25),
               child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
+                height: 100,
+                width: 200,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
@@ -312,7 +310,7 @@ class _WordRecallState extends State<_WordRecall> {
         body: Center(
             child: Column(children: [
       Container(
-        height: MediaQuery.of(context).size.height - 280,
+        height: MediaQuery.of(context).size.height / 1.5,
         width: MediaQuery.of(context).size.width,
         child: !guess
             ? !waiting

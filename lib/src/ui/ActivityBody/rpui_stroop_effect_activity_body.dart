@@ -271,6 +271,7 @@ class _RPUIStroopEffectActivityBodyState
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
               side: BorderSide(color: Colors.black, width: 3)),
+          textColor: Colors.black,
           color: backgroundButtons[
               buttonNum], //set background on buttons for feedback
           onPressed: () {

@@ -37,7 +37,7 @@ RPActivityStep stroopEffect = RPStroopEffectActivity(
 );
 
 RPActivityStep flanker = RPFlankerActivity('Flanker step ID',
-    lengthOfTest: 300, numberOfCards: 10, includeResults: false);
+    lengthOfTest: 300, numberOfCards: 10, includeResults: true);
 
 RPActivityStep pictureSequenceMemory = RPPictureSequenceMemoryActivity(
     'PictureSequenceMemory step ID',
@@ -72,7 +72,6 @@ RPOrderedTask surveyTask = RPOrderedTask(
   identifier: 'surveyTaskID',
   steps: [
     // reactionTimeStep,
-    // activityStepLetterTapping,
     // pairedAssociatesLearningStep,
     // tappingStep,
     // corsiBlockTapping,

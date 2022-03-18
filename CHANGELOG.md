@@ -1,3 +1,7 @@
+## 1.0.5
+- Bugfixes
+- Added dark mode support
+
 ## 1.0.4
 - copyright notice in the README file
 

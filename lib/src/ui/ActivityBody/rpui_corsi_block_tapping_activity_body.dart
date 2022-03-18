@@ -136,7 +136,7 @@ class _RPUICorsiActivityBodyState
               padding: EdgeInsets.all(20),
               child: Text(
                 'You will see 9 tiles. An increasing number of the tiles will be highlighted in order. When the light in the top of the screen is green, and reads "go", you should press the blocks in the same order as they were highlighted.',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,

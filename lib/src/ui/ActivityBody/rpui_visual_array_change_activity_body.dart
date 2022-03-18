@@ -69,7 +69,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
               padding: EdgeInsets.all(20),
               child: Text(
                 'Memorize the colors of the shapes.',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -79,7 +79,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
                 'Once ready the shapes will change positions.',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -89,7 +89,7 @@ class _RPUI_VisualArrayChangeActivityBodyState
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
                 'Indicate if ANY of the shapes changed color or if ALL shapes remained the same',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -98,8 +98,8 @@ class _RPUI_VisualArrayChangeActivityBodyState
             Padding(
               padding: EdgeInsets.all(5),
               child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
+                height: 250,
+                width: 250,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,

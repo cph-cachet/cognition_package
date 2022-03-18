@@ -179,8 +179,8 @@ class _RPUILetterTappingActivityBodyState
             Padding(
               padding: EdgeInsets.all(5),
               child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
+                height: 250,
+                width: 250,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,

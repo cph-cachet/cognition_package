@@ -86,8 +86,8 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
             Padding(
               padding: EdgeInsets.all(5),
               child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
+                height: MediaQuery.of(context).size.height / 3,
+                width: MediaQuery.of(context).size.width / 1.5,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
@@ -309,6 +309,7 @@ class _ContinuousVisualTrackingActivityBodyState
   /// start the test
   void startTest() async {
     setState(() {
+      waiting = true;
       positions = generatePositions();
       dots = List.filled(amountOfTargets, false);
     });

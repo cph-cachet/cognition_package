@@ -11,24 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.light().copyWith(
-          primaryColor: Color(0xffC32C39),
-          // ignore: deprecated_member_use
-          accentColor: Color(0xff003F6E),
-          elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-            if (states.contains(MaterialState.pressed)) {
-              return Color(0xffC32C39);
-            } else if (states.contains(MaterialState.disabled)) {
-              return Colors.grey.withOpacity(0.5);
-            }
-            return Color(0xffC32C39); // Use the component's default.
-            // foregroundColor: MaterialStateProperty.resolveWith<Color>(
-            //     (states) => Colors.white),
-            // backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            //     (states) => Color(0xff003F6E)),
-          })))),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       title: 'Cognition Package Demo',
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
@@ -67,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(height: 150),
+            Container(height: 50),
             Padding(
               padding: const EdgeInsets.all(22.0),
               child: Image.asset(
@@ -85,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
-                    Container(height: 50),
+                    Container(height: 5),
                     Text(
                       "If you have any issues or questions feel free to contact us at",
                       textAlign: TextAlign.center,
@@ -104,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 )),
             Padding(
-              padding: const EdgeInsets.only(top: 150),
+              padding: const EdgeInsets.only(top: 50),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xffC32C39),

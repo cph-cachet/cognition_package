@@ -113,7 +113,7 @@ class _RPUITrailMakingActivityBodyState
                 _isTypeA
                     ? 'Connect the boxes to each other by drawing lines between them in numerical order, starting at \'1\'.'
                     : 'Connect the boxes to each other by drawing lines between them.',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -123,7 +123,7 @@ class _RPUITrailMakingActivityBodyState
                 _isTypeA
                     ? 'Connect the boxes to each other by drawing lines between them in numerical order, starting at \'1\'.'
                     : 'You must alternate between letters and numbers and should order them alphabetically and numerically, respectively.',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -206,7 +206,6 @@ class _TrailPainter extends CustomPainter {
         text: TextSpan(
           text: location.id,
           style: TextStyle(
-            color: Colors.black,
             fontSize: 20,
           ),
         ),
@@ -225,7 +224,6 @@ class _TrailPainter extends CustomPainter {
       canvas.drawRect(
           location.rect,
           Paint()
-            ..color = Colors.black
             ..style = PaintingStyle.stroke
             ..strokeWidth = 1.0);
     }
@@ -233,7 +231,6 @@ class _TrailPainter extends CustomPainter {
       canvas.drawPath(
           path,
           (Paint()
-            ..color = Colors.black
             ..style = PaintingStyle.stroke
             ..strokeWidth = 1.0));
     }

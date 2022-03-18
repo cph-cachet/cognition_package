@@ -86,9 +86,7 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
                       TextSpan(
                           text: '"ready" ',
                           style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff003F6E),
-                              fontWeight: FontWeight.bold)),
+                              fontSize: 16, fontWeight: FontWeight.bold)),
                       TextSpan(
                           text: 'button and the images will change positions.',
                           style: TextStyle(fontSize: 16)),
@@ -111,9 +109,7 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
                       TextSpan(
                           text: '"guess" ',
                           style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff003F6E),
-                              fontWeight: FontWeight.bold)),
+                              fontSize: 16, fontWeight: FontWeight.bold)),
                     ]),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -123,8 +119,8 @@ class _RPUI_PictureSequenceMemoryActivityBodyState
             Padding(
               padding: EdgeInsets.all(5),
               child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
+                height: 200,
+                width: 200,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
@@ -449,11 +445,11 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
         body: Center(
             child: Column(children: [
       Container(
-        height: MediaQuery.of(context).size.height - 280,
+        height: MediaQuery.of(context).size.height / 1.5,
         width: MediaQuery.of(context).size.width,
         child: !guess
             ? !waiting
-                ? wrap(true)
+                ? Center(child: wrap(true))
                 : Center(
                     child: Container(
                         child: Text(
@@ -461,7 +457,7 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
                     style: TextStyle(fontSize: 25),
                   )))
             : !waiting
-                ? wrap(false)
+                ? Center(child: wrap(true))
                 : Center(
                     child: Container(
                         child: Text(
@@ -521,8 +517,8 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
   }
 
   Widget buildPicture(int index, _Picture picture) => Container(
-      height: 110,
-      width: 110,
+      height: 100,
+      width: 100,
       key: ValueKey(picture),
       child: ReorderableDragStartListener(
           index: index,
@@ -534,19 +530,6 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
                   fit: BoxFit.cover,
                 )),
           )));
-
-  Widget buildNonDraggablePicture(int index, _Picture picture) => Container(
-      height: 125,
-      width: 50,
-      key: ValueKey(picture),
-      child: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            image: DecorationImage(
-              image: NetworkImage(picture.urlImage),
-              fit: BoxFit.cover,
-            )),
-      ));
 }
 
 class _Picture {

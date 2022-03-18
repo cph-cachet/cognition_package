@@ -70,9 +70,7 @@ class _RPUI_DelayedRecallActivityBodyState
                       TextSpan(
                           text: '"guess" ',
                           style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff003F6E),
-                              fontWeight: FontWeight.bold)),
+                              fontSize: 16, fontWeight: FontWeight.bold)),
                     ]),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -82,8 +80,8 @@ class _RPUI_DelayedRecallActivityBodyState
             Padding(
               padding: EdgeInsets.all(5),
               child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
+                height: 250,
+                width: 250,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
@@ -233,7 +231,7 @@ class _DelayedRecallState extends State<_DelayedRecall> {
         body: Center(
             child: Column(children: [
       Container(
-          height: MediaQuery.of(context).size.height - 280,
+          height: MediaQuery.of(context).size.height / 1.5,
           width: MediaQuery.of(context).size.width,
           child: Scaffold(
               body: ListView(children: <Widget>[
