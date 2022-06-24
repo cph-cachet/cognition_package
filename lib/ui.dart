@@ -16,7 +16,6 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:cognition_package/model.dart';
-import 'package:flutter_swipable/flutter_swipable.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:research_package/research_package.dart';
 

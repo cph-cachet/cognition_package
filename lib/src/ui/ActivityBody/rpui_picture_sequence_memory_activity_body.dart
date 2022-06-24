@@ -17,15 +17,14 @@ class RPUIPictureSequenceMemoryActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUI_PictureSequenceMemoryActivityBodyState createState() =>
-      _RPUI_PictureSequenceMemoryActivityBodyState();
+  _RPUIPictureSequenceMemoryActivityBodyState createState() =>
+      _RPUIPictureSequenceMemoryActivityBodyState();
 }
 
 /// score counter for the picture sequence memory task used in [RPUIPictureSequenceMemoryActivityBody]
 int pictureSequenceScore = 0;
 
-// ignore: camel_case_types
-class _RPUI_PictureSequenceMemoryActivityBodyState
+class _RPUIPictureSequenceMemoryActivityBodyState
     extends State<RPUIPictureSequenceMemoryActivityBody> {
   late ActivityStatus activityStatus;
 
@@ -224,6 +223,7 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
 
   _PictureSequenceMemoryState(
       this.sWidget, this.numberOfTestsPIC, this.numberOfPics);
+  ScrollController scrollController = ScrollController();
 
   List<_Picture> getPictures(int start, int end, int num) => List.generate(
         num,
@@ -432,14 +432,15 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
       });
     }
 
-    wrap(bool reorder) => ReorderableWrap(
-          needsLongPressDraggable: reorder,
-          spacing: 8.0,
-          runSpacing: 4.0,
-          padding: const EdgeInsets.all(8),
-          children: _tiles,
-          onReorder: _onReorder,
-        );
+    var wrap = ReorderableWrap(
+      controller: scrollController,
+      needsLongPressDraggable: false,
+      spacing: 8.0,
+      runSpacing: 4.0,
+      padding: const EdgeInsets.all(8),
+      children: _tiles,
+      onReorder: _onReorder,
+    );
 
     return Scaffold(
         body: Center(
@@ -449,7 +450,7 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
         width: MediaQuery.of(context).size.width,
         child: !guess
             ? !waiting
-                ? Center(child: wrap(true))
+                ? Center(child: wrap)
                 : Center(
                     child: Container(
                         child: Text(
@@ -457,7 +458,7 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
                     style: TextStyle(fontSize: 25),
                   )))
             : !waiting
-                ? Center(child: wrap(true))
+                ? Center(child: wrap)
                 : Center(
                     child: Container(
                         child: Text(
@@ -472,12 +473,16 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
               ? waiting
                   ? Container()
                   : Column(children: [
-                      // ignore: deprecated_member_use
-                      OutlineButton(
-                        padding:
+                      OutlinedButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
+                          ),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
                         ),
                         onPressed: () {
                           startTest();
@@ -496,12 +501,16 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ))
-                  // ignore: deprecated_member_use
-                  : OutlineButton(
-                      padding:
+                  : OutlinedButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
                           EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
+                        ),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
                       ),
                       onPressed: () {
                         makeGuess();
@@ -535,13 +544,11 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
 class _Picture {
   String name;
   String urlImage;
-  String left;
-  String right;
+  String left = "";
+  String right = "";
 
   _Picture({
     required this.name,
     required this.urlImage,
-    this.left = "",
-    this.right = "",
   });
 }

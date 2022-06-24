@@ -28,11 +28,7 @@ dependencies:
   # cloud_firestore: ^0.12.9
   shared_preferences: ^2.0.6 #0.5.7
   uuid: ^3.0.4
-  flutter_swipable: ^1.2.1
-  reorderables: ^0.4.1
   flutter_dotenv: ^5.0.2
-  # async: ^2.7.0
-  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -42,8 +38,6 @@ dependencies:
   carp_mobile_sensing: ^0.32.0
   carp_webservices: ^0.32.3
   carp_core: ^0.31.1
-
-  research_package: ^0.7.1
 
   # research_package:
   #   path: ../research_package
@@ -74,5 +68,4 @@ flutter:
     - assets/images/mcat-logo.png
     - assets/images/survey.png
     - assets/images/waving-hand.png
-    - .env
-    
+    # - .env

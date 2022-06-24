@@ -308,11 +308,16 @@ class _DelayedRecallState extends State<_DelayedRecall> {
                     style: TextStyle(fontSize: 18),
                   ),
                 ))
-              // ignore: deprecated_member_use
-              : OutlineButton(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6),
+              : OutlinedButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(
+                      EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    ),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
                   ),
                   onPressed: () {
                     makeGuess();

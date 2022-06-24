@@ -190,11 +190,16 @@ class _RPUILetterTappingActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   startTest();
@@ -214,8 +219,7 @@ class _RPUILetterTappingActivityBodyState
             Container(
               width: 100,
               height: 60,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
+              child: OutlinedButton(
                 child: Text('A'),
                 onPressed: () {
                   // X - X
@@ -295,12 +299,15 @@ class _SoundService {
   final List<String> files;
 
   _SoundService(this.files) {
-    player.loadAll(files);
+    AudioCache.instance.loadAll(files);
   }
 
-  static final player = AudioCache();
+  // static final cache = AudioCache();
+  final player = AudioPlayer();
 
   void play(String path) async {
-    await player.play(path, mode: PlayerMode.LOW_LATENCY);
+    // AudioCache.instance.loadedFiles[path];
+    await player.play(AssetSource(path), mode: PlayerMode.lowLatency);
+    // await player.play(path, mode: PlayerMode.LOW_LATENCY);
   }
 }

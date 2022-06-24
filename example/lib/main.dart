@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:research_package_demo_app/user_demographics.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
-Future main() async => {await dotenv.load(fileName: ".env"), runApp(MyApp())};
+Future main() async =>
+    {/* await dotenv.load(fileName: ".env"), */ runApp(MyApp())};
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

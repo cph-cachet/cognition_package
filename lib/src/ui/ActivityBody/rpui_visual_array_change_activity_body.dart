@@ -109,11 +109,16 @@ class _RPUI_VisualArrayChangeActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   widget.eventLogger.instructionEnded();
@@ -540,12 +545,17 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                     ? waiting
                         ? Container()
                         : Column(children: [
-                            // ignore: deprecated_member_use
-                            OutlineButton(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 8),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
+                            OutlinedButton(
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all(
+                                  EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 8),
+                                ),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
                               ),
                               onPressed: () {
                                 startTest();
@@ -571,12 +581,17 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                         : Row(children: [
                             Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 50),
-                                // ignore: deprecated_member_use
-                                child: OutlineButton(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 24, vertical: 16),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6),
+                                child: OutlinedButton(
+                                  style: ButtonStyle(
+                                    padding: MaterialStateProperty.all(
+                                      EdgeInsets.symmetric(
+                                          horizontal: 24, vertical: 16),
+                                    ),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                    ),
                                   ),
                                   onPressed: () {
                                     same();
@@ -586,12 +601,17 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                                     style: TextStyle(fontSize: 18),
                                   ),
                                 )),
-                            // ignore: deprecated_member_use
-                            OutlineButton(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
+                            OutlinedButton(
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all(
+                                  EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 16),
+                                ),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
                               ),
                               onPressed: () {
                                 different();

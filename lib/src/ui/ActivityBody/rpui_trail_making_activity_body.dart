@@ -137,11 +137,16 @@ class _RPUITrailMakingActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   widget.eventLogger.instructionEnded();
@@ -206,6 +211,7 @@ class _TrailPainter extends CustomPainter {
         text: TextSpan(
           text: location.id,
           style: TextStyle(
+            color: Colors.black,
             fontSize: 20,
           ),
         ),

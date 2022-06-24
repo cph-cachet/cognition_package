@@ -108,11 +108,16 @@ class _RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () async {
                   startTest();
@@ -142,8 +147,12 @@ class _RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
                             Container(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 2.2,
-                              // ignore: deprecated_member_use
-                              child: OutlineButton(
+                              child: OutlinedButton(
+                                child: Container(
+                                  height: 200,
+                                  width:
+                                      MediaQuery.of(context).size.width / 2.2,
+                                ),
                                 onPressed: () {
                                   widget.eventLogger.addCorrectGesture(
                                       'Button tap', 'Pressed the left button');
@@ -156,8 +165,12 @@ class _RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
                             Container(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 2.2,
-                              // ignore: deprecated_member_use
-                              child: OutlineButton(
+                              child: OutlinedButton(
+                                child: Container(
+                                  height: 200,
+                                  width:
+                                      MediaQuery.of(context).size.width / 2.2,
+                                ),
                                 onPressed: () {
                                   widget.eventLogger.addCorrectGesture(
                                       'Button tap', 'Pressed the right button');

@@ -170,11 +170,16 @@ class _RPUIRapidVisualInfoProcessingActivityBody
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   widget.eventLogger.instructionEnded();
@@ -216,24 +221,29 @@ class _RPUIRapidVisualInfoProcessingActivityBody
                   Container(
                       height: 80,
                       width: 160,
-                      // ignore: deprecated_member_use
-                      child: OutlineButton(onPressed: () {
-                        //on pressed - time is tracked if sequence has actually passed, otherwise no
-                        if (seqPassed) {
-                          seqPassed = false;
-                          goodTaps++;
-                          _sw.stop();
-                          delaysList.add(_sw.elapsedMilliseconds);
-                          int tapDelay = _sw.elapsedMilliseconds;
-                          widget.eventLogger.addCorrectGesture('Button tap',
-                              'Correct tap. Number of sequences passed: $seqsPassed. Delay on tap: $tapDelay. Shown sequence: $curSeq');
-                          _sw.reset();
-                        } else {
-                          widget.eventLogger.addWrongGesture('Button tap',
-                              'Incorrect tap. Number of sequences passed: $seqsPassed. Shown sequence: $curSeq');
-                          badTaps++;
-                        }
-                      })),
+                      child: OutlinedButton(
+                        child: Container(
+                          width: 160,
+                          height: 80,
+                        ),
+                        onPressed: () {
+                          //on pressed - time is tracked if sequence has actually passed, otherwise no
+                          if (seqPassed) {
+                            seqPassed = false;
+                            goodTaps++;
+                            _sw.stop();
+                            delaysList.add(_sw.elapsedMilliseconds);
+                            int tapDelay = _sw.elapsedMilliseconds;
+                            widget.eventLogger.addCorrectGesture('Button tap',
+                                'Correct tap. Number of sequences passed: $seqsPassed. Delay on tap: $tapDelay. Shown sequence: $curSeq');
+                            _sw.reset();
+                          } else {
+                            widget.eventLogger.addWrongGesture('Button tap',
+                                'Incorrect tap. Number of sequences passed: $seqsPassed. Shown sequence: $curSeq');
+                            badTaps++;
+                          }
+                        },
+                      )),
                 ],
               ))
             ]);

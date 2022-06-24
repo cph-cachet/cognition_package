@@ -37,7 +37,7 @@ RPActivityStep stroopEffect = RPStroopEffectActivity(
 );
 
 RPActivityStep flanker = RPFlankerActivity('Flanker step ID',
-    lengthOfTest: 300, numberOfCards: 10, includeResults: true);
+    lengthOfTest: 45 /* 300 */, numberOfCards: 10, includeResults: true);
 
 RPActivityStep pictureSequenceMemory = RPPictureSequenceMemoryActivity(
     'PictureSequenceMemory step ID',

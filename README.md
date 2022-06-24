@@ -7,7 +7,7 @@
 
 Cognition Package is a Flutter [package](https://pub.dartlang.org/packages/cognition_package) for building cognitive tests for study apps on Android and iOS built using [CARP Research Package](https://pub.dartlang.org/packages/research_package).
 
-The overarching goal of the Cognition Package is to enable developers and researchers to design and build cross-platform (iOS and Android) cognitive assessment applications that rely on validated gold-standard cognitive tests. 
+The overarching goal of the Cognition Package is to enable developers and researchers to design and build cross-platform (iOS and Android) cognitive assessment applications that rely on validated gold-standard cognitive tests.
 When combined with [Research Package](https://pub.dartlang.org/packages/research_package), Cognition Package meets the requirements of most scientific research, including capturing participant consent, extensible input tasks, and the security and privacy needs necessary for IRB approval.
 
 Cognition Package is a Flutter implementation of a Cognitive test battery including 14 validated gold-standard cognitive tests spanning all 8 Neurocognitive domains:
@@ -21,8 +21,8 @@ Cognition Package is a Flutter implementation of a Cognitive test battery includ
 7. Processing speed
 8. Language and verbal skills
 
-Each test in Cognition Package is implemented as an [`RPActivityStep`](https://pub.dev/documentation/research_package/latest/research_package_model/RPActivityStep-class.html) from [Research Package](https://pub.dartlang.org/packages/research_package). 
-As such, they may be used inside an [`RPTask`](https://pub.dev/documentation/research_package/latest/research_package_model/RPTask-class.html) along with other types of [`RPStep`](https://pub.dev/documentation/research_package/latest/research_package_model/RPStep-class.html)s. 
+Each test in Cognition Package is implemented as an [`RPActivityStep`](https://pub.dev/documentation/research_package/latest/research_package_model/RPActivityStep-class.html) from [Research Package](https://pub.dartlang.org/packages/research_package).
+As such, they may be used inside an [`RPTask`](https://pub.dev/documentation/research_package/latest/research_package_model/RPTask-class.html) along with other types of [`RPStep`](https://pub.dev/documentation/research_package/latest/research_package_model/RPStep-class.html)s.
 
 Each test consists of 3 key sections - the instructions for the test, the test itself, and the test results. Hence, each test includes 3 classes that defines it:
 
@@ -47,7 +47,7 @@ The current set of cognitive tests in the Cognition Package are:
 13. [Trail Making](https://en.wikipedia.org/wiki/Trail_Making_Test)
 14. [Visual Array Change](https://jov.arvojournals.org/article.aspx?articleid=2422328)
 
-Cognition Package is part of the overall [CACHET Research Platform (CARP)](https://carp.cachet.dk) which also provides a Flutter package for mobile and wearable sensing called [CARP Mobile Sensing](https://pub.dev/packages/carp_mobile_sensing). 
+Cognition Package is part of the overall [CACHET Research Platform (CARP)](https://carp.cachet.dk) which also provides a Flutter package for mobile and wearable sensing called [CARP Mobile Sensing](https://pub.dev/packages/carp_mobile_sensing).
 
 ## Documentation
 
@@ -64,55 +64,53 @@ There is an [example app](https://github.com/cph-cachet/cognition_package/tree/m
 
 In the [example](https://github.com/cph-cachet/cognition_package/tree/main/example) several configuration file can be found. A `.env` file has to be placed in the example folder for the application to work properly and the following constants has to be defined in this `.env` file:
 
-`````
+```
 USERNAME = ...
 PASSWORD = ...
 URI = ...
 ID = ...
-`````
+```
 
 These environmental variables are necessary to upload the data to the CARP server. If you want to use the example app locally, the `.env` is not necessary.
 
 ## Who is backing this project?
 
-Cognition Package is made by the [Copenhagen Center for Health Technology (CACHET)](https://www.cachet.dk/) and is a component in the [CACHET Research Platform (CARP)](https://carp.cachet.dk), which is used in a number of applications and studies. 
-The current project maintainer is [Ossi Kallunki](https://github.com/ossi0004).
+Cognition Package is made by the [Copenhagen Center for Health Technology (CACHET)](https://www.cachet.dk/) and is a component in the [CACHET Research Platform (CARP)](https://carp.cachet.dk), which is used in a number of applications and studies.
+
+<!-- The current project maintainer is [Ossi Kallunki](https://github.com/ossi0004). -->
 
 ## How can I contribute?
 
-We are more than happy to take contributions and feedback. 
-Use the [Issues](https://github.com/cph-cachet/cognition_package/issues) page to file an issue or feature request. 
+We are more than happy to take contributions and feedback.
+Use the [Issues](https://github.com/cph-cachet/cognition_package/issues) page to file an issue or feature request.
 Besides general help for enhacement and quality assurance (bug fixing), we welcome input on new cognitive tests.
 
 ## Copyright
 
-Note that the tests in this package is **subject to different copyright terms**. 
+Note that the tests in this package is **subject to different copyright terms**.
 You must investigate if you can use these tests for your specific purpose, and if you need to obtain a permission from the copyright holders.
 
-In the table below, we have provided links to copyright statements (where applicable), which you may want to consult, if you're using a test. If it states **(c) CACHET** this implies that the test is designe by us, and 
+In the table below, we have provided links to copyright statements (where applicable), which you may want to consult, if you're using a test. If it states **(c) CACHET** this implies that the test is designe by us, and
 hence copyright (MIT license) to CACHET.
 
-However, as per the [MIT license](https://github.com/cph-cachet/cognition_package/blob/master/LICENSE), *this software is provided "as is" and in no event shall the authors (i.e., us) be liabable for any claim - including copyright issues - arising from the use of this software*.
+However, as per the [MIT license](https://github.com/cph-cachet/cognition_package/blob/master/LICENSE), _this software is provided "as is" and in no event shall the authors (i.e., us) be liabable for any claim - including copyright issues - arising from the use of this software_.
 
-
-
-| **Test**      | **Copyright**                                                 | 
-|---------------|---------------------------------------------------------------|
-| Multiple Object Tracking | (c) CACHET  | 
-| Corsi Block Tapping | [PsyToolkit](https://www.psytoolkit.org/copyright.html) | 
-| Verbal Recognition Memory | [MoCa](https://www.mocatest.org/permission/) | 
-| Delayed Recall | [MoCa](https://www.mocatest.org/permission/) | 
-| Flanker | (c) CACHET  | 
-| Letter Tapping | [MoCa](https://www.mocatest.org/permission/) | 
-| Paired Associative Learning | [Cambridge Cognition Ltd](https://www.cambridgecognition.com/company/terms-of-use) | 
-| Picture Sequence Memory | [NIHTB-CB](https://www.healthmeasures.net/images/nihtoolbox/NIH_Toolbox_Emotion_zip_file/Terms_of_Use_HM_approved_1-12-17_-_Updated_Copyright_Notices.pdf) | 
-| Rapid Visual Information Processing |  [Cambridge Cognition Ltd](https://www.cambridgecognition.com/company/terms-of-use) | 
-| Reaction Time | (c) CACHET  | 
-| Stroop Effect | (c) CACHET  | 
-| Finger Tapping | (c) CACHET | 
-| Trail Making | [public domain](https://datashare.nida.nih.gov/instrument/trail-making-test) | 
-| Visual Array Change | (c) CACHET  | 
-
+| **Test**                            | **Copyright**                                                                                                                                              |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Multiple Object Tracking            | (c) CACHET                                                                                                                                                 |
+| Corsi Block Tapping                 | [PsyToolkit](https://www.psytoolkit.org/copyright.html)                                                                                                    |
+| Verbal Recognition Memory           | [MoCa](https://www.mocatest.org/permission/)                                                                                                               |
+| Delayed Recall                      | [MoCa](https://www.mocatest.org/permission/)                                                                                                               |
+| Flanker                             | (c) CACHET                                                                                                                                                 |
+| Letter Tapping                      | [MoCa](https://www.mocatest.org/permission/)                                                                                                               |
+| Paired Associative Learning         | [Cambridge Cognition Ltd](https://www.cambridgecognition.com/company/terms-of-use)                                                                         |
+| Picture Sequence Memory             | [NIHTB-CB](https://www.healthmeasures.net/images/nihtoolbox/NIH_Toolbox_Emotion_zip_file/Terms_of_Use_HM_approved_1-12-17_-_Updated_Copyright_Notices.pdf) |
+| Rapid Visual Information Processing | [Cambridge Cognition Ltd](https://www.cambridgecognition.com/company/terms-of-use)                                                                         |
+| Reaction Time                       | (c) CACHET                                                                                                                                                 |
+| Stroop Effect                       | (c) CACHET                                                                                                                                                 |
+| Finger Tapping                      | (c) CACHET                                                                                                                                                 |
+| Trail Making                        | [public domain](https://datashare.nida.nih.gov/instrument/trail-making-test)                                                                               |
+| Visual Array Change                 | (c) CACHET                                                                                                                                                 |
 
 ## License
 

@@ -253,11 +253,16 @@ class _RPUIPairedAssociatesLearningActivityBody
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   startTest();
@@ -353,6 +358,7 @@ class _RPUIPairedAssociatesLearningActivityBody
     } else {
       return Icon(Icons.clear, size: 50);
     }
+    return null;
   }
 
   Widget _makeButton(int buttonNumber) {

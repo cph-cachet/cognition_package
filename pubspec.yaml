@@ -1,6 +1,6 @@
 name: cognition_package
 description: A Flutter framework for cognitive testing. Contains 14 pre-defined cognitive tests and an API for creating your own.
-version: 1.0.5
+version: 1.1.0
 homepage: https://github.com/cph-cachet/cognition_package
 
 environment:
@@ -10,18 +10,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  
-  # signature: ^4.1.1
-  # rxdart: ^0.27.1
   json_annotation: ^4.0.1
   flutter_localizations:
     sdk: flutter
-  audioplayers: ^0.20.1
-  flutter_swipable: ^1.2.1
+  audioplayers: ^1.0.1
 
   research_package: ^0.7.1
-  reorderables: ^0.4.1
-
+  reorderables: ^0.5.0
+  platform: ^3.1.0
 
 dev_dependencies:
   build_runner: ^2.1.7
@@ -114,8 +110,7 @@ flutter:
     - packages/cognition_package/assets/images/boomerang_4.png
     - packages/cognition_package/assets/images/boomerang_1.png
     - packages/cognition_package/assets/images/boomerang_5.png
-    
-    
+
     - packages/cognition_package/assets/images/bean_1.png
     - packages/cognition_package/assets/images/bean_2.png
     - packages/cognition_package/assets/images/bean_3.png
@@ -129,7 +124,6 @@ flutter:
     - packages/cognition_package/assets/images/bowl_4.png
     - packages/cognition_package/assets/images/bowl_1.png
     - packages/cognition_package/assets/images/bowl_5.png
-    
 
     # Test intro images
     - packages/cognition_package/assets/images/PALintro.png
@@ -141,9 +135,6 @@ flutter:
     - packages/cognition_package/assets/images/trailtype-a.png
     - packages/cognition_package/assets/images/trailtype-b.png
     - packages/cognition_package/assets/images/Letterintro.png
-
-
-
 
     - packages/cognition_package/assets/images/trailmaking_a.png
     - packages/cognition_package/assets/images/trailmaking_b.png

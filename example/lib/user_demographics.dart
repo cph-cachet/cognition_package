@@ -39,10 +39,8 @@ class _UserDemographicsPageState extends State<UserDemographicsPage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                //Divider(thickness: 2),
               ],
             ),
-            //Container(height: 50),
             Column(
               children: <Widget>[
                 Padding(
@@ -147,7 +145,6 @@ class _UserDemographicsPageState extends State<UserDemographicsPage> {
                       style: TextStyle(
                           fontSize: 16, decoration: TextDecoration.underline),
                     ),
-                    //Container(height: 50),
                   ],
                 ))
           ],

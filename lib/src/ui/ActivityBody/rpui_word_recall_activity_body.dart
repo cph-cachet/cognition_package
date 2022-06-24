@@ -405,12 +405,16 @@ class _WordRecallState extends State<_WordRecall> {
               ? waiting
                   ? Container()
                   : Column(children: [
-                      // ignore: deprecated_member_use
-                      OutlineButton(
-                        padding:
+                      OutlinedButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
                             EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
+                          ),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
                         ),
                         onPressed: () {
                           startTest();
@@ -430,12 +434,16 @@ class _WordRecallState extends State<_WordRecall> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ))
-                  // ignore: deprecated_member_use
-                  : OutlineButton(
-                      padding:
+                  : OutlinedButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
                           EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
+                        ),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
                       ),
                       onPressed: () {
                         makeGuess();
