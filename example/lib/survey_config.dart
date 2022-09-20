@@ -1,6 +1,29 @@
 import 'package:cognition_package/model.dart';
 import 'package:research_package/model.dart';
 
+/// Here the list of cognitive test are added to an RP ordered task.
+/// Uncomment the ones you want to see a demo of.
+RPOrderedTask surveyTask = RPOrderedTask(
+  identifier: 'surveyTaskID',
+  steps: [
+    // reactionTimeStep,
+    // pairedAssociatesLearningStep,
+    tappingStep,
+    corsiBlockTapping,
+    // stroopEffect,
+    // rapidVisualInfoProcessingStep,
+    activityStepTrail,
+    // continuousVisualTracking,
+    // wordRecall,
+    // pictureSequenceMemory,
+    // activityStepLetterTapping,
+    flanker,
+    // visualArrayChange,
+    // delayedRecall,
+    completionStep,
+  ],
+);
+
 RPCompletionStep completionStep =
     RPCompletionStep(identifier: 'completionID', title: 'Finished')
       ..title = 'Finished'
@@ -67,24 +90,3 @@ RPActivityStep continuousVisualTracking = RPContinuousVisualTrackingActivity(
     lengthOfTest: 180,
     trackingSpeed: Duration(seconds: 5),
     includeResults: false);
-
-RPOrderedTask surveyTask = RPOrderedTask(
-  identifier: 'surveyTaskID',
-  steps: [
-    // reactionTimeStep,
-    // pairedAssociatesLearningStep,
-    // tappingStep,
-    // corsiBlockTapping,
-    // stroopEffect,
-    // rapidVisualInfoProcessingStep,
-    activityStepTrail,
-    continuousVisualTracking,
-    wordRecall,
-    pictureSequenceMemory,
-    activityStepLetterTapping,
-    flanker,
-    visualArrayChange,
-    delayedRecall,
-    completionStep,
-  ],
-);

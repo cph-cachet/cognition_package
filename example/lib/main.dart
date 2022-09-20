@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:research_package_demo_app/user_demographics.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cognition_package_demo_app/user_demographics_page.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 Future main() async =>
@@ -33,16 +33,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    controlID();
+    // controlID();
   }
 
-  void controlID() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    if (!sp.containsKey('ID')) {
-      sp.setString('ID', Uuid().v4());
-      sp.setInt('attempts', 0);
-    }
-  }
+  // void controlID() async {
+  //   SharedPreferences sp = await SharedPreferences.getInstance();
+  //   if (!sp.containsKey('ID')) {
+  //     sp.setString('ID', Uuid().v4());
+  //     sp.setInt('attempts', 0);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -66,19 +66,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "Welcome to the alpha-testing of cognitive tests Package, developed by Ossi Kallunki",
+                      "Welcome to the demo of the Cognitive Package, developed by the Copenhagen Center for Health Technology",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     Container(height: 5),
                     Text(
-                      "If you have any issues or questions feel free to contact us at",
+                      "If you have any questions feel free to contact us at",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     Container(height: 5),
                     Text(
-                      "ossi0004@gmail.com",
+                      "cph_cachet@gmail.com",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 16,

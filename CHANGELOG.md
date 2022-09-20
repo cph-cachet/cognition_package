@@ -1,3 +1,8 @@
+## 1.2.0
+
+- Upgraded to Research Package 0.9.3 incl. carp_serializable
+- Major cleanup in demo app.
+
 ## 1.1.0
 
 - Upgraded to Flutter 3.0.0 and fixed related issues.
@@ -10,24 +15,24 @@
 
 ## 1.0.4
 
-- copyright notice in the README file
+- Copyright notice in the README file
 
 ## 1.0.3
 
-- fixed visual bug in stroop effect test
-- fixed bug in corsi bloc tapping test
-- updated example app
+- Fixed visual bug in stroop effect test
+- Fixed bug in corsi bloc tapping test
+- Updated example app
 
 ## 1.0.2
 
-- updated README.md
-- updated pubspec.yaml
+- Updated README.md
+- Updated pubspec.yaml
 
 ## 1.0.1
 
-- updated README.md
+- Updated README.md
 
 ## 1.0.0
 
-- initial release
+- Initial release
 - Supports 14 cognitive tests
