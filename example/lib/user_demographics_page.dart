@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:research_package_demo_app/survey_page.dart';
+import 'package:cognition_package_demo_app/survey_page.dart';
 
 class UserDemographicsPage extends StatefulWidget {
   @override
@@ -8,11 +8,11 @@ class UserDemographicsPage extends StatefulWidget {
 }
 
 class _UserDemographicsPageState extends State<UserDemographicsPage> {
-  int age;
-  String gender;
-  String name;
-  String location;
-  DateTime _chosenDateTime;
+  int? age;
+  String? gender;
+  String? name;
+  String? location;
+  final DateTime today = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _UserDemographicsPageState extends State<UserDemographicsPage> {
           FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus &&
               currentFocus.focusedChild != null) {
-            FocusManager.instance.primaryFocus.unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
           }
         },
         child: Column(
@@ -125,7 +125,7 @@ class _UserDemographicsPageState extends State<UserDemographicsPage> {
                           age: age,
                           name: name,
                           location: location,
-                          date: _chosenDateTime)));
+                          date: today)));
                 },
               ),
             ),
@@ -134,7 +134,7 @@ class _UserDemographicsPageState extends State<UserDemographicsPage> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      'by Continuing I confirm that i have read and agree to this',
+                      'By continuing I confirm that I have read and agree to this',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16),
                     ),

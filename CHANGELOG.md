@@ -1,3 +1,8 @@
+## 1.2.0
+
+- Upgraded to Research Package 0.9.3 incl. carp_serializable
+- Major cleanup in demo app.
+
 ## 1.1.0
 
 - Upgraded to Flutter 3.0.0 and fixed related issues.
