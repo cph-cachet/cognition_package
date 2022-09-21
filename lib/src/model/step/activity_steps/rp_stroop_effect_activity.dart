@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Stroop Effect Test
-@JsonSerializable()
+/// Stroop Effect Test.
 class RPStroopEffectActivity extends RPActivityStep {
   /// Contructor for creating a Stroop effect Test.
   RPStroopEffectActivity(String identifier,

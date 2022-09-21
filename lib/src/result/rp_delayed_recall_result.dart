@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Delayed Recall Test Result
-@JsonSerializable()
+/// Delayed Recall Test Result
 class RPDelayedRecallResult extends RPActivityResult {
   RPDelayedRecallResult({required String identifier})
       : super(identifier: identifier);

@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Flanker Test Result
-@JsonSerializable()
+/// Flanker Test Result
 class RPFlankerResult extends RPActivityResult {
   RPFlankerResult({required String identifier}) : super(identifier: identifier);
 

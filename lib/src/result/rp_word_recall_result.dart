@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Verbal Recognition Memory Test Result
-@JsonSerializable()
+/// Verbal Recognition Memory Test Result
 class RPWordRecallResult extends RPActivityResult {
   RPWordRecallResult({required String identifier})
       : super(identifier: identifier);

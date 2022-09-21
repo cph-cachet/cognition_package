@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Visual Array Change Test Result
-@JsonSerializable()
+/// Visual Array Change Test Result
 class RPVisualArrayChangeResult extends RPActivityResult {
   RPVisualArrayChangeResult({required String identifier})
       : super(identifier: identifier);

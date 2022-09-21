@@ -1,13 +1,10 @@
 part of cognition_package_model;
 
 /// A Multiple Object Tracking Test
-@JsonSerializable()
 class RPContinuousVisualTrackingActivity extends RPActivityStep {
-  /// Contructor for creating a Rapid Visual Information Processesing Test.
   RPContinuousVisualTrackingActivity(String identifier,
       {includeInstructions = true,
       includeResults = true,
-      // this.interval = 9,
       this.lengthOfTest = 90,
       this.numberOfTests = 3,
       this.amountOfDots = 5,

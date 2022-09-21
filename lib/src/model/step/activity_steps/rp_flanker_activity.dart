@@ -1,9 +1,7 @@
 part of cognition_package_model;
 
-/// A Flanker Test
-@JsonSerializable()
+/// Flanker Test.
 class RPFlankerActivity extends RPActivityStep {
-  /// Contructor for creating a Rapid Visual Information Processesing Test.
   RPFlankerActivity(
     String identifier, {
     includeInstructions = true,

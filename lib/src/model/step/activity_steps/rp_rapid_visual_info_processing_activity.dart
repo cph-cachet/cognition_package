@@ -1,9 +1,7 @@
 part of cognition_package_model;
 
 /// A Rapid Visual Information Proccesing Test
-@JsonSerializable()
 class RPRapidVisualInfoProcessingActivity extends RPActivityStep {
-  /// Contructor for creating a Rapid Visual Information Processesing Test.
   RPRapidVisualInfoProcessingActivity(String identifier,
       {includeInstructions = true,
       includeResults = true,

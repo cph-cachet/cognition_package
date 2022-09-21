@@ -1,18 +1,13 @@
 part of cognition_package_model;
 
 /// A Verbal Recognition memory Test
-@JsonSerializable()
 class RPWordRecallActivity extends RPActivityStep {
-  /// Contructor for creating a Rapid Visual Information Processesing Test.
   RPWordRecallActivity(
     String identifier, {
     includeInstructions = true,
     includeResults = true,
-    // this.interval = 9,
     this.lengthOfTest = 90,
     this.numberOfTests = 3,
-    // this.numberOfPics = 3,
-    // this.sequence = const [3, 6, 9]
   }) : super(identifier,
             includeInstructions: includeInstructions,
             includeResults: includeResults);
@@ -23,7 +18,6 @@ class RPWordRecallActivity extends RPActivityStep {
   /// Number of tests to be performed. Default is 3
   int numberOfTests;
 
-  /// override the activitybody with the UI body of the test
   @override
   Widget stepBody(dynamic Function(dynamic) onResultChange,
       RPActivityEventLogger eventLogger) {

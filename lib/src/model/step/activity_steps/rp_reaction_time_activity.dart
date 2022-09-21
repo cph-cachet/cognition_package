@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Reaction Time Test
-@JsonSerializable()
+/// Reaction Time Test.
 class RPReactionTimeActivity extends RPActivityStep {
   /// Contructor for creating a Reaction time Test.
   RPReactionTimeActivity(String identifier,

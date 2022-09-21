@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Multiple Object Tracking Test Result
-@JsonSerializable()
+/// Multiple Object Tracking Test Result
 class RPVisualTrackingResult extends RPActivityResult {
   RPVisualTrackingResult({required String identifier})
       : super(identifier: identifier);

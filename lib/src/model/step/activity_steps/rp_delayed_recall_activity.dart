@@ -1,10 +1,8 @@
 part of cognition_package_model;
 
-/// A Delayed Recall Test
+/// Delayed Recall Test.
 /// Must be used after a [RPWordRecallActivity]
-@JsonSerializable()
 class RPDelayedRecallActivity extends RPActivityStep {
-  /// Contructor for creating a Rapid Visual Information Processesing Test.
   RPDelayedRecallActivity(
     String identifier, {
     includeInstructions = true,
@@ -23,7 +21,6 @@ class RPDelayedRecallActivity extends RPActivityStep {
   /// Number of tests to be performed. Default is 3.
   int numberOfTests;
 
-  /// override the activitybody with the UI body of the test
   @override
   Widget stepBody(dynamic Function(dynamic) onResultChange,
       RPActivityEventLogger eventLogger) {

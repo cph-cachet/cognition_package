@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Trail Making Test
-@JsonSerializable()
+/// Trail Making Test.
 class RPTrailMakingActivity extends RPActivityStep {
   /// Contructor for creating a Trail Making Test.
   RPTrailMakingActivity(String identifier,
@@ -13,8 +12,6 @@ class RPTrailMakingActivity extends RPActivityStep {
             includeResults: includeResults);
 
   /// The type of trail used in the test.
-  /// [TrailType.A] uses numbers only.
-  /// [TrailType.B] uses numbers AND letters alternating.
   TrailType trailType;
 
   @override
@@ -34,5 +31,11 @@ class RPTrailMakingActivity extends RPActivityStep {
   }
 }
 
-/// The type of Trail used in a Trail Making Test.
-enum TrailType { A, B }
+/// The type of trails used in a Trail Making test.
+enum TrailType {
+  /// Numbers only.
+  A,
+
+  /// Numbers and letters alternating.
+  B,
+}

@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Corsi Block Tapping Test
-@JsonSerializable()
+/// Corsi Block Tapping Test
 class RPCorsiBlockTappingActivity extends RPActivityStep {
   /// Contructor for creating a Corsi Block Tapping Test.
   /// Must contain an identifier for storing purposes

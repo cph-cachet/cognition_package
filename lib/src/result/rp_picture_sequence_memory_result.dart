@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Picture Sequence Memory Test Result
-@JsonSerializable()
+/// Picture Sequence Memory Test Result
 class RPPictureSequenceResult extends RPActivityResult {
   RPPictureSequenceResult({required String identifier})
       : super(identifier: identifier);

@@ -7,11 +7,7 @@
 
 library cognition_package_model;
 
-// Imports
-// import 'dart:ffi';
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:research_package/research_package.dart';
 
 // Importing the UI library from Research Package

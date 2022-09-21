@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
-/// A Tapping Test
-@JsonSerializable()
+/// Tapping Test.
 class RPTappingActivity extends RPActivityStep {
   /// Contructor for creating a Tapping Test.
   RPTappingActivity(String identifier,

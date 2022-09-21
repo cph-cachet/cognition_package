@@ -1,18 +1,14 @@
 part of cognition_package_model;
 
-/// A Picture Sequence Memory Test
-@JsonSerializable()
+/// Picture Sequence Memory Test
 class RPPictureSequenceMemoryActivity extends RPActivityStep {
-  /// Contructor for creating a Rapid Visual Information Processesing Test.
   RPPictureSequenceMemoryActivity(
     String identifier, {
     includeInstructions = true,
     includeResults = true,
-    // this.interval = 9,
     this.lengthOfTest = 90,
     this.numberOfTests = 3,
     this.numberOfPics = 3,
-    // this.sequence = const [3, 6, 9]
   }) : super(identifier,
             includeInstructions: includeInstructions,
             includeResults: includeResults);
@@ -26,7 +22,6 @@ class RPPictureSequenceMemoryActivity extends RPActivityStep {
   /// Number of pictures to be displayed. Default is 3
   int numberOfPics;
 
-  /// override the activitybody with the UI body of the test
   @override
   Widget stepBody(dynamic Function(dynamic) onResultChange,
       RPActivityEventLogger eventLogger) {

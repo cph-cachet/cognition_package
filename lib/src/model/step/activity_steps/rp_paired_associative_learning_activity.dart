@@ -1,7 +1,6 @@
 part of cognition_package_model;
 
 /// A Paired Associates Learning Test
-@JsonSerializable()
 class RPPairedAssociatesLearningActivity extends RPActivityStep {
   /// Contructor for creating a Paired Associates Learning Test.
   RPPairedAssociatesLearningActivity(String identifier,
