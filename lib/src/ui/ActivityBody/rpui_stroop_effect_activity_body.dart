@@ -17,11 +17,11 @@ class RPUIStroopEffectActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUIStroopEffectActivityBodyState createState() =>
-      _RPUIStroopEffectActivityBodyState();
+  RPUIStroopEffectActivityBodyState createState() =>
+      RPUIStroopEffectActivityBodyState();
 }
 
-class _RPUIStroopEffectActivityBodyState
+class RPUIStroopEffectActivityBodyState
     extends State<RPUIStroopEffectActivityBody> {
   late ActivityStatus activityStatus;
   int mistakes = 0;

@@ -4,10 +4,10 @@ import 'package:cognition_package_demo_app/survey_page.dart';
 
 class UserDemographicsPage extends StatefulWidget {
   @override
-  _UserDemographicsPageState createState() => _UserDemographicsPageState();
+  UserDemographicsPageState createState() => UserDemographicsPageState();
 }
 
-class _UserDemographicsPageState extends State<UserDemographicsPage> {
+class UserDemographicsPageState extends State<UserDemographicsPage> {
   int? age;
   String? gender;
   String? name;
@@ -112,7 +112,7 @@ class _UserDemographicsPageState extends State<UserDemographicsPage> {
               padding: const EdgeInsets.only(top: 25, bottom: 5),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xffC32C39),
+                  backgroundColor: Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(

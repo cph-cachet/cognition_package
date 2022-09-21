@@ -17,15 +17,14 @@ class RPUIVisualArrayChangeActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUI_VisualArrayChangeActivityBodyState createState() =>
-      _RPUI_VisualArrayChangeActivityBodyState();
+  RPUIVisualArrayChangeActivityBodyState createState() =>
+      RPUIVisualArrayChangeActivityBodyState();
 }
 
 /// score counter for the visual array change task used in [RPUIVisualArrayChangeActivityBody]
 int visualArrayChangeScore = 0;
 
-// ignore: camel_case_types
-class _RPUI_VisualArrayChangeActivityBodyState
+class RPUIVisualArrayChangeActivityBodyState
     extends State<RPUIVisualArrayChangeActivityBody> {
   late ActivityStatus activityStatus;
 

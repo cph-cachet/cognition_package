@@ -17,11 +17,11 @@ class RPUIReactionTimeActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUIReactionTimeActivityBodyState createState() =>
-      _RPUIReactionTimeActivityBodyState();
+  RPUIReactionTimeActivityBodyState createState() =>
+      RPUIReactionTimeActivityBodyState();
 }
 
-class _RPUIReactionTimeActivityBodyState
+class RPUIReactionTimeActivityBodyState
     extends State<RPUIReactionTimeActivityBody> {
   late ActivityStatus activityStatus;
   String alert = '';

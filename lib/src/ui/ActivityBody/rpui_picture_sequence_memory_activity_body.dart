@@ -17,14 +17,14 @@ class RPUIPictureSequenceMemoryActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUIPictureSequenceMemoryActivityBodyState createState() =>
-      _RPUIPictureSequenceMemoryActivityBodyState();
+  RPUIPictureSequenceMemoryActivityBodyState createState() =>
+      RPUIPictureSequenceMemoryActivityBodyState();
 }
 
-/// score counter for the picture sequence memory task used in [RPUIPictureSequenceMemoryActivityBody]
+/// Score counter for the picture sequence memory task used in [RPUIPictureSequenceMemoryActivityBody]
 int pictureSequenceScore = 0;
 
-class _RPUIPictureSequenceMemoryActivityBodyState
+class RPUIPictureSequenceMemoryActivityBodyState
     extends State<RPUIPictureSequenceMemoryActivityBody> {
   late ActivityStatus activityStatus;
 
@@ -130,7 +130,7 @@ class _RPUIPictureSequenceMemoryActivityBodyState
             SizedBox(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xffC32C39),
+                  backgroundColor: Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
@@ -328,21 +328,21 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
     for (var i = 0; i < pictures.length; i++) {
       if (i > 0 && i < pictures.length - 1) {
         if (pictures[i].left == pictures[i - 1].name) {
-          print("left neighbor correct: " + i.toString());
+          print("left neighbor correct: $i");
           newScore += 1;
         }
         if (pictures[i].right == pictures[i + 1].name) {
-          print("right neighbor correct: " + i.toString());
+          print("right neighbor correct: $i");
           newScore += 1;
         }
       } else if (i == 0) {
         if (pictures[i].right == pictures[i + 1].name) {
-          print("left neighbor correct: " + i.toString());
+          print("left neighbor correct: $i");
           newScore += 1;
         }
       } else if (i == pictures.length - 1) {
         if (pictures[i].left == pictures[i - 1].name) {
-          print("right neighbor correct: " + i.toString());
+          print("right neighbor correct: $i");
           newScore += 1;
         }
       }
@@ -422,13 +422,13 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
 
   @override
   Widget build(BuildContext context) {
-    void _onReorder(int oldIndex, int newIndex) {
+    void onReorder(int oldIndex, int newIndex) {
       setState(() {
         moves = moves + 1;
-        final picture = _tiles.removeAt(oldIndex);
-        _tiles.insert(newIndex, picture);
-        final _picture = pictures.removeAt(oldIndex);
-        pictures.insert(newIndex, _picture);
+        final oldPicture = _tiles.removeAt(oldIndex);
+        _tiles.insert(newIndex, oldPicture);
+        final newPicture = pictures.removeAt(oldIndex);
+        pictures.insert(newIndex, newPicture);
       });
     }
 
@@ -439,7 +439,7 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
       runSpacing: 4.0,
       padding: const EdgeInsets.all(8),
       children: _tiles,
-      onReorder: _onReorder,
+      onReorder: onReorder,
     );
 
     return Scaffold(

@@ -16,11 +16,10 @@ class RPUITappingActivityBody extends StatefulWidget {
   RPUITappingActivityBody(this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUITappingActivityBodyState createState() =>
-      _RPUITappingActivityBodyState();
+  RPUITappingActivityBodyState createState() => RPUITappingActivityBodyState();
 }
 
-class _RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
+class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
   int taps = 0;
   String countdown = '';
   bool setStart = false;

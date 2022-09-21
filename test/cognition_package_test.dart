@@ -4,7 +4,7 @@ import 'package:research_package/model.dart';
 import 'dart:convert';
 
 void main() {
-  String _encode(Object object) =>
+  String encode(Object object) =>
       const JsonEncoder.withIndent(' ').convert(object);
   group('TrailMaking', () {
     test('TrailMaking -> JSON', () {
@@ -12,7 +12,7 @@ void main() {
           'Trail Making step ID',
           trailType: TrailType.B,
           includeResults: false);
-      print(_encode(activityStepTrail));
+      print(encode(activityStepTrail));
     });
     test('TrailMaking score should be calculated correctly : 3', () {
       RPActivityStep activityStepTrail = RPTrailMakingActivity(
@@ -42,7 +42,7 @@ void main() {
               lengthOfTest: 180,
               trackingSpeed: Duration(seconds: 5),
               includeResults: false);
-      print(_encode(continuousVisualTracking));
+      print(encode(continuousVisualTracking));
     });
     test(
         'Continuous Visual tracking score should be calculated correctly : [1, 2, 3]',
@@ -82,7 +82,7 @@ void main() {
     test('wordRecall -> JSON', () {
       RPActivityStep wordRecall = RPWordRecallActivity('WordRecall step ID',
           lengthOfTest: 180, numberOfTests: 3, includeResults: false);
-      print(_encode(wordRecall));
+      print(encode(wordRecall));
     });
     test('wordRecall score should be calculated correctly : 3', () {
       RPActivityStep wordRecall = RPWordRecallActivity('WordRecall step ID',
@@ -119,7 +119,7 @@ void main() {
           numberOfTests: 1,
           numberOfPics: 6,
           includeResults: false);
-      print(_encode(pictureSequenceMemory));
+      print(encode(pictureSequenceMemory));
     });
     test(
         'PictureSequenceMemory score should be calculated correctly : [5, 4, 2]',
@@ -155,7 +155,7 @@ void main() {
       RPActivityStep activityStepLetterTapping = RPLetterTappingActivity(
           'Letter Tapping step ID',
           includeResults: false);
-      print(_encode(activityStepLetterTapping));
+      print(encode(activityStepLetterTapping));
     });
     test('Letter Tapping score should be calculated correctly : 3', () {
       RPActivityStep activityStepLetterTapping = RPLetterTappingActivity(
@@ -177,7 +177,7 @@ void main() {
     test('Flanker -> JSON', () {
       RPActivityStep flanker = RPFlankerActivity('Flanker step ID',
           lengthOfTest: 30, numberOfCards: 25, includeResults: false);
-      print(_encode(flanker));
+      print(encode(flanker));
     });
     test('Flanker score should be calculated correctly : 0', () {
       RPActivityStep flanker = RPFlankerActivity('Flanker step ID',
@@ -211,7 +211,7 @@ void main() {
           numberOfTests: 3,
           waitTime: 3,
           includeResults: false);
-      print(_encode(visualArrayChange));
+      print(encode(visualArrayChange));
     });
     test('Visual Array Change score should be calculated correctly : 3', () {
       RPActivityStep visualArrayChange = RPVisualArrayChangeActivity(
@@ -242,7 +242,7 @@ void main() {
           lengthOfTest: 180,
           numberOfTests: 3,
           includeResults: false);
-      print(_encode(delayedRecall));
+      print(encode(delayedRecall));
     });
     test('delayedRecall score should be calculated correctly : 5', () {
       RPActivityStep delayedRecall = RPDelayedRecallActivity(

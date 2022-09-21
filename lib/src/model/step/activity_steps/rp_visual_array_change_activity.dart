@@ -42,7 +42,6 @@ class RPVisualArrayChangeActivity extends RPActivityStep {
   @override
   calculateScore(dynamic result) {
     var sum = result['correct'];
-    print('visual array change score: ' + sum.toString());
     return sum;
   }
 }

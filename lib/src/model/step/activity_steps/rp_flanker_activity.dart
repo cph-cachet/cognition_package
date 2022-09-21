@@ -52,7 +52,6 @@ class RPFlankerActivity extends RPActivityStep {
       sum = 0;
     }
 
-    print('flanker score: ' + sum.toString());
     return sum;
   }
 }

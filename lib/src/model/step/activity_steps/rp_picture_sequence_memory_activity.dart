@@ -45,7 +45,6 @@ class RPPictureSequenceMemoryActivity extends RPActivityStep {
     for (int pair in pairs) {
       sum += pair;
     }
-    print('picture sequence memory score: ' + sum.toString());
     return sum;
   }
 }

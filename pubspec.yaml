@@ -1,6 +1,6 @@
 name: cognition_package
 description: A Flutter framework for cognitive testing. Contains 14 pre-defined cognitive tests and an API for creating your own.
-version: 1.2.0
+version: 1.2.1
 homepage: https://github.com/cph-cachet/cognition_package
 
 environment:
@@ -25,12 +25,7 @@ dev_dependencies:
   flutter_lints: any
   test: ^1.18.1
 
-# For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-  # To add assets to your package, add an assets section, like this:
   assets:
     #mp files for letter A tapping test
     - packages/cognition_package/assets/sounds/A.mp3

@@ -20,7 +20,6 @@ class RPLetterTappingActivity extends RPActivityStep {
   calculateScore(dynamic result) {
     var errors = result['errors'];
     int score = errors < 2 ? 1 : 0;
-    print('trailmaking score: ' + score.toString());
     return score;
   }
 }

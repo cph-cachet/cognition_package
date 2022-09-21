@@ -45,7 +45,6 @@ class RPDelayedRecallActivity extends RPActivityStep {
         sum++;
       }
     }
-    print('delayed recall score: ' + sum.toString());
     return sum;
   }
 }

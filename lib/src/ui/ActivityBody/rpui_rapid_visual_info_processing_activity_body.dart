@@ -17,11 +17,11 @@ class RPUIRapidVisualInfoProcessingActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUIRapidVisualInfoProcessingActivityBody createState() =>
-      _RPUIRapidVisualInfoProcessingActivityBody();
+  RPUIRapidVisualInfoProcessingActivityBodyState createState() =>
+      RPUIRapidVisualInfoProcessingActivityBodyState();
 }
 
-class _RPUIRapidVisualInfoProcessingActivityBody
+class RPUIRapidVisualInfoProcessingActivityBodyState
     extends State<RPUIRapidVisualInfoProcessingActivityBody> {
   final _random = Random();
   String texthint =
@@ -52,7 +52,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
   initState() {
     super.initState();
     for (int i = 0; i < widget.activity.sequence.length; i++) {
-      seq1s = seq1s + widget.activity.sequence[i].toString() + '  ';
+      seq1s = '$seq1s${widget.activity.sequence[i]}  ';
     }
     for (int i = 0; i < widget.activity.sequence.length; i++) {
       //adds bools according to sequence lengths

@@ -11,15 +11,14 @@ class RPUIContinuousVisualTrackingActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUI_ContinuousVisualTrackingActivityBodyState createState() =>
-      _RPUI_ContinuousVisualTrackingActivityBodyState();
+  RPUIContinuousVisualTrackingActivityBodyState createState() =>
+      RPUIContinuousVisualTrackingActivityBodyState();
 }
 
-/// score counter for the continuous visual tracking task used in [RPUIContinuousVisualTrackingActivityBody]
+/// Score counter for the continuous visual tracking task used in [RPUIContinuousVisualTrackingActivityBody]
 int continuousVisualTrackingScore = 0;
 
-// ignore: camel_case_types
-class _RPUI_ContinuousVisualTrackingActivityBodyState
+class RPUIContinuousVisualTrackingActivityBodyState
     extends State<RPUIContinuousVisualTrackingActivityBody> {
   late ActivityStatus activityStatus;
 
@@ -35,7 +34,7 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
     }
   }
 
-  /// build the activity with instructions, test and results
+  /// Build the activity with instructions, test and results
   @override
   Widget build(BuildContext context) {
     switch (activityStatus) {
@@ -125,7 +124,7 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
       case ActivityStatus.Test:
         return Center(
             child: Scaffold(
-                body: _ContinuousVisualTrackingActivityBody(
+                body: ContinuousVisualTrackingActivityBody(
                     key: widget.key,
                     topLevelWidget: widget,
                     numberOfTests: widget.activity.numberOfTests,
@@ -147,9 +146,9 @@ class _RPUI_ContinuousVisualTrackingActivityBodyState
   }
 }
 
-/// The [_ContinuousVisualTrackingActivityBody] class defines the UI for the
+/// The [ContinuousVisualTrackingActivityBody] class defines the UI for the
 /// continuous visual tracking task.
-class _ContinuousVisualTrackingActivityBody extends StatefulWidget {
+class ContinuousVisualTrackingActivityBody extends StatefulWidget {
   /// property to pass on the top level widget
   final RPUIContinuousVisualTrackingActivityBody topLevelWidget;
 
@@ -168,7 +167,7 @@ class _ContinuousVisualTrackingActivityBody extends StatefulWidget {
   final int dotSize;
 
   /// the [continuousVisualTrackingActivityBody] constructor
-  const _ContinuousVisualTrackingActivityBody({
+  const ContinuousVisualTrackingActivityBody({
     Key? key,
     required this.topLevelWidget,
     required this.numberOfTests,
@@ -179,14 +178,14 @@ class _ContinuousVisualTrackingActivityBody extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ContinuousVisualTrackingActivityBodyState createState() =>
-      _ContinuousVisualTrackingActivityBodyState(topLevelWidget, numberOfTests,
+  ContinuousVisualTrackingActivityBodyState createState() =>
+      ContinuousVisualTrackingActivityBodyState(topLevelWidget, numberOfTests,
           amountOfDots, amountOfTargets, dotSize, trackingSpeed);
 }
 
-/// state class for [_ContinuousVisualTrackingActivityBody]
-class _ContinuousVisualTrackingActivityBodyState
-    extends State<_ContinuousVisualTrackingActivityBody> {
+/// State class for [ContinuousVisualTrackingActivityBody]
+class ContinuousVisualTrackingActivityBodyState
+    extends State<ContinuousVisualTrackingActivityBody> {
   final RPUIContinuousVisualTrackingActivityBody sWidget;
   final int numberOfTests;
   final int amountOfDots;
@@ -273,7 +272,7 @@ class _ContinuousVisualTrackingActivityBodyState
     return tDots;
   }
 
-  _ContinuousVisualTrackingActivityBodyState(
+  ContinuousVisualTrackingActivityBodyState(
       this.sWidget,
       this.numberOfTests,
       this.amountOfDots,

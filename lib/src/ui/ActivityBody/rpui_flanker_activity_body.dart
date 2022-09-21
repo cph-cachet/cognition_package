@@ -16,12 +16,10 @@ class RPUIFlankerActivityBody extends StatefulWidget {
   RPUIFlankerActivityBody(this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUI_FlankerActivityBodyState createState() =>
-      _RPUI_FlankerActivityBodyState();
+  RPUIFlankerActivityBodyState createState() => RPUIFlankerActivityBodyState();
 }
 
-// ignore: camel_case_types
-class _RPUI_FlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
+class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
   late ActivityStatus activityStatus;
 
   @override
@@ -246,7 +244,7 @@ List<int> incongruentTimes = [];
 
 class _Flanker extends StatefulWidget {
   final int numberOfCards;
-  final _RPUI_FlankerActivityBodyState parentClass;
+  final RPUIFlankerActivityBodyState parentClass;
   const _Flanker({required this.numberOfCards, required this.parentClass});
   @override
   _FlankerState createState() => _FlankerState(numberOfCards, parentClass);
@@ -254,7 +252,7 @@ class _Flanker extends StatefulWidget {
 
 class _FlankerState extends State<_Flanker> {
   final int numberOfCards;
-  final _RPUI_FlankerActivityBodyState parentClass;
+  final RPUIFlankerActivityBodyState parentClass;
   bool even = false;
 
   List<Widget> flankerCards = [];
@@ -298,7 +296,7 @@ class _FlankerState extends State<_Flanker> {
 class _FlankerCard extends StatelessWidget {
   final int color;
   final String direction;
-  final _RPUI_FlankerActivityBodyState parentClass;
+  final RPUIFlankerActivityBodyState parentClass;
   _FlankerCard(this.direction, this.color, this.parentClass);
 
   final String right = '→';

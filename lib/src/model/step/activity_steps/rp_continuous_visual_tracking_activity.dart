@@ -60,7 +60,6 @@ class RPContinuousVisualTrackingActivity extends RPActivityStep {
         sum += 1;
       }
     }
-    print('continuos visual tracking score: ' + sum.toString());
     return sum;
   }
 }

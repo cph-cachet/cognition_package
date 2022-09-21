@@ -17,12 +17,11 @@ class RPUIDelayedRecallActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUI_DelayedRecallActivityBodyState createState() =>
-      _RPUI_DelayedRecallActivityBodyState();
+  RPUIDelayedRecallActivityBodyState createState() =>
+      RPUIDelayedRecallActivityBodyState();
 }
 
-// ignore: camel_case_types
-class _RPUI_DelayedRecallActivityBodyState
+class RPUIDelayedRecallActivityBodyState
     extends State<RPUIDelayedRecallActivityBody> {
   late ActivityStatus activityStatus;
 
@@ -93,7 +92,7 @@ class _RPUI_DelayedRecallActivityBodyState
               //width: MediaQuery.of(context).size.width / 2,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xffC32C39),
+                  backgroundColor: Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
@@ -157,7 +156,7 @@ class _DelayedRecallState extends State<_DelayedRecall> {
   bool guess = false;
   bool finished = false;
   int time = 0;
-  late _SoundService soundService;
+  late SoundService soundService;
 
   _DelayedRecallState(this.sWidget, this.numberOfTests);
 

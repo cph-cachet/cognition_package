@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:cognition_package_demo_app/user_demographics_page.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uuid/uuid.dart';
 
-Future main() async =>
-    {/* await dotenv.load(fileName: ".env"), */ runApp(MyApp())};
+Future main() async => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,20 +24,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool fireBase = false;
   bool buttonReady = true;
-
-  @override
-  void initState() {
-    super.initState();
-    // controlID();
-  }
-
-  // void controlID() async {
-  //   SharedPreferences sp = await SharedPreferences.getInstance();
-  //   if (!sp.containsKey('ID')) {
-  //     sp.setString('ID', Uuid().v4());
-  //     sp.setInt('attempts', 0);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "Welcome to the demo of the Cognitive Package, developed by the Copenhagen Center for Health Technology",
+                      "Welcome to the demo of the Cognitive Package, developed by the Copenhagen Center for Health Technology.",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
@@ -92,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.only(top: 50),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xffC32C39),
+                  backgroundColor: Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(

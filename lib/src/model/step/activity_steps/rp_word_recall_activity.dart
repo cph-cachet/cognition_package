@@ -46,7 +46,6 @@ class RPWordRecallActivity extends RPActivityStep {
         sum++;
       }
     }
-    print('Word Recall score: ' + sum.toString());
-    return 0;
+    return sum;
   }
 }

@@ -17,12 +17,11 @@ class RPUIWordRecallActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUI_WordRecallActivityBodyState createState() =>
-      _RPUI_WordRecallActivityBodyState();
+  RPUIWordRecallActivityBodyState createState() =>
+      RPUIWordRecallActivityBodyState();
 }
 
-// ignore: camel_case_types
-class _RPUI_WordRecallActivityBodyState
+class RPUIWordRecallActivityBodyState
     extends State<RPUIWordRecallActivityBody> {
   late ActivityStatus activityStatus;
 
@@ -129,7 +128,7 @@ class _RPUI_WordRecallActivityBodyState
               //width: MediaQuery.of(context).size.width / 2,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xffC32C39),
+                  backgroundColor: Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 ),
@@ -198,7 +197,7 @@ class _WordRecallState extends State<_WordRecall> {
   bool guess = false;
   bool finished = false;
   int time = 0;
-  late _SoundService soundService;
+  late SoundService soundService;
 
   _WordRecallState(this.sWidget, this.numberOfTests);
 
@@ -297,7 +296,7 @@ class _WordRecallState extends State<_WordRecall> {
       'DAISY',
       'RED',
     ];
-    soundService = _SoundService(alphabet
+    soundService = SoundService(alphabet
         .map(
             (item) => ('../packages/cognition_package/assets/sounds/$item.mp3'))
         .toList());

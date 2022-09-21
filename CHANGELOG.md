@@ -1,3 +1,8 @@
+## 1.2.1
+
+- Small updates to documentation
+- Code cleanup based on linter
+
 ## 1.2.0
 
 - Upgraded to Research Package 0.9.3 incl. carp_serializable

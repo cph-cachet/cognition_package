@@ -7,7 +7,7 @@
 
 Cognition Package is a Flutter [package](https://pub.dartlang.org/packages/cognition_package) for building cognitive tests for study apps on Android and iOS built using [CARP Research Package](https://pub.dartlang.org/packages/research_package).
 
-The overarching goal of the Cognition Package is to enable developers and researchers to design and build cross-platform (iOS and Android) cognitive assessment applications that rely on validated gold-standard cognitive tests.
+The overarching goal of Cognition Package is to enable developers and researchers to design and build cross-platform (iOS and Android) cognitive assessment applications that rely on validated gold-standard cognitive tests.
 When combined with [Research Package](https://pub.dartlang.org/packages/research_package), Cognition Package meets the requirements of most scientific research, including capturing participant consent, extensible input tasks, and the security and privacy needs necessary for IRB approval.
 
 Cognition Package is a Flutter implementation of a Cognitive test battery including 14 validated gold-standard cognitive tests spanning all 8 Neurocognitive domains:
@@ -24,10 +24,10 @@ Cognition Package is a Flutter implementation of a Cognitive test battery includ
 Each test in Cognition Package is implemented as an [`RPActivityStep`](https://pub.dev/documentation/research_package/latest/research_package_model/RPActivityStep-class.html) from [Research Package](https://pub.dartlang.org/packages/research_package).
 As such, they may be used inside an [`RPTask`](https://pub.dev/documentation/research_package/latest/research_package_model/RPTask-class.html) along with other types of [`RPStep`](https://pub.dev/documentation/research_package/latest/research_package_model/RPStep-class.html)s.
 
-Each test consists of 3 key sections - the instructions for the test, the test itself, and the test results. Hence, each test includes 3 classes that defines it:
+Each test consists of 3 key sections; the instructions for the test, the test itself, and the test results. Hence, each test includes 3 classes that defines:
 
-1. The model class which extends `RPActivityStep` and defines the parameters available for the specific test (eg. length of the test, the amount of repetitions), as well as the function to calculate the final score of the test after it is run.
-2. The UI class which describes how the test is rendered on screen and the logic of running the test.
+1. The model class which extends `RPActivityStep` and defines the parameters available for the specific test (e.g., the length of the test or the amount of repetitions), as well as the function to calculate the final score of the test.
+2. The UI class which describes how the test is rendered on the screen and the logic of running the test.
 3. The [`RPResult`](https://pub.dev/documentation/research_package/latest/research_package_model/RPResult-class.html) class which describes the data collected from the test and adds it to the list of all results from the task.
 
 The current set of cognitive tests in the Cognition Package are:
@@ -62,22 +62,38 @@ There is a set of tutorials, describing:
 
 There is an [example app](https://github.com/cph-cachet/cognition_package/tree/main/example) which demonstrates the different features of Cognition Package as implemented in a Flutter app.
 
-In the [example](https://github.com/cph-cachet/cognition_package/tree/main/example) several configuration file can be found. A `.env` file has to be placed in the example folder for the application to work properly and the following constants has to be defined in this `.env` file:
+The cognitive test to be shown in the example app can be configured in the `survey_config.dart` file:
 
-```
-USERNAME = ...
-PASSWORD = ...
-URI = ...
-ID = ...
+```dart
+/// Here the list of cognitive test are added to an RP ordered task.
+/// Uncomment the ones you want to see a demo of.
+RPOrderedTask surveyTask = RPOrderedTask(
+  identifier: 'surveyTaskID',
+  steps: [
+    reactionTimeStep,
+    pairedAssociatesLearningStep,
+    tappingStep,
+    corsiBlockTapping,
+    stroopEffect,
+    rapidVisualInfoProcessingStep,
+    activityStepTrail,
+    continuousVisualTracking,
+    wordRecall,
+    pictureSequenceMemory,
+    activityStepLetterTapping,
+    flanker,
+    visualArrayChange,
+    delayedRecall,
+    completionStep,
+  ],
+);
 ```
 
-These environmental variables are necessary to upload the data to the CARP server. If you want to use the example app locally, the `.env` is not necessary.
+The `surveyTask` defines the list of cognitive tasks to be shown and you may include the ones you want to see.
 
 ## Who is backing this project?
 
 Cognition Package is made by the [Copenhagen Center for Health Technology (CACHET)](https://www.cachet.dk/) and is a component in the [CACHET Research Platform (CARP)](https://carp.cachet.dk), which is used in a number of applications and studies.
-
-<!-- The current project maintainer is [Ossi Kallunki](https://github.com/ossi0004). -->
 
 ## How can I contribute?
 
@@ -87,13 +103,13 @@ Besides general help for enhacement and quality assurance (bug fixing), we welco
 
 ## Copyright
 
-Note that the tests in this package is **subject to different copyright terms**.
-You must investigate if you can use these tests for your specific purpose, and if you need to obtain a permission from the copyright holders.
+Note that the tests in this package may be **subject to different copyright terms**.
+It is your responsibility to investigate if you can use these tests for your specific purpose, and if you need to obtain a permission from the copyright holder(s).
 
 In the table below, we have provided links to copyright statements (where applicable), which you may want to consult, if you're using a test. If it states **(c) CACHET** this implies that the test is designe by us, and
 hence copyright (MIT license) to CACHET.
 
-However, as per the [MIT license](https://github.com/cph-cachet/cognition_package/blob/master/LICENSE), _this software is provided "as is" and in no event shall the authors (i.e., us) be liabable for any claim - including copyright issues - arising from the use of this software_.
+> Note, however, as per the [MIT license](https://github.com/cph-cachet/cognition_package/blob/master/LICENSE), _this software is provided "as is" and in no event shall the authors (i.e., us) be liabable for any claim - including copyright issues - arising from the use of this software_.
 
 | **Test**                            | **Copyright**                                                                                                                                              |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -115,4 +131,4 @@ However, as per the [MIT license](https://github.com/cph-cachet/cognition_packag
 ## License
 
 This software is copyright (c) [Copenhagen Center for Health Technology (CACHET)](https://www.cachet.dk/) at the [Technical University of Denmark (DTU)](https://www.dtu.dk).
-This software is available 'as-is' under a [MIT license](https://github.com/cph-cachet/cognition_package/blob/master/LICENSE).
+This software is available 'as-is' under a [MIT license](https://github.com/cph-cachet/cognition_package/blob/main/LICENSE).

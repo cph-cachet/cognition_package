@@ -19,11 +19,11 @@ class RPUITrailMakingActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUITrailMakingActivityBodyState createState() =>
-      _RPUITrailMakingActivityBodyState();
+  RPUITrailMakingActivityBodyState createState() =>
+      RPUITrailMakingActivityBodyState();
 }
 
-class _RPUITrailMakingActivityBodyState
+class RPUITrailMakingActivityBodyState
     extends State<RPUITrailMakingActivityBody> {
   late _PathTracker _pathTracker;
   late ActivityStatus activityStatus;

@@ -30,7 +30,6 @@ class RPTrailMakingActivity extends RPActivityStep {
   @override
   calculateScore(dynamic result) {
     var sum = 5 - result['mistakeCount'];
-    print('trailmaking score: ' + sum.toString());
     return sum;
   }
 }

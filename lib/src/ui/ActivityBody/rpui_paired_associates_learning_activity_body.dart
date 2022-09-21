@@ -17,11 +17,11 @@ class RPUIPairedAssociatesLearningActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUIPairedAssociatesLearningActivityBody createState() =>
-      _RPUIPairedAssociatesLearningActivityBody();
+  RPUIPairedAssociatesLearningActivityBodyState createState() =>
+      RPUIPairedAssociatesLearningActivityBodyState();
 }
 
-class _RPUIPairedAssociatesLearningActivityBody
+class RPUIPairedAssociatesLearningActivityBodyState
     extends State<RPUIPairedAssociatesLearningActivityBody> {
   final _random = Random();
   late ActivityStatus activityStatus;

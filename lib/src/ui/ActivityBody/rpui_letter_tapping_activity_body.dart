@@ -17,13 +17,13 @@ class RPUILetterTappingActivityBody extends StatefulWidget {
       this.activity, this.eventLogger, this.onResultChange);
 
   @override
-  _RPUILetterTappingActivityBodyState createState() =>
-      _RPUILetterTappingActivityBodyState();
+  RPUILetterTappingActivityBodyState createState() =>
+      RPUILetterTappingActivityBodyState();
 }
 
-class _RPUILetterTappingActivityBodyState
+class RPUILetterTappingActivityBodyState
     extends State<RPUILetterTappingActivityBody> {
-  late _SoundService soundService;
+  late SoundService soundService;
   late AudioCache player;
   late AudioPlayer audioPlayer;
   late String currentLetter;
@@ -84,7 +84,7 @@ class _RPUILetterTappingActivityBodyState
   @override
   initState() {
     super.initState();
-    soundService = _SoundService(alphabet
+    soundService = SoundService(alphabet
         .map(
             (item) => ('../packages/cognition_package/assets/sounds/$item.mp3'))
         .toList());
@@ -295,19 +295,15 @@ class _RPUILetterTappingActivityBodyState
   }
 }
 
-class _SoundService {
+class SoundService {
   final List<String> files;
 
-  _SoundService(this.files) {
+  SoundService(this.files) {
     AudioCache.instance.loadAll(files);
   }
 
-  // static final cache = AudioCache();
   final player = AudioPlayer();
 
-  void play(String path) async {
-    // AudioCache.instance.loadedFiles[path];
-    await player.play(AssetSource(path), mode: PlayerMode.lowLatency);
-    // await player.play(path, mode: PlayerMode.LOW_LATENCY);
-  }
+  void play(String path) async =>
+      await player.play(AssetSource(path), mode: PlayerMode.lowLatency);
 }
