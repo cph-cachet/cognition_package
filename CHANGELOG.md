@@ -2,6 +2,7 @@
 
 - Small updates to documentation
 - Code cleanup based on linter
+- Removal of old serialization code (which did not work - will be implemented in a later version)
 
 ## 1.2.0
 
