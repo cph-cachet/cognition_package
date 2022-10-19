@@ -7,6 +7,8 @@
 
 library cognition_package_model;
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:research_package/research_package.dart';
 
@@ -36,4 +38,4 @@ part 'src/result/rp_word_recall_result.dart';
 part 'src/result/rp_delayed_recall_result.dart';
 
 // JSON
-part 'model.g.dart';
+// part 'model.g.dart';

@@ -42,7 +42,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(10),
               child: Text(
                 'Find the blue dots on the next screen. These are the targets dots.',
@@ -52,7 +52,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
                 textAlign: TextAlign.center,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(10),
               child: Text(
                 'Once ready, press "start" and the target dots will turn grey and start moving.',
@@ -62,7 +62,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
                 textAlign: TextAlign.center,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(10),
               child: Text(
                 'Follow the target dots around the screen',
@@ -72,7 +72,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
                 textAlign: TextAlign.center,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(10),
               child: Text(
                 'Once the dots stop moving find and click on the target dots and they will turn the original color.',
@@ -83,11 +83,11 @@ class RPUIContinuousVisualTrackingActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 3,
                 width: MediaQuery.of(context).size.width / 1.5,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -99,7 +99,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
               child: OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 24, vertical: 16)),
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16)),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
@@ -113,7 +113,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
                     activityStatus = ActivityStatus.Test;
                   });
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -136,7 +136,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
         return Center(
           child: Text(
             'results:  $continuousVisualTrackingScore',
-            style: TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
         );
@@ -204,12 +204,16 @@ class ContinuousVisualTrackingActivityBodyState
   var visualScoreList = [];
   int conCurrentNum = 1;
 
-  /// fill list of dots with random values and add 2 to track the correct and wrong answers
-  /// amount: amount of dots to add
-  /// constraint: the constraint of the list
-  /// avatarsize: the size of the dots
+  // fill list of dots with random values and add 2 to track the correct and wrong answers
+  // amount: amount of dots to add
+  // constraint: the constraint of the list
+  // avatarsize: the size of the dots
   List<AnimatedPositioned> getDots(
-      int amount, int targetAmount, constraints, avatarSize) {
+    int amount,
+    int targetAmount,
+    BoxConstraints constraints,
+    int avatarSize,
+  ) {
     List<AnimatedPositioned> tDots = [];
     for (var i = 0; i < amount; i++) {
       tDots.add(AnimatedPositioned(
@@ -228,7 +232,8 @@ class ContinuousVisualTrackingActivityBodyState
                   wrong += 1;
                   mistakes[conCurrentNum] = mistakes[conCurrentNum] + 1;
                 });
-                await Future.delayed(Duration(milliseconds: 250));
+                await Future<dynamic>.delayed(
+                    const Duration(milliseconds: 250));
                 setState(() {
                   distractors[i] = false;
                 });
@@ -236,7 +241,8 @@ class ContinuousVisualTrackingActivityBodyState
             },
             child: CircleAvatar(
               radius: avatarSize / 2,
-              backgroundColor: distractors[i] ? Color(0xffFF0000) : Colors.grey,
+              backgroundColor:
+                  distractors[i] ? const Color(0xffFF0000) : Colors.grey,
             )),
       ));
     }
@@ -265,7 +271,7 @@ class ContinuousVisualTrackingActivityBodyState
             },
             child: CircleAvatar(
               radius: avatarSize / 2,
-              backgroundColor: dots[i] ? Color(0xff1F669B) : Colors.grey,
+              backgroundColor: dots[i] ? const Color(0xff1F669B) : Colors.grey,
             )),
       ));
     }
@@ -316,7 +322,7 @@ class ContinuousVisualTrackingActivityBodyState
       positions = generatePositions();
       dots = List.filled(amountOfTargets, false);
     });
-    await Future.delayed(trackingSpeed);
+    await Future<dynamic>.delayed(trackingSpeed);
     setState(() {
       waiting = false;
       guess = true;
@@ -392,7 +398,7 @@ class ContinuousVisualTrackingActivityBodyState
             })),
         Container(
           child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: !guess
@@ -403,7 +409,7 @@ class ContinuousVisualTrackingActivityBodyState
                               OutlinedButton(
                                 style: ButtonStyle(
                                   padding: MaterialStateProperty.all(
-                                      EdgeInsets.symmetric(
+                                      const EdgeInsets.symmetric(
                                           horizontal: 24, vertical: 16)),
                                   shape: MaterialStateProperty.all(
                                     RoundedRectangleBorder(
@@ -414,7 +420,7 @@ class ContinuousVisualTrackingActivityBodyState
                                 onPressed: () {
                                   startTest();
                                 },
-                                child: Text(
+                                child: const Text(
                                   'Start',
                                   style: TextStyle(fontSize: 18),
                                 ),
@@ -422,14 +428,12 @@ class ContinuousVisualTrackingActivityBodyState
                               Text('task $conCurrentNum/$numberOfTests')
                             ]))
                       : finished
-                          ? Center(
-                              child: Container(
+                          ? const Center(
                               child: Text(
-                                'Click next to continue',
-                                style: TextStyle(fontSize: 18),
-                              ),
+                              'Click next to continue',
+                              style: TextStyle(fontSize: 18),
                             ))
-                          : Center(
+                          : const Center(
                               child:
                                   Text('Press the previously colored dots')))),
         )

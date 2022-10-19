@@ -1,18 +1,18 @@
 part of cognition_package_model;
 
-/// Corsi Block Tapping Test
+/// Corsi Block Tapping Test.
 class RPCorsiBlockTappingActivity extends RPActivityStep {
-  /// Contructor for creating a Corsi Block Tapping Test.
-  /// Must contain an identifier for storing purposes
-  RPCorsiBlockTappingActivity(String identifier,
-      {includeInstructions = true, includeResults = true})
-      : super(identifier,
-            includeInstructions: includeInstructions,
-            includeResults: includeResults);
+  /// Create Corsi Block Tapping Test.
+  RPCorsiBlockTappingActivity({
+    required super.identifier,
+    super.includeInstructions,
+    super.includeResults,
+  });
 
   @override
-  Widget stepBody(dynamic Function(dynamic) onResultChange,
-      RPActivityEventLogger eventLogger) {
-    return RPUICorsiBlockTappingActivityBody(this, eventLogger, onResultChange);
-  }
+  Widget stepBody(
+    dynamic Function(dynamic) onResultChange,
+    RPActivityEventLogger eventLogger,
+  ) =>
+      RPUICorsiBlockTappingActivityBody(this, eventLogger, onResultChange);
 }

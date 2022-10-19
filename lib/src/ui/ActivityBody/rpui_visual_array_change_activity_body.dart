@@ -7,14 +7,18 @@ class RPUIVisualArrayChangeActivityBody extends StatefulWidget {
   final RPVisualArrayChangeActivity activity;
 
   /// The results function for the [RPUIVisualArrayChangeActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUIVisualArrayChangeActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUIVisualArrayChangeActivityBody] constructor.
-  RPUIVisualArrayChangeActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUIVisualArrayChangeActivityBody(
+    this.activity,
+    this.eventLogger,
+    this.onResultChange, {
+    super.key,
+  });
 
   @override
   RPUIVisualArrayChangeActivityBodyState createState() =>
@@ -64,7 +68,7 @@ class RPUIVisualArrayChangeActivityBodyState
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Memorize the colors of the shapes.',
@@ -74,7 +78,7 @@ class RPUIVisualArrayChangeActivityBodyState
                 textAlign: TextAlign.center,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
                 'Once ready the shapes will change positions.',
@@ -84,7 +88,7 @@ class RPUIVisualArrayChangeActivityBodyState
                 textAlign: TextAlign.center,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
                 'Indicate if ANY of the shapes changed color or if ALL shapes remained the same',
@@ -95,11 +99,11 @@ class RPUIVisualArrayChangeActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: 250,
                 width: 250,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -111,7 +115,7 @@ class RPUIVisualArrayChangeActivityBodyState
               child: OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -127,7 +131,7 @@ class RPUIVisualArrayChangeActivityBodyState
                   });
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -148,7 +152,7 @@ class RPUIVisualArrayChangeActivityBodyState
         return Center(
           child: Text(
             'results:  $visualArrayChangeScore',
-            style: TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
         );
@@ -245,7 +249,11 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
     'packages/cognition_package/assets/images/bowl_5.png',
   ];
 
-  List<Positioned> makeShapes(int numberOfShapes, constraints, avatarSize) {
+  List<Positioned> makeShapes(
+    int numberOfShapes,
+    BoxConstraints constraints,
+    int avatarSize,
+  ) {
     List<Positioned> shapes = [];
     top = getPictures(tops);
     hourglass = getPictures(hourglasses);
@@ -267,14 +275,14 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                     rotation[i + 1],
             child: CircleAvatar(
                 radius: avatarSize / 2,
+                backgroundColor: Colors.transparent,
                 child: Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
                       image: DecorationImage(
                           image: AssetImage(shape[i][color[i]].urlImage),
                           fit: BoxFit.scaleDown)),
-                ),
-                backgroundColor: Colors.transparent)),
+                ))),
       );
     }
     return shapes;
@@ -358,7 +366,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
       padding.shuffle();
       rotation = getRotation();
     });
-    await Future.delayed(Duration(seconds: waitTime));
+    await Future<dynamic>.delayed(Duration(seconds: waitTime));
     setState(() {
       waiting = false;
       guess = true;
@@ -517,12 +525,12 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
   Widget build(BuildContext context) => Scaffold(
           body: Center(
               child: Column(children: [
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.height - 270,
           width: MediaQuery.of(context).size.width - 20,
           child: !waiting
               ? LayoutBuilder(builder: (context, constraints) {
-                  final avatarSize = 100.0;
+                  const avatarSize = 100;
                   return Stack(
                     children:
                         makeShapes(numberOfShapes, constraints, avatarSize),
@@ -530,98 +538,96 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                 })
               : Center(
                   child: Container(
-                      child: Text(
+                      child: const Text(
                   'wait',
                   style: TextStyle(fontSize: 25),
                 ))),
         ),
-        Container(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-            child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: !guess
-                    ? waiting
-                        ? Container()
-                        : Column(children: [
-                            OutlinedButton(
-                              style: ButtonStyle(
-                                padding: MaterialStateProperty.all(
-                                  EdgeInsets.symmetric(
-                                      horizontal: 24, vertical: 8),
-                                ),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+          child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: !guess
+                  ? waiting
+                      ? Container()
+                      : Column(children: [
+                          OutlinedButton(
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                    horizontal: 24, vertical: 8),
                               ),
-                              onPressed: () {
-                                startTest();
-                              },
-                              child: Text(
-                                'Start',
-                                style: TextStyle(fontSize: 18),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
                               ),
                             ),
-                            Padding(
-                                padding: EdgeInsets.only(top: 6),
-                                child:
-                                    Text('task $viscurrentNum/$numberOfTests'))
-                          ])
-                    : finished
-                        ? Center(
-                            child: Container(
-                            child: Text(
-                              'Click next to continue',
+                            onPressed: () {
+                              startTest();
+                            },
+                            child: const Text(
+                              'Start',
                               style: TextStyle(fontSize: 18),
                             ),
-                          ))
-                        : Row(children: [
-                            Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 50),
-                                child: OutlinedButton(
-                                  style: ButtonStyle(
-                                    padding: MaterialStateProperty.all(
-                                      EdgeInsets.symmetric(
-                                          horizontal: 24, vertical: 16),
-                                    ),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                    ),
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(top: 6),
+                              child: Text('task $viscurrentNum/$numberOfTests'))
+                        ])
+                  : finished
+                      ? Center(
+                          child: Container(
+                          child: const Text(
+                            'Click next to continue',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ))
+                      : Row(children: [
+                          Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50),
+                              child: OutlinedButton(
+                                style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                    const EdgeInsets.symmetric(
+                                        horizontal: 24, vertical: 16),
                                   ),
-                                  onPressed: () {
-                                    same();
-                                  },
-                                  child: Text(
-                                    'Same',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                )),
-                            OutlinedButton(
-                              style: ButtonStyle(
-                                padding: MaterialStateProperty.all(
-                                  EdgeInsets.symmetric(
-                                      horizontal: 24, vertical: 16),
-                                ),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6),
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
                                   ),
                                 ),
+                                onPressed: () {
+                                  same();
+                                },
+                                child: const Text(
+                                  'Same',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              )),
+                          OutlinedButton(
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                const EdgeInsets.symmetric(
+                                    horizontal: 24, vertical: 16),
                               ),
-                              onPressed: () {
-                                different();
-                              },
-                              child: Text(
-                                'Different',
-                                style: TextStyle(fontSize: 18),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
                               ),
                             ),
-                          ])),
-          ),
+                            onPressed: () {
+                              different();
+                            },
+                            child: const Text(
+                              'Different',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ])),
         )
       ])));
 
@@ -631,7 +637,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
           padding: padding[picture.index],
           child: Transform.rotate(
               angle: 3.14 / rotation[picture.index],
-              child: Container(
+              child: SizedBox(
                   height: 150,
                   width: 50,
                   key: ValueKey(picture),
@@ -639,7 +645,8 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                       index: index,
                       child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
                             image: DecorationImage(
                                 image: AssetImage(picture.urlImage),
                                 fit: BoxFit.scaleDown)),

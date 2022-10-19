@@ -7,13 +7,18 @@ class RPUIFlankerActivityBody extends StatefulWidget {
   final RPFlankerActivity activity;
 
   /// The results function for the [RPUIFlankerActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUIFlankerActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUIFlankerActivityBody] constructor.
-  RPUIFlankerActivityBody(this.activity, this.eventLogger, this.onResultChange);
+  const RPUIFlankerActivityBody(
+    this.activity,
+    this.eventLogger,
+    this.onResultChange, {
+    super.key,
+  });
 
   @override
   RPUIFlankerActivityBodyState createState() => RPUIFlankerActivityBodyState();
@@ -73,7 +78,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
 
   void startTest() async {
     startTimer();
-    await Future.delayed(Duration(seconds: 1));
+    await Future<dynamic>.delayed(Duration(seconds: 1));
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       if (mounted) {
         widget.eventLogger.testEnded();
@@ -138,7 +143,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Each card has 5 arrows on it.',
@@ -148,7 +153,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
                 textAlign: TextAlign.center,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Swipe the cards in the direction of the middle arrow on each card.',
@@ -158,7 +163,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
                 textAlign: TextAlign.center,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Ignore all other arrows on the cards, they are only there to distract you',
@@ -169,11 +174,11 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: 250,
                 width: 250,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -185,7 +190,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
               child: OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -201,7 +206,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
                   });
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -220,7 +225,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
         return Center(
           child: Text(
             'Correct swipes:  $rightSwipe',
-            style: TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
         );
@@ -256,7 +261,7 @@ class _FlankerState extends State<_Flanker> {
   bool even = false;
 
   List<Widget> flankerCards = [];
-  List<_FlankerCard> cards(amount) {
+  List<_FlankerCard> cards(int amount) {
     List<_FlankerCard> cards = [];
     for (var i = 0; i < amount; i++) {
       even = !even;
@@ -283,7 +288,7 @@ class _FlankerState extends State<_Flanker> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.height * 0.7,
       child: Stack(
@@ -354,6 +359,8 @@ class _FlankerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Swipable(
+      onSwipeRight: onSwipeRight,
+      onSwipeLeft: onSwipeLeft,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.7,
@@ -364,11 +371,9 @@ class _FlankerCard extends StatelessWidget {
         child: Center(
             child: Text(
           stimuli(),
-          style: TextStyle(fontSize: 55, color: Colors.white),
+          style: const TextStyle(fontSize: 55, color: Colors.white),
         )),
       ),
-      onSwipeRight: onSwipeRight,
-      onSwipeLeft: onSwipeLeft,
     );
   }
 }
@@ -448,7 +453,7 @@ class Swipable extends StatefulWidget {
   /// defaults to true.
   final bool verticalSwipe;
 
-  Swipable({
+  const Swipable({
     Key? key,
     @required this.child,
     this.onSwipeRight,
