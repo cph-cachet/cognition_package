@@ -8,25 +8,30 @@ class SurveyPage extends StatelessWidget {
   final String? location;
   final DateTime? date;
 
-  const SurveyPage({super.key, this.age, this.name, this.location, this.date});
+  const SurveyPage({
+    super.key,
+    this.age,
+    this.name,
+    this.location,
+    this.date,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         body: RPUITask(
-      task: surveyTask,
-      onSubmit: (result) {
-        resultCallback(result);
-      },
-    ));
-  }
+          task: surveyTask,
+          onSubmit: (result) {
+            resultCallback(result);
+          },
+        ),
+      );
 
   void resultCallback(RPTaskResult result) async {
     print('FINAL RESULTS');
-    print('age: $age');
-    print('name: $name');
-    print('location: $location');
-    print('date: $date');
+    print(' age: $age');
+    print(' name: $name');
+    print(' location: $location');
+    print(' date: $date');
     print('RESULTS:');
     result.results.forEach((key, value) {
       value = value as RPActivityResult;

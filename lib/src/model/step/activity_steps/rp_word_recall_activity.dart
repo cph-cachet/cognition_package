@@ -1,45 +1,51 @@
 part of cognition_package_model;
 
 /// A Verbal Recognition memory Test
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPWordRecallActivity extends RPActivityStep {
-  RPWordRecallActivity(
-    String identifier, {
-    includeInstructions = true,
-    includeResults = true,
+  RPWordRecallActivity({
+    required super.identifier,
+    super.includeInstructions,
+    super.includeResults,
     this.lengthOfTest = 90,
     this.numberOfTests = 3,
-  }) : super(identifier,
-            includeInstructions: includeInstructions,
-            includeResults: includeResults);
+  });
 
-  /// Test duration in seconds. Default is 90 seconds
+  /// Test duration in seconds. Default is 90 seconds.
   int lengthOfTest;
 
-  /// Number of tests to be performed. Default is 3
+  /// Number of tests to be performed. Default is 3.
   int numberOfTests;
 
   @override
-  Widget stepBody(dynamic Function(dynamic) onResultChange,
-      RPActivityEventLogger eventLogger) {
-    return RPUIWordRecallActivityBody(this, eventLogger, onResultChange);
-  }
+  Widget stepBody(
+    dynamic Function(dynamic) onResultChange,
+    RPActivityEventLogger eventLogger,
+  ) =>
+      RPUIWordRecallActivityBody(this, eventLogger, onResultChange);
 
-  /// override the AcitivityResult with the results calculation of the test
-  /// this is called when the test is finished
-  /// result is calculated the same as for delayed recall
-  /// but 0 is returned as per MOCA standards.
-  /// score is calculated in Delayed Recall Activity
+  /// Score is the sum of correct answers in the list of results that
+  /// match the words in the list of words.
   @override
-  calculateScore(dynamic result) {
-    List<String> wordList = result['wordsList'];
-    List<String> resultsList = result['resultsList'];
-    resultsList = resultsList.map((result) => result.toLowerCase()).toList();
-    var sum = 0;
-    for (int i = 0; i < resultsList.length; i++) {
-      if (wordList.contains(resultsList[i])) {
-        sum++;
+  int calculateScore(dynamic result) {
+    int sum = 0;
+    try {
+      List<String> wordList = result['wordsList'] as List<String>;
+      List<String> resultsList = result['resultsList'] as List<String>;
+      resultsList = resultsList.map((result) => result.toLowerCase()).toList();
+      for (int i = 0; i < resultsList.length; i++) {
+        if (wordList.contains(resultsList[i])) sum++;
       }
+    } catch (error) {
+      print('$runtimeType - $error');
     }
     return sum;
   }
+
+  @override
+  Function get fromJsonFunction => _$RPWordRecallActivityFromJson;
+  factory RPWordRecallActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPWordRecallActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPWordRecallActivityToJson(this);
 }

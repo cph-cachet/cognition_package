@@ -9,14 +9,18 @@ class RPUITrailMakingActivityBody extends StatefulWidget {
   final RPTrailMakingActivity activity;
 
   /// The results function for the [RPUITrailMakingActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUITrailMakingActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUITrailMakingActivityBody] constructor.
-  RPUITrailMakingActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUITrailMakingActivityBody(
+    this.activity,
+    this.eventLogger,
+    this.onResultChange, {
+    super.key,
+  });
 
   @override
   RPUITrailMakingActivityBodyState createState() =>
@@ -55,7 +59,7 @@ class RPUITrailMakingActivityBodyState
     });
   }
 
-  Future<bool> buildCanvas(context) {
+  Future<bool> buildCanvas(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     _boxLocations = _isTypeA
         ? _TrailMakingLists()
@@ -108,27 +112,27 @@ class RPUITrailMakingActivityBodyState
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 _isTypeA
                     ? 'Connect the boxes to each other by drawing lines between them in numerical order, starting at \'1\'.'
                     : 'Connect the boxes to each other by drawing lines between them.',
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 _isTypeA
                     ? 'Connect the boxes to each other by drawing lines between them in numerical order, starting at \'1\'.'
                     : 'You must alternate between letters and numbers and should order them alphabetically and numerically, respectively.',
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 child: Image.asset(_isTypeA
                     ? 'packages/cognition_package/assets/images/trailmaking_a.png'
@@ -140,7 +144,7 @@ class RPUITrailMakingActivityBodyState
               child: OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -153,7 +157,7 @@ class RPUITrailMakingActivityBodyState
                   widget.eventLogger.testStarted();
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -166,8 +170,8 @@ class RPUITrailMakingActivityBodyState
         return FutureBuilder(
           future: canvasReady,
           builder: (context, snapshot) {
-            if (!snapshot.hasData) return CircularProgressIndicator();
-            return Container(
+            if (!snapshot.hasData) return const CircularProgressIndicator();
+            return SizedBox(
               height: MediaQuery.of(context).size.height -
                   AppBar().preferredSize.height,
               width: MediaQuery.of(context).size.width,
@@ -189,7 +193,7 @@ class RPUITrailMakingActivityBodyState
           alignment: Alignment.center,
           child: Text(
             'You completed the task in: $taskTime seconds!',
-            style: TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
         );
@@ -210,7 +214,7 @@ class _TrailPainter extends CustomPainter {
       final textPainter = TextPainter(
         text: TextSpan(
           text: location.id,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 20,
           ),
@@ -286,7 +290,7 @@ class _PathTracker extends ChangeNotifier {
     }
   }
 
-  void updateCurrentPath(Offset newPos, Function(int, int) testConcluded) {
+  void updateCurrentPath(Offset newPos, void Function(int, int) testConcluded) {
     if (_isDraging && !_isFinished) {
       Path path = _paths.last;
       path.lineTo(newPos.dx, newPos.dy);
@@ -294,7 +298,7 @@ class _PathTracker extends ChangeNotifier {
           path.computeMetrics().first.getTangentForOffset(0)!.position;
 
       // Avoid if drag hits another locations before hitting the next location (e.g. A-C-B)
-      List locationCopy = List.from(_locations);
+      List<_Location> locationCopy = List.from(_locations);
       locationCopy.remove(prevLocation);
       locationCopy.remove(nextLocation);
       for (_Location l in locationCopy) {

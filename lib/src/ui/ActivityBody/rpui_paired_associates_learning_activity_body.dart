@@ -7,14 +7,18 @@ class RPUIPairedAssociatesLearningActivityBody extends StatefulWidget {
   final RPPairedAssociatesLearningActivity activity;
 
   /// The results function for the [RPUIPairedAssociatesLearningActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUIPairedAssociatesLearningActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUIPairedAssociatesLearningActivityBody] constructor.
-  RPUIPairedAssociatesLearningActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUIPairedAssociatesLearningActivityBody(
+    this.activity,
+    this.eventLogger,
+    this.onResultChange, {
+    super.key,
+  });
 
   @override
   RPUIPairedAssociatesLearningActivityBodyState createState() =>
@@ -31,7 +35,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
       0; //introduce int that can be 0, 1 and 2 for three possibilities. (indicates if, and which icon to show)
   int successes = 0;
   int mistakes = 0;
-  Timer t = Timer(Duration(seconds: 0),
+  Timer t = Timer(const Duration(seconds: 0),
       () {}); //construct for further control of timer. Cancel at window collapse.
   List<String> containers = [
     'packages/cognition_package/assets/images/nothing.png',
@@ -75,17 +79,17 @@ class RPUIPairedAssociatesLearningActivityBodyState
     'packages/cognition_package/assets/images/shape5.png',
   ];
 
-  List<List> levels = []; //list of all levels. Add in init.
+  List<List<String>> levels = []; //list of all levels. Add in init.
   String matchObject = 'packages/cognition_package/assets/images/nothing.png';
   String tempMatch = 'packages/cognition_package/assets/images/nothing.png';
 
   @override
   initState() {
     super.initState();
-    levels.addAll(
-        [shapes0, shapes1, shapes2, shapes3, shapes4]); //hard add all levels...
-    containerContent(
-        levels[successes]); //call containerContent with 0 before beginning.
+    //hard add all levels...
+    levels.addAll([shapes0, shapes1, shapes2, shapes3, shapes4]);
+    //call containerContent with 0 before beginning.
+    containerContent(levels[successes]);
 
     if (widget.activity.includeInstructions) {
       activityStatus = ActivityStatus.Instruction;
@@ -120,7 +124,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
     });
   }
 
-  void containerContent(level) {
+  void containerContent(List<String> level) {
     correct = 0; //set no feedback icon.
     //fill containers with content
     for (int i = 0; i < containers.length; i++) {
@@ -150,7 +154,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
     buttonsDisabled = true;
     List<int> peaked = [];
     int peaking = 0;
-    await Future.delayed(Duration(seconds: 2));
+    await Future<dynamic>.delayed(const Duration(seconds: 2));
     for (int i = 0; i < containers.length; i++) {
       while (peaked.contains(peaking)) {
         peaking = _random.nextInt(containers.length);
@@ -161,7 +165,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
           containerHide[peaking] = containers[peaking]; //reveal tile
         });
       }
-      await Future.delayed(Duration(seconds: 1));
+      await Future<dynamic>.delayed(const Duration(seconds: 1));
       containerHide[peaking] =
           'packages/cognition_package/assets/images/hidden.png'; //after time, set back to default
     }
@@ -183,7 +187,8 @@ class RPUIPairedAssociatesLearningActivityBodyState
       });
       widget.eventLogger.addCorrectGesture('Button tap',
           'The tile tapped and match object matched. Level $successes succeeded, by pressing button number $buttonNum.');
-      await Future.delayed(Duration(seconds: 1)); //display feedback
+      await Future<dynamic>.delayed(
+          const Duration(seconds: 1)); //display feedback
       if (successes < levels.length && mounted) {
         //as long as there are more levels, go to next.
         setState(() {
@@ -208,7 +213,8 @@ class RPUIPairedAssociatesLearningActivityBodyState
       setState(() {
         correct = 2; //change icon for feedback - 2 is a cross
       });
-      await Future.delayed(Duration(seconds: 1)); //display feedback
+      await Future<dynamic>.delayed(
+          const Duration(seconds: 1)); //display feedback
       //if a mistake has been made, repeat current step.
       mistakes++;
       if (mounted) {
@@ -229,7 +235,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'A screen with 6 tiles will appear. What is underneath each of them, will be revealed one by one. Click the tile matching the object in the middle, when the reveal is done.',
@@ -240,11 +246,11 @@ class RPUIPairedAssociatesLearningActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -256,7 +262,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
               child: OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -267,7 +273,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
                 onPressed: () {
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -322,17 +328,17 @@ class RPUIPairedAssociatesLearningActivityBodyState
             ]);
       case ActivityStatus.Result:
         return Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text('The test is done!',
+                        const Text('The test is done!',
                             style: TextStyle(fontSize: 22)),
                         Text('Correct: $successes, Wrong: $mistakes',
-                            style: TextStyle(fontSize: 22)),
+                            style: const TextStyle(fontSize: 22)),
                       ]),
                 ]));
     }
@@ -354,9 +360,9 @@ class RPUIPairedAssociatesLearningActivityBodyState
     if (correct == 0) {
       //nothing happens - no icon to show
     } else if (correct == 1) {
-      return Icon(Icons.check, size: 50);
+      return const Icon(Icons.check, size: 50);
     } else {
-      return Icon(Icons.clear, size: 50);
+      return const Icon(Icons.clear, size: 50);
     }
     return null;
   }
@@ -373,7 +379,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
         child: MaterialButton(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
-              side: BorderSide(color: Colors.black, width: 3)),
+              side: const BorderSide(color: Colors.black, width: 3)),
           onPressed: () {
             if (!buttonsDisabled) {
               buttonsDisabled = true;

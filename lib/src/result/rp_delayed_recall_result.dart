@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Delayed Recall Test Result
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPDelayedRecallResult extends RPActivityResult {
   RPDelayedRecallResult({required String identifier})
       : super(identifier: identifier);
@@ -19,4 +20,9 @@ class RPDelayedRecallResult extends RPActivityResult {
     res.results.addAll({'score': score});
     return res;
   }
+
+  factory RPDelayedRecallResult.fromJson(Map<String, dynamic> json) =>
+      _$RPDelayedRecallResultFromJson(json);
+  @override
+  Map<String, dynamic> toJson() => _$RPDelayedRecallResultToJson(this);
 }

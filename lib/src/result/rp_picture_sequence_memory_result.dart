@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Picture Sequence Memory Test Result
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPPictureSequenceResult extends RPActivityResult {
   RPPictureSequenceResult({required String identifier})
       : super(identifier: identifier);
@@ -28,4 +29,9 @@ class RPPictureSequenceResult extends RPActivityResult {
     res.results.addAll({'score': score});
     return res;
   }
+
+  factory RPPictureSequenceResult.fromJson(Map<String, dynamic> json) =>
+      _$RPPictureSequenceResultFromJson(json);
+  @override
+  Map<String, dynamic> toJson() => _$RPPictureSequenceResultToJson(this);
 }

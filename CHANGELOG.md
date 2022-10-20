@@ -1,3 +1,11 @@
+## 1.3.0
+
+- Upgrade to Research Package v. 1.1.0
+- Added support for JSON serialization of Steps and Results objects
+- Upgraded to Dart 2.18 and Fluter 3
+- Refactoring to comply to [official Dart recommended lint rules](https://pub.dev/packages/flutter_lints)
+- Update and clean up in API documentation.
+
 ## 1.2.1
 
 - Small updates to documentation

@@ -1,26 +1,34 @@
 part of cognition_package_model;
 
 /// Reaction Time Test.
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPReactionTimeActivity extends RPActivityStep {
   /// Contructor for creating a Reaction time Test.
-  RPReactionTimeActivity(String identifier,
-      {includeInstructions = true,
-      includeResults = true,
+  RPReactionTimeActivity(
+      {required super.identifier,
+      super.includeInstructions,
+      super.includeResults,
       this.lengthOfTest = 30,
-      this.switchInterval = 4})
-      : super(identifier,
-            includeInstructions: includeInstructions,
-            includeResults: includeResults);
+      this.switchInterval = 4});
 
   /// The duration of the test. Default is 30 seconds.
   int lengthOfTest;
 
-  /// Max seconds until light switch-1. Writing 4 means at most 5 seconds. Default is 4.
+  /// Max seconds until light switch-1. Writing 4 means at most 5 seconds.
+  /// Default is 4.
   int switchInterval;
 
   @override
-  Widget stepBody(dynamic Function(dynamic) onResultChange,
-      RPActivityEventLogger eventLogger) {
-    return RPUIReactionTimeActivityBody(this, eventLogger, onResultChange);
-  }
+  Widget stepBody(
+    dynamic Function(dynamic) onResultChange,
+    RPActivityEventLogger eventLogger,
+  ) =>
+      RPUIReactionTimeActivityBody(this, eventLogger, onResultChange);
+
+  @override
+  Function get fromJsonFunction => _$RPReactionTimeActivityFromJson;
+  factory RPReactionTimeActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPReactionTimeActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPReactionTimeActivityToJson(this);
 }
