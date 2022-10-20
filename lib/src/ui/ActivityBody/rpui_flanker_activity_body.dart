@@ -109,6 +109,13 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
   }
 
   @override
+  void dispose() {
+    testTimer.cancel();
+    flankerTimer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (flankerScore == widget.activity.numberOfCards) {
       flankerScore = 0;

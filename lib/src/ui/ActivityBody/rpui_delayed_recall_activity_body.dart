@@ -114,7 +114,7 @@ class RPUIDelayedRecallActivityBodyState
       case ActivityStatus.Test:
         return Scaffold(
             body: Center(
-                child: _DelayedRecall(
+                child: DelayedRecall(
           sWidget: widget,
           numberOfTests: widget.activity.numberOfTests,
         )));
@@ -132,20 +132,22 @@ class RPUIDelayedRecallActivityBodyState
   }
 }
 
-class _DelayedRecall extends StatefulWidget {
+class DelayedRecall extends StatefulWidget {
   final RPUIDelayedRecallActivityBody sWidget;
   final int numberOfTests;
 
-  const _DelayedRecall(
-      {Key? key, required this.sWidget, required this.numberOfTests})
-      : super(key: key);
+  const DelayedRecall({
+    Key? key,
+    required this.sWidget,
+    required this.numberOfTests,
+  }) : super(key: key);
 
   @override
-  _DelayedRecallState createState() =>
-      _DelayedRecallState(sWidget, numberOfTests);
+  DelayedRecallState createState() =>
+      DelayedRecallState(sWidget, numberOfTests);
 }
 
-class _DelayedRecallState extends State<_DelayedRecall> {
+class DelayedRecallState extends State<DelayedRecall> {
   final RPUIDelayedRecallActivityBody sWidget;
   final int numberOfTests;
   var timesTaken2 = [];
@@ -159,7 +161,7 @@ class _DelayedRecallState extends State<_DelayedRecall> {
   int time = 0;
   late SoundService soundService;
 
-  _DelayedRecallState(this.sWidget, this.numberOfTests);
+  DelayedRecallState(this.sWidget, this.numberOfTests);
 
   void resetTest() async {
     setState(() {
@@ -174,7 +176,6 @@ class _DelayedRecallState extends State<_DelayedRecall> {
     startTimer();
   }
 
-  /// Timer
   late Timer _timer;
   int seconds = 0;
   void startTimer() {
@@ -223,6 +224,12 @@ class _DelayedRecallState extends State<_DelayedRecall> {
   initState() {
     super.initState();
     startTest();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override

@@ -35,8 +35,10 @@ class RPUIPairedAssociatesLearningActivityBodyState
       0; //introduce int that can be 0, 1 and 2 for three possibilities. (indicates if, and which icon to show)
   int successes = 0;
   int mistakes = 0;
-  Timer t = Timer(const Duration(seconds: 0),
-      () {}); //construct for further control of timer. Cancel at window collapse.
+
+  //construct for further control of timer. Cancel at window collapse.
+  Timer timer = Timer(const Duration(seconds: 0), () {});
+
   List<String> containers = [
     'packages/cognition_package/assets/images/nothing.png',
     'packages/cognition_package/assets/images/nothing.png',
@@ -86,9 +88,9 @@ class RPUIPairedAssociatesLearningActivityBodyState
   @override
   initState() {
     super.initState();
-    //hard add all levels...
+    // add all levels...
     levels.addAll([shapes0, shapes1, shapes2, shapes3, shapes4]);
-    //call containerContent with 0 before beginning.
+    // call containerContent with 0 before beginning.
     containerContent(levels[successes]);
 
     if (widget.activity.includeInstructions) {
@@ -109,7 +111,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
       activityStatus = ActivityStatus.Test;
     });
     containerPeaker();
-    t = Timer(Duration(seconds: widget.activity.maxTestDuration), () {
+    timer = Timer(Duration(seconds: widget.activity.maxTestDuration), () {
       //when time is up, change window and set result
       widget.onResultChange({'successes': successes, 'mistakes': mistakes});
       widget.eventLogger.testEnded();
@@ -198,7 +200,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
         });
       } else {
         //if there are no more levels, end the test.
-        t.cancel();
+        timer.cancel();
         widget.onResultChange(0);
         widget.eventLogger.testEnded();
         widget.eventLogger.resultsShown();
@@ -225,6 +227,12 @@ class RPUIPairedAssociatesLearningActivityBodyState
         });
       }
     }
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   @override

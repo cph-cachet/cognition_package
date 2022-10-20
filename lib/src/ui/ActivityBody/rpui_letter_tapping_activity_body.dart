@@ -30,7 +30,6 @@ class RPUILetterTappingActivityBodyState
   late String currentLetter;
   late String lastLetter;
   int errors = 0;
-  late Timer timer;
   late bool shouldTap;
   late bool lastWasTapped;
   bool wasTapped = false;

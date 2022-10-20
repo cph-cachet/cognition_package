@@ -103,6 +103,12 @@ class RPUIReactionTimeActivityBodyState
   }
 
   @override
+  void dispose() {
+    lightTimer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     switch (activityStatus) {
       case ActivityStatus.Instruction:

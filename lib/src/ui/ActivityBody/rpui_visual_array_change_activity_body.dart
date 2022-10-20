@@ -186,13 +186,13 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
   final int numberOfTests;
   final int numberOfShapes;
   final int waitTime;
-  List<_Shape> original = [];
-  List<_Shape> pictures = [];
-  List<_Shape> top = [];
-  List<_Shape> arrow = [];
-  List<_Shape> hourglass = [];
-  List<_Shape> bowl = [];
-  List<_Shape> bean = [];
+  List<Shape> original = [];
+  List<Shape> pictures = [];
+  List<Shape> top = [];
+  List<Shape> arrow = [];
+  List<Shape> hourglass = [];
+  List<Shape> bowl = [];
+  List<Shape> bean = [];
   List<EdgeInsets> padding = [];
   List<int> rotation = [];
   List<int> color = [];
@@ -290,9 +290,9 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
 
   _VisualArrayChangeState(
       this.sWidget, this.numberOfTests, this.numberOfShapes, this.waitTime);
-  List<_Shape> getPictures(List<String> list) => List.generate(
+  List<Shape> getPictures(List<String> list) => List.generate(
         5,
-        (index) => _Shape(
+        (index) => Shape(
           name: index.toString(),
           urlImage: list[index],
           index: index,
@@ -309,11 +309,18 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
     rotation = getRotation();
     color = getColor();
     pictures.shuffle();
-    for (_Shape picl in pictures) {
+    for (Shape picl in pictures) {
       original.add(picl);
     }
     memorySeconds = 0;
     startMemoryTimer();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    memoryTimer.cancel();
+    super.dispose();
   }
 
   List<Positioned> shapes = [];
@@ -338,7 +345,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
       rotation = getRotation();
       color = getColor();
       original = [];
-      for (_Shape picl in pictures) {
+      for (Shape picl in pictures) {
         original.add(picl);
       }
     });
@@ -376,11 +383,11 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
 
   var rng = Random();
 
-  late Timer _timer;
+  Timer? timer;
   int seconds = 0;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(
+    timer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -413,7 +420,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
   }
 
   void same() {
-    _timer.cancel();
+    timer?.cancel();
     times.add(seconds);
     seconds = 0;
 
@@ -467,7 +474,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
   }
 
   void different() {
-    _timer.cancel();
+    timer?.cancel();
     times.add(seconds);
     seconds = 0;
     if (changed) {
@@ -628,7 +635,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
         )
       ])));
 
-  Widget buildShape(int index, _Shape picture, double left, double top,
+  Widget buildShape(int index, Shape picture, double left, double top,
           double right, double bottom) =>
       Padding(
           padding: padding[picture.index],
@@ -650,12 +657,12 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                       )))));
 }
 
-class _Shape {
+class Shape {
   String name;
   String urlImage;
   int index;
 
-  _Shape({
+  Shape({
     required this.name,
     required this.urlImage,
     required this.index,

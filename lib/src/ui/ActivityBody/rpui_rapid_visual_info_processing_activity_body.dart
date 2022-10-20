@@ -46,6 +46,8 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
       []; //list of delay from seqPassed is set true, to button is pressed
   final _sw = Stopwatch();
 
+  Timer? timer;
+
   //Todo: determine how test results are evaluated: Hit sequences, delay in doing so, and false taps are recorded
   //seqsPassed can be different that good and bad taps total! Meaning tap should have occured but didnt, before next full sequence.
 
@@ -71,9 +73,9 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
 
   void startTest() async {
     await Future<dynamic>.delayed(const Duration(seconds: 1));
-    Timer.periodic(
-        //periodic timer to update number on screen - starts in init currently.
-        displayTime, (Timer t) {
+
+    //periodic timer to update number on screen - starts in init currently.
+    timer = Timer.periodic(displayTime, (Timer t) {
       //make sure window is mounted and that test is live before setting state.
       if (activityStatus == ActivityStatus.Test && mounted) {
         setState(() {
@@ -137,6 +139,12 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
         listIndexes[i + 1] = false;
       }
     }
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override

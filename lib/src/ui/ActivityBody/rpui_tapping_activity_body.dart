@@ -28,6 +28,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
   bool indexStart = false;
   bool counting = true;
   late ActivityStatus activityStatus;
+  Timer? timer;
 
   @override
   initState() {
@@ -62,7 +63,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
         counting = false;
       });
     }
-    Timer(Duration(seconds: widget.activity.lengthOfTest), () {
+    timer = Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       //when time is up, change window and set result
       widget.eventLogger.testEnded();
       widget.onResultChange({'Total taps': taps});
@@ -75,6 +76,12 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
         }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override

@@ -31,10 +31,8 @@ class RPUIStroopEffectActivityBodyState
   int cWordIndex = 0;
   int wColorIndex = 0;
   final _random = Random();
-  Timer t = Timer(const Duration(seconds: 0),
-      () {}); //construct for further control of timer. Cancel at window collapse.
-  Timer pulseTimer =
-      Timer(const Duration(seconds: 0), () {}); //pulse timer control
+
+  Timer pulseTimer = Timer(const Duration(seconds: 0), () {});
 
   //bool testLive = false; //test going on, screen flag
   //bool testBegin = true; //pre test screen flag
@@ -153,6 +151,12 @@ class RPUIStroopEffectActivityBodyState
         wordPulse();
       }
     }); //call wordPulse recursively for periodic timer effect
+  }
+
+  @override
+  void dispose() {
+    pulseTimer.cancel();
+    super.dispose();
   }
 
   @override

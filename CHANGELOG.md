@@ -1,3 +1,7 @@
+## 1.3.1
+
+- implementation of `dispose()` methods on all tests to support cancelation of a test.
+
 ## 1.3.0
 
 - Upgrade to Research Package v. 1.1.0

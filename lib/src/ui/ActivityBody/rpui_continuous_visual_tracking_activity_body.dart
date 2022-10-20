@@ -286,6 +286,7 @@ class ContinuousVisualTrackingActivityBodyState
       this.amountOfTargets,
       this.dotSize,
       this.trackingSpeed);
+
   @override
   initState() {
     mistakes = List.filled(numberOfTests + 1, 0);
@@ -382,6 +383,12 @@ class ContinuousVisualTrackingActivityBodyState
       conCurrentNum += 1;
       resetTest();
     }
+  }
+
+  @override
+  void dispose() {
+    testTimer.cancel();
+    super.dispose();
   }
 
   /// Build the main test phase

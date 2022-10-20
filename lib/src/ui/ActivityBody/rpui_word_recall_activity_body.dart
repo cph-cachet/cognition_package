@@ -237,11 +237,11 @@ class _WordRecallState extends State<_WordRecall> {
     startTimer();
   }
 
-  late Timer _timer;
+  Timer? timer;
   int seconds = 0;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(
+    timer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -260,7 +260,7 @@ class _WordRecallState extends State<_WordRecall> {
       resultsList2 = wordlist2;
       sWidget.eventLogger.testEnded();
       timesTaken.add(seconds);
-      _timer.cancel();
+      timer?.cancel();
       wordRecallScore = sWidget.activity
           .calculateScore({'wordsList': wordlist, 'resultsList': resultsList2});
       RPWordRecallResult result =
@@ -283,7 +283,7 @@ class _WordRecallState extends State<_WordRecall> {
       resultsList1 = wordlist2;
       wordlist2 = ['', '', '', '', ''];
       timesTaken.add(seconds);
-      _timer.cancel();
+      timer?.cancel();
       resetTest();
     }
   }
@@ -303,6 +303,12 @@ class _WordRecallState extends State<_WordRecall> {
             (item) => ('../packages/cognition_package/assets/sounds/$item.mp3'))
         .toList());
     startTest();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   @override

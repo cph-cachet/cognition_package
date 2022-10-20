@@ -422,6 +422,13 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   }
 
   @override
+  void dispose() {
+    picTimer.cancel();
+    memoryTimer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     void onReorder(int oldIndex, int newIndex) {
       setState(() {
