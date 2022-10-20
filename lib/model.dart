@@ -42,7 +42,6 @@ class CognitionPackage {
   factory CognitionPackage() => _instance;
   CognitionPackage._() {
     ResearchPackage();
-
     _registerFromJsonFunctions();
   }
 }
