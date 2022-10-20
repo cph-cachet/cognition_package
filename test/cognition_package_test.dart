@@ -97,17 +97,24 @@ void main() {
           numberOfTests: 3,
           includeResults: false);
 
-      List<String> wordlist = ['banana', 'icecream', 'violin', 'desk', 'green'];
+      List<String> wordlist = [
+        'banana',
+        'icecream',
+        'violin',
+        'desk',
+        'green',
+      ];
       List<String> resultList = [
         'banana',
         'icecream',
         'violin',
         'desk',
-        'green'
+        'green',
       ];
-      var score = wordRecall
-          .calculateScore({'wordsList': wordlist, 'resultsList': resultList});
-      expect(score, 0);
+      var score = wordRecall.calculateScore(
+        {'wordsList': wordlist, 'resultsList': resultList},
+      );
+      expect(score, 5);
     });
 
     test('wordRecall score should be calculated correctly : 5', () {

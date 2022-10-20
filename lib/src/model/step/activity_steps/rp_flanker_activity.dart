@@ -39,8 +39,8 @@ class RPFlankerActivity extends RPActivityStep {
 
     int sum = 0;
     try {
-      if ((meanIncongruent - meanCongruent) as int < 500) sum = 1;
-      if (accuracy as int < 0.73) sum = 0;
+      if ((meanIncongruent - meanCongruent) as double < 500) sum = 1;
+      if (accuracy as double < 0.73) sum = 0;
     } catch (error) {
       print('$runtimeType - $error');
     }

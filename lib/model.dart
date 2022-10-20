@@ -32,3 +32,17 @@ part 'src/result/rp_delayed_recall_result.dart';
 // JSON
 part 'model.g.dart';
 part 'model.json.dart';
+
+/// Start class for this researc package library. Just create a singleton instance:
+///
+///    ResearchPackage();
+///
+class CognitionPackage {
+  static final _instance = CognitionPackage._();
+  factory CognitionPackage() => _instance;
+  CognitionPackage._() {
+    ResearchPackage();
+
+    _registerFromJsonFunctions();
+  }
+}

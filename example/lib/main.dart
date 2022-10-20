@@ -1,3 +1,4 @@
+import 'package:cognition_package/cognition_package.dart';
 import 'package:flutter/material.dart';
 import 'package:cognition_package_demo_app/user_demographics_page.dart';
 
@@ -22,8 +23,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool fireBase = false;
-  bool buttonReady = true;
+  @override
+  void initState() {
+    // initialize cognition package
+    // only used if you load a cognition configuration from a json file
+    CognitionPackage();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

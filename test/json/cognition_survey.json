@@ -1,0 +1,160 @@
+{
+    "$type": "RPOrderedTask",
+    "identifier": "surveyTaskID",
+    "close_after_finished": true,
+    "steps": [
+        {
+            "$type": "RPReactionTimeActivity",
+            "identifier": "Reaction Time step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": true,
+            "length_of_test": 30,
+            "switch_interval": 4
+        },
+        {
+            "$type": "RPPairedAssociatesLearningActivity",
+            "identifier": "PAL step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": true,
+            "max_test_duration": 100
+        },
+        {
+            "$type": "RPTappingActivity",
+            "identifier": "Tapping step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": true,
+            "length_of_test": 30
+        },
+        {
+            "$type": "RPCorsiBlockTappingActivity",
+            "identifier": "Corsi Block Tapping step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": true
+        },
+        {
+            "$type": "RPStroopEffectActivity",
+            "identifier": "Stroop Effect step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": true,
+            "length_of_test": 40,
+            "display_time": 1000,
+            "delay_time": 750
+        },
+        {
+            "$type": "RPRapidVisualInfoProcessingActivity",
+            "identifier": "RVIP step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": true,
+            "interval": 9,
+            "length_of_test": 10,
+            "sequence": [
+                3,
+                6,
+                9
+            ]
+        },
+        {
+            "$type": "RPTrailMakingActivity",
+            "identifier": "Trail Making step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": false,
+            "trail_type": "B"
+        },
+        {
+            "$type": "RPContinuousVisualTrackingActivity",
+            "identifier": "ContinuousVisualTracking step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": false,
+            "length_of_test": 180,
+            "number_of_tests": 3,
+            "amount_of_dots": 15,
+            "amount_of_targets": 2,
+            "dot_size": 40,
+            "tracking_speed": 5000000
+        },
+        {
+            "$type": "RPWordRecallActivity",
+            "identifier": "WordRecall step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": false,
+            "length_of_test": 180,
+            "number_of_tests": 3
+        },
+        {
+            "$type": "RPPictureSequenceMemoryActivity",
+            "identifier": "PictureSequenceMemory step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": false,
+            "length_of_test": 180,
+            "number_of_tests": 1,
+            "number_of_pics": 6
+        },
+        {
+            "$type": "RPLetterTappingActivity",
+            "identifier": "Letter Tapping step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": false
+        },
+        {
+            "$type": "RPFlankerActivity",
+            "identifier": "Flanker step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": true,
+            "length_of_test": 45,
+            "number_of_cards": 10
+        },
+        {
+            "$type": "RPVisualArrayChangeActivity",
+            "identifier": "VisualArrayChange step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": false,
+            "length_of_test": 180,
+            "number_of_tests": 3,
+            "number_of_shapes": 3,
+            "wait_time": 3
+        },
+        {
+            "$type": "RPDelayedRecallActivity",
+            "identifier": "DelayedRecall step ID",
+            "title": "RPActivityStep",
+            "optional": false,
+            "include_instructions": true,
+            "include_results": false,
+            "length_of_test": 180,
+            "number_of_tests": 3
+        },
+        {
+            "$type": "RPCompletionStep",
+            "identifier": "completionID",
+            "title": "Finished",
+            "text": "Thank you for taking the tests",
+            "optional": false
+        }
+    ]
+}
