@@ -59,7 +59,7 @@ class RPContinuousVisualTrackingActivity extends RPActivityStep {
         }
       }
     } catch (error) {
-      print(error);
+      print('$runtimeType - $error');
     }
     return sum;
   }

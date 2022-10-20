@@ -7,13 +7,15 @@ class RPUITappingActivityBody extends StatefulWidget {
   final RPTappingActivity activity;
 
   /// The results function for the [RPUITappingActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUITappingActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUITappingActivityBody] constructor.
-  RPUITappingActivityBody(this.activity, this.eventLogger, this.onResultChange);
+  const RPUITappingActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
   RPUITappingActivityBodyState createState() => RPUITappingActivityBodyState();
@@ -52,7 +54,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
           countdown = i.toString();
         });
       }
-      await Future.delayed(Duration(seconds: 1));
+      await Future<dynamic>.delayed(const Duration(seconds: 1));
     }
     if (mounted) {
       //remove countdown text
@@ -84,21 +86,21 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Text(
                 'After a 3 second countdown, which will appear on screen, tap the two buttons as many times as possible with your index and middle finger, for ${widget.activity.lengthOfTest} serconds.',
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
                 textAlign: TextAlign.center,
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -110,7 +112,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
               child: OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -121,7 +123,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
                 onPressed: () async {
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -134,20 +136,20 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             counting
-                ? Text(countdown, style: TextStyle(fontSize: 50))
+                ? Text(countdown, style: const TextStyle(fontSize: 50))
                 : Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     alignment: Alignment.center,
                     child: Column(
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Container(
+                            SizedBox(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 2.2,
                               child: OutlinedButton(
-                                child: Container(
+                                child: SizedBox(
                                   height: 200,
                                   width:
                                       MediaQuery.of(context).size.width / 2.2,
@@ -161,11 +163,11 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
                                 },
                               ),
                             ),
-                            Container(
+                            SizedBox(
                               height: 200,
                               width: MediaQuery.of(context).size.width / 2.2,
                               child: OutlinedButton(
-                                child: Container(
+                                child: SizedBox(
                                   height: 200,
                                   width:
                                       MediaQuery.of(context).size.width / 2.2,
@@ -190,7 +192,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
           alignment: Alignment.center,
           child: Text(
             '$taps was your final score!',
-            style: TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
         );

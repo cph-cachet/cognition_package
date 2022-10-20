@@ -536,12 +536,11 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                         makeShapes(numberOfShapes, constraints, avatarSize),
                   );
                 })
-              : Center(
-                  child: Container(
-                      child: const Text(
+              : const Center(
+                  child: Text(
                   'wait',
                   style: TextStyle(fontSize: 25),
-                ))),
+                )),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
@@ -576,12 +575,10 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                               child: Text('task $viscurrentNum/$numberOfTests'))
                         ])
                   : finished
-                      ? Center(
-                          child: Container(
-                          child: const Text(
-                            'Click next to continue',
-                            style: TextStyle(fontSize: 18),
-                          ),
+                      ? const Center(
+                          child: Text(
+                          'Click next to continue',
+                          style: TextStyle(fontSize: 18),
                         ))
                       : Row(children: [
                           Padding(

@@ -4,11 +4,12 @@ part of cognition_package_ui;
 /// instructions and test phase of the continuous visual tracking task.
 class RPUIContinuousVisualTrackingActivityBody extends StatefulWidget {
   final RPContinuousVisualTrackingActivity activity;
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
   final RPActivityEventLogger eventLogger;
 
-  RPUIContinuousVisualTrackingActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUIContinuousVisualTrackingActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
   RPUIContinuousVisualTrackingActivityBodyState createState() =>
@@ -388,7 +389,7 @@ class ContinuousVisualTrackingActivityBodyState
   Widget build(BuildContext context) => Scaffold(
           body: Center(
               child: Column(children: [
-        Container(
+        SizedBox(
             height: MediaQuery.of(context).size.height - 270,
             width: MediaQuery.of(context).size.width - 20,
             child: LayoutBuilder(builder: (context, constraints) {
@@ -396,46 +397,43 @@ class ContinuousVisualTrackingActivityBodyState
                   children: getDots(
                       amountOfDots, amountOfTargets, constraints, dotSize));
             })),
-        Container(
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-              child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: !guess
-                      ? waiting
-                          ? Container()
-                          : Center(
-                              child: Column(children: [
-                              OutlinedButton(
-                                style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(
-                                      const EdgeInsets.symmetric(
-                                          horizontal: 24, vertical: 16)),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: !guess
+                    ? waiting
+                        ? Container()
+                        : Center(
+                            child: Column(children: [
+                            OutlinedButton(
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all(
+                                    const EdgeInsets.symmetric(
+                                        horizontal: 24, vertical: 16)),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
                                   ),
                                 ),
-                                onPressed: () {
-                                  startTest();
-                                },
-                                child: const Text(
-                                  'Start',
-                                  style: TextStyle(fontSize: 18),
-                                ),
                               ),
-                              Text('task $conCurrentNum/$numberOfTests')
-                            ]))
-                      : finished
-                          ? const Center(
-                              child: Text(
-                              'Click next to continue',
-                              style: TextStyle(fontSize: 18),
-                            ))
-                          : const Center(
-                              child:
-                                  Text('Press the previously colored dots')))),
-        )
+                              onPressed: () {
+                                startTest();
+                              },
+                              child: const Text(
+                                'Start',
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
+                            Text('task $conCurrentNum/$numberOfTests')
+                          ]))
+                    : finished
+                        ? const Center(
+                            child: Text(
+                            'Click next to continue',
+                            style: TextStyle(fontSize: 18),
+                          ))
+                        : const Center(
+                            child: Text('Press the previously colored dots'))))
       ])));
 }

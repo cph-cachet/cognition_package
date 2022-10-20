@@ -78,7 +78,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
 
   void startTest() async {
     startTimer();
-    await Future<dynamic>.delayed(Duration(seconds: 1));
+    await Future<dynamic>.delayed(const Duration(seconds: 1));
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       if (mounted) {
         widget.eventLogger.testEnded();
@@ -217,7 +217,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       case ActivityStatus.Test:
         return Scaffold(
           body: Center(
-              child: _Flanker(
+              child: Flanker(
                   numberOfCards: widget.activity.numberOfCards,
                   parentClass: this)),
         );
@@ -247,38 +247,40 @@ int rightSwipe = 0;
 List<int> congruentTimes = [];
 List<int> incongruentTimes = [];
 
-class _Flanker extends StatefulWidget {
+class Flanker extends StatefulWidget {
   final int numberOfCards;
   final RPUIFlankerActivityBodyState parentClass;
-  const _Flanker({required this.numberOfCards, required this.parentClass});
+  const Flanker(
+      {super.key, required this.numberOfCards, required this.parentClass});
+
   @override
-  _FlankerState createState() => _FlankerState(numberOfCards, parentClass);
+  FlankerState createState() => FlankerState(numberOfCards, parentClass);
 }
 
-class _FlankerState extends State<_Flanker> {
+class FlankerState extends State<Flanker> {
   final int numberOfCards;
   final RPUIFlankerActivityBodyState parentClass;
   bool even = false;
 
   List<Widget> flankerCards = [];
-  List<_FlankerCard> cards(int amount) {
-    List<_FlankerCard> cards = [];
+  List<FlankerCard> cards(int amount) {
+    List<FlankerCard> cards = [];
     for (var i = 0; i < amount; i++) {
       even = !even;
       if (Random().nextBool()) {
         cards.add(
-          _FlankerCard('→', even ? 0xff003F6E : 0xffC32C39, parentClass),
+          FlankerCard('→', even ? 0xff003F6E : 0xffC32C39, parentClass),
         );
       } else {
-        cards.add(
-            _FlankerCard('←', even ? 0xff003F6E : 0xffC32C39, parentClass));
+        cards
+            .add(FlankerCard('←', even ? 0xff003F6E : 0xffC32C39, parentClass));
       }
     }
     parentClass.startFlankerTimer();
     return cards;
   }
 
-  _FlankerState(this.numberOfCards, this.parentClass);
+  FlankerState(this.numberOfCards, this.parentClass);
 
   @override
   initState() {
@@ -298,11 +300,11 @@ class _FlankerState extends State<_Flanker> {
   }
 }
 
-class _FlankerCard extends StatelessWidget {
+class FlankerCard extends StatelessWidget {
   final int color;
   final String direction;
   final RPUIFlankerActivityBodyState parentClass;
-  _FlankerCard(this.direction, this.color, this.parentClass);
+  FlankerCard(this.direction, this.color, this.parentClass, {super.key});
 
   final String right = '→';
   final String left = '←';

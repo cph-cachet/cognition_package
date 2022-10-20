@@ -7,14 +7,15 @@ class RPUIWordRecallActivityBody extends StatefulWidget {
   final RPWordRecallActivity activity;
 
   /// The results function for the [RPUIWordRecallActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUIWordRecallActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUIWordRecallActivityBody] constructor.
-  RPUIWordRecallActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUIWordRecallActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
   RPUIWordRecallActivityBodyState createState() =>
@@ -45,11 +46,11 @@ class RPUIWordRecallActivityBodyState
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: RichText(
                 text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
+                    children: const <TextSpan>[
                       TextSpan(
                           text: 'Turn on sound for this task.',
                           style: TextStyle(fontSize: 16)),
@@ -60,11 +61,11 @@ class RPUIWordRecallActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: RichText(
                 text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
+                    children: const <TextSpan>[
                       TextSpan(
                           text:
                               'A list of words will be read aloud, try to memorize the list of words.',
@@ -76,11 +77,11 @@ class RPUIWordRecallActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: RichText(
                 text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
+                    children: const <TextSpan>[
                       TextSpan(
                           text:
                               'After the words have been read aloud you will be asked to recall them.',
@@ -92,11 +93,11 @@ class RPUIWordRecallActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: RichText(
                 text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
+                    children: const <TextSpan>[
                       TextSpan(
                           text:
                               'Write the words you recall in the boxes in any order and click ',
@@ -113,11 +114,11 @@ class RPUIWordRecallActivityBodyState
             ),
             Container(height: 0),
             Padding(
-              padding: EdgeInsets.all(25),
+              padding: const EdgeInsets.all(25),
               child: Container(
                 height: 100,
                 width: 200,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -128,11 +129,12 @@ class RPUIWordRecallActivityBodyState
               //width: MediaQuery.of(context).size.width / 2,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xffC32C39),
+                  backgroundColor: const Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 ),
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -158,7 +160,7 @@ class RPUIWordRecallActivityBodyState
         return Center(
           child: Text(
             'results:  $wordRecallScore',
-            style: TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
         );
@@ -215,19 +217,19 @@ class _WordRecallState extends State<_WordRecall> {
       currentNum += 1;
       waiting = true;
     });
-    await Future.delayed(Duration(milliseconds: 1200));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
     soundService.play('../packages/cognition_package/assets/sounds/BANANA.mp3');
-    await Future.delayed(Duration(milliseconds: 1200));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
     soundService
         .play('../packages/cognition_package/assets/sounds/ICECREAM.mp3');
-    await Future.delayed(Duration(milliseconds: 1200));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
     soundService.play('../packages/cognition_package/assets/sounds/VIOLIN.mp3');
-    await Future.delayed(Duration(milliseconds: 1200));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
     soundService.play('../packages/cognition_package/assets/sounds/DESK.mp3');
-    await Future.delayed(Duration(milliseconds: 1200));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
     soundService.play('../packages/cognition_package/assets/sounds/GREEN.mp3');
 
-    await Future.delayed(Duration(seconds: 1));
+    await Future<dynamic>.delayed(const Duration(seconds: 1));
     setState(() {
       waiting = false;
       guess = true;
@@ -308,24 +310,24 @@ class _WordRecallState extends State<_WordRecall> {
     return Scaffold(
         body: Center(
             child: Column(children: [
-      Container(
+      SizedBox(
         height: MediaQuery.of(context).size.height / 1.5,
         width: MediaQuery.of(context).size.width,
         child: !guess
             ? !waiting
-                ? Text('ready')
-                : Center(
-                    child: Container(
-                        child: Text(
+                ? const Text('ready')
+                : const Center(
+                    child: Text(
                     'listen',
                     style: TextStyle(fontSize: 25),
-                  )))
+                  ))
             : !waiting
                 ? Scaffold(
                     body: ListView(children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(left: 25, bottom: 10, top: 20),
-                        child: Row(children: <Widget>[
+                        padding: const EdgeInsets.only(
+                            left: 25, bottom: 10, top: 20),
+                        child: Row(children: const <Widget>[
                           Text(
                             'Enter the words you recall',
                             style: TextStyle(fontSize: 16),
@@ -333,8 +335,8 @@ class _WordRecallState extends State<_WordRecall> {
                           )
                         ])),
                     Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 0),
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
@@ -344,8 +346,8 @@ class _WordRecallState extends State<_WordRecall> {
                                 border: OutlineInputBorder()))),
                     Container(height: 20),
                     Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 0),
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
@@ -355,8 +357,8 @@ class _WordRecallState extends State<_WordRecall> {
                                 border: OutlineInputBorder()))),
                     Container(height: 20),
                     Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 0),
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
@@ -366,8 +368,8 @@ class _WordRecallState extends State<_WordRecall> {
                                 border: OutlineInputBorder()))),
                     Container(height: 20),
                     Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 0),
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
@@ -377,8 +379,8 @@ class _WordRecallState extends State<_WordRecall> {
                                 border: OutlineInputBorder()))),
                     Container(height: 20),
                     Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 0),
                         child: TextField(
                             textInputAction: TextInputAction.done,
                             onChanged: (text) {
@@ -386,57 +388,27 @@ class _WordRecallState extends State<_WordRecall> {
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
-                    SizedBox(
+                    const SizedBox(
                       height: 550,
                     ),
                   ]))
-                : Center(
-                    child: Container(
-                        child: Text(
+                : const Center(
+                    child: Text(
                     'wait',
                     style: TextStyle(fontSize: 25),
-                  ))),
+                  )),
       ),
-      Container(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width / 2,
-          child: !guess
-              ? waiting
-                  ? Container()
-                  : Column(children: [
-                      OutlinedButton(
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                          ),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          startTest();
-                        },
-                        child: Text(
-                          'Ready',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      //Text("task $currentNum/${this.numberOfTests}")
-                    ])
-              : finished
-                  ? Center(
-                      child: Container(
-                      child: Text(
-                        'Click next to continue',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ))
-                  : OutlinedButton(
+      SizedBox(
+        width: MediaQuery.of(context).size.width / 2,
+        child: !guess
+            ? waiting
+                ? Container()
+                : Column(children: [
+                    OutlinedButton(
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                          const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
                         ),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
@@ -445,14 +417,41 @@ class _WordRecallState extends State<_WordRecall> {
                         ),
                       ),
                       onPressed: () {
-                        makeGuess();
+                        startTest();
                       },
-                      child: Text(
-                        'Guess',
+                      child: const Text(
+                        'Ready',
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-        ),
+                    //Text("task $currentNum/${this.numberOfTests}")
+                  ])
+            : finished
+                ? const Center(
+                    child: Text(
+                    'Click next to continue',
+                    style: TextStyle(fontSize: 18),
+                  ))
+                : OutlinedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 16),
+                      ),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      makeGuess();
+                    },
+                    child: const Text(
+                      'Guess',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
       ),
     ])));
   }

@@ -7,14 +7,15 @@ class RPUIStroopEffectActivityBody extends StatefulWidget {
   final RPStroopEffectActivity activity;
 
   /// The results function for the [RPUIStroopEffectActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUIStroopEffectActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUIStroopEffectActivityBody] constructor.
-  RPUIStroopEffectActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUIStroopEffectActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
   RPUIStroopEffectActivityBodyState createState() =>
@@ -30,9 +31,10 @@ class RPUIStroopEffectActivityBodyState
   int cWordIndex = 0;
   int wColorIndex = 0;
   final _random = Random();
-  Timer t = Timer(Duration(seconds: 0),
+  Timer t = Timer(const Duration(seconds: 0),
       () {}); //construct for further control of timer. Cancel at window collapse.
-  Timer pulseTimer = Timer(Duration(seconds: 0), () {}); //pulse timer control
+  Timer pulseTimer =
+      Timer(const Duration(seconds: 0), () {}); //pulse timer control
 
   //bool testLive = false; //test going on, screen flag
   //bool testBegin = true; //pre test screen flag
@@ -120,7 +122,7 @@ class RPUIStroopEffectActivityBodyState
           Colors.white
         ]; //reset feedback
       });
-      await Future.delayed(Duration(
+      await Future<dynamic>.delayed(Duration(
           milliseconds:
               widget.activity.delayTime)); //delay before showing next word
       if (mounted && activityStatus == ActivityStatus.Test) {
@@ -161,7 +163,7 @@ class RPUIStroopEffectActivityBodyState
           //entry screen with rules and start button
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Tap the color, of the word you see on screen. E.g. tap the box that says "green" when a green word appears',
@@ -172,11 +174,11 @@ class RPUIStroopEffectActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -188,7 +190,7 @@ class RPUIStroopEffectActivityBodyState
               child: OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -199,7 +201,7 @@ class RPUIStroopEffectActivityBodyState
                 onPressed: () {
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -215,7 +217,7 @@ class RPUIStroopEffectActivityBodyState
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Container(
+                    SizedBox(
                       height: 100,
                       width: 200,
                       child: Text(
@@ -237,26 +239,26 @@ class RPUIStroopEffectActivityBodyState
       case ActivityStatus.Result:
         return Container(
             //result screen
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           'The test is done!',
                           style: TextStyle(fontSize: 22),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           'Correct answers: $correctTaps',
-                          style: TextStyle(fontSize: 22),
+                          style: const TextStyle(fontSize: 22),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           'Mistakes made: $mistakes',
-                          style: TextStyle(fontSize: 22),
+                          style: const TextStyle(fontSize: 22),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 20,
                           textAlign: TextAlign.center,
@@ -269,13 +271,13 @@ class RPUIStroopEffectActivityBodyState
   Widget _makeButton(int buttonNum) {
     //make material buttons for possible colors
     String buttonCode = possColorsString[buttonNum];
-    return (Container(
+    return (SizedBox(
         height: 75,
         width: MediaQuery.of(context).size.width / 5,
         child: MaterialButton(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
-              side: BorderSide(color: Colors.black, width: 3)),
+              side: const BorderSide(color: Colors.black, width: 3)),
           textColor: Colors.black,
           color: backgroundButtons[
               buttonNum], //set background on buttons for feedback
@@ -311,7 +313,7 @@ class RPUIStroopEffectActivityBodyState
           },
           child: FittedBox(
             fit: BoxFit.fitWidth,
-            child: Text(buttonCode, style: TextStyle(fontSize: 19)),
+            child: Text(buttonCode, style: const TextStyle(fontSize: 19)),
           ),
         )));
   }

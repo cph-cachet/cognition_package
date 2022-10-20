@@ -6,10 +6,10 @@ import 'package:research_package/model.dart';
 RPOrderedTask surveyTask = RPOrderedTask(
   identifier: 'surveyTaskID',
   steps: [
-    reactionTimeStep,
-    pairedAssociatesLearningStep,
-    tappingStep,
-    corsiBlockTapping,
+    // reactionTimeStep,
+    // pairedAssociatesLearningStep,
+    // tappingStep,
+    // corsiBlockTapping,
     stroopEffect,
     rapidVisualInfoProcessingStep,
     activityStepTrail,

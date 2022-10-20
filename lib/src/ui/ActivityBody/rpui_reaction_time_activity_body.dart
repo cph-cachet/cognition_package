@@ -7,14 +7,15 @@ class RPUIReactionTimeActivityBody extends StatefulWidget {
   final RPReactionTimeActivity activity;
 
   /// The results function for the [RPUIReactionTimeActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUIReactionTimeActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUIReactionTimeActivityBody] constructor.
-  RPUIReactionTimeActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUIReactionTimeActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
   RPUIReactionTimeActivityBodyState createState() =>
@@ -109,7 +110,7 @@ class RPUIReactionTimeActivityBodyState
           //entry screen with rules and start button
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Tap the screen every time it turns from red to green, as fast as possible.',
@@ -120,11 +121,11 @@ class RPUIReactionTimeActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -136,7 +137,7 @@ class RPUIReactionTimeActivityBodyState
               child: OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -153,7 +154,7 @@ class RPUIReactionTimeActivityBodyState
                   testTimer();
                   lightRegulator();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -193,8 +194,8 @@ class RPUIReactionTimeActivityBodyState
                           setState(() {
                             alert = 'Too quick';
                           });
-                          await Future.delayed(
-                              Duration(seconds: 1)); //display feedback
+                          await Future<dynamic>.delayed(
+                              const Duration(seconds: 1)); //display feedback
                           if (mounted) {
                             allowGreen = true;
                             setState(() {
@@ -221,14 +222,14 @@ class RPUIReactionTimeActivityBodyState
             ]);
       case ActivityStatus.Result:
         return Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   'The time is up! $result was your final score. (Average reaction time in milliseconds)',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 22),
+                  style: const TextStyle(fontSize: 22),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 5,
                 ),

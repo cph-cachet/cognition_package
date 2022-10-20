@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "Welcome to the demo of the Cognitive Package, developed by the Copenhagen Center for Health Technology.",
+                      "Welcome to the demo of the Cognition Package, developed by the Copenhagen Center for Health Technology.",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context).push(MaterialPageRoute<dynamic>(
                       builder: (context) => UserDemographicsPage()));
                 },
               ),

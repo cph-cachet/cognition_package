@@ -133,11 +133,9 @@ class RPUITrailMakingActivityBodyState
             ),
             Padding(
               padding: const EdgeInsets.all(5),
-              child: Container(
-                child: Image.asset(_isTypeA
-                    ? 'packages/cognition_package/assets/images/trailmaking_a.png'
-                    : 'packages/cognition_package/assets/images/trailmaking_b.png'),
-              ),
+              child: Image.asset(_isTypeA
+                  ? 'packages/cognition_package/assets/images/trailmaking_a.png'
+                  : 'packages/cognition_package/assets/images/trailmaking_b.png'),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,

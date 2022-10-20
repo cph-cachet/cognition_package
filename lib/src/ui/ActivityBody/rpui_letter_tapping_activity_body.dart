@@ -7,14 +7,15 @@ class RPUILetterTappingActivityBody extends StatefulWidget {
   final RPLetterTappingActivity activity;
 
   /// The results function for the [RPUILetterTappingActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUILetterTappingActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUILetterTappingActivityBody] constructor.
-  RPUILetterTappingActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUILetterTappingActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
   RPUILetterTappingActivityBodyState createState() =>
@@ -106,13 +107,13 @@ class RPUILetterTappingActivityBodyState
     setState(() {
       activityStatus = ActivityStatus.Test;
     });
-    await Future.delayed(Duration(seconds: 2));
+    await Future<dynamic>.delayed(const Duration(seconds: 2));
     for (String letter in mocaTestList) {
       if (!mounted) break;
       soundService
           .play('../packages/cognition_package/assets/sounds/$letter.mp3');
       updateLetter(letter);
-      await Future.delayed(Duration(milliseconds: 1000));
+      await Future<dynamic>.delayed(const Duration(milliseconds: 1000));
       if (letterIndex < 29) letterIndex += 1;
     }
     updateLetter('');
@@ -156,7 +157,7 @@ class RPUILetterTappingActivityBodyState
           //entry screen with rules and start button
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Turn your sound on!',
@@ -166,7 +167,7 @@ class RPUILetterTappingActivityBodyState
                 textAlign: TextAlign.center,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Then, tap the button on the next screen, whenever you hear the letter "A" being said.',
@@ -177,11 +178,11 @@ class RPUILetterTappingActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: 250,
                 width: 250,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -193,7 +194,7 @@ class RPUILetterTappingActivityBodyState
               child: OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -204,7 +205,7 @@ class RPUILetterTappingActivityBodyState
                 onPressed: () {
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -216,11 +217,11 @@ class RPUILetterTappingActivityBodyState
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
+            SizedBox(
               width: 100,
               height: 60,
               child: OutlinedButton(
-                child: Text('A'),
+                child: const Text('A'),
                 onPressed: () {
                   // X - X
                   if (currentLetter != 'A' && lastLetter != 'A') {
@@ -282,13 +283,11 @@ class RPUILetterTappingActivityBodyState
           ],
         );
       case ActivityStatus.Result:
-        return Container(
-          child: Center(
-            child: Text(
-              'You had $errors mistakes',
-              style: TextStyle(fontSize: 22),
-              textAlign: TextAlign.center,
-            ),
+        return Center(
+          child: Text(
+            'You had $errors mistakes',
+            style: const TextStyle(fontSize: 22),
+            textAlign: TextAlign.center,
           ),
         );
     }

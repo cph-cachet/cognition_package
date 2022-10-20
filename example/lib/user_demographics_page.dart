@@ -120,7 +120,7 @@ class UserDemographicsPageState extends State<UserDemographicsPage> {
                   style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context).push(MaterialPageRoute<dynamic>(
                       builder: (context) => SurveyPage(
                           age: age,
                           name: name,

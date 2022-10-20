@@ -7,14 +7,15 @@ class RPUIPictureSequenceMemoryActivityBody extends StatefulWidget {
   final RPPictureSequenceMemoryActivity activity;
 
   /// The results function for the [RPUIPictureSequenceMemoryActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUIPictureSequenceMemoryActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUIPictureSequenceMemoryActivityBody] constructor.
-  RPUIPictureSequenceMemoryActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUIPictureSequenceMemoryActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
   RPUIPictureSequenceMemoryActivityBodyState createState() =>
@@ -63,7 +64,7 @@ class RPUIPictureSequenceMemoryActivityBodyState
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Memorize the order of images.',
@@ -74,11 +75,11 @@ class RPUIPictureSequenceMemoryActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: RichText(
                 text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
+                    children: const <TextSpan>[
                       TextSpan(
                           text: 'Once memorized click the ',
                           style: TextStyle(fontSize: 16)),
@@ -96,11 +97,11 @@ class RPUIPictureSequenceMemoryActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: RichText(
                 text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
+                    children: const <TextSpan>[
                       TextSpan(
                           text:
                               'Drag and drop the images to their original positions and press ',
@@ -116,11 +117,11 @@ class RPUIPictureSequenceMemoryActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: 200,
                 width: 200,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -130,10 +131,10 @@ class RPUIPictureSequenceMemoryActivityBodyState
             SizedBox(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xffC32C39),
+                  backgroundColor: const Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                 ),
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -152,7 +153,7 @@ class RPUIPictureSequenceMemoryActivityBodyState
       case ActivityStatus.Test:
         return Scaffold(
             body: Center(
-                child: _PictureSequenceMemory(
+                child: PictureSequenceMemory(
                     sWidget: widget,
                     numberOfTests: widget.activity.numberOfTests,
                     numberOfPics: widget.activity.numberOfPics)));
@@ -160,7 +161,7 @@ class RPUIPictureSequenceMemoryActivityBodyState
         return Center(
           child: Text(
             'results:  $pictureSequenceScore',
-            style: TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
         );
@@ -170,11 +171,11 @@ class RPUIPictureSequenceMemoryActivityBodyState
   }
 }
 
-class _PictureSequenceMemory extends StatefulWidget {
+class PictureSequenceMemory extends StatefulWidget {
   final RPUIPictureSequenceMemoryActivityBody sWidget;
   final int numberOfTests;
   final int numberOfPics;
-  const _PictureSequenceMemory(
+  const PictureSequenceMemory(
       {Key? key,
       required this.sWidget,
       required this.numberOfTests,
@@ -182,16 +183,16 @@ class _PictureSequenceMemory extends StatefulWidget {
       : super(key: key);
 
   @override
-  _PictureSequenceMemoryState createState() =>
-      _PictureSequenceMemoryState(sWidget, numberOfTests, numberOfPics);
+  PictureSequenceMemoryState createState() =>
+      PictureSequenceMemoryState(sWidget, numberOfTests, numberOfPics);
 }
 
-class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
+class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   final RPUIPictureSequenceMemoryActivityBody sWidget;
   final int numberOfTestsPIC;
   final int numberOfPics;
-  List<_Picture> original = [];
-  List<_Picture> pictures = [];
+  List<Picture> original = [];
+  List<Picture> pictures = [];
   bool waiting = false;
   bool guess = false;
   bool finished = false;
@@ -221,13 +222,13 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
     'https://images.unsplash.com/photo-1585129819171-80b02d4c85b0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
   ];
 
-  _PictureSequenceMemoryState(
+  PictureSequenceMemoryState(
       this.sWidget, this.numberOfTestsPIC, this.numberOfPics);
   ScrollController scrollController = ScrollController();
 
-  List<_Picture> getPictures(int start, int end, int num) => List.generate(
+  List<Picture> getPictures(int start, int end, int num) => List.generate(
         num,
-        (index) => _Picture(
+        (index) => Picture(
           name: index.toString(),
           urlImage: urlImages[index + start],
         ),
@@ -251,7 +252,7 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
       }
       original = [];
       moves = 0;
-      for (_Picture picl in pictures) {
+      for (Picture picl in pictures) {
         original.add(picl);
       }
       for (int i = 0; i < pictures.length; i++) {
@@ -297,7 +298,7 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
         _tiles.add(buildPicture(i, pictures[i]));
       }
     });
-    await Future.delayed(Duration(seconds: 2));
+    await Future<dynamic>.delayed(const Duration(seconds: 2));
     setState(() {
       waiting = false;
       guess = true;
@@ -399,7 +400,7 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
     pictures = getPictures(0, numberOfPics, numberOfPics);
 
     pictures.shuffle();
-    for (_Picture picl in pictures) {
+    for (Picture picl in pictures) {
       original.add(picl);
     }
     for (int i = 0; i < pictures.length; i++) {
@@ -438,73 +439,43 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
       spacing: 8.0,
       runSpacing: 4.0,
       padding: const EdgeInsets.all(8),
-      children: _tiles,
       onReorder: onReorder,
+      children: _tiles,
     );
 
     return Scaffold(
         body: Center(
             child: Column(children: [
-      Container(
+      SizedBox(
         height: MediaQuery.of(context).size.height / 1.5,
         width: MediaQuery.of(context).size.width,
         child: !guess
             ? !waiting
                 ? Center(child: wrap)
-                : Center(
-                    child: Container(
-                        child: Text(
+                : const Center(
+                    child: Text(
                     'wait',
                     style: TextStyle(fontSize: 25),
-                  )))
+                  ))
             : !waiting
                 ? Center(child: wrap)
-                : Center(
-                    child: Container(
-                        child: Text(
+                : const Center(
+                    child: Text(
                     'wait',
                     style: TextStyle(fontSize: 25),
-                  ))),
+                  )),
       ),
-      Container(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width / 2,
-          child: !guess
-              ? waiting
-                  ? Container()
-                  : Column(children: [
-                      OutlinedButton(
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                          ),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                          startTest();
-                        },
-                        child: Text(
-                          'Start',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                    ])
-              : finished
-                  ? Center(
-                      child: Container(
-                      child: Text(
-                        'Click next to continue',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ))
-                  : OutlinedButton(
+      SizedBox(
+        width: MediaQuery.of(context).size.width / 2,
+        child: !guess
+            ? waiting
+                ? Container()
+                : Column(children: [
+                    OutlinedButton(
                       style: ButtonStyle(
                         padding: MaterialStateProperty.all(
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                          const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
                         ),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
@@ -513,19 +484,45 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
                         ),
                       ),
                       onPressed: () {
-                        makeGuess();
+                        startTest();
                       },
-                      child: Text(
-                        'Guess',
+                      child: const Text(
+                        'Start',
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-        ),
+                  ])
+            : finished
+                ? const Center(
+                    child: Text(
+                    'Click next to continue',
+                    style: TextStyle(fontSize: 18),
+                  ))
+                : OutlinedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 16),
+                      ),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      makeGuess();
+                    },
+                    child: const Text(
+                      'Guess',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
       ),
     ])));
   }
 
-  Widget buildPicture(int index, _Picture picture) => Container(
+  Widget buildPicture(int index, Picture picture) => SizedBox(
       height: 100,
       width: 100,
       key: ValueKey(picture),
@@ -533,7 +530,7 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
           index: index,
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
                 image: DecorationImage(
                   image: NetworkImage(picture.urlImage),
                   fit: BoxFit.cover,
@@ -541,13 +538,13 @@ class _PictureSequenceMemoryState extends State<_PictureSequenceMemory> {
           )));
 }
 
-class _Picture {
+class Picture {
   String name;
   String urlImage;
   String left = "";
   String right = "";
 
-  _Picture({
+  Picture({
     required this.name,
     required this.urlImage,
   });

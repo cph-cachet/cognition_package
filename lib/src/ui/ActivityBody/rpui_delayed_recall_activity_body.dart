@@ -7,14 +7,15 @@ class RPUIDelayedRecallActivityBody extends StatefulWidget {
   final RPDelayedRecallActivity activity;
 
   /// The results function for the [RPUIDelayedRecallActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUIDelayedRecallActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUIDelayedRecallActivityBody] constructor.
-  RPUIDelayedRecallActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUIDelayedRecallActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
   RPUIDelayedRecallActivityBodyState createState() =>
@@ -46,7 +47,7 @@ class RPUIDelayedRecallActivityBodyState
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Remember all the words you recall from the exercise earlier?',
@@ -57,11 +58,11 @@ class RPUIDelayedRecallActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: RichText(
                 text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
+                    children: const <TextSpan>[
                       TextSpan(
                           text:
                               'Write the words you recall in the boxes and click ',
@@ -77,11 +78,11 @@ class RPUIDelayedRecallActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: 250,
                 width: 250,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -92,10 +93,10 @@ class RPUIDelayedRecallActivityBodyState
               //width: MediaQuery.of(context).size.width / 2,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xffC32C39),
+                  backgroundColor: const Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                 ),
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -121,7 +122,7 @@ class RPUIDelayedRecallActivityBodyState
         return Center(
           child: Text(
             'results:  $score',
-            style: TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
         );
@@ -229,14 +230,14 @@ class _DelayedRecallState extends State<_DelayedRecall> {
     return Scaffold(
         body: Center(
             child: Column(children: [
-      Container(
+      SizedBox(
           height: MediaQuery.of(context).size.height / 1.5,
           width: MediaQuery.of(context).size.width,
           child: Scaffold(
               body: ListView(children: <Widget>[
             Padding(
-                padding: EdgeInsets.only(left: 25, bottom: 10, top: 20),
-                child: Row(children: <Widget>[
+                padding: const EdgeInsets.only(left: 25, bottom: 10, top: 20),
+                child: Row(children: const <Widget>[
                   Text(
                     'Enter the words you recall',
                     style: TextStyle(fontSize: 16),
@@ -244,7 +245,8 @@ class _DelayedRecallState extends State<_DelayedRecall> {
                   )
                 ])),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
                 child: TextField(
                     textInputAction: TextInputAction.next,
                     onChanged: (text) {
@@ -254,7 +256,8 @@ class _DelayedRecallState extends State<_DelayedRecall> {
                         const InputDecoration(border: OutlineInputBorder()))),
             Container(height: 20),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
                 child: TextField(
                     textInputAction: TextInputAction.next,
                     onChanged: (text) {
@@ -264,7 +267,8 @@ class _DelayedRecallState extends State<_DelayedRecall> {
                         const InputDecoration(border: OutlineInputBorder()))),
             Container(height: 20),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
                 child: TextField(
                     textInputAction: TextInputAction.next,
                     onChanged: (text) {
@@ -274,7 +278,8 @@ class _DelayedRecallState extends State<_DelayedRecall> {
                         const InputDecoration(border: OutlineInputBorder()))),
             Container(height: 20),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
                 child: TextField(
                     textInputAction: TextInputAction.next,
                     onChanged: (text) {
@@ -284,7 +289,8 @@ class _DelayedRecallState extends State<_DelayedRecall> {
                         const InputDecoration(border: OutlineInputBorder()))),
             Container(height: 20),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
                 child: TextField(
                     textInputAction: TextInputAction.done,
                     onChanged: (text) {
@@ -292,41 +298,37 @@ class _DelayedRecallState extends State<_DelayedRecall> {
                     },
                     decoration:
                         const InputDecoration(border: OutlineInputBorder()))),
-            SizedBox(
+            const SizedBox(
               height: 550,
             ),
           ]))),
-      Container(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width / 2,
-          child: finished
-              ? Center(
-                  child: Container(
-                  child: Text(
-                    'Click next to continue',
-                    style: TextStyle(fontSize: 18),
+      SizedBox(
+        width: MediaQuery.of(context).size.width / 2,
+        child: finished
+            ? const Center(
+                child: Text(
+                'Click next to continue',
+                style: TextStyle(fontSize: 18),
+              ))
+            : OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
-                ))
-              : OutlinedButton(
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all(
-                      EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
                     ),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    makeGuess();
-                  },
-                  child: Text(
-                    'Guess',
-                    style: TextStyle(fontSize: 18),
                   ),
                 ),
-        ),
+                onPressed: () {
+                  makeGuess();
+                },
+                child: const Text(
+                  'Guess',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
       ),
     ])));
   }

@@ -7,14 +7,15 @@ class RPUIRapidVisualInfoProcessingActivityBody extends StatefulWidget {
   final RPRapidVisualInfoProcessingActivity activity;
 
   /// The results function for the [RPUIRapidVisualInfoProcessingActivityBody].
-  final Function(dynamic) onResultChange;
+  final void Function(dynamic) onResultChange;
 
   /// the [RPActivityEventLogger] for the [RPUIRapidVisualInfoProcessingActivityBody].
   final RPActivityEventLogger eventLogger;
 
   /// The [RPUIRapidVisualInfoProcessingActivityBody] constructor.
-  RPUIRapidVisualInfoProcessingActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  const RPUIRapidVisualInfoProcessingActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
   RPUIRapidVisualInfoProcessingActivityBodyState createState() =>
@@ -32,7 +33,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
   int seqsPassed =
       0; //number of times the given sequence passed: cap for good taps
   Duration displayTime =
-      Duration(seconds: 1); //amount of time each number is displayed
+      const Duration(seconds: 1); //amount of time each number is displayed
   late ActivityStatus activityStatus;
   bool seqPassed =
       false; //if a sequence has passed or not, meaning a tap would be a correct tap if true
@@ -69,7 +70,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
   }
 
   void startTest() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future<dynamic>.delayed(const Duration(seconds: 1));
     Timer.periodic(
         //periodic timer to update number on screen - starts in init currently.
         displayTime, (Timer t) {
@@ -116,9 +117,9 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
     curSeq.add(newNum);
   }
 
-//check if sequence have appeared through setting an array of bools for each number
-//Keeping it dynamic, so size of sequence can vary freely
-  void sequenceChecker(seq) {
+  /// Check if sequence have appeared through setting an array of bools for
+  /// each number. Keeping it dynamic, so size of sequence can vary freely.
+  void sequenceChecker(List<int> seq) {
     for (int i = 0; i < widget.activity.sequence.length; i++) {
       if (newNum == seq[i] && listIndexes[i] == true) {
         listIndexes[i + 1] = true;
@@ -147,21 +148,21 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Text(
                 texthint,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
                 textAlign: TextAlign.center,
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -173,7 +174,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
               child: OutlinedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   ),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
@@ -191,7 +192,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
                   }
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -207,22 +208,22 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('Sequence:', style: TextStyle(fontSize: 24)),
-                  Text(seq1s, style: TextStyle(fontSize: 32)),
+                  const Text('Sequence:', style: TextStyle(fontSize: 24)),
+                  Text(seq1s, style: const TextStyle(fontSize: 32)),
                   Container(height: 40),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('Number:', style: TextStyle(fontSize: 24)),
-                      Text('$newNum', style: TextStyle(fontSize: 40)),
+                      const Text('Number:', style: TextStyle(fontSize: 24)),
+                      Text('$newNum', style: const TextStyle(fontSize: 40)),
                     ],
                   ),
                   Container(height: 40),
-                  Container(
+                  SizedBox(
                       height: 80,
                       width: 160,
                       child: OutlinedButton(
-                        child: Container(
+                        child: const SizedBox(
                           width: 160,
                           height: 80,
                         ),
@@ -249,15 +250,16 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
             ]);
       case ActivityStatus.Result:
         return Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('The test is done!', style: TextStyle(fontSize: 22)),
+                  const Text('The test is done!',
+                      style: TextStyle(fontSize: 22)),
                   Text(
                     'You had $goodTaps correct taps and $badTaps wrong ones',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 22),
+                    style: const TextStyle(fontSize: 22),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 5,
                   )
