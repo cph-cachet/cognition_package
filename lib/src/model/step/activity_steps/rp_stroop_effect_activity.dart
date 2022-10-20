@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Stroop Effect Test.
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPStroopEffectActivity extends RPActivityStep {
   /// Contructor for creating a Stroop effect Test.
   RPStroopEffectActivity(
@@ -27,4 +28,11 @@ class RPStroopEffectActivity extends RPActivityStep {
     RPActivityEventLogger eventLogger,
   ) =>
       RPUIStroopEffectActivityBody(this, eventLogger, onResultChange);
+
+  @override
+  Function get fromJsonFunction => _$RPStroopEffectActivityFromJson;
+  factory RPStroopEffectActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPStroopEffectActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPStroopEffectActivityToJson(this);
 }

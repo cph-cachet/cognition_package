@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// A Verbal Recognition memory Test
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPWordRecallActivity extends RPActivityStep {
   RPWordRecallActivity({
     required super.identifier,
@@ -40,4 +41,11 @@ class RPWordRecallActivity extends RPActivityStep {
     }
     return sum;
   }
+
+  @override
+  Function get fromJsonFunction => _$RPWordRecallActivityFromJson;
+  factory RPWordRecallActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPWordRecallActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPWordRecallActivityToJson(this);
 }

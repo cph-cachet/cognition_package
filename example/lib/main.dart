@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Padding(
         padding: const EdgeInsets.all(22.0),
         child: Image.asset(
-          "assets/images/Cachet-logo-white.png",
+          "assets/images/cachet-logo-white.png",
           height: 50,
         ),
       )),

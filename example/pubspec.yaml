@@ -24,7 +24,7 @@ flutter:
 
   assets:
     - assets/images/cachet.png
-    - assets/images/Cachet-logo-white.png
+    - assets/images/cachet-logo-white.png
     - assets/images/mcat-logo.png
     - assets/images/survey.png
     - assets/images/waving-hand.png

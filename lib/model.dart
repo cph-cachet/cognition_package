@@ -1,19 +1,11 @@
-/// The domain model part of Research Package.
-/// Contains the "building blocks" for creating surveys and obtaining informed consents.
-/// Holds the different types of result classes.
-/// Also responsible for the streams and BLoC classes to provide communication channels
-/// between different parts of the package. ([BlocQuestion], [BlocTask])
-/// For the UI representations of the classes visit the [research_package_ui] library.
-
+/// The domain model of Cognition Package.
 library cognition_package_model;
-
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:research_package/research_package.dart';
-
-// Importing the UI library from Research Package
 import 'package:cognition_package/ui.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:carp_serializable/carp_serializable.dart';
 
 part 'src/model/step/activity_steps/rp_corsi_block_tapping_activity.dart';
 part 'src/model/step/activity_steps/rp_letter_tapping_activity.dart';
@@ -38,4 +30,5 @@ part 'src/result/rp_word_recall_result.dart';
 part 'src/result/rp_delayed_recall_result.dart';
 
 // JSON
-// part 'model.g.dart';
+part 'model.g.dart';
+part 'model.json.dart';

@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Corsi Block Tapping Test.
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPCorsiBlockTappingActivity extends RPActivityStep {
   /// Create Corsi Block Tapping Test.
   RPCorsiBlockTappingActivity({
@@ -15,4 +16,11 @@ class RPCorsiBlockTappingActivity extends RPActivityStep {
     RPActivityEventLogger eventLogger,
   ) =>
       RPUICorsiBlockTappingActivityBody(this, eventLogger, onResultChange);
+
+  @override
+  Function get fromJsonFunction => _$RPCorsiBlockTappingActivityFromJson;
+  factory RPCorsiBlockTappingActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPCorsiBlockTappingActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPCorsiBlockTappingActivityToJson(this);
 }

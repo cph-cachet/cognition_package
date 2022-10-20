@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Tapping Test.
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPTappingActivity extends RPActivityStep {
   /// Contructor for creating a Tapping Test.
   RPTappingActivity(
@@ -18,4 +19,11 @@ class RPTappingActivity extends RPActivityStep {
     RPActivityEventLogger eventLogger,
   ) =>
       RPUITappingActivityBody(this, eventLogger, onResultChange);
+
+  @override
+  Function get fromJsonFunction => _$RPTappingActivityFromJson;
+  factory RPTappingActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPTappingActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPTappingActivityToJson(this);
 }

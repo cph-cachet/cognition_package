@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Visual Array Change Test Result
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPVisualArrayChangeResult extends RPActivityResult {
   RPVisualArrayChangeResult({required String identifier})
       : super(identifier: identifier);
@@ -21,4 +22,9 @@ class RPVisualArrayChangeResult extends RPActivityResult {
     res.results.addAll({'score': score});
     return res;
   }
+
+  factory RPVisualArrayChangeResult.fromJson(Map<String, dynamic> json) =>
+      _$RPVisualArrayChangeResultFromJson(json);
+  @override
+  Map<String, dynamic> toJson() => _$RPVisualArrayChangeResultToJson(this);
 }

@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Trail Making Test.
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPTrailMakingActivity extends RPActivityStep {
   /// Contructor for creating a Trail Making Test.
   RPTrailMakingActivity({
@@ -24,6 +25,13 @@ class RPTrailMakingActivity extends RPActivityStep {
   /// Maximum score is 5 with -1 for each mistake made.
   @override
   int calculateScore(dynamic result) => 5 - (result['mistakeCount'] as int);
+
+  @override
+  Function get fromJsonFunction => _$RPTrailMakingActivityFromJson;
+  factory RPTrailMakingActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPTrailMakingActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPTrailMakingActivityToJson(this);
 }
 
 /// The type of trails used in a Trail Making test.

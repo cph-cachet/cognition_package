@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Flanker Test Result
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPFlankerResult extends RPActivityResult {
   RPFlankerResult({required String identifier}) : super(identifier: identifier);
 
@@ -17,4 +18,10 @@ class RPFlankerResult extends RPActivityResult {
     res.results.addAll({'score': score});
     return res;
   }
+
+  factory RPFlankerResult.fromJson(Map<String, dynamic> json) =>
+      _$RPFlankerResultFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$RPFlankerResultToJson(this);
 }

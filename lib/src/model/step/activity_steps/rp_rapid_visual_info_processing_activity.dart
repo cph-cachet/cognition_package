@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// A Rapid Visual Information Proccesing Test
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPRapidVisualInfoProcessingActivity extends RPActivityStep {
   RPRapidVisualInfoProcessingActivity(
       {required super.identifier,
@@ -27,4 +28,14 @@ class RPRapidVisualInfoProcessingActivity extends RPActivityStep {
   ) =>
       RPUIRapidVisualInfoProcessingActivityBody(
           this, eventLogger, onResultChange);
+
+  @override
+  Function get fromJsonFunction =>
+      _$RPRapidVisualInfoProcessingActivityFromJson;
+  factory RPRapidVisualInfoProcessingActivity.fromJson(
+          Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPRapidVisualInfoProcessingActivity;
+  @override
+  Map<String, dynamic> toJson() =>
+      _$RPRapidVisualInfoProcessingActivityToJson(this);
 }

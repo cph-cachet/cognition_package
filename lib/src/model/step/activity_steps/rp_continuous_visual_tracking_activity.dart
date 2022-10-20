@@ -1,19 +1,19 @@
 part of cognition_package_model;
 
 /// A Multiple Object Tracking Test
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPContinuousVisualTrackingActivity extends RPActivityStep {
-  RPContinuousVisualTrackingActivity(
-      {required super.identifier,
-      super.includeInstructions,
-      super.includeResults,
-      this.lengthOfTest = 90,
-      this.numberOfTests = 3,
-      this.amountOfDots = 5,
-      this.amountOfTargets = 2,
-      this.dotSize = 100,
-      this.trackingSpeed = const Duration(seconds: 5)
-      // this.sequence = const [3, 6, 9]
-      });
+  RPContinuousVisualTrackingActivity({
+    required super.identifier,
+    super.includeInstructions,
+    super.includeResults,
+    this.lengthOfTest = 90,
+    this.numberOfTests = 3,
+    this.amountOfDots = 5,
+    this.amountOfTargets = 2,
+    this.dotSize = 100,
+    this.trackingSpeed = const Duration(seconds: 5),
+  });
 
   /// Test duration in seconds. Default is 90 seconds.
   int lengthOfTest;
@@ -63,4 +63,13 @@ class RPContinuousVisualTrackingActivity extends RPActivityStep {
     }
     return sum;
   }
+
+  @override
+  Function get fromJsonFunction => _$RPContinuousVisualTrackingActivityFromJson;
+  factory RPContinuousVisualTrackingActivity.fromJson(
+          Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPContinuousVisualTrackingActivity;
+  @override
+  Map<String, dynamic> toJson() =>
+      _$RPContinuousVisualTrackingActivityToJson(this);
 }

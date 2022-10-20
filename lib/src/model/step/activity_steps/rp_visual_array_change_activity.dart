@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Visual Array Change Test
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPVisualArrayChangeActivity extends RPActivityStep {
   RPVisualArrayChangeActivity({
     required super.identifier,
@@ -33,4 +34,11 @@ class RPVisualArrayChangeActivity extends RPActivityStep {
   /// Score is the number of correct answers in the test.
   @override
   int calculateScore(dynamic result) => result['correct'] as int;
+
+  @override
+  Function get fromJsonFunction => _$RPVisualArrayChangeActivityFromJson;
+  factory RPVisualArrayChangeActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPVisualArrayChangeActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPVisualArrayChangeActivityToJson(this);
 }

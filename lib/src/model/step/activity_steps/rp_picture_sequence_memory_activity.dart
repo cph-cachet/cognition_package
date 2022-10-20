@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Picture Sequence Memory Test
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPPictureSequenceMemoryActivity extends RPActivityStep {
   RPPictureSequenceMemoryActivity({
     required super.identifier,
@@ -42,4 +43,12 @@ class RPPictureSequenceMemoryActivity extends RPActivityStep {
     }
     return sum;
   }
+
+  @override
+  Function get fromJsonFunction => _$RPPictureSequenceMemoryActivityFromJson;
+  factory RPPictureSequenceMemoryActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPPictureSequenceMemoryActivity;
+  @override
+  Map<String, dynamic> toJson() =>
+      _$RPPictureSequenceMemoryActivityToJson(this);
 }

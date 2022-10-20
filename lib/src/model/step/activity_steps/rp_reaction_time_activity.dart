@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Reaction Time Test.
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPReactionTimeActivity extends RPActivityStep {
   /// Contructor for creating a Reaction time Test.
   RPReactionTimeActivity(
@@ -23,4 +24,11 @@ class RPReactionTimeActivity extends RPActivityStep {
     RPActivityEventLogger eventLogger,
   ) =>
       RPUIReactionTimeActivityBody(this, eventLogger, onResultChange);
+
+  @override
+  Function get fromJsonFunction => _$RPReactionTimeActivityFromJson;
+  factory RPReactionTimeActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPReactionTimeActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPReactionTimeActivityToJson(this);
 }

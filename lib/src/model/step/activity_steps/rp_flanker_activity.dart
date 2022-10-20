@@ -1,6 +1,7 @@
 part of cognition_package_model;
 
 /// Flanker Test.
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPFlankerActivity extends RPActivityStep {
   RPFlankerActivity({
     required super.identifier,
@@ -46,4 +47,11 @@ class RPFlankerActivity extends RPActivityStep {
 
     return sum;
   }
+
+  @override
+  Function get fromJsonFunction => _$RPFlankerActivityFromJson;
+  factory RPFlankerActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPFlankerActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPFlankerActivityToJson(this);
 }
