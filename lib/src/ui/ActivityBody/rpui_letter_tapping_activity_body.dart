@@ -1,19 +1,28 @@
 part of cognition_package_ui;
 
+/// The [RPUILetterTappingActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUILetterTappingActivityBody extends StatefulWidget {
+  /// The [RPUILetterTappingActivityBody] activity.
   final RPLetterTappingActivity activity;
-  final Function(dynamic) onResultChange;
+
+  /// The results function for the [RPUILetterTappingActivityBody].
+  final void Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUILetterTappingActivityBody].
   final RPActivityEventLogger eventLogger;
 
-  RPUILetterTappingActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  /// The [RPUILetterTappingActivityBody] constructor.
+  const RPUILetterTappingActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
-  _RPUILetterTappingActivityBodyState createState() =>
-      _RPUILetterTappingActivityBodyState();
+  RPUILetterTappingActivityBodyState createState() =>
+      RPUILetterTappingActivityBodyState();
 }
 
-class _RPUILetterTappingActivityBodyState
+class RPUILetterTappingActivityBodyState
     extends State<RPUILetterTappingActivityBody> {
   late SoundService soundService;
   late AudioCache player;
@@ -21,12 +30,11 @@ class _RPUILetterTappingActivityBodyState
   late String currentLetter;
   late String lastLetter;
   int errors = 0;
-  late Timer timer;
   late bool shouldTap;
   late bool lastWasTapped;
   bool wasTapped = false;
   int letterIndex = 0;
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   List<String> alphabet = [
     'A',
     'B',
@@ -98,19 +106,19 @@ class _RPUILetterTappingActivityBodyState
     setState(() {
       activityStatus = ActivityStatus.Test;
     });
-    await Future.delayed(Duration(seconds: 2));
+    await Future<dynamic>.delayed(const Duration(seconds: 2));
     for (String letter in mocaTestList) {
       if (!mounted) break;
       soundService
           .play('../packages/cognition_package/assets/sounds/$letter.mp3');
       updateLetter(letter);
-      await Future.delayed(Duration(milliseconds: 1000));
+      await Future<dynamic>.delayed(const Duration(milliseconds: 1000));
       if (letterIndex < 29) letterIndex += 1;
     }
     updateLetter('');
     if (mounted) {
       int score = errors < 2 ? 1 : 0;
-      widget.onResultChange({'amount fo errors': errors, 'score': score});
+      widget.onResultChange({'amount of errors': errors, 'score': score});
       widget.eventLogger.testEnded();
       if (widget.activity.includeResults) {
         widget.eventLogger.resultsShown();
@@ -148,7 +156,7 @@ class _RPUILetterTappingActivityBodyState
           //entry screen with rules and start button
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Turn your sound on!',
@@ -158,7 +166,7 @@ class _RPUILetterTappingActivityBodyState
                 textAlign: TextAlign.center,
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Then, tap the button on the next screen, whenever you hear the letter "A" being said.',
@@ -169,11 +177,11 @@ class _RPUILetterTappingActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                height: 250,
+                width: 250,
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -182,16 +190,21 @@ class _RPUILetterTappingActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -203,12 +216,11 @@ class _RPUILetterTappingActivityBodyState
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
+            SizedBox(
               width: 100,
               height: 60,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                child: Text('A'),
+              child: OutlinedButton(
+                child: const Text('A'),
                 onPressed: () {
                   // X - X
                   if (currentLetter != 'A' && lastLetter != 'A') {
@@ -270,13 +282,11 @@ class _RPUILetterTappingActivityBodyState
           ],
         );
       case ActivityStatus.Result:
-        return Container(
-          child: Center(
-            child: Text(
-              'You had $errors mistakes',
-              style: TextStyle(fontSize: 22),
-              textAlign: TextAlign.center,
-            ),
+        return Center(
+          child: Text(
+            'You had $errors mistakes',
+            style: const TextStyle(fontSize: 22),
+            textAlign: TextAlign.center,
           ),
         );
     }
@@ -287,12 +297,11 @@ class SoundService {
   final List<String> files;
 
   SoundService(this.files) {
-    player.loadAll(files);
+    AudioCache.instance.loadAll(files);
   }
 
-  static final player = AudioCache();
+  final player = AudioPlayer();
 
-  void play(String path) async {
-    await player.play(path, mode: PlayerMode.LOW_LATENCY);
-  }
+  void play(String path) async =>
+      await player.play(AssetSource(path), mode: PlayerMode.lowLatency);
 }

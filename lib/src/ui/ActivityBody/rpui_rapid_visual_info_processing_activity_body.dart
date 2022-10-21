@@ -1,19 +1,28 @@
 part of cognition_package_ui;
 
+/// The [RPUIRapidVisualInfoProcessingActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUIRapidVisualInfoProcessingActivityBody extends StatefulWidget {
+  /// The [RPUIRapidVisualInfoProcessingActivityBody] activity.
   final RPRapidVisualInfoProcessingActivity activity;
-  final Function(dynamic) onResultChange;
+
+  /// The results function for the [RPUIRapidVisualInfoProcessingActivityBody].
+  final void Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIRapidVisualInfoProcessingActivityBody].
   final RPActivityEventLogger eventLogger;
 
-  RPUIRapidVisualInfoProcessingActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  /// The [RPUIRapidVisualInfoProcessingActivityBody] constructor.
+  const RPUIRapidVisualInfoProcessingActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
-  _RPUIRapidVisualInfoProcessingActivityBody createState() =>
-      _RPUIRapidVisualInfoProcessingActivityBody();
+  RPUIRapidVisualInfoProcessingActivityBodyState createState() =>
+      RPUIRapidVisualInfoProcessingActivityBodyState();
 }
 
-class _RPUIRapidVisualInfoProcessingActivityBody
+class RPUIRapidVisualInfoProcessingActivityBodyState
     extends State<RPUIRapidVisualInfoProcessingActivityBody> {
   final _random = Random();
   String texthint =
@@ -24,8 +33,8 @@ class _RPUIRapidVisualInfoProcessingActivityBody
   int seqsPassed =
       0; //number of times the given sequence passed: cap for good taps
   Duration displayTime =
-      Duration(seconds: 1); //amount of time each number is displayed
-  late ActivityStatus activityStatus;
+      const Duration(seconds: 1); //amount of time each number is displayed
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   bool seqPassed =
       false; //if a sequence has passed or not, meaning a tap would be a correct tap if true
   List<bool> listIndexes = [
@@ -37,6 +46,8 @@ class _RPUIRapidVisualInfoProcessingActivityBody
       []; //list of delay from seqPassed is set true, to button is pressed
   final _sw = Stopwatch();
 
+  Timer? timer;
+
   //Todo: determine how test results are evaluated: Hit sequences, delay in doing so, and false taps are recorded
   //seqsPassed can be different that good and bad taps total! Meaning tap should have occured but didnt, before next full sequence.
 
@@ -44,7 +55,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
   initState() {
     super.initState();
     for (int i = 0; i < widget.activity.sequence.length; i++) {
-      seq1s = seq1s + widget.activity.sequence[i].toString() + '  ';
+      seq1s = '$seq1s${widget.activity.sequence[i]}  ';
     }
     for (int i = 0; i < widget.activity.sequence.length; i++) {
       //adds bools according to sequence lengths
@@ -61,10 +72,10 @@ class _RPUIRapidVisualInfoProcessingActivityBody
   }
 
   void startTest() async {
-    await Future.delayed(Duration(seconds: 1));
-    Timer.periodic(
-        //periodic timer to update number on screen - starts in init currently.
-        displayTime, (Timer t) {
+    await Future<dynamic>.delayed(const Duration(seconds: 1));
+
+    //periodic timer to update number on screen - starts in init currently.
+    timer = Timer.periodic(displayTime, (Timer t) {
       //make sure window is mounted and that test is live before setting state.
       if (activityStatus == ActivityStatus.Test && mounted) {
         setState(() {
@@ -108,9 +119,9 @@ class _RPUIRapidVisualInfoProcessingActivityBody
     curSeq.add(newNum);
   }
 
-//check if sequence have appeared through setting an array of bools for each number
-//Keeping it dynamic, so size of sequence can vary freely
-  void sequenceChecker(seq) {
+  /// Check if sequence have appeared through setting an array of bools for
+  /// each number. Keeping it dynamic, so size of sequence can vary freely.
+  void sequenceChecker(List<int> seq) {
     for (int i = 0; i < widget.activity.sequence.length; i++) {
       if (newNum == seq[i] && listIndexes[i] == true) {
         listIndexes[i + 1] = true;
@@ -131,6 +142,12 @@ class _RPUIRapidVisualInfoProcessingActivityBody
   }
 
   @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     switch (activityStatus) {
       case ActivityStatus.Instruction:
@@ -139,21 +156,21 @@ class _RPUIRapidVisualInfoProcessingActivityBody
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Text(
                 texthint,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
                 textAlign: TextAlign.center,
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -162,11 +179,16 @@ class _RPUIRapidVisualInfoProcessingActivityBody
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   widget.eventLogger.instructionEnded();
@@ -178,7 +200,7 @@ class _RPUIRapidVisualInfoProcessingActivityBody
                   }
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -194,52 +216,58 @@ class _RPUIRapidVisualInfoProcessingActivityBody
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('Sequence:', style: TextStyle(fontSize: 24)),
-                  Text(seq1s, style: TextStyle(fontSize: 32)),
+                  const Text('Sequence:', style: TextStyle(fontSize: 24)),
+                  Text(seq1s, style: const TextStyle(fontSize: 32)),
                   Container(height: 40),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('Number:', style: TextStyle(fontSize: 24)),
-                      Text('$newNum', style: TextStyle(fontSize: 40)),
+                      const Text('Number:', style: TextStyle(fontSize: 24)),
+                      Text('$newNum', style: const TextStyle(fontSize: 40)),
                     ],
                   ),
                   Container(height: 40),
-                  Container(
+                  SizedBox(
                       height: 80,
                       width: 160,
-                      // ignore: deprecated_member_use
-                      child: OutlineButton(onPressed: () {
-                        //on pressed - time is tracked if sequence has actually passed, otherwise no
-                        if (seqPassed) {
-                          seqPassed = false;
-                          goodTaps++;
-                          _sw.stop();
-                          delaysList.add(_sw.elapsedMilliseconds);
-                          int tapDelay = _sw.elapsedMilliseconds;
-                          widget.eventLogger.addCorrectGesture('Button tap',
-                              'Correct tap. Number of sequences passed: $seqsPassed. Delay on tap: $tapDelay. Shown sequence: $curSeq');
-                          _sw.reset();
-                        } else {
-                          widget.eventLogger.addWrongGesture('Button tap',
-                              'Incorrect tap. Number of sequences passed: $seqsPassed. Shown sequence: $curSeq');
-                          badTaps++;
-                        }
-                      })),
+                      child: OutlinedButton(
+                        child: const SizedBox(
+                          width: 160,
+                          height: 80,
+                        ),
+                        onPressed: () {
+                          //on pressed - time is tracked if sequence has actually passed, otherwise no
+                          if (seqPassed) {
+                            seqPassed = false;
+                            goodTaps++;
+                            _sw.stop();
+                            delaysList.add(_sw.elapsedMilliseconds);
+                            int tapDelay = _sw.elapsedMilliseconds;
+                            widget.eventLogger.addCorrectGesture('Button tap',
+                                'Correct tap. Number of sequences passed: $seqsPassed. Delay on tap: $tapDelay. Shown sequence: $curSeq');
+                            _sw.reset();
+                          } else {
+                            widget.eventLogger.addWrongGesture('Button tap',
+                                'Incorrect tap. Number of sequences passed: $seqsPassed. Shown sequence: $curSeq');
+                            badTaps++;
+                          }
+                        },
+                      )),
                 ],
               ))
             ]);
       case ActivityStatus.Result:
         return Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('The test is done!', style: TextStyle(fontSize: 22)),
+                  const Text('The test is done!',
+                      style: TextStyle(fontSize: 22)),
                   Text(
                     'You had $goodTaps correct taps and $badTaps wrong ones',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 22),
+                    style: const TextStyle(fontSize: 22),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 5,
                   )

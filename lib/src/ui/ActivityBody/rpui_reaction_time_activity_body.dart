@@ -1,21 +1,30 @@
 part of cognition_package_ui;
 
+/// The [RPUIReactionTimeActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUIReactionTimeActivityBody extends StatefulWidget {
+  /// The [RPUIReactionTimeActivityBody] activity.
   final RPReactionTimeActivity activity;
-  final Function(dynamic) onResultChange;
+
+  /// The results function for the [RPUIReactionTimeActivityBody].
+  final void Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIReactionTimeActivityBody].
   final RPActivityEventLogger eventLogger;
 
-  RPUIReactionTimeActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  /// The [RPUIReactionTimeActivityBody] constructor.
+  const RPUIReactionTimeActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
-  _RPUIReactionTimeActivityBodyState createState() =>
-      _RPUIReactionTimeActivityBodyState();
+  RPUIReactionTimeActivityBodyState createState() =>
+      RPUIReactionTimeActivityBodyState();
 }
 
-class _RPUIReactionTimeActivityBodyState
+class RPUIReactionTimeActivityBodyState
     extends State<RPUIReactionTimeActivityBody> {
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   String alert = '';
   int wrongTaps = 0;
   int correctTaps = 0;
@@ -27,7 +36,7 @@ class _RPUIReactionTimeActivityBodyState
   final _sw = Stopwatch();
   List<int> rtList = []; //delay times list
   int result = 0;
-  late Timer lightTimer;
+  Timer? lightTimer;
 
   //wrong taps currently do nothing.
 
@@ -47,7 +56,7 @@ class _RPUIReactionTimeActivityBodyState
 
   void lightRegulator() {
     if (!first) {
-      lightTimer.cancel();
+      lightTimer?.cancel();
     }
     //determines when light is changed, and starts timer when screen turns green. only called when light is red.
     timer = _random.nextInt(widget.activity.switchInterval) + 1;
@@ -94,6 +103,12 @@ class _RPUIReactionTimeActivityBodyState
   }
 
   @override
+  void dispose() {
+    lightTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     switch (activityStatus) {
       case ActivityStatus.Instruction:
@@ -101,7 +116,7 @@ class _RPUIReactionTimeActivityBodyState
           //entry screen with rules and start button
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Tap the screen every time it turns from red to green, as fast as possible.',
@@ -112,11 +127,11 @@ class _RPUIReactionTimeActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -125,11 +140,16 @@ class _RPUIReactionTimeActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   widget.eventLogger.instructionEnded();
@@ -140,7 +160,7 @@ class _RPUIReactionTimeActivityBodyState
                   testTimer();
                   lightRegulator();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -180,8 +200,8 @@ class _RPUIReactionTimeActivityBodyState
                           setState(() {
                             alert = 'Too quick';
                           });
-                          await Future.delayed(
-                              Duration(seconds: 1)); //display feedback
+                          await Future<dynamic>.delayed(
+                              const Duration(seconds: 1)); //display feedback
                           if (mounted) {
                             allowGreen = true;
                             setState(() {
@@ -208,14 +228,14 @@ class _RPUIReactionTimeActivityBodyState
             ]);
       case ActivityStatus.Result:
         return Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
                   'The time is up! $result was your final score. (Average reaction time in milliseconds)',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 22),
+                  style: const TextStyle(fontSize: 22),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 5,
                 ),

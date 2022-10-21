@@ -1,19 +1,28 @@
 part of cognition_package_ui;
 
+/// The [RPUIStroopEffectActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUIStroopEffectActivityBody extends StatefulWidget {
+  /// The [RPUIStroopEffectActivityBody] activity.
   final RPStroopEffectActivity activity;
-  final Function(dynamic) onResultChange;
+
+  /// The results function for the [RPUIStroopEffectActivityBody].
+  final void Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIStroopEffectActivityBody].
   final RPActivityEventLogger eventLogger;
 
-  RPUIStroopEffectActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  /// The [RPUIStroopEffectActivityBody] constructor.
+  const RPUIStroopEffectActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
-  _RPUIStroopEffectActivityBodyState createState() =>
-      _RPUIStroopEffectActivityBodyState();
+  RPUIStroopEffectActivityBodyState createState() =>
+      RPUIStroopEffectActivityBodyState();
 }
 
-class _RPUIStroopEffectActivityBodyState
+class RPUIStroopEffectActivityBodyState
     extends State<RPUIStroopEffectActivityBody> {
   late ActivityStatus activityStatus;
   int mistakes = 0;
@@ -22,9 +31,8 @@ class _RPUIStroopEffectActivityBodyState
   int cWordIndex = 0;
   int wColorIndex = 0;
   final _random = Random();
-  Timer t = Timer(Duration(seconds: 0),
-      () {}); //construct for further control of timer. Cancel at window collapse.
-  Timer pulseTimer = Timer(Duration(seconds: 0), () {}); //pulse timer control
+
+  Timer pulseTimer = Timer(const Duration(seconds: 0), () {});
 
   //bool testLive = false; //test going on, screen flag
   //bool testBegin = true; //pre test screen flag
@@ -112,7 +120,7 @@ class _RPUIStroopEffectActivityBodyState
           Colors.white
         ]; //reset feedback
       });
-      await Future.delayed(Duration(
+      await Future<dynamic>.delayed(Duration(
           milliseconds:
               widget.activity.delayTime)); //delay before showing next word
       if (mounted && activityStatus == ActivityStatus.Test) {
@@ -146,6 +154,12 @@ class _RPUIStroopEffectActivityBodyState
   }
 
   @override
+  void dispose() {
+    pulseTimer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     switch (activityStatus) {
       case ActivityStatus.Instruction:
@@ -153,7 +167,7 @@ class _RPUIStroopEffectActivityBodyState
           //entry screen with rules and start button
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'Tap the color, of the word you see on screen. E.g. tap the box that says "green" when a green word appears',
@@ -164,11 +178,11 @@ class _RPUIStroopEffectActivityBodyState
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -177,16 +191,21 @@ class _RPUIStroopEffectActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -202,7 +221,7 @@ class _RPUIStroopEffectActivityBodyState
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Container(
+                    SizedBox(
                       height: 100,
                       width: 200,
                       child: Text(
@@ -224,26 +243,26 @@ class _RPUIStroopEffectActivityBodyState
       case ActivityStatus.Result:
         return Container(
             //result screen
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           'The test is done!',
                           style: TextStyle(fontSize: 22),
                           textAlign: TextAlign.center,
                         ),
                         Text(
                           'Correct answers: $correctTaps',
-                          style: TextStyle(fontSize: 22),
+                          style: const TextStyle(fontSize: 22),
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          'Wrong answers or missed words: $mistakes',
-                          style: TextStyle(fontSize: 22),
+                          'Mistakes made: $mistakes',
+                          style: const TextStyle(fontSize: 22),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 20,
                           textAlign: TextAlign.center,
@@ -256,13 +275,14 @@ class _RPUIStroopEffectActivityBodyState
   Widget _makeButton(int buttonNum) {
     //make material buttons for possible colors
     String buttonCode = possColorsString[buttonNum];
-    return (Container(
+    return (SizedBox(
         height: 75,
         width: MediaQuery.of(context).size.width / 5,
         child: MaterialButton(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
-              side: BorderSide(color: Colors.black, width: 3)),
+              side: const BorderSide(color: Colors.black, width: 3)),
+          textColor: Colors.black,
           color: backgroundButtons[
               buttonNum], //set background on buttons for feedback
           onPressed: () {
@@ -297,7 +317,7 @@ class _RPUIStroopEffectActivityBodyState
           },
           child: FittedBox(
             fit: BoxFit.fitWidth,
-            child: Text(buttonCode, style: TextStyle(fontSize: 19)),
+            child: Text(buttonCode, style: const TextStyle(fontSize: 19)),
           ),
         )));
   }

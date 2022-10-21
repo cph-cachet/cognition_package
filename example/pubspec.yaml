@@ -1,78 +1,30 @@
-name: research_package_demo_app
-description: A demo application for Research Package
+name: cognition_package_demo_app
+description: A demo application for the Cognition Package
 publish_to: none
-
-# https://dart.dev/guides/language/effective-dart/documentation
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.2.0
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: '>=2.17.0 <3.0.0'
+  flutter: ">=3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  #
-  # firebase_core: ^0.4.0
-  # firebase_auth: ^0.14.0
-  # cloud_firestore: ^0.12.9
-  shared_preferences: ^2.0.6 #0.5.7
-  uuid: ^3.0.4
-  flutter_swipable: ^1.2.1
-  reorderables: ^0.4.1
-  flutter_dotenv: ^5.0.2
-  # async: ^2.7.0
-  
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-
-  carp_backend: ^0.31.2
-  carp_mobile_sensing: ^0.31.0
-  carp_webservices: ^0.31.1
-  carp_core: ^0.31.1
-
-  research_package: ^0.6.7
-
-  # research_package:
-  #   path: ../research_package
-
   cognition_package:
     path: ../../cognition_package
-  # cognitive_package:
-  #   path: ../cognitive.package
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   lints: ^1.0.1
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter.
 flutter:
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/cachet.png
-    - assets/images/Cachet-logo-white.png
+    - assets/images/cachet-logo-white.png
     - assets/images/mcat-logo.png
     - assets/images/survey.png
     - assets/images/waving-hand.png
-    - .env
-    

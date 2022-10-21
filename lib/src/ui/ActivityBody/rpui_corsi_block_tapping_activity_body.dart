@@ -1,24 +1,33 @@
 part of cognition_package_ui;
 
+/// The [RPUICorsiBlockTappingActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUICorsiBlockTappingActivityBody extends StatefulWidget {
+  /// The [RPUICorsiBlockTappingActivityBody] activity.
   final RPCorsiBlockTappingActivity activity;
-  final Function(dynamic) onResultChange;
+
+  /// The results function for the [RPUICorsiBlockTappingActivityBody].
+  final void Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUICorsiBlockTappingActivityBody].
   final RPActivityEventLogger eventLogger;
 
-  RPUICorsiBlockTappingActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  /// The [RPUICorsiBlockTappingActivityBody] constructor.
+  const RPUICorsiBlockTappingActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
-  _RPUIFlankerActivityBodyState createState() =>
-      _RPUIFlankerActivityBodyState();
+  RPUICorsiActivityBodyState createState() => RPUICorsiActivityBodyState();
 }
 
-class _RPUIFlankerActivityBodyState
+/// State class for [ContinuousVisualTrackingActivityBody]
+class RPUICorsiActivityBodyState
     extends State<RPUICorsiBlockTappingActivityBody> {
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   int corsiSpan = 0;
-  late int highlightedBlockID;
-  late List<int> blocks;
+  int highlightedBlockID = 500;
+  List<int> blocks = [];
   List<int> tapOrder = [];
   bool readyForTap = false;
   bool finishedTask = false;
@@ -47,17 +56,18 @@ class _RPUIFlankerActivityBodyState
       tapOrder.clear();
       blocks.shuffle();
     });
-    await Future.delayed(Duration(seconds: 1));
+    await Future<dynamic>.delayed(const Duration(seconds: 1));
     for (int i = 0; i < numberOfBlocks; i++) {
       if (activityStatus == ActivityStatus.Test && mounted) {
         setState(() {
           highlightedBlockID = blocks[i];
         });
       }
-      await Future.delayed(Duration(milliseconds: 1000));
+      await Future<dynamic>.delayed(const Duration(milliseconds: 1000));
     }
     if (activityStatus == ActivityStatus.Test && mounted) {
       setState(() {
+        highlightedBlockID = 500;
         readyForTap = true;
         taskInfo = 'Go';
       });
@@ -81,7 +91,7 @@ class _RPUIFlankerActivityBodyState
           setState(() {
             taskInfo = 'Finished';
           });
-          await Future.delayed(Duration(milliseconds: 700));
+          await Future<dynamic>.delayed(const Duration(milliseconds: 700));
           widget.onResultChange(corsiSpan);
           widget.eventLogger.testEnded();
           if (widget.activity.includeResults) {
@@ -97,7 +107,7 @@ class _RPUIFlankerActivityBodyState
           setState(() {
             taskInfo = 'Try again';
           });
-          await Future.delayed(Duration(milliseconds: 700));
+          await Future<dynamic>.delayed(const Duration(milliseconds: 700));
           startTest();
         }
       } else {
@@ -109,7 +119,7 @@ class _RPUIFlankerActivityBodyState
         });
         corsiSpan = numberOfBlocks;
         numberOfBlocks++;
-        await Future.delayed(Duration(milliseconds: 700));
+        await Future<dynamic>.delayed(const Duration(milliseconds: 700));
         startTest();
       }
     }
@@ -122,22 +132,22 @@ class _RPUIFlankerActivityBodyState
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'You will see 9 tiles. An increasing number of the tiles will be highlighted in order. When the light in the top of the screen is green, and reads "go", you should press the blocks in the same order as they were highlighted.',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -146,11 +156,16 @@ class _RPUIFlankerActivityBodyState
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   widget.eventLogger.instructionEnded();
@@ -160,7 +175,7 @@ class _RPUIFlankerActivityBodyState
                   });
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -170,20 +185,20 @@ class _RPUIFlankerActivityBodyState
         );
       case ActivityStatus.Test:
         return Padding(
-          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
                 height: 70,
                 width: 200,
+                color: readyForTap ? Colors.green : Colors.red,
                 child: Center(
                   child: Text(
                     taskInfo,
-                    style: TextStyle(fontSize: 30, color: Colors.white),
+                    style: const TextStyle(fontSize: 30, color: Colors.white),
                   ),
                 ),
-                color: readyForTap ? Colors.green : Colors.red,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -208,7 +223,7 @@ class _RPUIFlankerActivityBodyState
         return Center(
           child: Text(
             'Your Corsi Span was $corsiSpan',
-            style: TextStyle(fontSize: 22),
+            style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
         );
@@ -219,19 +234,19 @@ class _RPUIFlankerActivityBodyState
 
   Widget _makeButton(int buttonNum) {
     return InkWell(
-      child: Container(
-        height: 60,
-        width: 60,
-        color: highlightedBlockID == buttonNum ? Colors.red : Colors.blue,
-        child: Center(
-          child: tapOrder.contains(buttonNum) ? Icon(Icons.check) : null,
-        ),
-      ),
       onTap: readyForTap
           ? () {
               onBlockTap(buttonNum);
             }
           : null,
+      child: Container(
+        height: 60,
+        width: 60,
+        color: highlightedBlockID == buttonNum ? Colors.red : Colors.blue,
+        child: Center(
+          child: tapOrder.contains(buttonNum) ? const Icon(Icons.check) : null,
+        ),
+      ),
     );
   }
 }

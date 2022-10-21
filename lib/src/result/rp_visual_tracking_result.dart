@@ -1,7 +1,7 @@
 part of cognition_package_model;
 
-/// A Multiple Object Tracking Test Result
-@JsonSerializable()
+/// Multiple Object Tracking Test Result
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPVisualTrackingResult extends RPActivityResult {
   RPVisualTrackingResult({required String identifier})
       : super(identifier: identifier);
@@ -18,4 +18,10 @@ class RPVisualTrackingResult extends RPActivityResult {
     res.results.addAll({'score': score});
     return res;
   }
+
+  factory RPVisualTrackingResult.fromJson(Map<String, dynamic> json) =>
+      _$RPVisualTrackingResultFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$RPVisualTrackingResultToJson(this);
 }

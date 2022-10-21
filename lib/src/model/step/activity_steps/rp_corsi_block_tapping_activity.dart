@@ -1,19 +1,26 @@
 part of cognition_package_model;
 
-/// A Corsi Block Tapping Test
-@JsonSerializable()
+/// Corsi Block Tapping Test.
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPCorsiBlockTappingActivity extends RPActivityStep {
-  /// Contructor for creating a Corsi Block Tapping Test.
-  /// Must contain an identifier for storing purposes
-  RPCorsiBlockTappingActivity(String identifier,
-      {includeInstructions = true, includeResults = true})
-      : super(identifier,
-            includeInstructions: includeInstructions,
-            includeResults: includeResults);
+  /// Create Corsi Block Tapping Test.
+  RPCorsiBlockTappingActivity({
+    required super.identifier,
+    super.includeInstructions,
+    super.includeResults,
+  });
 
   @override
-  Widget stepBody(dynamic Function(dynamic) onResultChange,
-      RPActivityEventLogger eventLogger) {
-    return RPUICorsiBlockTappingActivityBody(this, eventLogger, onResultChange);
-  }
+  Widget stepBody(
+    dynamic Function(dynamic) onResultChange,
+    RPActivityEventLogger eventLogger,
+  ) =>
+      RPUICorsiBlockTappingActivityBody(this, eventLogger, onResultChange);
+
+  @override
+  Function get fromJsonFunction => _$RPCorsiBlockTappingActivityFromJson;
+  factory RPCorsiBlockTappingActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPCorsiBlockTappingActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPCorsiBlockTappingActivityToJson(this);
 }

@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element
-
 part of cognition_package_model;
 
 // **************************************************************************
@@ -9,249 +7,283 @@ part of cognition_package_model;
 // **************************************************************************
 
 RPCorsiBlockTappingActivity _$RPCorsiBlockTappingActivityFromJson(
-    Map<String, dynamic> json) {
-  return RPCorsiBlockTappingActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
+        Map<String, dynamic> json) =>
+    RPCorsiBlockTappingActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
 
 Map<String, dynamic> _$RPCorsiBlockTappingActivityToJson(
-        RPCorsiBlockTappingActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-    };
+    RPCorsiBlockTappingActivity instance) {
+  final val = <String, dynamic>{};
 
-RPLetterTappingActivity _$RPLetterTappingActivityFromJson(
-    Map<String, dynamic> json) {
-  return RPLetterTappingActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
-
-Map<String, dynamic> _$RPLetterTappingActivityToJson(
-        RPLetterTappingActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-    };
-
-RPPairedAssociatesLearningActivity _$RPPairedAssociatesLearningActivityFromJson(
-    Map<String, dynamic> json) {
-  return RPPairedAssociatesLearningActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    maxTestDuration: json['maxTestDuration'] as int,
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
-
-Map<String, dynamic> _$RPPairedAssociatesLearningActivityToJson(
-        RPPairedAssociatesLearningActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'maxTestDuration': instance.maxTestDuration,
-    };
-
-RPRapidVisualInfoProcessingActivity
-    _$RPRapidVisualInfoProcessingActivityFromJson(Map<String, dynamic> json) {
-  return RPRapidVisualInfoProcessingActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    interval: json['interval'] as int,
-    lengthOfTest: json['lengthOfTest'] as int,
-    sequence: (json['sequence'] as List<dynamic>).map((e) => e as int).toList(),
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
-
-Map<String, dynamic> _$RPRapidVisualInfoProcessingActivityToJson(
-        RPRapidVisualInfoProcessingActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'interval': instance.interval,
-      'lengthOfTest': instance.lengthOfTest,
-      'sequence': instance.sequence,
-    };
-
-RPReactionTimeActivity _$RPReactionTimeActivityFromJson(
-    Map<String, dynamic> json) {
-  return RPReactionTimeActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    lengthOfTest: json['lengthOfTest'] as int,
-    switchInterval: json['switchInterval'] as int,
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
-
-Map<String, dynamic> _$RPReactionTimeActivityToJson(
-        RPReactionTimeActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'lengthOfTest': instance.lengthOfTest,
-      'switchInterval': instance.switchInterval,
-    };
-
-RPStroopEffectActivity _$RPStroopEffectActivityFromJson(
-    Map<String, dynamic> json) {
-  return RPStroopEffectActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    lengthOfTest: json['lengthOfTest'] as int,
-    displayTime: json['displayTime'] as int,
-    delayTime: json['delayTime'] as int,
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
-
-Map<String, dynamic> _$RPStroopEffectActivityToJson(
-        RPStroopEffectActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'lengthOfTest': instance.lengthOfTest,
-      'displayTime': instance.displayTime,
-      'delayTime': instance.delayTime,
-    };
-
-RPTappingActivity _$RPTappingActivityFromJson(Map<String, dynamic> json) {
-  return RPTappingActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    lengthOfTest: json['lengthOfTest'] as int,
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
-
-Map<String, dynamic> _$RPTappingActivityToJson(RPTappingActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'lengthOfTest': instance.lengthOfTest,
-    };
-
-RPTrailMakingActivity _$RPTrailMakingActivityFromJson(
-    Map<String, dynamic> json) {
-  return RPTrailMakingActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    trailType: _$enumDecode(_$TrailTypeEnumMap, json['trailType']),
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
-
-Map<String, dynamic> _$RPTrailMakingActivityToJson(
-        RPTrailMakingActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'trailType': _$TrailTypeEnumMap[instance.trailType],
-    };
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
   }
 
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  return val;
+}
+
+RPLetterTappingActivity _$RPLetterTappingActivityFromJson(
+        Map<String, dynamic> json) =>
+    RPLetterTappingActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
+
+Map<String, dynamic> _$RPLetterTappingActivityToJson(
+    RPLetterTappingActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  return val;
+}
+
+RPPairedAssociatesLearningActivity _$RPPairedAssociatesLearningActivityFromJson(
+        Map<String, dynamic> json) =>
+    RPPairedAssociatesLearningActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      maxTestDuration: json['max_test_duration'] as int? ?? 100,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
+
+Map<String, dynamic> _$RPPairedAssociatesLearningActivityToJson(
+    RPPairedAssociatesLearningActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['max_test_duration'] = instance.maxTestDuration;
+  return val;
+}
+
+RPRapidVisualInfoProcessingActivity
+    _$RPRapidVisualInfoProcessingActivityFromJson(Map<String, dynamic> json) =>
+        RPRapidVisualInfoProcessingActivity(
+          identifier: json['identifier'] as String,
+          includeInstructions: json['include_instructions'] as bool? ?? true,
+          includeResults: json['include_results'] as bool? ?? true,
+          interval: json['interval'] as int? ?? 9,
+          lengthOfTest: json['length_of_test'] as int? ?? 90,
+          sequence: (json['sequence'] as List<dynamic>?)
+                  ?.map((e) => e as int)
+                  .toList() ??
+              const [3, 6, 9],
+        )
+          ..$type = json[r'$type'] as String?
+          ..title = json['title'] as String
+          ..text = json['text'] as String?
+          ..optional = json['optional'] as bool;
+
+Map<String, dynamic> _$RPRapidVisualInfoProcessingActivityToJson(
+    RPRapidVisualInfoProcessingActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['interval'] = instance.interval;
+  val['length_of_test'] = instance.lengthOfTest;
+  val['sequence'] = instance.sequence;
+  return val;
+}
+
+RPReactionTimeActivity _$RPReactionTimeActivityFromJson(
+        Map<String, dynamic> json) =>
+    RPReactionTimeActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      lengthOfTest: json['length_of_test'] as int? ?? 30,
+      switchInterval: json['switch_interval'] as int? ?? 4,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
+
+Map<String, dynamic> _$RPReactionTimeActivityToJson(
+    RPReactionTimeActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['length_of_test'] = instance.lengthOfTest;
+  val['switch_interval'] = instance.switchInterval;
+  return val;
+}
+
+RPStroopEffectActivity _$RPStroopEffectActivityFromJson(
+        Map<String, dynamic> json) =>
+    RPStroopEffectActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      lengthOfTest: json['length_of_test'] as int? ?? 40,
+      displayTime: json['display_time'] as int? ?? 1000,
+      delayTime: json['delay_time'] as int? ?? 750,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
+
+Map<String, dynamic> _$RPStroopEffectActivityToJson(
+    RPStroopEffectActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['length_of_test'] = instance.lengthOfTest;
+  val['display_time'] = instance.displayTime;
+  val['delay_time'] = instance.delayTime;
+  return val;
+}
+
+RPTappingActivity _$RPTappingActivityFromJson(Map<String, dynamic> json) =>
+    RPTappingActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      lengthOfTest: json['length_of_test'] as int? ?? 30,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
+
+Map<String, dynamic> _$RPTappingActivityToJson(RPTappingActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['length_of_test'] = instance.lengthOfTest;
+  return val;
+}
+
+RPTrailMakingActivity _$RPTrailMakingActivityFromJson(
+        Map<String, dynamic> json) =>
+    RPTrailMakingActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      trailType: $enumDecodeNullable(_$TrailTypeEnumMap, json['trail_type']) ??
+          TrailType.A,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
+
+Map<String, dynamic> _$RPTrailMakingActivityToJson(
+    RPTrailMakingActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['trail_type'] = _$TrailTypeEnumMap[instance.trailType]!;
+  return val;
 }
 
 const _$TrailTypeEnumMap = {
@@ -259,353 +291,456 @@ const _$TrailTypeEnumMap = {
   TrailType.B: 'B',
 };
 
-RPFlankerActivity _$RPFlankerActivityFromJson(Map<String, dynamic> json) {
-  return RPFlankerActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    lengthOfTest: json['lengthOfTest'] as int,
-    numberOfCards: json['numberOfCards'] as int,
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
+RPFlankerActivity _$RPFlankerActivityFromJson(Map<String, dynamic> json) =>
+    RPFlankerActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      lengthOfTest: json['length_of_test'] as int? ?? 90,
+      numberOfCards: json['number_of_cards'] as int? ?? 25,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
 
-Map<String, dynamic> _$RPFlankerActivityToJson(RPFlankerActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'lengthOfTest': instance.lengthOfTest,
-      'numberOfCards': instance.numberOfCards,
-    };
+Map<String, dynamic> _$RPFlankerActivityToJson(RPFlankerActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['length_of_test'] = instance.lengthOfTest;
+  val['number_of_cards'] = instance.numberOfCards;
+  return val;
+}
 
 RPPictureSequenceMemoryActivity _$RPPictureSequenceMemoryActivityFromJson(
-    Map<String, dynamic> json) {
-  return RPPictureSequenceMemoryActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    lengthOfTest: json['lengthOfTest'] as int,
-    numberOfTests: json['numberOfTests'] as int,
-    numberOfPics: json['numberOfPics'] as int,
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
+        Map<String, dynamic> json) =>
+    RPPictureSequenceMemoryActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      lengthOfTest: json['length_of_test'] as int? ?? 90,
+      numberOfTests: json['number_of_tests'] as int? ?? 3,
+      numberOfPics: json['number_of_pics'] as int? ?? 3,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
 
 Map<String, dynamic> _$RPPictureSequenceMemoryActivityToJson(
-        RPPictureSequenceMemoryActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'lengthOfTest': instance.lengthOfTest,
-      'numberOfTests': instance.numberOfTests,
-      'numberOfPics': instance.numberOfPics,
-    };
+    RPPictureSequenceMemoryActivity instance) {
+  final val = <String, dynamic>{};
 
-RPWordRecallActivity _$RPWordRecallActivityFromJson(Map<String, dynamic> json) {
-  return RPWordRecallActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    lengthOfTest: json['lengthOfTest'] as int,
-    numberOfTests: json['numberOfTests'] as int,
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['length_of_test'] = instance.lengthOfTest;
+  val['number_of_tests'] = instance.numberOfTests;
+  val['number_of_pics'] = instance.numberOfPics;
+  return val;
 }
+
+RPWordRecallActivity _$RPWordRecallActivityFromJson(
+        Map<String, dynamic> json) =>
+    RPWordRecallActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      lengthOfTest: json['length_of_test'] as int? ?? 90,
+      numberOfTests: json['number_of_tests'] as int? ?? 3,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
 
 Map<String, dynamic> _$RPWordRecallActivityToJson(
-        RPWordRecallActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'lengthOfTest': instance.lengthOfTest,
-      'numberOfTests': instance.numberOfTests,
-    };
+    RPWordRecallActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['length_of_test'] = instance.lengthOfTest;
+  val['number_of_tests'] = instance.numberOfTests;
+  return val;
+}
 
 RPDelayedRecallActivity _$RPDelayedRecallActivityFromJson(
-    Map<String, dynamic> json) {
-  return RPDelayedRecallActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    lengthOfTest: json['lengthOfTest'] as int,
-    numberOfTests: json['numberOfTests'] as int,
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
+        Map<String, dynamic> json) =>
+    RPDelayedRecallActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      lengthOfTest: json['length_of_test'] as int? ?? 90,
+      numberOfTests: json['number_of_tests'] as int? ?? 3,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
 
 Map<String, dynamic> _$RPDelayedRecallActivityToJson(
-        RPDelayedRecallActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'lengthOfTest': instance.lengthOfTest,
-      'numberOfTests': instance.numberOfTests,
-    };
+    RPDelayedRecallActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['length_of_test'] = instance.lengthOfTest;
+  val['number_of_tests'] = instance.numberOfTests;
+  return val;
+}
 
 RPVisualArrayChangeActivity _$RPVisualArrayChangeActivityFromJson(
-    Map<String, dynamic> json) {
-  return RPVisualArrayChangeActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    lengthOfTest: json['lengthOfTest'] as int,
-    waitTime: json['waitTime'] as int,
-    numberOfTests: json['numberOfTests'] as int,
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
+        Map<String, dynamic> json) =>
+    RPVisualArrayChangeActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      numberOfShapes: json['number_of_shapes'] as int? ?? 3,
+      lengthOfTest: json['length_of_test'] as int? ?? 90,
+      waitTime: json['wait_time'] as int? ?? 2,
+      numberOfTests: json['number_of_tests'] as int? ?? 3,
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
 
 Map<String, dynamic> _$RPVisualArrayChangeActivityToJson(
-        RPVisualArrayChangeActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'lengthOfTest': instance.lengthOfTest,
-      'numberOfTests': instance.numberOfTests,
-      'waitTime': instance.waitTime,
-    };
+    RPVisualArrayChangeActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['length_of_test'] = instance.lengthOfTest;
+  val['number_of_tests'] = instance.numberOfTests;
+  val['number_of_shapes'] = instance.numberOfShapes;
+  val['wait_time'] = instance.waitTime;
+  return val;
+}
 
 RPContinuousVisualTrackingActivity _$RPContinuousVisualTrackingActivityFromJson(
-    Map<String, dynamic> json) {
-  return RPContinuousVisualTrackingActivity(
-    json['identifier'] as String,
-    includeInstructions: json['includeInstructions'],
-    includeResults: json['includeResults'],
-    lengthOfTest: json['lengthOfTest'] as int,
-    numberOfTests: json['numberOfTests'] as int,
-    amountOfDots: json['amountOfDots'] as int,
-    dotSize: json['dotSize'] as int,
-    trackingSpeed: Duration(microseconds: json['trackingSpeed'] as int),
-  )
-    ..$type = json[r'$type'] as String?
-    ..title = json['title'] as String
-    ..text = json['text'] as String?
-    ..optional = json['optional'] as bool;
-}
+        Map<String, dynamic> json) =>
+    RPContinuousVisualTrackingActivity(
+      identifier: json['identifier'] as String,
+      includeInstructions: json['include_instructions'] as bool? ?? true,
+      includeResults: json['include_results'] as bool? ?? true,
+      lengthOfTest: json['length_of_test'] as int? ?? 90,
+      numberOfTests: json['number_of_tests'] as int? ?? 3,
+      amountOfDots: json['amount_of_dots'] as int? ?? 5,
+      amountOfTargets: json['amount_of_targets'] as int? ?? 2,
+      dotSize: json['dot_size'] as int? ?? 100,
+      trackingSpeed: json['tracking_speed'] == null
+          ? const Duration(seconds: 5)
+          : Duration(microseconds: json['tracking_speed'] as int),
+    )
+      ..$type = json[r'$type'] as String?
+      ..title = json['title'] as String
+      ..text = json['text'] as String?
+      ..optional = json['optional'] as bool;
 
 Map<String, dynamic> _$RPContinuousVisualTrackingActivityToJson(
-        RPContinuousVisualTrackingActivity instance) =>
-    <String, dynamic>{
-      r'$type': instance.$type,
-      'identifier': instance.identifier,
-      'title': instance.title,
-      'text': instance.text,
-      'optional': instance.optional,
-      'includeInstructions': instance.includeInstructions,
-      'includeResults': instance.includeResults,
-      'lengthOfTest': instance.lengthOfTest,
-      'numberOfTests': instance.numberOfTests,
-      'amountOfDots': instance.amountOfDots,
-      'dotSize': instance.dotSize,
-      'trackingSpeed': instance.trackingSpeed.inMicroseconds,
-    };
+    RPContinuousVisualTrackingActivity instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(r'$type', instance.$type);
+  val['identifier'] = instance.identifier;
+  val['title'] = instance.title;
+  writeNotNull('text', instance.text);
+  val['optional'] = instance.optional;
+  val['include_instructions'] = instance.includeInstructions;
+  val['include_results'] = instance.includeResults;
+  val['length_of_test'] = instance.lengthOfTest;
+  val['number_of_tests'] = instance.numberOfTests;
+  val['amount_of_dots'] = instance.amountOfDots;
+  val['amount_of_targets'] = instance.amountOfTargets;
+  val['dot_size'] = instance.dotSize;
+  val['tracking_speed'] = instance.trackingSpeed.inMicroseconds;
+  return val;
+}
 
 RPVisualTrackingResult _$RPVisualTrackingResultFromJson(
-    Map<String, dynamic> json) {
-  return RPVisualTrackingResult(
-    identifier: json['identifier'] as String,
-  )
-    ..startDate = json['startDate'] == null
-        ? null
-        : DateTime.parse(json['startDate'] as String)
-    ..endDate = json['endDate'] == null
-        ? null
-        : DateTime.parse(json['endDate'] as String)
-    ..results = json['results'] as Map<String, dynamic>
-    ..stepTimes = StepTimes.fromJson(json['stepTimes'] as Map<String, dynamic>)
-    ..interactions = (json['interactions'] as List<dynamic>)
-        .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
-        .toList();
-}
+        Map<String, dynamic> json) =>
+    RPVisualTrackingResult(
+      identifier: json['identifier'] as String,
+    )
+      ..startDate = json['start_date'] == null
+          ? null
+          : DateTime.parse(json['start_date'] as String)
+      ..endDate = json['end_date'] == null
+          ? null
+          : DateTime.parse(json['end_date'] as String)
+      ..results = json['results'] as Map<String, dynamic>
+      ..stepTimes =
+          StepTimes.fromJson(json['step_times'] as Map<String, dynamic>)
+      ..interactions = (json['interactions'] as List<dynamic>)
+          .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
+          .toList();
 
 Map<String, dynamic> _$RPVisualTrackingResultToJson(
-        RPVisualTrackingResult instance) =>
-    <String, dynamic>{
-      'identifier': instance.identifier,
-      'startDate': instance.startDate?.toIso8601String(),
-      'endDate': instance.endDate?.toIso8601String(),
-      'results': instance.results,
-      'stepTimes': instance.stepTimes,
-      'interactions': instance.interactions,
-    };
+    RPVisualTrackingResult instance) {
+  final val = <String, dynamic>{
+    'identifier': instance.identifier,
+  };
 
-RPFlankerResult _$RPFlankerResultFromJson(Map<String, dynamic> json) {
-  return RPFlankerResult(
-    identifier: json['identifier'] as String,
-  )
-    ..startDate = json['startDate'] == null
-        ? null
-        : DateTime.parse(json['startDate'] as String)
-    ..endDate = json['endDate'] == null
-        ? null
-        : DateTime.parse(json['endDate'] as String)
-    ..results = json['results'] as Map<String, dynamic>
-    ..stepTimes = StepTimes.fromJson(json['stepTimes'] as Map<String, dynamic>)
-    ..interactions = (json['interactions'] as List<dynamic>)
-        .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
-        .toList();
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('start_date', instance.startDate?.toIso8601String());
+  writeNotNull('end_date', instance.endDate?.toIso8601String());
+  val['results'] = instance.results;
+  val['step_times'] = instance.stepTimes;
+  val['interactions'] = instance.interactions;
+  return val;
 }
 
-Map<String, dynamic> _$RPFlankerResultToJson(RPFlankerResult instance) =>
-    <String, dynamic>{
-      'identifier': instance.identifier,
-      'startDate': instance.startDate?.toIso8601String(),
-      'endDate': instance.endDate?.toIso8601String(),
-      'results': instance.results,
-      'stepTimes': instance.stepTimes,
-      'interactions': instance.interactions,
-    };
+RPFlankerResult _$RPFlankerResultFromJson(Map<String, dynamic> json) =>
+    RPFlankerResult(
+      identifier: json['identifier'] as String,
+    )
+      ..startDate = json['start_date'] == null
+          ? null
+          : DateTime.parse(json['start_date'] as String)
+      ..endDate = json['end_date'] == null
+          ? null
+          : DateTime.parse(json['end_date'] as String)
+      ..results = json['results'] as Map<String, dynamic>
+      ..stepTimes =
+          StepTimes.fromJson(json['step_times'] as Map<String, dynamic>)
+      ..interactions = (json['interactions'] as List<dynamic>)
+          .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
+          .toList();
+
+Map<String, dynamic> _$RPFlankerResultToJson(RPFlankerResult instance) {
+  final val = <String, dynamic>{
+    'identifier': instance.identifier,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('start_date', instance.startDate?.toIso8601String());
+  writeNotNull('end_date', instance.endDate?.toIso8601String());
+  val['results'] = instance.results;
+  val['step_times'] = instance.stepTimes;
+  val['interactions'] = instance.interactions;
+  return val;
+}
 
 RPPictureSequenceResult _$RPPictureSequenceResultFromJson(
-    Map<String, dynamic> json) {
-  return RPPictureSequenceResult(
-    identifier: json['identifier'] as String,
-  )
-    ..startDate = json['startDate'] == null
-        ? null
-        : DateTime.parse(json['startDate'] as String)
-    ..endDate = json['endDate'] == null
-        ? null
-        : DateTime.parse(json['endDate'] as String)
-    ..results = json['results'] as Map<String, dynamic>
-    ..stepTimes = StepTimes.fromJson(json['stepTimes'] as Map<String, dynamic>)
-    ..interactions = (json['interactions'] as List<dynamic>)
-        .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
-        .toList();
-}
+        Map<String, dynamic> json) =>
+    RPPictureSequenceResult(
+      identifier: json['identifier'] as String,
+    )
+      ..startDate = json['start_date'] == null
+          ? null
+          : DateTime.parse(json['start_date'] as String)
+      ..endDate = json['end_date'] == null
+          ? null
+          : DateTime.parse(json['end_date'] as String)
+      ..results = json['results'] as Map<String, dynamic>
+      ..stepTimes =
+          StepTimes.fromJson(json['step_times'] as Map<String, dynamic>)
+      ..interactions = (json['interactions'] as List<dynamic>)
+          .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
+          .toList();
 
 Map<String, dynamic> _$RPPictureSequenceResultToJson(
-        RPPictureSequenceResult instance) =>
-    <String, dynamic>{
-      'identifier': instance.identifier,
-      'startDate': instance.startDate?.toIso8601String(),
-      'endDate': instance.endDate?.toIso8601String(),
-      'results': instance.results,
-      'stepTimes': instance.stepTimes,
-      'interactions': instance.interactions,
-    };
+    RPPictureSequenceResult instance) {
+  final val = <String, dynamic>{
+    'identifier': instance.identifier,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('start_date', instance.startDate?.toIso8601String());
+  writeNotNull('end_date', instance.endDate?.toIso8601String());
+  val['results'] = instance.results;
+  val['step_times'] = instance.stepTimes;
+  val['interactions'] = instance.interactions;
+  return val;
+}
 
 RPVisualArrayChangeResult _$RPVisualArrayChangeResultFromJson(
-    Map<String, dynamic> json) {
-  return RPVisualArrayChangeResult(
-    identifier: json['identifier'] as String,
-  )
-    ..startDate = json['startDate'] == null
-        ? null
-        : DateTime.parse(json['startDate'] as String)
-    ..endDate = json['endDate'] == null
-        ? null
-        : DateTime.parse(json['endDate'] as String)
-    ..results = json['results'] as Map<String, dynamic>
-    ..stepTimes = StepTimes.fromJson(json['stepTimes'] as Map<String, dynamic>)
-    ..interactions = (json['interactions'] as List<dynamic>)
-        .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
-        .toList();
-}
+        Map<String, dynamic> json) =>
+    RPVisualArrayChangeResult(
+      identifier: json['identifier'] as String,
+    )
+      ..startDate = json['start_date'] == null
+          ? null
+          : DateTime.parse(json['start_date'] as String)
+      ..endDate = json['end_date'] == null
+          ? null
+          : DateTime.parse(json['end_date'] as String)
+      ..results = json['results'] as Map<String, dynamic>
+      ..stepTimes =
+          StepTimes.fromJson(json['step_times'] as Map<String, dynamic>)
+      ..interactions = (json['interactions'] as List<dynamic>)
+          .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
+          .toList();
 
 Map<String, dynamic> _$RPVisualArrayChangeResultToJson(
-        RPVisualArrayChangeResult instance) =>
-    <String, dynamic>{
-      'identifier': instance.identifier,
-      'startDate': instance.startDate?.toIso8601String(),
-      'endDate': instance.endDate?.toIso8601String(),
-      'results': instance.results,
-      'stepTimes': instance.stepTimes,
-      'interactions': instance.interactions,
-    };
+    RPVisualArrayChangeResult instance) {
+  final val = <String, dynamic>{
+    'identifier': instance.identifier,
+  };
 
-RPWordRecallResult _$RPWordRecallResultFromJson(Map<String, dynamic> json) {
-  return RPWordRecallResult(
-    identifier: json['identifier'] as String,
-  )
-    ..startDate = json['startDate'] == null
-        ? null
-        : DateTime.parse(json['startDate'] as String)
-    ..endDate = json['endDate'] == null
-        ? null
-        : DateTime.parse(json['endDate'] as String)
-    ..results = json['results'] as Map<String, dynamic>
-    ..stepTimes = StepTimes.fromJson(json['stepTimes'] as Map<String, dynamic>)
-    ..interactions = (json['interactions'] as List<dynamic>)
-        .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
-        .toList();
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('start_date', instance.startDate?.toIso8601String());
+  writeNotNull('end_date', instance.endDate?.toIso8601String());
+  val['results'] = instance.results;
+  val['step_times'] = instance.stepTimes;
+  val['interactions'] = instance.interactions;
+  return val;
 }
 
-Map<String, dynamic> _$RPWordRecallResultToJson(RPWordRecallResult instance) =>
-    <String, dynamic>{
-      'identifier': instance.identifier,
-      'startDate': instance.startDate?.toIso8601String(),
-      'endDate': instance.endDate?.toIso8601String(),
-      'results': instance.results,
-      'stepTimes': instance.stepTimes,
-      'interactions': instance.interactions,
-    };
+RPWordRecallResult _$RPWordRecallResultFromJson(Map<String, dynamic> json) =>
+    RPWordRecallResult(
+      identifier: json['identifier'] as String,
+    )
+      ..startDate = json['start_date'] == null
+          ? null
+          : DateTime.parse(json['start_date'] as String)
+      ..endDate = json['end_date'] == null
+          ? null
+          : DateTime.parse(json['end_date'] as String)
+      ..results = json['results'] as Map<String, dynamic>
+      ..stepTimes =
+          StepTimes.fromJson(json['step_times'] as Map<String, dynamic>)
+      ..interactions = (json['interactions'] as List<dynamic>)
+          .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
+          .toList();
+
+Map<String, dynamic> _$RPWordRecallResultToJson(RPWordRecallResult instance) {
+  final val = <String, dynamic>{
+    'identifier': instance.identifier,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('start_date', instance.startDate?.toIso8601String());
+  writeNotNull('end_date', instance.endDate?.toIso8601String());
+  val['results'] = instance.results;
+  val['step_times'] = instance.stepTimes;
+  val['interactions'] = instance.interactions;
+  return val;
+}
 
 RPDelayedRecallResult _$RPDelayedRecallResultFromJson(
-    Map<String, dynamic> json) {
-  return RPDelayedRecallResult(
-    identifier: json['identifier'] as String,
-  )
-    ..startDate = json['startDate'] == null
-        ? null
-        : DateTime.parse(json['startDate'] as String)
-    ..endDate = json['endDate'] == null
-        ? null
-        : DateTime.parse(json['endDate'] as String)
-    ..results = json['results'] as Map<String, dynamic>
-    ..stepTimes = StepTimes.fromJson(json['stepTimes'] as Map<String, dynamic>)
-    ..interactions = (json['interactions'] as List<dynamic>)
-        .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
-        .toList();
-}
+        Map<String, dynamic> json) =>
+    RPDelayedRecallResult(
+      identifier: json['identifier'] as String,
+    )
+      ..startDate = json['start_date'] == null
+          ? null
+          : DateTime.parse(json['start_date'] as String)
+      ..endDate = json['end_date'] == null
+          ? null
+          : DateTime.parse(json['end_date'] as String)
+      ..results = json['results'] as Map<String, dynamic>
+      ..stepTimes =
+          StepTimes.fromJson(json['step_times'] as Map<String, dynamic>)
+      ..interactions = (json['interactions'] as List<dynamic>)
+          .map((e) => Interaction.fromJson(e as Map<String, dynamic>))
+          .toList();
 
 Map<String, dynamic> _$RPDelayedRecallResultToJson(
-        RPDelayedRecallResult instance) =>
-    <String, dynamic>{
-      'identifier': instance.identifier,
-      'startDate': instance.startDate?.toIso8601String(),
-      'endDate': instance.endDate?.toIso8601String(),
-      'results': instance.results,
-      'stepTimes': instance.stepTimes,
-      'interactions': instance.interactions,
-    };
+    RPDelayedRecallResult instance) {
+  final val = <String, dynamic>{
+    'identifier': instance.identifier,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('start_date', instance.startDate?.toIso8601String());
+  writeNotNull('end_date', instance.endDate?.toIso8601String());
+  val['results'] = instance.results;
+  val['step_times'] = instance.stepTimes;
+  val['interactions'] = instance.interactions;
+  return val;
+}

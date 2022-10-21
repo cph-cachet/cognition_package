@@ -1,30 +1,44 @@
 part of cognition_package_ui;
 
+/// The [RPUIPairedAssociatesLearningActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
 class RPUIPairedAssociatesLearningActivityBody extends StatefulWidget {
+  /// The [RPUIPairedAssociatesLearningActivityBody] activity.
   final RPPairedAssociatesLearningActivity activity;
-  final Function(dynamic) onResultChange;
+
+  /// The results function for the [RPUIPairedAssociatesLearningActivityBody].
+  final void Function(dynamic) onResultChange;
+
+  /// the [RPActivityEventLogger] for the [RPUIPairedAssociatesLearningActivityBody].
   final RPActivityEventLogger eventLogger;
 
-  RPUIPairedAssociatesLearningActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
+  /// The [RPUIPairedAssociatesLearningActivityBody] constructor.
+  const RPUIPairedAssociatesLearningActivityBody(
+    this.activity,
+    this.eventLogger,
+    this.onResultChange, {
+    super.key,
+  });
 
   @override
-  _RPUIPairedAssociatesLearningActivityBody createState() =>
-      _RPUIPairedAssociatesLearningActivityBody();
+  RPUIPairedAssociatesLearningActivityBodyState createState() =>
+      RPUIPairedAssociatesLearningActivityBodyState();
 }
 
-class _RPUIPairedAssociatesLearningActivityBody
+class RPUIPairedAssociatesLearningActivityBodyState
     extends State<RPUIPairedAssociatesLearningActivityBody> {
   final _random = Random();
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   bool buttonsDisabled =
       true; //diable when peaking tiles and when checking result
   int correct =
       0; //introduce int that can be 0, 1 and 2 for three possibilities. (indicates if, and which icon to show)
   int successes = 0;
   int mistakes = 0;
-  Timer t = Timer(Duration(seconds: 0),
-      () {}); //construct for further control of timer. Cancel at window collapse.
+
+  //construct for further control of timer. Cancel at window collapse.
+  Timer timer = Timer(const Duration(seconds: 0), () {});
+
   List<String> containers = [
     'packages/cognition_package/assets/images/nothing.png',
     'packages/cognition_package/assets/images/nothing.png',
@@ -67,17 +81,17 @@ class _RPUIPairedAssociatesLearningActivityBody
     'packages/cognition_package/assets/images/shape5.png',
   ];
 
-  List<List> levels = []; //list of all levels. Add in init.
+  List<List<String>> levels = []; //list of all levels. Add in init.
   String matchObject = 'packages/cognition_package/assets/images/nothing.png';
   String tempMatch = 'packages/cognition_package/assets/images/nothing.png';
 
   @override
   initState() {
     super.initState();
-    levels.addAll(
-        [shapes0, shapes1, shapes2, shapes3, shapes4]); //hard add all levels...
-    containerContent(
-        levels[successes]); //call containerContent with 0 before beginning.
+    // add all levels...
+    levels.addAll([shapes0, shapes1, shapes2, shapes3, shapes4]);
+    // call containerContent with 0 before beginning.
+    containerContent(levels[successes]);
 
     if (widget.activity.includeInstructions) {
       activityStatus = ActivityStatus.Instruction;
@@ -97,7 +111,7 @@ class _RPUIPairedAssociatesLearningActivityBody
       activityStatus = ActivityStatus.Test;
     });
     containerPeaker();
-    t = Timer(Duration(seconds: widget.activity.maxTestDuration), () {
+    timer = Timer(Duration(seconds: widget.activity.maxTestDuration), () {
       //when time is up, change window and set result
       widget.onResultChange({'successes': successes, 'mistakes': mistakes});
       widget.eventLogger.testEnded();
@@ -112,7 +126,7 @@ class _RPUIPairedAssociatesLearningActivityBody
     });
   }
 
-  void containerContent(level) {
+  void containerContent(List<String> level) {
     correct = 0; //set no feedback icon.
     //fill containers with content
     for (int i = 0; i < containers.length; i++) {
@@ -142,7 +156,7 @@ class _RPUIPairedAssociatesLearningActivityBody
     buttonsDisabled = true;
     List<int> peaked = [];
     int peaking = 0;
-    await Future.delayed(Duration(seconds: 2));
+    await Future<dynamic>.delayed(const Duration(seconds: 2));
     for (int i = 0; i < containers.length; i++) {
       while (peaked.contains(peaking)) {
         peaking = _random.nextInt(containers.length);
@@ -153,7 +167,7 @@ class _RPUIPairedAssociatesLearningActivityBody
           containerHide[peaking] = containers[peaking]; //reveal tile
         });
       }
-      await Future.delayed(Duration(seconds: 1));
+      await Future<dynamic>.delayed(const Duration(seconds: 1));
       containerHide[peaking] =
           'packages/cognition_package/assets/images/hidden.png'; //after time, set back to default
     }
@@ -175,7 +189,8 @@ class _RPUIPairedAssociatesLearningActivityBody
       });
       widget.eventLogger.addCorrectGesture('Button tap',
           'The tile tapped and match object matched. Level $successes succeeded, by pressing button number $buttonNum.');
-      await Future.delayed(Duration(seconds: 1)); //display feedback
+      await Future<dynamic>.delayed(
+          const Duration(seconds: 1)); //display feedback
       if (successes < levels.length && mounted) {
         //as long as there are more levels, go to next.
         setState(() {
@@ -185,7 +200,7 @@ class _RPUIPairedAssociatesLearningActivityBody
         });
       } else {
         //if there are no more levels, end the test.
-        t.cancel();
+        timer.cancel();
         widget.onResultChange(0);
         widget.eventLogger.testEnded();
         widget.eventLogger.resultsShown();
@@ -200,7 +215,8 @@ class _RPUIPairedAssociatesLearningActivityBody
       setState(() {
         correct = 2; //change icon for feedback - 2 is a cross
       });
-      await Future.delayed(Duration(seconds: 1)); //display feedback
+      await Future<dynamic>.delayed(
+          const Duration(seconds: 1)); //display feedback
       //if a mistake has been made, repeat current step.
       mistakes++;
       if (mounted) {
@@ -214,6 +230,12 @@ class _RPUIPairedAssociatesLearningActivityBody
   }
 
   @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     //consists of a column with 5 rows of content
     switch (activityStatus) {
@@ -221,7 +243,7 @@ class _RPUIPairedAssociatesLearningActivityBody
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            const Padding(
               padding: EdgeInsets.all(20),
               child: Text(
                 'A screen with 6 tiles will appear. What is underneath each of them, will be revealed one by one. Click the tile matching the object in the middle, when the reveal is done.',
@@ -232,11 +254,11 @@ class _RPUIPairedAssociatesLearningActivityBody
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         image: AssetImage(
@@ -245,16 +267,21 @@ class _RPUIPairedAssociatesLearningActivityBody
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              // ignore: deprecated_member_use
-              child: OutlineButton(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all(
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  ),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   startTest();
                 },
-                child: Text(
+                child: const Text(
                   'Ready',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -309,17 +336,17 @@ class _RPUIPairedAssociatesLearningActivityBody
             ]);
       case ActivityStatus.Result:
         return Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text('The test is done!',
+                        const Text('The test is done!',
                             style: TextStyle(fontSize: 22)),
                         Text('Correct: $successes, Wrong: $mistakes',
-                            style: TextStyle(fontSize: 22)),
+                            style: const TextStyle(fontSize: 22)),
                       ]),
                 ]));
     }
@@ -341,10 +368,11 @@ class _RPUIPairedAssociatesLearningActivityBody
     if (correct == 0) {
       //nothing happens - no icon to show
     } else if (correct == 1) {
-      return Icon(Icons.check, size: 50);
+      return const Icon(Icons.check, size: 50);
     } else {
-      return Icon(Icons.clear, size: 50);
+      return const Icon(Icons.clear, size: 50);
     }
+    return null;
   }
 
   Widget _makeButton(int buttonNumber) {
@@ -359,7 +387,7 @@ class _RPUIPairedAssociatesLearningActivityBody
         child: MaterialButton(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
-              side: BorderSide(color: Colors.black, width: 3)),
+              side: const BorderSide(color: Colors.black, width: 3)),
           onPressed: () {
             if (!buttonsDisabled) {
               buttonsDisabled = true;

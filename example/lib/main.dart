@@ -1,34 +1,15 @@
+import 'package:cognition_package/cognition_package.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:research_package_demo_app/user_demographics.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uuid/uuid.dart';
+import 'package:cognition_package_demo_app/user_demographics_page.dart';
 
-Future main() async => {await dotenv.load(fileName: ".env"), runApp(MyApp())};
+Future main() async => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.light().copyWith(
-          primaryColor: Color(0xffC32C39),
-          // ignore: deprecated_member_use
-          accentColor: Color(0xff003F6E),
-          elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-            if (states.contains(MaterialState.pressed)) {
-              return Color(0xffC32C39);
-            } else if (states.contains(MaterialState.disabled)) {
-              return Colors.grey.withOpacity(0.5);
-            }
-            return Color(0xffC32C39); // Use the component's default.
-            // foregroundColor: MaterialStateProperty.resolveWith<Color>(
-            //     (states) => Colors.white),
-            // backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            //     (states) => Color(0xff003F6E)),
-          })))),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       title: 'Cognition Package Demo',
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
@@ -42,21 +23,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool fireBase = false;
-  bool buttonReady = true;
-
   @override
   void initState() {
-    super.initState();
-    controlID();
-  }
+    // initialize cognition package
+    // only used if you load a cognition configuration from a json file
+    CognitionPackage();
 
-  void controlID() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    if (!sp.containsKey('ID')) {
-      sp.setString('ID', Uuid().v4());
-      sp.setInt('attempts', 0);
-    }
+    super.initState();
   }
 
   @override
@@ -67,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(height: 150),
+            Container(height: 50),
             Padding(
               padding: const EdgeInsets.all(22.0),
               child: Image.asset(
@@ -81,19 +54,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "Welcome to the alpha-testing of cognitive tests Package, developed by Ossi Kallunki",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
-                    Container(height: 50),
-                    Text(
-                      "If you have any issues or questions feel free to contact us at",
+                      "Welcome to the demo of the Cognition Package, developed by the Copenhagen Center for Health Technology.",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     Container(height: 5),
                     Text(
-                      "ossi0004@gmail.com",
+                      "If you have any questions feel free to contact us at",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                    Container(height: 5),
+                    Text(
+                      "cph_cachet@gmail.com",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 16,
@@ -104,10 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 )),
             Padding(
-              padding: const EdgeInsets.only(top: 150),
+              padding: const EdgeInsets.only(top: 50),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xffC32C39),
+                  backgroundColor: Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
@@ -115,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context).push(MaterialPageRoute<dynamic>(
                       builder: (context) => UserDemographicsPage()));
                 },
               ),
@@ -127,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Padding(
         padding: const EdgeInsets.all(22.0),
         child: Image.asset(
-          "assets/images/Cachet-logo-white.png",
+          "assets/images/cachet-logo-white.png",
           height: 50,
         ),
       )),

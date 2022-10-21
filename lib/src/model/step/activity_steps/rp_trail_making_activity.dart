@@ -1,35 +1,44 @@
 part of cognition_package_model;
 
-/// A Trail Making Test
-@JsonSerializable()
+/// Trail Making Test.
+@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPTrailMakingActivity extends RPActivityStep {
   /// Contructor for creating a Trail Making Test.
-  RPTrailMakingActivity(String identifier,
-      {includeInstructions = true,
-      includeResults = true,
-      this.trailType = TrailType.A})
-      : super(identifier,
-            includeInstructions: includeInstructions,
-            includeResults: includeResults);
+  RPTrailMakingActivity({
+    required super.identifier,
+    super.includeInstructions,
+    super.includeResults,
+    this.trailType = TrailType.A,
+  });
 
   /// The type of trail used in the test.
-  /// [TrailType.A] uses numbers only.
-  /// [TrailType.B] uses numbers AND letters alternating.
   TrailType trailType;
 
   @override
-  Widget stepBody(dynamic Function(dynamic) onResultChange,
-      RPActivityEventLogger eventLogger) {
-    return RPUITrailMakingActivityBody(this, eventLogger, onResultChange);
-  }
+  Widget stepBody(
+    dynamic Function(dynamic) onResultChange,
+    RPActivityEventLogger eventLogger,
+  ) =>
+      RPUITrailMakingActivityBody(this, eventLogger, onResultChange);
+
+  /// Results is number of mistakes made in the trailmaking task.
+  /// Maximum score is 5 with -1 for each mistake made.
+  @override
+  int calculateScore(dynamic result) => 5 - (result['mistakeCount'] as int);
+
+  @override
+  Function get fromJsonFunction => _$RPTrailMakingActivityFromJson;
+  factory RPTrailMakingActivity.fromJson(Map<String, dynamic> json) =>
+      FromJsonFactory().fromJson(json) as RPTrailMakingActivity;
+  @override
+  Map<String, dynamic> toJson() => _$RPTrailMakingActivityToJson(this);
 }
 
-@override
-calculateScore(dynamic result) {
-  var sum = 5 - result['mistakeCount'];
-  print('trailmaking score: ' + sum.toString());
-  return sum;
-}
+/// The type of trails used in a Trail Making test.
+enum TrailType {
+  /// Numbers only.
+  A,
 
-/// The type of Trail used in a Trail Making Test.
-enum TrailType { A, B }
+  /// Numbers and letters alternating.
+  B,
+}

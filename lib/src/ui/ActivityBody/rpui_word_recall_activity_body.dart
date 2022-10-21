@@ -1,25 +1,199 @@
 part of cognition_package_ui;
 
-var currentNum = 1;
-var timesTaken = [];
-List<String> resultsList1 = [];
-List<String> resultsList2 = [];
+/// The [RPUIWordRecallActivityBody] class defines the UI for the
+/// instructions and test phase of the continuous visual tracking task.
+class RPUIWordRecallActivityBody extends StatefulWidget {
+  /// The [RPUIWordRecallActivityBody] activity.
+  final RPWordRecallActivity activity;
 
-class WordRecall extends StatefulWidget {
-  final RPUIWordRecallActivityBody sWidget;
-  final int numberOfTests;
+  /// The results function for the [RPUIWordRecallActivityBody].
+  final void Function(dynamic) onResultChange;
 
-  const WordRecall(
-      {Key? key, required this.sWidget, required this.numberOfTests})
-      : super(key: key);
+  /// the [RPActivityEventLogger] for the [RPUIWordRecallActivityBody].
+  final RPActivityEventLogger eventLogger;
+
+  /// The [RPUIWordRecallActivityBody] constructor.
+  const RPUIWordRecallActivityBody(
+      this.activity, this.eventLogger, this.onResultChange,
+      {super.key});
 
   @override
-  _WordRecallState createState() => _WordRecallState(sWidget, numberOfTests);
+  RPUIWordRecallActivityBodyState createState() =>
+      RPUIWordRecallActivityBodyState();
 }
 
-class _WordRecallState extends State<WordRecall> {
+class RPUIWordRecallActivityBodyState
+    extends State<RPUIWordRecallActivityBody> {
+  ActivityStatus? activityStatus;
+
+  @override
+  initState() {
+    super.initState();
+    if (widget.activity.includeInstructions) {
+      activityStatus = ActivityStatus.Instruction;
+      widget.eventLogger.instructionStarted();
+    } else {
+      activityStatus = ActivityStatus.Test;
+      widget.eventLogger.testStarted();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    switch (activityStatus) {
+      case ActivityStatus.Instruction:
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: RichText(
+                text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: const <TextSpan>[
+                      TextSpan(
+                          text: 'Turn on sound for this task.',
+                          style: TextStyle(fontSize: 16)),
+                    ]),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: RichText(
+                text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: const <TextSpan>[
+                      TextSpan(
+                          text:
+                              'A list of words will be read aloud, try to memorize the list of words.',
+                          style: TextStyle(fontSize: 16)),
+                    ]),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: RichText(
+                text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: const <TextSpan>[
+                      TextSpan(
+                          text:
+                              'After the words have been read aloud you will be asked to recall them.',
+                          style: TextStyle(fontSize: 16)),
+                    ]),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: RichText(
+                text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: const <TextSpan>[
+                      TextSpan(
+                          text:
+                              'Write the words you recall in the boxes in any order and click ',
+                          style: TextStyle(fontSize: 16)),
+                      TextSpan(
+                          text: '"guess" ',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                    ]),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 10,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            Container(height: 0),
+            Padding(
+              padding: const EdgeInsets.all(25),
+              child: Container(
+                height: 100,
+                width: 200,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage(
+                            'packages/cognition_package/assets/images/wordlist_recall.png'))),
+              ),
+            ),
+            SizedBox(
+              //width: MediaQuery.of(context).size.width / 2,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xffC32C39),
+                  fixedSize: const Size(300, 60),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                ),
+                child: const Text(
+                  'Ready',
+                  style: TextStyle(fontSize: 18),
+                ),
+                onPressed: () {
+                  widget.eventLogger.instructionEnded();
+                  widget.eventLogger.testStarted();
+                  setState(() {
+                    activityStatus = ActivityStatus.Test;
+                  });
+                },
+              ),
+            ),
+          ],
+        );
+      case ActivityStatus.Test:
+        return Scaffold(
+            body: Center(
+                child: WordRecall(
+          widget: widget,
+          numberOfTests: widget.activity.numberOfTests,
+        )));
+      case ActivityStatus.Result:
+        return Center(
+          child: Text(
+            'results:  $wordRecallScore',
+            style: const TextStyle(fontSize: 22),
+            textAlign: TextAlign.center,
+          ),
+        );
+      default:
+        return Container();
+    }
+  }
+}
+
+/// score counter for the word recall task used in [RPUIWordRecallActivityBody]
+int wordRecallScore = 0;
+
+class WordRecall extends StatefulWidget {
+  final RPUIWordRecallActivityBody widget;
+  final int numberOfTests;
+
+  const WordRecall({
+    Key? key,
+    required this.widget,
+    required this.numberOfTests,
+  }) : super(key: key);
+
+  @override
+  WordRecallState createState() => WordRecallState(widget, numberOfTests);
+}
+
+class WordRecallState extends State<WordRecall> {
   final RPUIWordRecallActivityBody sWidget;
   final int numberOfTests;
+  var currentNum = 1;
+  var timesTaken = [];
+  List<String> resultsList1 = [];
+  List<String> resultsList2 = [];
 
   List<String> wordlist = ['banana', 'icecream', 'violin', 'desk', 'green'];
   List<String> wordlist2 = ['', '', '', '', ''];
@@ -27,9 +201,9 @@ class _WordRecallState extends State<WordRecall> {
   bool guess = false;
   bool finished = false;
   int time = 0;
-  late SoundService soundService;
+  SoundService? soundService;
 
-  _WordRecallState(this.sWidget, this.numberOfTests);
+  WordRecallState(this.sWidget, this.numberOfTests);
 
   void resetTest() async {
     setState(() {
@@ -45,19 +219,21 @@ class _WordRecallState extends State<WordRecall> {
       currentNum += 1;
       waiting = true;
     });
-    await Future.delayed(Duration(milliseconds: 1200));
-    soundService.play('../packages/cognition_package/assets/sounds/BANANA.mp3');
-    await Future.delayed(Duration(milliseconds: 1200));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
     soundService
-        .play('../packages/cognition_package/assets/sounds/ICECREAM.mp3');
-    await Future.delayed(Duration(milliseconds: 1200));
-    soundService.play('../packages/cognition_package/assets/sounds/VIOLIN.mp3');
-    await Future.delayed(Duration(milliseconds: 1200));
-    soundService.play('../packages/cognition_package/assets/sounds/DESK.mp3');
-    await Future.delayed(Duration(milliseconds: 1200));
-    soundService.play('../packages/cognition_package/assets/sounds/GREEN.mp3');
+        ?.play('../packages/cognition_package/assets/sounds/BANANA.mp3');
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
+    soundService
+        ?.play('../packages/cognition_package/assets/sounds/ICECREAM.mp3');
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
+    soundService
+        ?.play('../packages/cognition_package/assets/sounds/VIOLIN.mp3');
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
+    soundService?.play('../packages/cognition_package/assets/sounds/DESK.mp3');
+    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
+    soundService?.play('../packages/cognition_package/assets/sounds/GREEN.mp3');
 
-    await Future.delayed(Duration(seconds: 1));
+    await Future<dynamic>.delayed(const Duration(seconds: 1));
     setState(() {
       waiting = false;
       guess = true;
@@ -65,11 +241,11 @@ class _WordRecallState extends State<WordRecall> {
     startTimer();
   }
 
-  late Timer _timer;
+  Timer? timer;
   int seconds = 0;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(
+    timer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -88,8 +264,8 @@ class _WordRecallState extends State<WordRecall> {
       resultsList2 = wordlist2;
       sWidget.eventLogger.testEnded();
       timesTaken.add(seconds);
-      _timer.cancel();
-      var wordRecallScore = sWidget.activity
+      timer?.cancel();
+      wordRecallScore = sWidget.activity
           .calculateScore({'wordsList': wordlist, 'resultsList': resultsList2});
       RPWordRecallResult result =
           RPWordRecallResult(identifier: 'WordRecallResult');
@@ -102,12 +278,16 @@ class _WordRecallState extends State<WordRecall> {
         setState(() {
           finished = true;
         });
+      } else {
+        setState(() {
+          finished = true;
+        });
       }
     } else {
       resultsList1 = wordlist2;
       wordlist2 = ['', '', '', '', ''];
       timesTaken.add(seconds);
-      _timer.cancel();
+      timer?.cancel();
       resetTest();
     }
   }
@@ -130,28 +310,34 @@ class _WordRecallState extends State<WordRecall> {
   }
 
   @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
             child: Column(children: [
-      Container(
-        height: MediaQuery.of(context).size.height - 280,
+      SizedBox(
+        height: MediaQuery.of(context).size.height / 1.5,
         width: MediaQuery.of(context).size.width,
         child: !guess
             ? !waiting
-                ? Text('ready')
-                : Center(
-                    child: Container(
-                        child: Text(
+                ? const Text('ready')
+                : const Center(
+                    child: Text(
                     'listen',
                     style: TextStyle(fontSize: 25),
-                  )))
+                  ))
             : !waiting
                 ? Scaffold(
                     body: ListView(children: <Widget>[
                     Padding(
-                        padding: EdgeInsets.only(left: 25, bottom: 10, top: 20),
-                        child: Row(children: <Widget>[
+                        padding: const EdgeInsets.only(
+                            left: 25, bottom: 10, top: 20),
+                        child: Row(children: const <Widget>[
                           Text(
                             'Enter the words you recall',
                             style: TextStyle(fontSize: 16),
@@ -159,8 +345,8 @@ class _WordRecallState extends State<WordRecall> {
                           )
                         ])),
                     Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 0),
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
@@ -170,8 +356,8 @@ class _WordRecallState extends State<WordRecall> {
                                 border: OutlineInputBorder()))),
                     Container(height: 20),
                     Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 0),
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
@@ -181,8 +367,8 @@ class _WordRecallState extends State<WordRecall> {
                                 border: OutlineInputBorder()))),
                     Container(height: 20),
                     Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 0),
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
@@ -192,8 +378,8 @@ class _WordRecallState extends State<WordRecall> {
                                 border: OutlineInputBorder()))),
                     Container(height: 20),
                     Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 0),
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
@@ -203,8 +389,8 @@ class _WordRecallState extends State<WordRecall> {
                                 border: OutlineInputBorder()))),
                     Container(height: 20),
                     Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 0),
                         child: TextField(
                             textInputAction: TextInputAction.done,
                             onChanged: (text) {
@@ -212,229 +398,71 @@ class _WordRecallState extends State<WordRecall> {
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
-                    SizedBox(
+                    const SizedBox(
                       height: 550,
                     ),
                   ]))
-                : Center(
-                    child: Container(
-                        child: Text(
+                : const Center(
+                    child: Text(
                     'wait',
                     style: TextStyle(fontSize: 25),
-                  ))),
+                  )),
       ),
-      Container(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width / 2,
-          child: !guess
-              ? waiting
-                  ? Container()
-                  : Column(children: [
-                      // ignore: deprecated_member_use
-                      OutlineButton(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
+      SizedBox(
+        width: MediaQuery.of(context).size.width / 2,
+        child: !guess
+            ? waiting
+                ? Container()
+                : Column(children: [
+                    OutlinedButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
+                          const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
                         ),
-                        onPressed: () {
-                          startTest();
-                        },
-                        child: Text(
-                          'Ready',
-                          style: TextStyle(fontSize: 18),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
                         ),
-                      ),
-                      //Text("task $currentNum/${this.numberOfTests}")
-                    ])
-              : finished
-                  ? Center(
-                      child: Container(
-                      child: Text(
-                        'Correct',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ))
-                  // ignore: deprecated_member_use
-                  : OutlineButton(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
                       ),
                       onPressed: () {
-                        makeGuess();
+                        startTest();
                       },
-                      child: Text(
-                        'Guess',
+                      child: const Text(
+                        'Ready',
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-        ),
+                    //Text("task $currentNum/${this.numberOfTests}")
+                  ])
+            : finished
+                ? const Center(
+                    child: Text(
+                    'Click next to continue',
+                    style: TextStyle(fontSize: 18),
+                  ))
+                : OutlinedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 16),
+                      ),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      makeGuess();
+                    },
+                    child: const Text(
+                      'Guess',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
       ),
     ])));
-  }
-}
-
-class RPUIWordRecallActivityBody extends StatefulWidget {
-  final RPWordRecallActivity activity;
-  final Function(dynamic) onResultChange;
-  final RPActivityEventLogger eventLogger;
-
-  RPUIWordRecallActivityBody(
-      this.activity, this.eventLogger, this.onResultChange);
-
-  @override
-  _RPUI_WordRecallActivityBodyState createState() =>
-      _RPUI_WordRecallActivityBodyState();
-}
-
-// ignore: camel_case_types
-class _RPUI_WordRecallActivityBodyState
-    extends State<RPUIWordRecallActivityBody> {
-  late ActivityStatus activityStatus;
-
-  @override
-  initState() {
-    super.initState();
-    if (widget.activity.includeInstructions) {
-      activityStatus = ActivityStatus.Instruction;
-      widget.eventLogger.instructionStarted();
-    } else {
-      activityStatus = ActivityStatus.Test;
-      widget.eventLogger.testStarted();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    switch (activityStatus) {
-      case ActivityStatus.Instruction:
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: RichText(
-                text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Turn on sound for this task.',
-                          style: TextStyle(fontSize: 16)),
-                    ]),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: RichText(
-                text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text:
-                              'A list of words will be read aloud, try to memorize the list of words.',
-                          style: TextStyle(fontSize: 16)),
-                    ]),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: RichText(
-                text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text:
-                              'After the words have been read aloud you will be asked to recall them.',
-                          style: TextStyle(fontSize: 16)),
-                    ]),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: RichText(
-                text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text:
-                              'Write the words you recall in the boxes in any order and click ',
-                          style: TextStyle(fontSize: 16)),
-                      TextSpan(
-                          text: '"guess" ',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff003F6E),
-                              fontWeight: FontWeight.bold)),
-                    ]),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Container(height: 0),
-            Padding(
-              padding: EdgeInsets.all(5),
-              child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                            'packages/cognition_package/assets/images/wordlist_recall.png'))),
-              ),
-            ),
-            SizedBox(
-              //width: MediaQuery.of(context).size.width / 2,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xffC32C39),
-                  fixedSize: const Size(300, 60),
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                ),
-                child: Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
-                ),
-                onPressed: () {
-                  widget.eventLogger.instructionEnded();
-                  widget.eventLogger.testStarted();
-                  setState(() {
-                    activityStatus = ActivityStatus.Test;
-                  });
-                },
-              ),
-            ),
-          ],
-        );
-      case ActivityStatus.Test:
-        return Scaffold(
-            body: Center(
-                child: WordRecall(
-          sWidget: widget,
-          numberOfTests: widget.activity.numberOfTests,
-        )));
-      case ActivityStatus.Result:
-        return Center(
-          child: Text(
-            'results:  $score',
-            style: TextStyle(fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
-        );
-      default:
-        return Container();
-    }
   }
 }
