@@ -30,7 +30,7 @@ int visualArrayChangeScore = 0;
 
 class RPUIVisualArrayChangeActivityBodyState
     extends State<RPUIVisualArrayChangeActivityBody> {
-  late ActivityStatus activityStatus;
+  ActivityStatus? activityStatus;
 
   @override
   initState() {
@@ -319,7 +319,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
   @override
   void dispose() {
     timer?.cancel();
-    memoryTimer.cancel();
+    memoryTimer?.cancel();
     super.dispose();
   }
 
@@ -354,7 +354,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
   }
 
   void startTest() async {
-    memoryTimer.cancel();
+    memoryTimer?.cancel();
     memoryTimes.add(memorySeconds);
     memorySeconds = 0;
 
@@ -401,7 +401,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
     );
   }
 
-  late Timer memoryTimer;
+  Timer? memoryTimer;
   int memorySeconds = 0;
   void startMemoryTimer() {
     const oneSec = Duration(seconds: 1);

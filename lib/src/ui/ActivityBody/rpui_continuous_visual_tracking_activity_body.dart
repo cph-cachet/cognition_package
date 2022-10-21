@@ -21,7 +21,7 @@ int continuousVisualTrackingScore = 0;
 
 class RPUIContinuousVisualTrackingActivityBodyState
     extends State<RPUIContinuousVisualTrackingActivityBody> {
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
 
   @override
   initState() {
@@ -333,7 +333,7 @@ class ContinuousVisualTrackingActivityBodyState
   }
 
   /// Timer for the test
-  late Timer testTimer;
+  Timer? testTimer;
   var rng = Random();
   int seconds = 0;
 
@@ -359,7 +359,7 @@ class ContinuousVisualTrackingActivityBodyState
     if (conCurrentNum == numberOfTests) {
       sWidget.eventLogger.testEnded();
       visualScoreList.add(seconds);
-      testTimer.cancel();
+      testTimer?.cancel();
       seconds = 0;
 
       continuousVisualTrackingScore =
@@ -378,7 +378,7 @@ class ContinuousVisualTrackingActivityBodyState
       }
     } else {
       visualScoreList.add(seconds);
-      testTimer.cancel();
+      testTimer?.cancel();
       seconds = 0;
       conCurrentNum += 1;
       resetTest();
@@ -387,7 +387,7 @@ class ContinuousVisualTrackingActivityBodyState
 
   @override
   void dispose() {
-    testTimer.cancel();
+    testTimer?.cancel();
     super.dispose();
   }
 

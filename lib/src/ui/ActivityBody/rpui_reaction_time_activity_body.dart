@@ -24,7 +24,7 @@ class RPUIReactionTimeActivityBody extends StatefulWidget {
 
 class RPUIReactionTimeActivityBodyState
     extends State<RPUIReactionTimeActivityBody> {
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   String alert = '';
   int wrongTaps = 0;
   int correctTaps = 0;
@@ -36,7 +36,7 @@ class RPUIReactionTimeActivityBodyState
   final _sw = Stopwatch();
   List<int> rtList = []; //delay times list
   int result = 0;
-  late Timer lightTimer;
+  Timer? lightTimer;
 
   //wrong taps currently do nothing.
 
@@ -56,7 +56,7 @@ class RPUIReactionTimeActivityBodyState
 
   void lightRegulator() {
     if (!first) {
-      lightTimer.cancel();
+      lightTimer?.cancel();
     }
     //determines when light is changed, and starts timer when screen turns green. only called when light is red.
     timer = _random.nextInt(widget.activity.switchInterval) + 1;
@@ -104,7 +104,7 @@ class RPUIReactionTimeActivityBodyState
 
   @override
   void dispose() {
-    lightTimer.cancel();
+    lightTimer?.cancel();
     super.dispose();
   }
 

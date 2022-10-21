@@ -25,7 +25,7 @@ class RPUIFlankerActivityBody extends StatefulWidget {
 }
 
 class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
 
   @override
   initState() {
@@ -40,7 +40,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
     }
   }
 
-  late Timer testTimer;
+  Timer? testTimer;
   int seconds = 0;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
@@ -58,7 +58,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
     );
   }
 
-  late Timer flankerTimer;
+  Timer? flankerTimer;
   int flankerSeconds = 0;
   void startFlankerTimer() {
     const oneSec = Duration(milliseconds: 1);
@@ -67,7 +67,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       (Timer timer) => setState(
         () {
           if (flankerSeconds < 0) {
-            flankerTimer.cancel();
+            flankerTimer?.cancel();
           } else {
             flankerSeconds = flankerSeconds + 1;
           }
@@ -94,8 +94,8 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
             RPFlankerResult(identifier: 'FlankerTaskResult');
         var taskResults = flankerResult.makeResult(
             wrongSwipe, rightSwipe, seconds, flankerScore);
-        testTimer.cancel();
-        flankerTimer.cancel();
+        testTimer?.cancel();
+        flankerTimer?.cancel();
         seconds = 0;
         widget.onResultChange(taskResults.results);
         if (widget.activity.includeResults) {
@@ -110,8 +110,8 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
 
   @override
   void dispose() {
-    testTimer.cancel();
-    flankerTimer.cancel();
+    testTimer?.cancel();
+    flankerTimer?.cancel();
     super.dispose();
   }
 
@@ -133,8 +133,8 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
             RPFlankerResult(identifier: 'FlankerTaskResult');
         var taskResults = flankerResult.makeResult(
             wrongSwipe, rightSwipe, seconds, flankerScore);
-        testTimer.cancel();
-        flankerTimer.cancel();
+        testTimer?.cancel();
+        flankerTimer?.cancel();
         widget.onResultChange(taskResults.results);
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();

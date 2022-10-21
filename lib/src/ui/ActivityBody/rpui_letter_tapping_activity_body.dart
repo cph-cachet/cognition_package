@@ -34,7 +34,7 @@ class RPUILetterTappingActivityBodyState
   late bool lastWasTapped;
   bool wasTapped = false;
   int letterIndex = 0;
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   List<String> alphabet = [
     'A',
     'B',

@@ -34,7 +34,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
       0; //number of times the given sequence passed: cap for good taps
   Duration displayTime =
       const Duration(seconds: 1); //amount of time each number is displayed
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   bool seqPassed =
       false; //if a sequence has passed or not, meaning a tap would be a correct tap if true
   List<bool> listIndexes = [

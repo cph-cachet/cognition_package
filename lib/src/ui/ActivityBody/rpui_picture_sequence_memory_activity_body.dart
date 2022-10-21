@@ -27,7 +27,7 @@ int pictureSequenceScore = 0;
 
 class RPUIPictureSequenceMemoryActivityBodyState
     extends State<RPUIPictureSequenceMemoryActivityBody> {
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
 
   @override
   initState() {
@@ -268,7 +268,7 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
     });
   }
 
-  late Timer memoryTimer;
+  Timer? memoryTimer;
   int memorySeconds = 0;
   void startMemoryTimer() {
     const oneSec = Duration(seconds: 1);
@@ -287,7 +287,7 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   }
 
   void startTest() async {
-    memoryTimer.cancel();
+    memoryTimer?.cancel();
     memorySecondList.add(memorySeconds);
     setState(() {
       picCurrentNum += 1;
@@ -306,7 +306,7 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
     startTimer();
   }
 
-  late Timer picTimer;
+  Timer? picTimer;
   int seconds = 0;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
@@ -372,13 +372,13 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
       sWidget.onResultChange(taskResults.results);
 
       if (sWidget.activity.includeResults) {
-        picTimer.cancel();
+        picTimer?.cancel();
         sWidget.eventLogger.resultsShown();
         setState(() {
           finished = true;
         });
       } else {
-        picTimer.cancel();
+        picTimer?.cancel();
         sWidget.eventLogger.resultsShown();
         setState(() {
           finished = true;
@@ -387,12 +387,12 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
     } else {
       pictureScoreList.add(seconds);
       pictureMovesList.add(moves);
-      picTimer.cancel();
+      picTimer?.cancel();
       resetTest();
     }
   }
 
-  late List<Widget> _tiles;
+  List<Widget> _tiles = [];
 
   @override
   initState() {
@@ -423,8 +423,8 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
 
   @override
   void dispose() {
-    picTimer.cancel();
-    memoryTimer.cancel();
+    picTimer?.cancel();
+    memoryTimer?.cancel();
     super.dispose();
   }
 

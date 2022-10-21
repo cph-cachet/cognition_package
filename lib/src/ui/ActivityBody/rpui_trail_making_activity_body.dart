@@ -29,20 +29,18 @@ class RPUITrailMakingActivityBody extends StatefulWidget {
 
 class RPUITrailMakingActivityBodyState
     extends State<RPUITrailMakingActivityBody> {
-  late _PathTracker _pathTracker;
-  late ActivityStatus activityStatus;
-  late List<_Location> _boxLocations;
+  PathTracker? pathTracker;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
+  List<Location>? boxLocations;
 
-  //bool canvasLoaded = false;
-  late Future canvasReady;
+  Future<void>? canvasReady;
+  int? taskTime;
 
-  late bool _isTypeA;
-  late int taskTime;
+  bool get isTypeA => widget.activity.trailType == TrailType.A;
 
   @override
   initState() {
     super.initState();
-    _isTypeA = widget.activity.trailType == TrailType.A;
     if (widget.activity.includeInstructions) {
       activityStatus = ActivityStatus.Instruction;
       widget.eventLogger.instructionStarted();
@@ -61,32 +59,32 @@ class RPUITrailMakingActivityBodyState
 
   Future<bool> buildCanvas(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    _boxLocations = _isTypeA
-        ? _TrailMakingLists()
+    boxLocations = isTypeA
+        ? TrailMakingLists()
             .A(size.width, size.height - AppBar().preferredSize.height - 100)
-        : _TrailMakingLists()
+        : TrailMakingLists()
             .B(size.width, size.height - AppBar().preferredSize.height - 100);
-    _pathTracker = _PathTracker(widget.eventLogger, _boxLocations);
+    pathTracker = PathTracker(widget.eventLogger, boxLocations!);
     return Future.value(true);
   }
 
   void _onPanStart(DragStartDetails start) {
     Offset pos = (context.findRenderObject() as RenderBox)
         .globalToLocal(start.globalPosition);
-    _pathTracker.addNewPath(pos);
-    _pathTracker.notifyListeners();
+    pathTracker?.addNewPath(pos);
+    pathTracker?.notifyListeners();
   }
 
   void _onPanUpdate(DragUpdateDetails update) {
     Offset pos = (context.findRenderObject() as RenderBox)
         .globalToLocal(update.globalPosition);
-    _pathTracker.updateCurrentPath(pos, testConcluded);
-    _pathTracker.notifyListeners();
+    pathTracker?.updateCurrentPath(pos, testConcluded);
+    pathTracker?.notifyListeners();
   }
 
   void _onPanEnd(DragEndDetails end) {
-    _pathTracker.endCurrentPath();
-    _pathTracker.notifyListeners();
+    pathTracker?.endCurrentPath();
+    pathTracker?.notifyListeners();
   }
 
   void testConcluded(int result, int mistakes) {
@@ -114,7 +112,7 @@ class RPUITrailMakingActivityBodyState
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                _isTypeA
+                isTypeA
                     ? 'Connect the boxes to each other by drawing lines between them in numerical order, starting at \'1\'.'
                     : 'Connect the boxes to each other by drawing lines between them.',
                 style: const TextStyle(fontSize: 16),
@@ -124,7 +122,7 @@ class RPUITrailMakingActivityBodyState
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                _isTypeA
+                isTypeA
                     ? 'Connect the boxes to each other by drawing lines between them in numerical order, starting at \'1\'.'
                     : 'You must alternate between letters and numbers and should order them alphabetically and numerically, respectively.',
                 style: const TextStyle(fontSize: 16),
@@ -133,7 +131,7 @@ class RPUITrailMakingActivityBodyState
             ),
             Padding(
               padding: const EdgeInsets.all(5),
-              child: Image.asset(_isTypeA
+              child: Image.asset(isTypeA
                   ? 'packages/cognition_package/assets/images/trailmaking_a.png'
                   : 'packages/cognition_package/assets/images/trailmaking_b.png'),
             ),
@@ -179,7 +177,7 @@ class RPUITrailMakingActivityBodyState
                 onPanEnd: _onPanEnd,
                 child: ClipRect(
                   child: CustomPaint(
-                    painter: _TrailPainter(_pathTracker),
+                    painter: TrailPainter(pathTracker),
                   ),
                 ),
               ),
@@ -199,48 +197,50 @@ class RPUITrailMakingActivityBodyState
   }
 }
 
-class _TrailPainter extends CustomPainter {
-  final _PathTracker _pathsTracker;
+class TrailPainter extends CustomPainter {
+  final PathTracker? pathTracker;
 
-  _TrailPainter(this._pathsTracker) : super(repaint: _pathsTracker);
+  TrailPainter(this.pathTracker) : super(repaint: pathTracker);
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height),
-        Paint()..color = Colors.transparent);
-    for (_Location location in _pathsTracker._locations) {
-      final textPainter = TextPainter(
-        text: TextSpan(
-          text: location.id,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 20,
+    if (pathTracker != null) {
+      canvas.drawRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height),
+          Paint()..color = Colors.transparent);
+      for (Location location in pathTracker!.locations) {
+        final textPainter = TextPainter(
+          text: TextSpan(
+            text: location.id,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+            ),
           ),
-        ),
-        textDirection: TextDirection.ltr,
-      );
-      textPainter.layout(
-        minWidth: 0,
-        maxWidth: size.width,
+          textDirection: TextDirection.ltr,
+        );
+        textPainter.layout(
+          minWidth: 0,
+          maxWidth: size.width,
 //        maxWidth: 0,
-      );
-      // offset for id 10, as it is wider than the rest.
-      int tx = location.id == '10' ? 11 : 6;
-      Offset textOffset =
-          Offset(location.offset.dx - tx, location.offset.dy - 12);
-      textPainter.paint(canvas, textOffset);
-      canvas.drawRect(
-          location.rect,
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 1.0);
-    }
-    for (Path path in _pathsTracker._paths) {
-      canvas.drawPath(
-          path,
-          (Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 1.0));
+        );
+        // offset for id 10, as it is wider than the rest.
+        int tx = location.id == '10' ? 11 : 6;
+        Offset textOffset =
+            Offset(location.offset.dx - tx, location.offset.dy - 12);
+        textPainter.paint(canvas, textOffset);
+        canvas.drawRect(
+            location.rect,
+            Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 1.0);
+      }
+      for (Path path in pathTracker!._paths) {
+        canvas.drawPath(
+            path,
+            (Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 1.0));
+      }
     }
   }
 
@@ -250,26 +250,25 @@ class _TrailPainter extends CustomPainter {
   }
 }
 
-class _PathTracker extends ChangeNotifier {
-  late List<Path> _paths;
-  late final List<_Location> _locations;
-  late bool _isDraging;
+class PathTracker extends ChangeNotifier {
+  RPActivityEventLogger gestureController;
+  List<Location> locations;
+  List<Path> _paths = [];
+  bool _isDraging = false;
   bool _isFinished = false;
-  late bool goodStart;
-  late bool taskStarted;
-  late _Location prevLocation;
-  late _Location nextLocation;
-  late int index;
-  late DateTime startTime;
-  final RPActivityEventLogger gestureController;
+  bool taskStarted = false;
+  late Location prevLocation;
+  late Location nextLocation;
+  int index = 0;
+  DateTime startTime = DateTime.now();
   int mistakeCount = 0;
 
-  _PathTracker(this.gestureController, this._locations) {
+  PathTracker(this.gestureController, this.locations) {
     _paths = [];
     _isDraging = false;
     taskStarted = false;
-    prevLocation = _locations.first;
-    nextLocation = _locations[1];
+    prevLocation = locations.first;
+    nextLocation = locations[1];
     index = 1;
   }
 
@@ -296,10 +295,10 @@ class _PathTracker extends ChangeNotifier {
           path.computeMetrics().first.getTangentForOffset(0)!.position;
 
       // Avoid if drag hits another locations before hitting the next location (e.g. A-C-B)
-      List<_Location> locationCopy = List.from(_locations);
+      List<Location> locationCopy = List.from(locations);
       locationCopy.remove(prevLocation);
       locationCopy.remove(nextLocation);
-      for (_Location l in locationCopy) {
+      for (Location l in locationCopy) {
         if (l.rect.contains(newPos)) {
           _isDraging = false;
           gestureController.addWrongGesture('Draw path',
@@ -318,10 +317,10 @@ class _PathTracker extends ChangeNotifier {
         Path newPath = Path();
         newPath.moveTo(newPos.dx, newPos.dy);
         _paths.add(newPath);
-        if (index < _locations.length - 1) {
+        if (index < locations.length - 1) {
           prevLocation = nextLocation;
           index += 1;
-          nextLocation = _locations[index];
+          nextLocation = locations[index];
         } else {
           _isFinished = true;
 
@@ -366,44 +365,44 @@ class _PathTracker extends ChangeNotifier {
   }
 }
 
-class _Location {
+class Location {
   String id;
   Offset offset;
   late Rect rect;
 
-  _Location(this.id, this.offset) {
+  Location(this.id, this.offset) {
     rect = Rect.fromCircle(center: offset, radius: 26);
   }
 }
 
-class _TrailMakingLists {
-  List<_Location> A(double w, double h) {
+class TrailMakingLists {
+  List<Location> A(double w, double h) {
     return [
-      _Location('1', Offset(w * 0.6, h * 0.5)),
-      _Location('2', Offset(w * 0.17, h * 0.28)),
-      _Location('3', Offset(w * 0.45, h * 0.08)),
-      _Location('4', Offset(w * 0.55, h * 0.30)),
-      _Location('5', Offset(w * 0.80, h * 0.20)),
-      _Location('6', Offset(w * 0.85, h * 0.72)),
-      _Location('7', Offset(w * 0.45, h * 0.60)),
-      _Location('8', Offset(w * 0.60, h * 0.88)),
-      _Location('9', Offset(w * 0.12, h * 0.92)),
-      _Location('10', Offset(w * 0.2, h * 0.50)),
+      Location('1', Offset(w * 0.6, h * 0.5)),
+      Location('2', Offset(w * 0.17, h * 0.28)),
+      Location('3', Offset(w * 0.45, h * 0.08)),
+      Location('4', Offset(w * 0.55, h * 0.30)),
+      Location('5', Offset(w * 0.80, h * 0.20)),
+      Location('6', Offset(w * 0.85, h * 0.72)),
+      Location('7', Offset(w * 0.45, h * 0.60)),
+      Location('8', Offset(w * 0.60, h * 0.88)),
+      Location('9', Offset(w * 0.12, h * 0.92)),
+      Location('10', Offset(w * 0.2, h * 0.50)),
     ];
   }
 
-  List<_Location> B(double w, double h) {
+  List<Location> B(double w, double h) {
     return [
-      _Location('1', Offset(w * 0.6, h * 0.5)),
-      _Location('A', Offset(w * 0.17, h * 0.28)),
-      _Location('2', Offset(w * 0.45, h * 0.08)),
-      _Location('B', Offset(w * 0.55, h * 0.30)),
-      _Location('3', Offset(w * 0.80, h * 0.20)),
-      _Location('C', Offset(w * 0.85, h * 0.72)),
-      _Location('4', Offset(w * 0.45, h * 0.60)),
-      _Location('D', Offset(w * 0.60, h * 0.88)),
-      _Location('5', Offset(w * 0.12, h * 0.82)),
-      _Location('E', Offset(w * 0.2, h * 0.50)),
+      Location('1', Offset(w * 0.6, h * 0.5)),
+      Location('A', Offset(w * 0.17, h * 0.28)),
+      Location('2', Offset(w * 0.45, h * 0.08)),
+      Location('B', Offset(w * 0.55, h * 0.30)),
+      Location('3', Offset(w * 0.80, h * 0.20)),
+      Location('C', Offset(w * 0.85, h * 0.72)),
+      Location('4', Offset(w * 0.45, h * 0.60)),
+      Location('D', Offset(w * 0.60, h * 0.88)),
+      Location('5', Offset(w * 0.12, h * 0.82)),
+      Location('E', Offset(w * 0.2, h * 0.50)),
     ];
   }
 }
