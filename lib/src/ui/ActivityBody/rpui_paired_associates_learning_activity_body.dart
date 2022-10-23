@@ -28,7 +28,7 @@ class RPUIPairedAssociatesLearningActivityBody extends StatefulWidget {
 class RPUIPairedAssociatesLearningActivityBodyState
     extends State<RPUIPairedAssociatesLearningActivityBody> {
   final _random = Random();
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   bool buttonsDisabled =
       true; //diable when peaking tiles and when checking result
   int correct =

@@ -24,10 +24,10 @@ class RPUICorsiBlockTappingActivityBody extends StatefulWidget {
 /// State class for [ContinuousVisualTrackingActivityBody]
 class RPUICorsiActivityBodyState
     extends State<RPUICorsiBlockTappingActivityBody> {
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   int corsiSpan = 0;
   int highlightedBlockID = 500;
-  late List<int> blocks;
+  List<int> blocks = [];
   List<int> tapOrder = [];
   bool readyForTap = false;
   bool finishedTask = false;

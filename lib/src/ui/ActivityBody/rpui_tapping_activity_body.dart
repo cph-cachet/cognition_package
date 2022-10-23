@@ -27,7 +27,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
   bool setStart = false;
   bool indexStart = false;
   bool counting = true;
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
   Timer? timer;
 
   @override

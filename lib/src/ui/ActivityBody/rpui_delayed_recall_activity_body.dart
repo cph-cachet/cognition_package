@@ -24,7 +24,7 @@ class RPUIDelayedRecallActivityBody extends StatefulWidget {
 
 class RPUIDelayedRecallActivityBodyState
     extends State<RPUIDelayedRecallActivityBody> {
-  late ActivityStatus activityStatus;
+  ActivityStatus activityStatus = ActivityStatus.Instruction;
 
   var score = 0;
 
@@ -176,11 +176,11 @@ class DelayedRecallState extends State<DelayedRecall> {
     startTimer();
   }
 
-  late Timer _timer;
+  Timer? timer;
   int seconds = 0;
   void startTimer() {
     const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(
+    timer = Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
@@ -197,7 +197,7 @@ class DelayedRecallState extends State<DelayedRecall> {
   void makeGuess() {
     sWidget.eventLogger.testEnded();
     timesTaken.add(seconds);
-    _timer.cancel();
+    timer?.cancel();
     resultsList3 = wordlist2;
     var delayedRecallScore = sWidget.activity
         .calculateScore({'wordsList': wordlist, 'resultsList': resultsList3});
@@ -228,7 +228,7 @@ class DelayedRecallState extends State<DelayedRecall> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    timer?.cancel();
     super.dispose();
   }
 

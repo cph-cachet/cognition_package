@@ -24,7 +24,7 @@ class RPUIWordRecallActivityBody extends StatefulWidget {
 
 class RPUIWordRecallActivityBodyState
     extends State<RPUIWordRecallActivityBody> {
-  late ActivityStatus activityStatus;
+  ActivityStatus? activityStatus;
 
   @override
   initState() {
@@ -152,8 +152,8 @@ class RPUIWordRecallActivityBodyState
       case ActivityStatus.Test:
         return Scaffold(
             body: Center(
-                child: _WordRecall(
-          sWidget: widget,
+                child: WordRecall(
+          widget: widget,
           numberOfTests: widget.activity.numberOfTests,
         )));
       case ActivityStatus.Result:
@@ -173,19 +173,21 @@ class RPUIWordRecallActivityBodyState
 /// score counter for the word recall task used in [RPUIWordRecallActivityBody]
 int wordRecallScore = 0;
 
-class _WordRecall extends StatefulWidget {
-  final RPUIWordRecallActivityBody sWidget;
+class WordRecall extends StatefulWidget {
+  final RPUIWordRecallActivityBody widget;
   final int numberOfTests;
 
-  const _WordRecall(
-      {Key? key, required this.sWidget, required this.numberOfTests})
-      : super(key: key);
+  const WordRecall({
+    Key? key,
+    required this.widget,
+    required this.numberOfTests,
+  }) : super(key: key);
 
   @override
-  _WordRecallState createState() => _WordRecallState(sWidget, numberOfTests);
+  WordRecallState createState() => WordRecallState(widget, numberOfTests);
 }
 
-class _WordRecallState extends State<_WordRecall> {
+class WordRecallState extends State<WordRecall> {
   final RPUIWordRecallActivityBody sWidget;
   final int numberOfTests;
   var currentNum = 1;
@@ -199,9 +201,9 @@ class _WordRecallState extends State<_WordRecall> {
   bool guess = false;
   bool finished = false;
   int time = 0;
-  late SoundService soundService;
+  SoundService? soundService;
 
-  _WordRecallState(this.sWidget, this.numberOfTests);
+  WordRecallState(this.sWidget, this.numberOfTests);
 
   void resetTest() async {
     setState(() {
@@ -218,16 +220,18 @@ class _WordRecallState extends State<_WordRecall> {
       waiting = true;
     });
     await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService.play('../packages/cognition_package/assets/sounds/BANANA.mp3');
+    soundService
+        ?.play('../packages/cognition_package/assets/sounds/BANANA.mp3');
     await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
     soundService
-        .play('../packages/cognition_package/assets/sounds/ICECREAM.mp3');
+        ?.play('../packages/cognition_package/assets/sounds/ICECREAM.mp3');
     await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService.play('../packages/cognition_package/assets/sounds/VIOLIN.mp3');
+    soundService
+        ?.play('../packages/cognition_package/assets/sounds/VIOLIN.mp3');
     await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService.play('../packages/cognition_package/assets/sounds/DESK.mp3');
+    soundService?.play('../packages/cognition_package/assets/sounds/DESK.mp3');
     await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService.play('../packages/cognition_package/assets/sounds/GREEN.mp3');
+    soundService?.play('../packages/cognition_package/assets/sounds/GREEN.mp3');
 
     await Future<dynamic>.delayed(const Duration(seconds: 1));
     setState(() {
