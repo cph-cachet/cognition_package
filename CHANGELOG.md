@@ -1,6 +1,10 @@
+## 1.3.2
+
+- Removal of all `late` Timer objects.
+
 ## 1.3.1
 
-- implementation of `dispose()` methods on all tests to support cancelation of a test.
+- Implementation of `dispose()` methods on all tests to support cancelation of a test.
 
 ## 1.3.0
 
