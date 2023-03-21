@@ -294,7 +294,8 @@ class RPUIPairedAssociatesLearningActivityBodyState
             //layout - consists of a column with 5 rows sctructuring the test screen. can rotate screen
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, //upper most
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly, //upper most
                   children: <Widget>[
                     _makeButton(0),
                   ]),
@@ -329,7 +330,8 @@ class RPUIPairedAssociatesLearningActivityBodyState
                     ),
                     _makeButton(4),
                   ]),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, //lower most
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly, //lower most
                   children: <Widget>[
                     _makeButton(5),
                   ]),
