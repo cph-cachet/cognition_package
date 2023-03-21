@@ -29,19 +29,25 @@ part 'src/result/rp_visual_array_change_result.dart';
 part 'src/result/rp_word_recall_result.dart';
 part 'src/result/rp_delayed_recall_result.dart';
 
-// JSON
 part 'model.g.dart';
 part 'model.json.dart';
 
-/// Start class for this researc package library. Just create a singleton instance:
+/// Start class for this cognition_package library.
 ///
-///    ResearchPackage();
+/// In order to ensure initialization of json serialization, call:
+///
+///    CognitionPackage.ensureInitialized();
 ///
 class CognitionPackage {
   static final _instance = CognitionPackage._();
   factory CognitionPackage() => _instance;
   CognitionPackage._() {
-    ResearchPackage();
+    ResearchPackage.ensureInitialized();
     _registerFromJsonFunctions();
   }
+
+  /// Returns the singleton instance of [CognitionPackage].
+  /// If it has not yet been initialized, this call makes sure to create and
+  /// initialize it.
+  static CognitionPackage ensureInitialized() => _instance;
 }

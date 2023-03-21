@@ -1,10 +1,10 @@
 {
-    "$type": "RPOrderedTask",
+    "__type": "RPOrderedTask",
     "identifier": "surveyTaskID",
     "close_after_finished": true,
     "steps": [
         {
-            "$type": "RPReactionTimeActivity",
+            "__type": "RPReactionTimeActivity",
             "identifier": "Reaction Time step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -14,7 +14,7 @@
             "switch_interval": 4
         },
         {
-            "$type": "RPPairedAssociatesLearningActivity",
+            "__type": "RPPairedAssociatesLearningActivity",
             "identifier": "PAL step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -23,7 +23,7 @@
             "max_test_duration": 100
         },
         {
-            "$type": "RPTappingActivity",
+            "__type": "RPTappingActivity",
             "identifier": "Tapping step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -32,7 +32,7 @@
             "length_of_test": 30
         },
         {
-            "$type": "RPCorsiBlockTappingActivity",
+            "__type": "RPCorsiBlockTappingActivity",
             "identifier": "Corsi Block Tapping step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -40,7 +40,7 @@
             "include_results": true
         },
         {
-            "$type": "RPStroopEffectActivity",
+            "__type": "RPStroopEffectActivity",
             "identifier": "Stroop Effect step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -51,7 +51,7 @@
             "delay_time": 750
         },
         {
-            "$type": "RPRapidVisualInfoProcessingActivity",
+            "__type": "RPRapidVisualInfoProcessingActivity",
             "identifier": "RVIP step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -66,7 +66,7 @@
             ]
         },
         {
-            "$type": "RPTrailMakingActivity",
+            "__type": "RPTrailMakingActivity",
             "identifier": "Trail Making step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -75,7 +75,7 @@
             "trail_type": "B"
         },
         {
-            "$type": "RPContinuousVisualTrackingActivity",
+            "__type": "RPContinuousVisualTrackingActivity",
             "identifier": "ContinuousVisualTracking step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -89,7 +89,7 @@
             "tracking_speed": 5000000
         },
         {
-            "$type": "RPWordRecallActivity",
+            "__type": "RPWordRecallActivity",
             "identifier": "WordRecall step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -99,7 +99,7 @@
             "number_of_tests": 3
         },
         {
-            "$type": "RPPictureSequenceMemoryActivity",
+            "__type": "RPPictureSequenceMemoryActivity",
             "identifier": "PictureSequenceMemory step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -110,7 +110,7 @@
             "number_of_pics": 6
         },
         {
-            "$type": "RPLetterTappingActivity",
+            "__type": "RPLetterTappingActivity",
             "identifier": "Letter Tapping step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -118,7 +118,7 @@
             "include_results": false
         },
         {
-            "$type": "RPFlankerActivity",
+            "__type": "RPFlankerActivity",
             "identifier": "Flanker step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -128,7 +128,7 @@
             "number_of_cards": 10
         },
         {
-            "$type": "RPVisualArrayChangeActivity",
+            "__type": "RPVisualArrayChangeActivity",
             "identifier": "VisualArrayChange step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -140,7 +140,7 @@
             "wait_time": 3
         },
         {
-            "$type": "RPDelayedRecallActivity",
+            "__type": "RPDelayedRecallActivity",
             "identifier": "DelayedRecall step ID",
             "title": "RPActivityStep",
             "optional": false,
@@ -150,7 +150,7 @@
             "number_of_tests": 3
         },
         {
-            "$type": "RPCompletionStep",
+            "__type": "RPCompletionStep",
             "identifier": "completionID",
             "title": "Finished",
             "text": "Thank you for taking the tests",

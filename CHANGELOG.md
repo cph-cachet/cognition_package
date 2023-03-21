@@ -1,10 +1,15 @@
+## 1.4.0
+
+- Upgrade to `carp_serializable: ^1.1.0` and `research_package: ^1.3.0`. Note that this entails that all polymorphic json serialization uses the type key __type. Hence, the json format for all the domain classes is NOT compatible with earlier versions.
+- Added the `CognitionPackage.ensureInitialized()` static method to be compliant with the other CARP packages.
+
 ## 1.3.2
 
 - Removal of all `late` Timer objects.
 
 ## 1.3.1
 
-- Implementation of `dispose()` methods on all tests to support cancelation of a test.
+- Implementation of `dispose()` methods on all tests to support cancellation of a test.
 
 ## 1.3.0
 

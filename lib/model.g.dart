@@ -13,7 +13,7 @@ RPCorsiBlockTappingActivity _$RPCorsiBlockTappingActivityFromJson(
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -28,7 +28,7 @@ Map<String, dynamic> _$RPCorsiBlockTappingActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -45,7 +45,7 @@ RPLetterTappingActivity _$RPLetterTappingActivityFromJson(
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -60,7 +60,7 @@ Map<String, dynamic> _$RPLetterTappingActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -78,7 +78,7 @@ RPPairedAssociatesLearningActivity _$RPPairedAssociatesLearningActivityFromJson(
       includeResults: json['include_results'] as bool? ?? true,
       maxTestDuration: json['max_test_duration'] as int? ?? 100,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -93,7 +93,7 @@ Map<String, dynamic> _$RPPairedAssociatesLearningActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -117,7 +117,7 @@ RPRapidVisualInfoProcessingActivity
                   .toList() ??
               const [3, 6, 9],
         )
-          ..$type = json[r'$type'] as String?
+          ..$type = json['__type'] as String?
           ..title = json['title'] as String
           ..text = json['text'] as String?
           ..optional = json['optional'] as bool;
@@ -132,7 +132,7 @@ Map<String, dynamic> _$RPRapidVisualInfoProcessingActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -154,7 +154,7 @@ RPReactionTimeActivity _$RPReactionTimeActivityFromJson(
       lengthOfTest: json['length_of_test'] as int? ?? 30,
       switchInterval: json['switch_interval'] as int? ?? 4,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -169,7 +169,7 @@ Map<String, dynamic> _$RPReactionTimeActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -191,7 +191,7 @@ RPStroopEffectActivity _$RPStroopEffectActivityFromJson(
       displayTime: json['display_time'] as int? ?? 1000,
       delayTime: json['delay_time'] as int? ?? 750,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -206,7 +206,7 @@ Map<String, dynamic> _$RPStroopEffectActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -226,7 +226,7 @@ RPTappingActivity _$RPTappingActivityFromJson(Map<String, dynamic> json) =>
       includeResults: json['include_results'] as bool? ?? true,
       lengthOfTest: json['length_of_test'] as int? ?? 30,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -240,7 +240,7 @@ Map<String, dynamic> _$RPTappingActivityToJson(RPTappingActivity instance) {
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -260,7 +260,7 @@ RPTrailMakingActivity _$RPTrailMakingActivityFromJson(
       trailType: $enumDecodeNullable(_$TrailTypeEnumMap, json['trail_type']) ??
           TrailType.A,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -275,7 +275,7 @@ Map<String, dynamic> _$RPTrailMakingActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -299,7 +299,7 @@ RPFlankerActivity _$RPFlankerActivityFromJson(Map<String, dynamic> json) =>
       lengthOfTest: json['length_of_test'] as int? ?? 90,
       numberOfCards: json['number_of_cards'] as int? ?? 25,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -313,7 +313,7 @@ Map<String, dynamic> _$RPFlankerActivityToJson(RPFlankerActivity instance) {
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -335,7 +335,7 @@ RPPictureSequenceMemoryActivity _$RPPictureSequenceMemoryActivityFromJson(
       numberOfTests: json['number_of_tests'] as int? ?? 3,
       numberOfPics: json['number_of_pics'] as int? ?? 3,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -350,7 +350,7 @@ Map<String, dynamic> _$RPPictureSequenceMemoryActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -372,7 +372,7 @@ RPWordRecallActivity _$RPWordRecallActivityFromJson(
       lengthOfTest: json['length_of_test'] as int? ?? 90,
       numberOfTests: json['number_of_tests'] as int? ?? 3,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -387,7 +387,7 @@ Map<String, dynamic> _$RPWordRecallActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -408,7 +408,7 @@ RPDelayedRecallActivity _$RPDelayedRecallActivityFromJson(
       lengthOfTest: json['length_of_test'] as int? ?? 90,
       numberOfTests: json['number_of_tests'] as int? ?? 3,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -423,7 +423,7 @@ Map<String, dynamic> _$RPDelayedRecallActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -446,7 +446,7 @@ RPVisualArrayChangeActivity _$RPVisualArrayChangeActivityFromJson(
       waitTime: json['wait_time'] as int? ?? 2,
       numberOfTests: json['number_of_tests'] as int? ?? 3,
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -461,7 +461,7 @@ Map<String, dynamic> _$RPVisualArrayChangeActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
@@ -490,7 +490,7 @@ RPContinuousVisualTrackingActivity _$RPContinuousVisualTrackingActivityFromJson(
           ? const Duration(seconds: 5)
           : Duration(microseconds: json['tracking_speed'] as int),
     )
-      ..$type = json[r'$type'] as String?
+      ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
       ..optional = json['optional'] as bool;
@@ -505,7 +505,7 @@ Map<String, dynamic> _$RPContinuousVisualTrackingActivityToJson(
     }
   }
 
-  writeNotNull(r'$type', instance.$type);
+  writeNotNull('__type', instance.$type);
   val['identifier'] = instance.identifier;
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
