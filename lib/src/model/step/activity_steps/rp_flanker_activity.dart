@@ -26,7 +26,7 @@ class RPFlankerActivity extends RPActivityStep {
 
   /// The result is the number of mistakes made during the test.
   /// If the number of mistakes > 2, the test is failed and a score of 0 is
-  /// returned. Othervise, a score of 1 is returned.
+  /// returned. Otherwise, a score of 1 is returned.
   @override
   int calculateScore(dynamic result) {
     var accuracy = result['correct'] / (result['correct'] + result['mistakes']);

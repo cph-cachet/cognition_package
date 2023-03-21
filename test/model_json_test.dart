@@ -14,7 +14,7 @@ void main() {
 
   setUp(() {
     // initialize the cognition package.
-    CognitionPackage();
+    CognitionPackage.ensureInitialized();
 
     RPCompletionStep completionStep =
         RPCompletionStep(identifier: 'completionID', title: 'Finished')
