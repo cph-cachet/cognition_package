@@ -1,7 +1,8 @@
-## 1.4.0
+## 1.4.1
 
 - Upgrade to `carp_serializable: ^1.1.0` and `research_package: ^1.3.0`. Note that this entails that all polymorphic json serialization uses the type key __type. Hence, the json format for all the domain classes is NOT compatible with earlier versions.
 - Added the `CognitionPackage.ensureInitialized()` static method to be compliant with the other CARP packages.
+- Small updates to README
 
 ## 1.3.2
 

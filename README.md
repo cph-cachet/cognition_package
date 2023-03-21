@@ -5,12 +5,12 @@
 [![github stars](https://img.shields.io/github/stars/cph-cachet/cognition_package.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://github.com/cph-cachet/cognition_package)
 [![MIT License](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
-Cognition Package is a Flutter [package](https://pub.dartlang.org/packages/cognition_package) for building cognitive tests for study apps on Android and iOS built using [CARP Research Package](https://pub.dartlang.org/packages/research_package).
+Cognition Package is a Flutter [package](https://pub.dartlang.org/packages/cognition_package) for building cognitive tests for study apps on Android and iOS built using the [Research Package](https://pub.dartlang.org/packages/research_package).
 
 The overarching goal of Cognition Package is to enable developers and researchers to design and build cross-platform (iOS and Android) cognitive assessment applications that rely on validated gold-standard cognitive tests.
 When combined with [Research Package](https://pub.dartlang.org/packages/research_package), Cognition Package meets the requirements of most scientific research, including capturing participant consent, extensible input tasks, and the security and privacy needs necessary for IRB approval.
 
-Cognition Package is a Flutter implementation of a Cognitive test battery including 14 validated gold-standard cognitive tests spanning all 8 Neurocognitive domains:
+Cognition Package is a Flutter implementation of a Cognitive test battery including 14 validated gold-standard cognitive tests spanning all 8 neurocognitive domains:
 
 1. Sensation
 2. Perception
@@ -47,7 +47,7 @@ The current set of cognitive tests in the Cognition Package are:
 13. [Trail Making](https://en.wikipedia.org/wiki/Trail_Making_Test)
 14. [Visual Array Change](https://jov.arvojournals.org/article.aspx?articleid=2422328)
 
-Cognition Package is part of the overall [CACHET Research Platform (CARP)](https://carp.cachet.dk) which also provides a Flutter package for mobile and wearable sensing called [CARP Mobile Sensing](https://pub.dev/packages/carp_mobile_sensing).
+Cognition Package is part of the overall [Copenhagen Research Platform (CARP)](https://carp.cachet.dk) which also provides a Flutter package for mobile and wearable sensing called [CARP Mobile Sensing](https://pub.dev/packages/carp_mobile_sensing).
 
 ## Documentation
 
@@ -93,23 +93,22 @@ The `surveyTask` defines the list of cognitive tasks to be shown and you may inc
 
 ## Who is backing this project?
 
-Cognition Package is made by the [Copenhagen Center for Health Technology (CACHET)](https://www.cachet.dk/) and is a component in the [CACHET Research Platform (CARP)](https://carp.cachet.dk), which is used in a number of applications and studies.
+Cognition Package is made by the [Copenhagen Center for Health Technology (CACHET)](https://www.cachet.dk/) and is a component in the [Copenhagen Research Platform (CARP)](https://carp.cachet.dk), which is used in a number of applications and studies.
 
 ## How can I contribute?
 
 We are more than happy to take contributions and feedback.
 Use the [Issues](https://github.com/cph-cachet/cognition_package/issues) page to file an issue or feature request.
-Besides general help for enhacement and quality assurance (bug fixing), we welcome input on new cognitive tests.
+Besides general help for enhancement and quality assurance (bug fixing), we welcome input on new cognitive tests.
 
 ## Copyright
 
 Note that the tests in this package may be **subject to different copyright terms**.
-It is your responsibility to investigate if you can use these tests for your specific purpose, and if you need to obtain a permission from the copyright holder(s).
+It is your responsibility to investigate if you can use these tests for your specific purpose and application, and if you need to obtain a permission from the copyright holder(s).
 
-In the table below, we have provided links to copyright statements (where applicable), which you may want to consult, if you're using a test. If it states **(c) CACHET** this implies that the test is designe by us, and
-hence copyright (MIT license) to CACHET.
+In the table below, we have provided links to copyright statements (where applicable), which you may want to consult, if you're using a test. If it states **(c) CACHET** this implies that the test is designed by us, and hence copyright (MIT license) to CACHET.
 
-> Note, however, as per the [MIT license](https://github.com/cph-cachet/cognition_package/blob/master/LICENSE), _this software is provided "as is" and in no event shall the authors (i.e., us) be liabable for any claim - including copyright issues - arising from the use of this software_.
+> Note, however, as per the [MIT license](https://github.com/cph-cachet/cognition_package/blob/master/LICENSE), _this software is provided "as is" and in no event shall the authors (i.e., us) be liable for any claim - including copyright issues - arising from the use of this software_.
 
 | **Test**                            | **Copyright**                                                                                                                                              |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
