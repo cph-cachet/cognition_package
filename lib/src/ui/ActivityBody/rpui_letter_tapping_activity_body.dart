@@ -150,27 +150,29 @@ class RPUILetterTappingActivityBodyState
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
           //entry screen with rules and start button
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(20),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Text(
-                'Turn your sound on!',
-                style: TextStyle(fontSize: 20),
+                locale.translate('Turn your sound on!'),
+                style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
                 textAlign: TextAlign.center,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(20),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Text(
-                'Then, tap the button on the next screen, whenever you hear the letter "A" being said.',
-                style: TextStyle(fontSize: 20),
+                locale.translate(
+                    'Then, tap the button on the next screen, whenever you hear the letter "A" being said.'),
+                style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
                 textAlign: TextAlign.center,
@@ -204,9 +206,9 @@ class RPUILetterTappingActivityBodyState
                 onPressed: () {
                   startTest();
                 },
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -284,7 +286,7 @@ class RPUILetterTappingActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'You had $errors mistakes',
+            '${locale.translate('You had ')}$errors${locale.translate(' mistakes')}',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

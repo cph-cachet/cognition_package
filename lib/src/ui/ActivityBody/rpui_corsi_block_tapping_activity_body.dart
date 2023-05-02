@@ -127,16 +127,18 @@ class RPUICorsiActivityBodyState
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(20),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Text(
-                'You will see 9 tiles. An increasing number of the tiles will be highlighted in order. When the light in the top of the screen is green, and reads "go", you should press the blocks in the same order as they were highlighted.',
-                style: TextStyle(fontSize: 16),
+                locale.translate(
+                    'You will see 9 tiles. An increasing number of the tiles will be highlighted in order. When the light in the top of the screen is green, and reads "go", you should press the blocks in the same order as they were highlighted.'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -175,9 +177,9 @@ class RPUICorsiActivityBodyState
                   });
                   startTest();
                 },
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -222,7 +224,7 @@ class RPUICorsiActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'Your Corsi Span was $corsiSpan',
+            '${locale.translate('Your Corsi Span was ')}$corsiSpan',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

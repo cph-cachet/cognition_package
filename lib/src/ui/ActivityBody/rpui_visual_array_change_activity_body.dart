@@ -63,36 +63,39 @@ class RPUIVisualArrayChangeActivityBodyState
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(20),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Text(
-                'Memorize the colors of the shapes.',
-                style: TextStyle(fontSize: 16),
+                locale.translate('Memorize the colors of the shapes.'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
-                'Once ready the shapes will change positions.',
-                style: TextStyle(fontSize: 16),
+                locale
+                    .translate('Once ready the shapes will change positions.'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
-                'Indicate if ANY of the shapes changed color or if ALL shapes remained the same',
-                style: TextStyle(fontSize: 16),
+                locale.translate(
+                    'Indicate if ANY of the shapes changed color or if ALL shapes remained the same'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -131,9 +134,9 @@ class RPUIVisualArrayChangeActivityBodyState
                   });
                   startTest();
                 },
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -151,7 +154,7 @@ class RPUIVisualArrayChangeActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  $visualArrayChangeScore',
+            '${locale.translate('results:  ')}$visualArrayChangeScore',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -529,111 +532,113 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-          body: Center(
-              child: Column(children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height - 270,
-          width: MediaQuery.of(context).size.width - 20,
-          child: !waiting
-              ? LayoutBuilder(builder: (context, constraints) {
-                  const avatarSize = 100;
-                  return Stack(
-                    children:
-                        makeShapes(numberOfShapes, constraints, avatarSize),
-                  );
-                })
-              : const Center(
-                  child: Text(
-                  'wait',
-                  style: TextStyle(fontSize: 25),
-                )),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-          child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: !guess
-                  ? waiting
-                      ? Container()
-                      : Column(children: [
-                          OutlinedButton(
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 8),
-                              ),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                              ),
+  Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
+    return Scaffold(
+        body: Center(
+            child: Column(children: [
+      SizedBox(
+        height: MediaQuery.of(context).size.height - 270,
+        width: MediaQuery.of(context).size.width - 20,
+        child: !waiting
+            ? LayoutBuilder(builder: (context, constraints) {
+                const avatarSize = 100;
+                return Stack(
+                  children: makeShapes(numberOfShapes, constraints, avatarSize),
+                );
+              })
+            : Center(
+                child: Text(
+                locale.translate('wait'),
+                style: const TextStyle(fontSize: 25),
+              )),
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+        child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: !guess
+                ? waiting
+                    ? Container()
+                    : Column(children: [
+                        OutlinedButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all(
+                              const EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 8),
                             ),
-                            onPressed: () {
-                              startTest();
-                            },
-                            child: const Text(
-                              'Start',
-                              style: TextStyle(fontSize: 18),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
                             ),
                           ),
-                          Padding(
-                              padding: const EdgeInsets.only(top: 6),
-                              child: Text('task $viscurrentNum/$numberOfTests'))
-                        ])
-                  : finished
-                      ? const Center(
+                          onPressed: () {
+                            startTest();
+                          },
                           child: Text(
-                          'Click next to continue',
-                          style: TextStyle(fontSize: 18),
-                        ))
-                      : Row(children: [
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50),
-                              child: OutlinedButton(
-                                style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(
-                                    const EdgeInsets.symmetric(
-                                        horizontal: 24, vertical: 16),
-                                  ),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                  ),
+                            locale.translate('Start'),
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(top: 6),
+                            child: Text(
+                                '${locale.translate('task ')}$viscurrentNum/$numberOfTests'))
+                      ])
+                : finished
+                    ? Center(
+                        child: Text(
+                        locale.translate('Click next to continue'),
+                        style: const TextStyle(fontSize: 18),
+                      ))
+                    : Row(children: [
+                        Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 50),
+                            child: OutlinedButton(
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 16),
                                 ),
-                                onPressed: () {
-                                  same();
-                                },
-                                child: const Text(
-                                  'Same',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              )),
-                          OutlinedButton(
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 16),
-                              ),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
                                 ),
                               ),
+                              onPressed: () {
+                                same();
+                              },
+                              child: Text(
+                                locale.translate('Same'),
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                            )),
+                        OutlinedButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all(
+                              const EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 16),
                             ),
-                            onPressed: () {
-                              different();
-                            },
-                            child: const Text(
-                              'Different',
-                              style: TextStyle(fontSize: 18),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
                             ),
                           ),
-                        ])),
-        )
-      ])));
+                          onPressed: () {
+                            different();
+                          },
+                          child: Text(
+                            locale.translate('Different'),
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ])),
+      )
+    ])));
+  }
 
   Widget buildShape(int index, Shape picture, double left, double top,
           double right, double bottom) =>

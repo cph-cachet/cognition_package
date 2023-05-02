@@ -237,17 +237,19 @@ class RPUIPairedAssociatesLearningActivityBodyState
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
     //consists of a column with 5 rows of content
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(20),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Text(
-                'A screen with 6 tiles will appear. What is underneath each of them, will be revealed one by one. Click the tile matching the object in the middle, when the reveal is done.',
-                style: TextStyle(fontSize: 20),
+                locale.translate(
+                    'A screen with 6 tiles will appear. What is underneath each of them, will be revealed one by one. Click the tile matching the object in the middle, when the reveal is done.'),
+                style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
                 textAlign: TextAlign.center,
@@ -281,9 +283,9 @@ class RPUIPairedAssociatesLearningActivityBodyState
                 onPressed: () {
                   startTest();
                 },
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -345,9 +347,10 @@ class RPUIPairedAssociatesLearningActivityBodyState
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        const Text('The test is done!',
-                            style: TextStyle(fontSize: 22)),
-                        Text('Correct: $successes, Wrong: $mistakes',
+                        Text(locale.translate('The test is done!'),
+                            style: const TextStyle(fontSize: 22)),
+                        Text(
+                            '${locale.translate('Correct: ')}$successes${locale.translate(', Wrong: ')}$mistakes',
                             style: const TextStyle(fontSize: 22)),
                       ]),
                 ]));
