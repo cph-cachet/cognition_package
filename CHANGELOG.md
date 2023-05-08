@@ -1,3 +1,6 @@
+## 1.4.2
+- Added translation support. The "lang" files are the ones in Research Package (limitation on the RPLocations).
+
 ## 1.4.1
 
 - Upgrade to `carp_serializable: ^1.1.0` and `research_package: ^1.3.0`. Note that this entails that all polymorphic json serialization uses the type key `__type`. Hence, the json format for all the domain classes is NOT compatible with earlier versions.
