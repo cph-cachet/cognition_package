@@ -117,6 +117,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
     if (flankerScore == widget.activity.numberOfCards) {
       flankerScore = 0;
       if (mounted) {
@@ -150,31 +151,33 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Each card has 5 arrows on it.',
-                style: TextStyle(fontSize: 16),
+                locale.translate('Each card has 5 arrows on it.'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(20),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Text(
-                'Swipe the cards in the direction of the middle arrow on each card.',
-                style: TextStyle(fontSize: 16),
+                locale.translate(
+                    'Swipe the cards in the direction of the middle arrow on each card.'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Ignore all other arrows on the cards, they are only there to distract you',
-                style: TextStyle(fontSize: 16),
+                locale.translate(
+                    'Ignore all other arrows on the cards, they are only there to distract you'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -213,9 +216,9 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
                   });
                   startTest();
                 },
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -231,7 +234,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'Correct swipes:  $rightSwipe',
+            '${locale.translate('Correct swipes:  ')}$rightSwipe',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

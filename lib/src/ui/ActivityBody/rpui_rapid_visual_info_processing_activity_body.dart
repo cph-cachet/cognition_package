@@ -149,6 +149,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -158,7 +159,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                texthint,
+                locale.translate(texthint),
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -200,9 +201,9 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
                   }
                   startTest();
                 },
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -216,13 +217,15 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text('Sequence:', style: TextStyle(fontSize: 24)),
+                  Text(locale.translate('Sequence:'),
+                      style: const TextStyle(fontSize: 24)),
                   Text(seq1s, style: const TextStyle(fontSize: 32)),
                   Container(height: 40),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      const Text('Number:', style: TextStyle(fontSize: 24)),
+                      Text(locale.translate('Number:'),
+                          style: const TextStyle(fontSize: 24)),
                       Text('$newNum', style: const TextStyle(fontSize: 40)),
                     ],
                   ),
@@ -262,10 +265,10 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text('The test is done!',
-                      style: TextStyle(fontSize: 22)),
+                  Text(locale.translate('The test is done!'),
+                      style: const TextStyle(fontSize: 22)),
                   Text(
-                    'You had $goodTaps correct taps and $badTaps wrong ones',
+                    '${locale.translate('You had ')}$goodTaps${locale.translate(' correct taps and ')}$badTaps${locale.translate(' wrong ones')}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 22),
                     overflow: TextOverflow.ellipsis,

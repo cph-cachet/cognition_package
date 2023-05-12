@@ -38,11 +38,11 @@ class RPUIStroopEffectActivityBodyState
   //bool testBegin = true; //pre test screen flag
   bool disableButton = false; //makes sure spamming doesn't disturb the test
   bool clicked = false; //boolean to track if the user taps an answer in time
-  List<String> possColorsString = [
+  late List<String> possColorsString = [
     'BLUE',
     'GREEN',
     'RED',
-    'YELLOW'
+    'YELLOW',
   ]; //the two lists are ordered, like in a map.
   //map is not used due to unwanted complexity
   List<Color> possColors = [
@@ -161,17 +161,26 @@ class RPUIStroopEffectActivityBodyState
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
+    possColorsString = [
+      locale.translate('BLUE'),
+      locale.translate('GREEN'),
+      locale.translate('RED'),
+      locale.translate('YELLOW'),
+    ];
+
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
           //entry screen with rules and start button
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(20),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Text(
-                'Tap the color, of the word you see on screen. E.g. tap the box that says "green" when a green word appears',
-                style: TextStyle(fontSize: 20),
+                locale.translate(
+                    'Tap the color, of the word you see on screen. E.g. tap the box that says "green" when a green word appears'),
+                style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
                 textAlign: TextAlign.center,
@@ -205,9 +214,9 @@ class RPUIStroopEffectActivityBodyState
                 onPressed: () {
                   startTest();
                 },
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -250,18 +259,18 @@ class RPUIStroopEffectActivityBodyState
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        const Text(
-                          'The test is done!',
-                          style: TextStyle(fontSize: 22),
-                          textAlign: TextAlign.center,
-                        ),
                         Text(
-                          'Correct answers: $correctTaps',
+                          locale.translate('The test is done!'),
                           style: const TextStyle(fontSize: 22),
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          'Mistakes made: $mistakes',
+                          '${locale.translate('Correct answers: ')}$correctTaps',
+                          style: const TextStyle(fontSize: 22),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          '${locale.translate('Mistakes made: ')}$mistakes',
                           style: const TextStyle(fontSize: 22),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 20,

@@ -59,16 +59,17 @@ class RPUIPictureSequenceMemoryActivityBodyState
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(20),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Text(
-                'Memorize the order of images.',
-                style: TextStyle(fontSize: 16),
+                locale.translate('Memorize the order of images.'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -79,17 +80,18 @@ class RPUIPictureSequenceMemoryActivityBodyState
               child: RichText(
                 text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
-                    children: const <TextSpan>[
+                    children: <TextSpan>[
                       TextSpan(
-                          text: 'Once memorized click the ',
-                          style: TextStyle(fontSize: 16)),
+                          text: locale.translate('Once memorized click the '),
+                          style: const TextStyle(fontSize: 16)),
                       TextSpan(
-                          text: '"ready" ',
-                          style: TextStyle(
+                          text: locale.translate("'ready' "),
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       TextSpan(
-                          text: 'button and the images will change positions.',
-                          style: TextStyle(fontSize: 16)),
+                          text: locale.translate(
+                              'button and the images will change positions.'),
+                          style: const TextStyle(fontSize: 16)),
                     ]),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -101,14 +103,14 @@ class RPUIPictureSequenceMemoryActivityBodyState
               child: RichText(
                 text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
-                    children: const <TextSpan>[
+                    children: <TextSpan>[
                       TextSpan(
-                          text:
-                              'Drag and drop the images to their original positions and press ',
-                          style: TextStyle(fontSize: 16)),
+                          text: locale.translate(
+                              'Drag and drop the images to their original positions and press '),
+                          style: const TextStyle(fontSize: 16)),
                       TextSpan(
-                          text: '"guess" ',
-                          style: TextStyle(
+                          text: locale.translate("'guess' "),
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                     ]),
                 overflow: TextOverflow.ellipsis,
@@ -134,9 +136,9 @@ class RPUIPictureSequenceMemoryActivityBodyState
                   backgroundColor: const Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                 ),
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
                   widget.eventLogger.instructionEnded();
@@ -160,7 +162,7 @@ class RPUIPictureSequenceMemoryActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  $pictureSequenceScore',
+            '${locale.translate('results:  ')}$pictureSequenceScore',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -430,6 +432,8 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
+
     void onReorder(int oldIndex, int newIndex) {
       setState(() {
         moves = moves + 1;
@@ -459,17 +463,17 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
         child: !guess
             ? !waiting
                 ? Center(child: wrap)
-                : const Center(
+                : Center(
                     child: Text(
-                    'wait',
-                    style: TextStyle(fontSize: 25),
+                    locale.translate('wait'),
+                    style: const TextStyle(fontSize: 25),
                   ))
             : !waiting
                 ? Center(child: wrap)
-                : const Center(
+                : Center(
                     child: Text(
-                    'wait',
-                    style: TextStyle(fontSize: 25),
+                    locale.translate('wait'),
+                    style: const TextStyle(fontSize: 25),
                   )),
       ),
       SizedBox(
@@ -493,17 +497,17 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
                       onPressed: () {
                         startTest();
                       },
-                      child: const Text(
-                        'Start',
-                        style: TextStyle(fontSize: 18),
+                      child: Text(
+                        locale.translate('Start'),
+                        style: const TextStyle(fontSize: 18),
                       ),
                     ),
                   ])
             : finished
-                ? const Center(
+                ? Center(
                     child: Text(
-                    'Click next to continue',
-                    style: TextStyle(fontSize: 18),
+                    locale.translate('Click next to continue'),
+                    style: const TextStyle(fontSize: 18),
                   ))
                 : OutlinedButton(
                     style: ButtonStyle(
@@ -520,9 +524,9 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
                     onPressed: () {
                       makeGuess();
                     },
-                    child: const Text(
-                      'Guess',
-                      style: TextStyle(fontSize: 18),
+                    child: Text(
+                      locale.translate('Guess'),
+                      style: const TextStyle(fontSize: 18),
                     ),
                   ),
       ),

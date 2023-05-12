@@ -103,6 +103,7 @@ class RPUITrailMakingActivityBodyState
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -113,8 +114,10 @@ class RPUITrailMakingActivityBodyState
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 isTypeA
-                    ? 'Connect the boxes to each other by drawing lines between them in numerical order, starting at \'1\'.'
-                    : 'Connect the boxes to each other by drawing lines between them.',
+                    ? locale.translate(
+                        "Connect the boxes to each other by drawing lines between them in numerical order, starting at '1'.")
+                    : locale.translate(
+                        'Connect the boxes to each other by drawing lines between them.'),
                 style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
@@ -123,8 +126,10 @@ class RPUITrailMakingActivityBodyState
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 isTypeA
-                    ? 'Connect the boxes to each other by drawing lines between them in numerical order, starting at \'1\'.'
-                    : 'You must alternate between letters and numbers and should order them alphabetically and numerically, respectively.',
+                    ? locale.translate(
+                        "Connect the boxes to each other by drawing lines between them in numerical order, starting at '1'.")
+                    : locale.translate(
+                        'You must alternate between letters and numbers and should order them alphabetically and numerically, respectively.'),
                 style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
@@ -153,9 +158,9 @@ class RPUITrailMakingActivityBodyState
                   widget.eventLogger.testStarted();
                   startTest();
                 },
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -188,7 +193,7 @@ class RPUITrailMakingActivityBodyState
         return Container(
           alignment: Alignment.center,
           child: Text(
-            'You completed the task in: $taskTime seconds!',
+            '${locale.translate('You completed the task in: ')}$taskTime${locale.translate(' seconds!')}',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

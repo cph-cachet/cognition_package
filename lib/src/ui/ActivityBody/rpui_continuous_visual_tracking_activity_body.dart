@@ -38,46 +38,54 @@ class RPUIContinuousVisualTrackingActivityBodyState
   /// Build the activity with instructions, test and results
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
+    print(locale);
+    print(locale.translate(
+        'Find the blue dots on the next screen. These are the targets dots.'));
+    print(RPLocalizations.of(context)!.locale.languageCode);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(10),
+            Padding(
+              padding: const EdgeInsets.all(10),
               child: Text(
-                'Find the blue dots on the next screen. These are the targets dots.',
-                style: TextStyle(fontSize: 16),
+                locale.translate(
+                    'Find the blue dots on the next screen. These are the targets dots.'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(10),
+            Padding(
+              padding: const EdgeInsets.all(10),
               child: Text(
-                'Once ready, press "start" and the target dots will turn grey and start moving.',
-                style: TextStyle(fontSize: 16),
+                locale.translate(
+                    "Once ready, press 'start' and the target dots will turn grey and start moving."),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(10),
+            Padding(
+              padding: const EdgeInsets.all(10),
               child: Text(
-                'Follow the target dots around the screen',
-                style: TextStyle(fontSize: 16),
+                locale.translate('Follow the target dots around the screen'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(10),
+            Padding(
+              padding: const EdgeInsets.all(10),
               child: Text(
-                'Once the dots stop moving find and click on the target dots and they will turn the original color.',
-                style: TextStyle(fontSize: 16),
+                locale.translate(
+                    'Once the dots stop moving find and click on the target dots and they will turn the original color.'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
                 textAlign: TextAlign.center,
@@ -114,9 +122,9 @@ class RPUIContinuousVisualTrackingActivityBodyState
                     activityStatus = ActivityStatus.Test;
                   });
                 },
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -136,7 +144,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            'results:  $continuousVisualTrackingScore',
+            '${locale.translate('results:  ')}$continuousVisualTrackingScore',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -393,54 +401,58 @@ class ContinuousVisualTrackingActivityBodyState
 
   /// Build the main test phase
   @override
-  Widget build(BuildContext context) => Scaffold(
-          body: Center(
-              child: Column(children: [
-        SizedBox(
-            height: MediaQuery.of(context).size.height - 270,
-            width: MediaQuery.of(context).size.width - 20,
-            child: LayoutBuilder(builder: (context, constraints) {
-              return Stack(
-                  children: getDots(
-                      amountOfDots, amountOfTargets, constraints, dotSize));
-            })),
-        Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-            child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: !guess
-                    ? waiting
-                        ? Container()
-                        : Center(
-                            child: Column(children: [
-                            OutlinedButton(
-                              style: ButtonStyle(
-                                padding: MaterialStateProperty.all(
-                                    const EdgeInsets.symmetric(
-                                        horizontal: 24, vertical: 16)),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
+  Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
+    return Scaffold(
+        body: Center(
+            child: Column(children: [
+      SizedBox(
+          height: MediaQuery.of(context).size.height - 270,
+          width: MediaQuery.of(context).size.width - 20,
+          child: LayoutBuilder(builder: (context, constraints) {
+            return Stack(
+                children: getDots(
+                    amountOfDots, amountOfTargets, constraints, dotSize));
+          })),
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+          child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: !guess
+                  ? waiting
+                      ? Container()
+                      : Center(
+                          child: Column(children: [
+                          OutlinedButton(
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 16)),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
                               ),
-                              onPressed: () {
-                                startTest();
-                              },
-                              child: const Text(
-                                'Start',
-                                style: TextStyle(fontSize: 18),
-                              ),
                             ),
-                            Text('task $conCurrentNum/$numberOfTests')
-                          ]))
-                    : finished
-                        ? const Center(
+                            onPressed: () {
+                              startTest();
+                            },
                             child: Text(
-                            'Click next to continue',
-                            style: TextStyle(fontSize: 18),
-                          ))
-                        : const Center(
-                            child: Text('Press the previously colored dots'))))
-      ])));
+                              locale.translate('Start'),
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          Text('task $conCurrentNum/$numberOfTests')
+                        ]))
+                  : finished
+                      ? Center(
+                          child: Text(
+                          locale.translate('Click next to continue'),
+                          style: const TextStyle(fontSize: 18),
+                        ))
+                      : Center(
+                          child: Text(locale.translate(
+                              'Press the previously colored dots')))))
+    ])));
+  }
 }

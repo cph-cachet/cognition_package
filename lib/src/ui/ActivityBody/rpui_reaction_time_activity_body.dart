@@ -110,17 +110,19 @@ class RPUIReactionTimeActivityBodyState
 
   @override
   Widget build(BuildContext context) {
+    RPLocalizations locale = RPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
           //entry screen with rules and start button
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(20),
+            Padding(
+              padding: const EdgeInsets.all(20),
               child: Text(
-                'Tap the screen every time it turns from red to green, as fast as possible.',
-                style: TextStyle(fontSize: 20),
+                locale.translate(
+                    'Tap the screen every time it turns from red to green, as fast as possible.'),
+                style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 5,
                 textAlign: TextAlign.center,
@@ -160,9 +162,9 @@ class RPUIReactionTimeActivityBodyState
                   testTimer();
                   lightRegulator();
                 },
-                child: const Text(
-                  'Ready',
-                  style: TextStyle(fontSize: 18),
+                child: Text(
+                  locale.translate('Ready'),
+                  style: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -233,7 +235,7 @@ class RPUIReactionTimeActivityBodyState
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'The time is up! $result was your final score. (Average reaction time in milliseconds)',
+                  '${locale.translate('The time is up! ')}$result${locale.translate(' was your final score. (Average reaction time in milliseconds)')}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 22),
                   overflow: TextOverflow.ellipsis,
