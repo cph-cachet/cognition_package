@@ -1,5 +1,7 @@
-## 1.4.2
-- Added translation support. The "lang" files are the ones in Research Package (limitation on the RPLocations).
+## 1.5.0
+
+- Added translation support for English (`en`), Danish (`da`), French (`fr`), and Portuguese (`pt`).
+- Upgrade to research_package 1.4.0 and audioplayers 4.0.0
 
 ## 1.4.1
 

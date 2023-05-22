@@ -1,6 +1,6 @@
 name: cognition_package
 description: A Flutter framework for cognitive testing. Contains 14 pre-defined cognitive tests and an API for creating your own.
-version: 1.4.1
+version: 1.5.0
 homepage: https://github.com/cph-cachet/cognition_package
 
 environment:
@@ -12,9 +12,9 @@ dependencies:
     sdk: flutter
 
   carp_serializable: ^1.1.0
-  # research_package: ^1.3.1
+  # research_package: ^1.4.0
   json_annotation: ^4.8.0
-  audioplayers: ^3.0.0
+  audioplayers: ^4.0.0
   reorderables: ^0.6.0
 
 dev_dependencies:
