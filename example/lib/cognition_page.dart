@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:research_package/research_package.dart';
-import 'survey_config.dart';
+import 'cognition_config.dart';
 
-class SurveyPage extends StatelessWidget {
+class CognitionPage extends StatelessWidget {
   final int? age;
   final String? name;
   final String? location;
   final DateTime? date;
 
-  const SurveyPage({
+  const CognitionPage({
     super.key,
     this.age,
     this.name,
@@ -19,7 +19,7 @@ class SurveyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: RPUITask(
-          task: surveyTask,
+          task: cognitionTask,
           onSubmit: (result) {
             resultCallback(result);
           },

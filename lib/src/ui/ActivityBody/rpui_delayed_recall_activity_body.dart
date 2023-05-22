@@ -42,7 +42,7 @@ class RPUIDelayedRecallActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -51,8 +51,7 @@ class RPUIDelayedRecallActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate(
-                    'Remember all the words you recall from the exercise earlier?'),
+                locale.translate('delayed_recall.remember_words'),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -66,11 +65,11 @@ class RPUIDelayedRecallActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text: locale.translate(
-                              'Write the words you recall in the boxes and click '),
-                          style: TextStyle(fontSize: 16)),
+                          text:
+                              '${locale.translate('delayed_recall.remember_write')} ',
+                          style: const TextStyle(fontSize: 16)),
                       TextSpan(
-                          text: locale.translate("'guess' "),
+                          text: " '${locale.translate('guess')}'.",
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                     ]),
@@ -99,7 +98,7 @@ class RPUIDelayedRecallActivityBodyState
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
@@ -123,7 +122,7 @@ class RPUIDelayedRecallActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('results:  ')}$score',
+            '${locale.translate('results')}: $score',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -236,7 +235,7 @@ class DelayedRecallState extends State<DelayedRecall> {
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     return Scaffold(
         body: Center(
             child: Column(children: [
@@ -249,7 +248,7 @@ class DelayedRecallState extends State<DelayedRecall> {
                 padding: const EdgeInsets.only(left: 25, bottom: 10, top: 20),
                 child: Row(children: <Widget>[
                   Text(
-                    locale.translate('Enter the words you recall'),
+                    locale.translate('delayed_recall.enter_words'),
                     style: const TextStyle(fontSize: 16),
                     textAlign: TextAlign.left,
                   )
@@ -317,7 +316,7 @@ class DelayedRecallState extends State<DelayedRecall> {
         child: finished
             ? Center(
                 child: Text(
-                locale.translate('Click next to continue'),
+                locale.translate('continue'),
                 style: const TextStyle(fontSize: 18),
               ))
             : OutlinedButton(
@@ -335,7 +334,7 @@ class DelayedRecallState extends State<DelayedRecall> {
                   makeGuess();
                 },
                 child: Text(
-                  locale.translate('Guess'),
+                  locale.translate('guess'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),

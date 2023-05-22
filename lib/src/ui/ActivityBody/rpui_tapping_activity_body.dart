@@ -86,7 +86,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -96,7 +96,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                '${locale.translate('After a 3 second countdown, which will appear on screen, tap the two buttons as many times as possible with your index and middle finger, for ')}${widget.activity.lengthOfTest}${locale.translate(' seconds.')}',
+                '${locale.translate('tapping.instructions')} ${widget.activity.lengthOfTest} ${locale.translate('seconds')}.',
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -132,7 +132,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
                   startTest();
                 },
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -199,7 +199,7 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
         return Container(
           alignment: Alignment.center,
           child: Text(
-            '$taps${locale.translate(' was your final score!')}',
+            ' $taps ${locale.translate('tapping.final_score')}',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

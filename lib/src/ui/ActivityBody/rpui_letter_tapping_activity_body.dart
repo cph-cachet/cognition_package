@@ -150,7 +150,7 @@ class RPUILetterTappingActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -160,7 +160,7 @@ class RPUILetterTappingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('Turn your sound on!'),
+                locale.translate('letter_tapping.turn_on_sound'),
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -170,8 +170,7 @@ class RPUILetterTappingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate(
-                    'Then, tap the button on the next screen, whenever you hear the letter "A" being said.'),
+                locale.translate('letter_tapping.tap_A_button'),
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -207,7 +206,7 @@ class RPUILetterTappingActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -286,7 +285,7 @@ class RPUILetterTappingActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('You had ')}$errors${locale.translate(' mistakes')}',
+            '${locale.translate('you_had')} $errors ${locale.translate('mistakes')}',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

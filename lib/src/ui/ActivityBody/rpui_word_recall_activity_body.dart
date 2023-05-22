@@ -40,7 +40,7 @@ class RPUIWordRecallActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -53,8 +53,7 @@ class RPUIWordRecallActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text:
-                              locale.translate('Turn on sound for this task.'),
+                          text: locale.translate('word_recall.turn_on_sound'),
                           style: const TextStyle(fontSize: 16)),
                     ]),
                 overflow: TextOverflow.ellipsis,
@@ -69,8 +68,7 @@ class RPUIWordRecallActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text: locale.translate(
-                              'A list of words will be read aloud, try to memorize the list of words.'),
+                          text: locale.translate('word_recall.list_of_words'),
                           style: const TextStyle(fontSize: 16)),
                     ]),
                 overflow: TextOverflow.ellipsis,
@@ -85,8 +83,7 @@ class RPUIWordRecallActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text: locale.translate(
-                              'After the words have been read aloud you will be asked to recall them.'),
+                          text: locale.translate('word_recall.asked_to_recall'),
                           style: const TextStyle(fontSize: 16)),
                     ]),
                 overflow: TextOverflow.ellipsis,
@@ -101,11 +98,10 @@ class RPUIWordRecallActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text: locale.translate(
-                              'Write the words you recall in the boxes in any order and click '),
+                          text: locale.translate('word_recall.write_words'),
                           style: const TextStyle(fontSize: 16)),
                       TextSpan(
-                          text: locale.translate("'guess' "),
+                          text: " '${locale.translate('guess')}'.",
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                     ]),
@@ -137,7 +133,7 @@ class RPUIWordRecallActivityBodyState
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 ),
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
@@ -161,7 +157,7 @@ class RPUIWordRecallActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('results:  ')}$wordRecallScore',
+            '${locale.translate('results')}: $wordRecallScore',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -319,7 +315,7 @@ class WordRecallState extends State<WordRecall> {
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     return Scaffold(
         body: Center(
             child: Column(children: [
@@ -331,7 +327,7 @@ class WordRecallState extends State<WordRecall> {
                 ? Text(locale.translate('ready'))
                 : Center(
                     child: Text(
-                    locale.translate('listen'),
+                    locale.translate('word_recall.listen'),
                     style: const TextStyle(fontSize: 25),
                   ))
             : !waiting
@@ -342,7 +338,7 @@ class WordRecallState extends State<WordRecall> {
                             left: 25, bottom: 10, top: 20),
                         child: Row(children: <Widget>[
                           Text(
-                            locale.translate('Enter the words you recall'),
+                            locale.translate('delayed_recall.enter_words'),
                             style: const TextStyle(fontSize: 16),
                             textAlign: TextAlign.left,
                           )
@@ -433,7 +429,7 @@ class WordRecallState extends State<WordRecall> {
                         startTest();
                       },
                       child: Text(
-                        locale.translate('Ready'),
+                        locale.translate('ready'),
                         style: const TextStyle(fontSize: 18),
                       ),
                     ),
@@ -442,7 +438,7 @@ class WordRecallState extends State<WordRecall> {
             : finished
                 ? Center(
                     child: Text(
-                    locale.translate('Click next to continue'),
+                    locale.translate('continue'),
                     style: const TextStyle(fontSize: 18),
                   ))
                 : OutlinedButton(
@@ -461,7 +457,7 @@ class WordRecallState extends State<WordRecall> {
                       makeGuess();
                     },
                     child: Text(
-                      locale.translate('Guess'),
+                      locale.translate('guess'),
                       style: const TextStyle(fontSize: 18),
                     ),
                   ),

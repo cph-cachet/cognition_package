@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of cognition_package_model;
+part of 'model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

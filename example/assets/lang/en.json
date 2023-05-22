@@ -1,0 +1,7 @@
+{
+  "app_name": "Cognition Package Demo",
+  "app_info": "The 'Cognition Package' Flutter package allow you to create and use pre-made cognitive tests.",
+  "home.start": "Start",
+  "home.welcome": "Welcome to the demo of the Cognition Package, developed by the Copenhagen Center for Health Technology.",
+  "home.questions": "If you have any questions feel free to contact us at"
+}

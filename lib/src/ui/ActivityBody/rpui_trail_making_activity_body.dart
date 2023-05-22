@@ -103,7 +103,7 @@ class RPUITrailMakingActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -114,10 +114,8 @@ class RPUITrailMakingActivityBodyState
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 isTypeA
-                    ? locale.translate(
-                        "Connect the boxes to each other by drawing lines between them in numerical order, starting at '1'.")
-                    : locale.translate(
-                        'Connect the boxes to each other by drawing lines between them.'),
+                    ? locale.translate("trail_making.connect_boxes_type_A")
+                    : locale.translate('trail_making.connect_boxes_type_B'),
                 style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
@@ -126,10 +124,9 @@ class RPUITrailMakingActivityBodyState
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 isTypeA
-                    ? locale.translate(
-                        "Connect the boxes to each other by drawing lines between them in numerical order, starting at '1'.")
-                    : locale.translate(
-                        'You must alternate between letters and numbers and should order them alphabetically and numerically, respectively.'),
+                    ? locale.translate("trail_making.connect_boxes_type_A")
+                    : locale
+                        .translate('trail_making.alternate_letters_numbers'),
                 style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
@@ -159,7 +156,7 @@ class RPUITrailMakingActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -193,7 +190,7 @@ class RPUITrailMakingActivityBodyState
         return Container(
           alignment: Alignment.center,
           child: Text(
-            '${locale.translate('You completed the task in: ')}$taskTime${locale.translate(' seconds!')}',
+            '${locale.translate('trail_making.completed_task')}: $taskTime ${locale.translate('seconds')}!',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

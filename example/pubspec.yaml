@@ -11,8 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.2
+  flutter_localizations:
+    sdk: flutter
+
   cognition_package:
     path: ../../cognition_package
+  research_package:
+    path: ../../research.package/
 
 dev_dependencies:
   flutter_test:
@@ -21,10 +26,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
   assets:
-    - assets/images/cachet.png
-    - assets/images/cachet-logo-white.png
-    - assets/images/mcat-logo.png
-    - assets/images/survey.png
-    - assets/images/waving-hand.png
+    - assets/images/
+    - assets/lang/

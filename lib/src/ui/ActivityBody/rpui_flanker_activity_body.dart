@@ -117,7 +117,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     if (flankerScore == widget.activity.numberOfCards) {
       flankerScore = 0;
       if (mounted) {
@@ -154,7 +154,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                locale.translate('Each card has 5 arrows on it.'),
+                locale.translate('flanker.5_arrows'),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -164,8 +164,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate(
-                    'Swipe the cards in the direction of the middle arrow on each card.'),
+                locale.translate('flanker.swipe_cards'),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -175,8 +174,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                locale.translate(
-                    'Ignore all other arrows on the cards, they are only there to distract you'),
+                locale.translate('flanker.ignored_arrows'),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -217,7 +215,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
                   startTest();
                 },
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -234,7 +232,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('Correct swipes:  ')}$rightSwipe',
+            '${locale.translate('flanker.correct_swipes')}: $rightSwipe',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

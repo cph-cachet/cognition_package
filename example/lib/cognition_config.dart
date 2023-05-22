@@ -3,7 +3,7 @@ import 'package:research_package/model.dart';
 
 /// Here the list of cognitive test are added to an RP ordered task.
 /// Uncomment the ones you want to see a demo of.
-RPOrderedTask surveyTask = RPOrderedTask(
+RPOrderedTask cognitionTask = RPOrderedTask(
   identifier: 'surveyTaskID',
   steps: [
     // reactionTimeStep,
@@ -17,8 +17,8 @@ RPOrderedTask surveyTask = RPOrderedTask(
     // wordRecall,
     // pictureSequenceMemory,
     // activityStepLetterTapping,
-    flanker,
-    visualArrayChange,
+    // flanker,
+    // visualArrayChange,
     delayedRecall,
     completionStep,
   ],
@@ -27,7 +27,7 @@ RPOrderedTask surveyTask = RPOrderedTask(
 RPCompletionStep completionStep =
     RPCompletionStep(identifier: 'completionID', title: 'Finished')
       ..title = 'Finished'
-      ..text = 'Thank you for taking the tests';
+      ..text = 'Thank you for taking the tests.';
 
 RPActivityStep tappingStep = RPTappingActivity(
   identifier: 'Tapping step ID',

@@ -1,13 +1,54 @@
+import 'package:research_package/research_package.dart';
 import 'package:cognition_package/cognition_package.dart';
 import 'package:flutter/material.dart';
 import 'package:cognition_package_demo_app/user_demographics_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-Future main() async => runApp(MyApp());
+Future main() async {
+  // Initialize cognition package.
+  // Needed if you load a cognition configuration from a json file
+  CognitionPackage.ensureInitialized();
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      supportedLocales: [
+        Locale('en'),
+        Locale('da'),
+        Locale('fr'),
+      ],
+      localizationsDelegates: [
+        // Research Package (RP) and Cognition Package (CP) translations.
+        // Supports translation of both the RP and CP specific text as well as
+        // app-specific text.
+        // Read more about localization at https://carp.cachet.dk/localization/
+        RPLocalizations.delegate,
+        CPLocalizations.delegate,
+
+        // Built-in localization of basic text for Cupertino widgets
+        GlobalCupertinoLocalizations.delegate,
+        // Built-in localization of basic text for Material widgets
+        GlobalMaterialLocalizations.delegate,
+        // Built-in localization for text direction LTR/RTL
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      // Returns a locale which will be used by the app
+      localeResolutionCallback: (locale, supportedLocales) {
+        // Check if the current device locale is supported
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale!.languageCode) {
+            return supportedLocale;
+          }
+        }
+        // if the locale of the device is not supported, use the first one
+        // from the list (English, in this case).
+        return supportedLocales.first;
+      },
+
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       title: 'Cognition Package Demo',
@@ -24,16 +65,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() {
-    // initialize cognition package
-    // only used if you load a cognition configuration from a json file
-    CognitionPackage.ensureInitialized();
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var locale = RPLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: Color(0xff003F6E),
       body: Center(
@@ -54,13 +88,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "Welcome to the demo of the Cognition Package, developed by the Copenhagen Center for Health Technology.",
+                      locale?.translate("home.welcome") ?? "Welcome",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     Container(height: 5),
                     Text(
-                      "If you have any questions feel free to contact us at",
+                      locale?.translate("home.questions") ?? "Questions?",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
@@ -84,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
-                  "Get started",
+                  locale?.translate("home.start") ?? "Get started",
                   style: TextStyle(fontSize: 18),
                 ),
                 onPressed: () {

@@ -4,13 +4,16 @@ library cognition_package_ui;
 // Imports
 import 'dart:async';
 import 'dart:math';
+import 'dart:convert';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:cognition_package/model.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:research_package/research_package.dart';
+import 'package:flutter/services.dart';
 
+part 'src/localization/CPLocalizations.dart';
 part 'src/ui/ActivityBody/rpui_corsi_block_tapping_activity_body.dart';
 part 'src/ui/ActivityBody/rpui_flanker_activity_body.dart';
 part 'src/ui/ActivityBody/rpui_letter_tapping_activity_body.dart';
