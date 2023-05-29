@@ -4,22 +4,22 @@ import 'package:research_package/model.dart';
 /// Here the list of cognitive test are added to an RP ordered task.
 /// Uncomment the ones you want to see a demo of.
 RPOrderedTask cognitionTask = RPOrderedTask(
-  identifier: 'surveyTaskID',
+  identifier: 'cognition_demo_task',
   steps: [
     // reactionTimeStep,
-    // pairedAssociatesLearningStep,
-    // tappingStep,
-    // corsiBlockTapping,
-    // stroopEffect,
+    pairedAssociatesLearningStep,
+    tappingStep,
+    corsiBlockTapping,
+    stroopEffect,
     // rapidVisualInfoProcessingStep,
     // activityStepTrail,
     // continuousVisualTracking,
-    // wordRecall,
+    wordRecall,
     // pictureSequenceMemory,
     // activityStepLetterTapping,
     // flanker,
     // visualArrayChange,
-    delayedRecall,
+    // delayedRecall,
     completionStep,
   ],
 );
