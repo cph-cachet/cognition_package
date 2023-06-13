@@ -24,9 +24,8 @@ class RPUILetterTappingActivityBody extends StatefulWidget {
 
 class RPUILetterTappingActivityBodyState
     extends State<RPUILetterTappingActivityBody> {
-  late SoundService soundService;
-  late AudioCache player;
-  late AudioPlayer audioPlayer;
+  final player = AudioPlayer();
+
   late String currentLetter;
   late String lastLetter;
   int errors = 0;
@@ -35,21 +34,9 @@ class RPUILetterTappingActivityBodyState
   bool wasTapped = false;
   int letterIndex = 0;
   ActivityStatus activityStatus = ActivityStatus.Instruction;
-  List<String> alphabet = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-  ];
-  List<String> mocaTestList = [
+
+  /// The list of letters in the MOCA test.
+  List<String> mocaLetterList = [
     'F',
     'B',
     'A',
@@ -84,11 +71,11 @@ class RPUILetterTappingActivityBodyState
   @override
   initState() {
     super.initState();
-    soundService = SoundService(alphabet
-        .map(
-            (item) => ('../packages/cognition_package/assets/sounds/$item.mp3'))
-        .toList());
-    currentLetter = 'F';
+    // soundService = SoundService(alphabet
+    //     .map(
+    //         (item) => ('../packages/cognition_package/assets/sounds/$item.mp3'))
+    //     .toList());
+    currentLetter = mocaLetterList.first;
     lastLetter = '';
     if (widget.activity.includeInstructions) {
       activityStatus = ActivityStatus.Instruction;
@@ -100,17 +87,19 @@ class RPUILetterTappingActivityBodyState
     }
   }
 
-  void startTest() async {
+  Future<void> startTest() async {
     widget.eventLogger.instructionEnded();
     widget.eventLogger.testStarted();
     setState(() {
       activityStatus = ActivityStatus.Test;
     });
     await Future<dynamic>.delayed(const Duration(seconds: 2));
-    for (String letter in mocaTestList) {
+    for (String letter in mocaLetterList) {
       if (!mounted) break;
-      soundService
-          .play('../packages/cognition_package/assets/sounds/$letter.mp3');
+      await player
+          .setAsset('../packages/cognition_package/assets/sounds/$letter.mp3');
+      await player.play();
+
       updateLetter(letter);
       await Future<dynamic>.delayed(const Duration(milliseconds: 1000));
       if (letterIndex < 29) letterIndex += 1;
@@ -133,11 +122,11 @@ class RPUILetterTappingActivityBodyState
     if (lastLetter == 'A' && !lastWasTapped) {
       errors += 1;
       String s;
-      if (letterIndex == mocaTestList.length) {
-        s = '${mocaTestList.getRange(0, letterIndex - 2)} >A< ${mocaTestList.getRange(letterIndex - 1, mocaTestList.length)}';
+      if (letterIndex == mocaLetterList.length) {
+        s = '${mocaLetterList.getRange(0, letterIndex - 2)} >A< ${mocaLetterList.getRange(letterIndex - 1, mocaLetterList.length)}';
       } else {
         print(letterIndex);
-        s = '${mocaTestList.getRange(0, letterIndex - 2)} >A< ${mocaTestList.getRange(letterIndex - 1, mocaTestList.length)}';
+        s = '${mocaLetterList.getRange(0, letterIndex - 2)} >A< ${mocaLetterList.getRange(letterIndex - 1, mocaLetterList.length)}';
       }
       widget.eventLogger
           .addWrongGesture('Missed button tap', 'Did not press button on: $s');
@@ -150,7 +139,7 @@ class RPUILetterTappingActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -160,7 +149,7 @@ class RPUILetterTappingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('Turn your sound on!'),
+                locale.translate('letter_tapping.turn_on_sound'),
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -170,8 +159,7 @@ class RPUILetterTappingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate(
-                    'Then, tap the button on the next screen, whenever you hear the letter "A" being said.'),
+                locale.translate('letter_tapping.tap_A_button'),
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -207,7 +195,7 @@ class RPUILetterTappingActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -228,9 +216,9 @@ class RPUILetterTappingActivityBodyState
                   if (currentLetter != 'A' && lastLetter != 'A') {
                     errors += 1;
                     String s =
-                        '${(letterIndex > 0) ? mocaTestList.getRange(0, letterIndex) : ''}'
+                        '${(letterIndex > 0) ? mocaLetterList.getRange(0, letterIndex) : ''}'
                         '>$currentLetter<'
-                        '${mocaTestList.getRange(letterIndex + 1, mocaTestList.length)}';
+                        '${mocaLetterList.getRange(letterIndex + 1, mocaLetterList.length)}';
                     widget.eventLogger.addWrongGesture(
                         'Button tap', 'Pressed button on wrong letter: $s');
                   }
@@ -238,16 +226,16 @@ class RPUILetterTappingActivityBodyState
                   if (lastLetter == 'A' && currentLetter == 'A') {
                     if (!lastWasTapped) {
                       widget.eventLogger.addCorrectGesture('Button tap',
-                          'Tapped letter with a delay: ${mocaTestList.getRange(0, letterIndex - 1)} >A< ${mocaTestList.getRange(letterIndex, mocaTestList.length)}');
+                          'Tapped letter with a delay: ${mocaLetterList.getRange(0, letterIndex - 1)} >A< ${mocaLetterList.getRange(letterIndex, mocaLetterList.length)}');
                       lastWasTapped = true;
                     } else if (lastWasTapped && !wasTapped) {
                       widget.eventLogger.addCorrectGesture('Button tap',
-                          'Tapped letter without delay: ${mocaTestList.getRange(0, letterIndex)} >A< ${mocaTestList.getRange(letterIndex + 1, mocaTestList.length)}');
+                          'Tapped letter without delay: ${mocaLetterList.getRange(0, letterIndex)} >A< ${mocaLetterList.getRange(letterIndex + 1, mocaLetterList.length)}');
                       wasTapped = true;
                     } else {
                       errors += 1;
                       widget.eventLogger.addWrongGesture('Button tap',
-                          'Tapped letter too many times: ${mocaTestList.getRange(0, letterIndex)} >A< ${mocaTestList.getRange(letterIndex + 1, mocaTestList.length)}');
+                          'Tapped letter too many times: ${mocaLetterList.getRange(0, letterIndex)} >A< ${mocaLetterList.getRange(letterIndex + 1, mocaLetterList.length)}');
                     }
                   }
                   // A - X
@@ -255,13 +243,13 @@ class RPUILetterTappingActivityBodyState
                     if (lastWasTapped) {
                       errors += 1;
                       widget.eventLogger.addWrongGesture('Button tap',
-                          'Tapped letter too many times: ${mocaTestList.getRange(0, letterIndex - 1)} >A< ${mocaTestList.getRange(letterIndex, mocaTestList.length)}');
+                          'Tapped letter too many times: ${mocaLetterList.getRange(0, letterIndex - 1)} >A< ${mocaLetterList.getRange(letterIndex, mocaLetterList.length)}');
 //                      print(
 //                          'Error at $lastLetter $currentLetter - Tapped last letter as it was A, but it was already tapped');
                     } else {
                       lastWasTapped = true;
                       widget.eventLogger.addCorrectGesture('Button tap',
-                          'Tapped letter with a delay: ${mocaTestList.getRange(0, letterIndex - 1)} >A< ${mocaTestList.getRange(letterIndex, mocaTestList.length)}');
+                          'Tapped letter with a delay: ${mocaLetterList.getRange(0, letterIndex - 1)} >A< ${mocaLetterList.getRange(letterIndex, mocaLetterList.length)}');
                     }
                   }
                   // X - A
@@ -269,13 +257,13 @@ class RPUILetterTappingActivityBodyState
                     if (wasTapped) {
                       errors += 1;
                       widget.eventLogger.addWrongGesture('Button tap',
-                          'Tapped letter too many times: ${mocaTestList.getRange(0, letterIndex - 1)} >A< ${mocaTestList.getRange(letterIndex + 1, mocaTestList.length)}');
+                          'Tapped letter too many times: ${mocaLetterList.getRange(0, letterIndex - 1)} >A< ${mocaLetterList.getRange(letterIndex + 1, mocaLetterList.length)}');
 //                      print(
 //                          'Error at $lastLetter $currentLetter - Tapped current letter A while wasTapped = true');
                     } else {
                       wasTapped = true;
                       widget.eventLogger.addCorrectGesture('Button tap',
-                          'Tapped letter without delay: ${mocaTestList.getRange(0, letterIndex)} >A< ${mocaTestList.getRange(letterIndex + 1, mocaTestList.length)}');
+                          'Tapped letter without delay: ${mocaLetterList.getRange(0, letterIndex)} >A< ${mocaLetterList.getRange(letterIndex + 1, mocaLetterList.length)}');
                     }
                   }
                 },
@@ -286,24 +274,17 @@ class RPUILetterTappingActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('You had ')}$errors${locale.translate(' mistakes')}',
+            '${locale.translate('you_had')} $errors ${locale.translate('mistakes')}',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
         );
     }
   }
-}
 
-class SoundService {
-  final List<String> files;
-
-  SoundService(this.files) {
-    AudioCache.instance.loadAll(files);
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
   }
-
-  final player = AudioPlayer();
-
-  void play(String path) async =>
-      await player.play(AssetSource(path), mode: PlayerMode.lowLatency);
 }

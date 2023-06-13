@@ -1,7 +1,7 @@
 name: cognition_package_demo_app
 description: A demo application for the Cognition Package
 publish_to: none
-version: 1.2.0
+version: 1.5.0
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
@@ -10,21 +10,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
+  flutter_localizations:
+    sdk: flutter
+
   cognition_package:
     path: ../../cognition_package
+  # research_package:
+  #   path: ../../research.package/
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  lints: ^1.0.1
+  flutter_lints: any
 
 flutter:
   uses-material-design: true
-
   assets:
-    - assets/images/cachet.png
-    - assets/images/cachet-logo-white.png
-    - assets/images/mcat-logo.png
-    - assets/images/survey.png
-    - assets/images/waving-hand.png
+    - assets/images/
+    - assets/lang/

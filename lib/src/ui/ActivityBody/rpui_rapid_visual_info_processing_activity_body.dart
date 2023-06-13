@@ -25,8 +25,7 @@ class RPUIRapidVisualInfoProcessingActivityBody extends StatefulWidget {
 class RPUIRapidVisualInfoProcessingActivityBodyState
     extends State<RPUIRapidVisualInfoProcessingActivityBody> {
   final _random = Random();
-  String texthint =
-      'Tap the button in the next window, whenever all numbers in a given sequence has appeared on screen, in the given order. The numbers do not have to come in succession.';
+  String texthint = 'rapid_visual_info.tap_button';
   int newNum = 0; //int for next random generated number on screen
   int goodTaps = 0; //number of taps that were correct
   int badTaps = 0; //number of taps that were wrong
@@ -149,7 +148,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -202,7 +201,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -217,14 +216,14 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(locale.translate('Sequence:'),
+                  Text('${locale.translate('sequence')}:',
                       style: const TextStyle(fontSize: 24)),
                   Text(seq1s, style: const TextStyle(fontSize: 32)),
                   Container(height: 40),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(locale.translate('Number:'),
+                      Text('${locale.translate('number')}:',
                           style: const TextStyle(fontSize: 24)),
                       Text('$newNum', style: const TextStyle(fontSize: 40)),
                     ],
@@ -234,10 +233,15 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
                       height: 80,
                       width: 160,
                       child: OutlinedButton(
-                        child: const SizedBox(
-                          width: 160,
-                          height: 80,
+                        child: Text(
+                          locale.translate('guess'),
+                          style: const TextStyle(fontSize: 18),
                         ),
+
+                        // child: const SizedBox(
+                        //   width: 160,
+                        //   height: 80,
+                        // ),
                         onPressed: () {
                           //on pressed - time is tracked if sequence has actually passed, otherwise no
                           if (seqPassed) {
@@ -265,10 +269,10 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(locale.translate('The test is done!'),
+                  Text(locale.translate('test_done'),
                       style: const TextStyle(fontSize: 22)),
                   Text(
-                    '${locale.translate('You had ')}$goodTaps${locale.translate(' correct taps and ')}$badTaps${locale.translate(' wrong ones')}',
+                    '${locale.translate('you_had')} $goodTaps ${locale.translate('rapid_visual_info.correct_taps')} ${locale.translate('and')} $badTaps ${locale.translate('rapid_visual_info.wrong_ones')}.',
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 22),
                     overflow: TextOverflow.ellipsis,

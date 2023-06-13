@@ -237,7 +237,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     //consists of a column with 5 rows of content
     switch (activityStatus) {
       case ActivityStatus.Instruction:
@@ -247,9 +247,8 @@ class RPUIPairedAssociatesLearningActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate(
-                    'A screen with 6 tiles will appear. What is underneath each of them, will be revealed one by one. Click the tile matching the object in the middle, when the reveal is done.'),
-                style: const TextStyle(fontSize: 20),
+                locale.translate('paired_associate.screen_with_6_tiles'),
+                style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
                 textAlign: TextAlign.center,
@@ -284,7 +283,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -347,10 +346,10 @@ class RPUIPairedAssociatesLearningActivityBodyState
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(locale.translate('The test is done!'),
+                        Text(locale.translate('test_done'),
                             style: const TextStyle(fontSize: 22)),
                         Text(
-                            '${locale.translate('Correct: ')}$successes${locale.translate(', Wrong: ')}$mistakes',
+                            '${locale.translate('correct')}: $successes, ${locale.translate('wrong')}: $mistakes',
                             style: const TextStyle(fontSize: 22)),
                       ]),
                 ]));

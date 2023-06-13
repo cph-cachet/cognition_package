@@ -161,7 +161,7 @@ class RPUIStroopEffectActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     possColorsString = [
       locale.translate('BLUE'),
       locale.translate('GREEN'),
@@ -178,8 +178,7 @@ class RPUIStroopEffectActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate(
-                    'Tap the color, of the word you see on screen. E.g. tap the box that says "green" when a green word appears'),
+                locale.translate('stroop.tap_color'),
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -215,7 +214,7 @@ class RPUIStroopEffectActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -260,17 +259,17 @@ class RPUIStroopEffectActivityBodyState
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          locale.translate('The test is done!'),
+                          locale.translate('test_done'),
                           style: const TextStyle(fontSize: 22),
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          '${locale.translate('Correct answers: ')}$correctTaps',
+                          '${locale.translate('stroop.correct_answers')}: $correctTaps',
                           style: const TextStyle(fontSize: 22),
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          '${locale.translate('Mistakes made: ')}$mistakes',
+                          '${locale.translate('stroop.mistakes_made')}: $mistakes',
                           style: const TextStyle(fontSize: 22),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 20,

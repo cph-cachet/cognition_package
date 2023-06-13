@@ -40,7 +40,7 @@ class RPUIWordRecallActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -53,8 +53,7 @@ class RPUIWordRecallActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text:
-                              locale.translate('Turn on sound for this task.'),
+                          text: locale.translate('word_recall.turn_on_sound'),
                           style: const TextStyle(fontSize: 16)),
                     ]),
                 overflow: TextOverflow.ellipsis,
@@ -69,8 +68,7 @@ class RPUIWordRecallActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text: locale.translate(
-                              'A list of words will be read aloud, try to memorize the list of words.'),
+                          text: locale.translate('word_recall.list_of_words'),
                           style: const TextStyle(fontSize: 16)),
                     ]),
                 overflow: TextOverflow.ellipsis,
@@ -85,8 +83,7 @@ class RPUIWordRecallActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text: locale.translate(
-                              'After the words have been read aloud you will be asked to recall them.'),
+                          text: locale.translate('word_recall.asked_to_recall'),
                           style: const TextStyle(fontSize: 16)),
                     ]),
                 overflow: TextOverflow.ellipsis,
@@ -101,11 +98,10 @@ class RPUIWordRecallActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text: locale.translate(
-                              'Write the words you recall in the boxes in any order and click '),
+                          text: locale.translate('word_recall.write_words'),
                           style: const TextStyle(fontSize: 16)),
                       TextSpan(
-                          text: locale.translate("'guess' "),
+                          text: " '${locale.translate('guess')}'.",
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                     ]),
@@ -137,7 +133,7 @@ class RPUIWordRecallActivityBodyState
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 ),
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
@@ -161,7 +157,7 @@ class RPUIWordRecallActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('results:  ')}$wordRecallScore',
+            '${locale.translate('results')}: $wordRecallScore',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -180,10 +176,10 @@ class WordRecall extends StatefulWidget {
   final int numberOfTests;
 
   const WordRecall({
-    Key? key,
+    super.key,
     required this.widget,
     required this.numberOfTests,
-  }) : super(key: key);
+  });
 
   @override
   WordRecallState createState() => WordRecallState(widget, numberOfTests);
@@ -197,17 +193,18 @@ class WordRecallState extends State<WordRecall> {
   List<String> resultsList1 = [];
   List<String> resultsList2 = [];
 
-  List<String> wordlist = ['banana', 'icecream', 'violin', 'desk', 'green'];
-  List<String> wordlist2 = ['', '', '', '', ''];
+  List<String> words = ['banana', 'icecream', 'violin', 'desk', 'green'];
+  List<String> wordBuffer = ['', '', '', '', ''];
   bool waiting = false;
   bool guess = false;
   bool finished = false;
   int time = 0;
-  SoundService? soundService;
+
+  final player = AudioPlayer();
 
   WordRecallState(this.sWidget, this.numberOfTests);
 
-  void resetTest() async {
+  Future<void> resetTest() async {
     setState(() {
       seconds = 0;
       waiting = false;
@@ -216,24 +213,18 @@ class WordRecallState extends State<WordRecall> {
     startTest();
   }
 
-  void startTest() async {
+  Future<void> startTest() async {
     setState(() {
       currentNum += 1;
       waiting = true;
     });
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService
-        ?.play('../packages/cognition_package/assets/sounds/BANANA.mp3');
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService
-        ?.play('../packages/cognition_package/assets/sounds/ICECREAM.mp3');
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService
-        ?.play('../packages/cognition_package/assets/sounds/VIOLIN.mp3');
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService?.play('../packages/cognition_package/assets/sounds/DESK.mp3');
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService?.play('../packages/cognition_package/assets/sounds/GREEN.mp3');
+
+    for (var word in words) {
+      await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
+      await player.setAsset(
+          '../packages/cognition_package/assets/sounds/${word.toUpperCase()}.mp3');
+      await player.play();
+    }
 
     await Future<dynamic>.delayed(const Duration(seconds: 1));
     setState(() {
@@ -263,16 +254,16 @@ class WordRecallState extends State<WordRecall> {
 
   void makeGuess() {
     if (currentNum > 2) {
-      resultsList2 = wordlist2;
+      resultsList2 = wordBuffer;
       sWidget.eventLogger.testEnded();
       timesTaken.add(seconds);
       timer?.cancel();
       wordRecallScore = sWidget.activity
-          .calculateScore({'wordsList': wordlist, 'resultsList': resultsList2});
+          .calculateScore({'wordsList': words, 'resultsList': resultsList2});
       RPWordRecallResult result =
           RPWordRecallResult(identifier: 'WordRecallResult');
       var taskResults = result.makeResult(
-          wordlist, resultsList1, resultsList2, timesTaken, wordRecallScore);
+          words, resultsList1, resultsList2, timesTaken, wordRecallScore);
 
       sWidget.onResultChange(taskResults.results);
       if (sWidget.activity.includeResults) {
@@ -286,8 +277,8 @@ class WordRecallState extends State<WordRecall> {
         });
       }
     } else {
-      resultsList1 = wordlist2;
-      wordlist2 = ['', '', '', '', ''];
+      resultsList1 = wordBuffer;
+      wordBuffer = ['', '', '', '', ''];
       timesTaken.add(seconds);
       timer?.cancel();
       resetTest();
@@ -297,17 +288,6 @@ class WordRecallState extends State<WordRecall> {
   @override
   initState() {
     super.initState();
-    List<String> alphabet = [
-      'FACE',
-      'VELVET',
-      'CHURCH',
-      'DAISY',
-      'RED',
-    ];
-    soundService = SoundService(alphabet
-        .map(
-            (item) => ('../packages/cognition_package/assets/sounds/$item.mp3'))
-        .toList());
     startTest();
   }
 
@@ -319,7 +299,7 @@ class WordRecallState extends State<WordRecall> {
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     return Scaffold(
         body: Center(
             child: Column(children: [
@@ -331,7 +311,7 @@ class WordRecallState extends State<WordRecall> {
                 ? Text(locale.translate('ready'))
                 : Center(
                     child: Text(
-                    locale.translate('listen'),
+                    locale.translate('word_recall.listen'),
                     style: const TextStyle(fontSize: 25),
                   ))
             : !waiting
@@ -342,7 +322,7 @@ class WordRecallState extends State<WordRecall> {
                             left: 25, bottom: 10, top: 20),
                         child: Row(children: <Widget>[
                           Text(
-                            locale.translate('Enter the words you recall'),
+                            locale.translate('delayed_recall.enter_words'),
                             style: const TextStyle(fontSize: 16),
                             textAlign: TextAlign.left,
                           )
@@ -353,7 +333,7 @@ class WordRecallState extends State<WordRecall> {
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
-                              wordlist2[0] = text;
+                              wordBuffer[0] = text;
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
@@ -364,7 +344,7 @@ class WordRecallState extends State<WordRecall> {
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
-                              wordlist2[1] = text;
+                              wordBuffer[1] = text;
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
@@ -375,7 +355,7 @@ class WordRecallState extends State<WordRecall> {
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
-                              wordlist2[2] = text;
+                              wordBuffer[2] = text;
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
@@ -386,7 +366,7 @@ class WordRecallState extends State<WordRecall> {
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
-                              wordlist2[3] = text;
+                              wordBuffer[3] = text;
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
@@ -397,7 +377,7 @@ class WordRecallState extends State<WordRecall> {
                         child: TextField(
                             textInputAction: TextInputAction.done,
                             onChanged: (text) {
-                              wordlist2[4] = text;
+                              wordBuffer[4] = text;
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
@@ -433,7 +413,7 @@ class WordRecallState extends State<WordRecall> {
                         startTest();
                       },
                       child: Text(
-                        locale.translate('Ready'),
+                        locale.translate('ready'),
                         style: const TextStyle(fontSize: 18),
                       ),
                     ),
@@ -442,7 +422,7 @@ class WordRecallState extends State<WordRecall> {
             : finished
                 ? Center(
                     child: Text(
-                    locale.translate('Click next to continue'),
+                    locale.translate('continue'),
                     style: const TextStyle(fontSize: 18),
                   ))
                 : OutlinedButton(
@@ -461,7 +441,7 @@ class WordRecallState extends State<WordRecall> {
                       makeGuess();
                     },
                     child: Text(
-                      locale.translate('Guess'),
+                      locale.translate('guess'),
                       style: const TextStyle(fontSize: 18),
                     ),
                   ),

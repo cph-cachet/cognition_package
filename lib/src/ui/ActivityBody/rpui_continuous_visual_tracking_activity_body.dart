@@ -38,11 +38,11 @@ class RPUIContinuousVisualTrackingActivityBodyState
   /// Build the activity with instructions, test and results
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
-    print(locale);
-    print(locale.translate(
-        'Find the blue dots on the next screen. These are the targets dots.'));
-    print(RPLocalizations.of(context)!.locale.languageCode);
+    var locale = CPLocalizations.of(context)!;
+    // print(locale);
+    // print(locale.translate(
+    //     'Find the blue dots on the next screen. These are the targets dots.'));
+    // print(RPLocalizations.of(context)!.locale.languageCode);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -51,8 +51,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                locale.translate(
-                    'Find the blue dots on the next screen. These are the targets dots.'),
+                locale.translate('visual_tracking.blue_dots'),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -62,8 +61,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                locale.translate(
-                    "Once ready, press 'start' and the target dots will turn grey and start moving."),
+                locale.translate("visual_tracking.press_start"),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -73,7 +71,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                locale.translate('Follow the target dots around the screen'),
+                locale.translate('visual_tracking.follow_the_target'),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -83,8 +81,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                locale.translate(
-                    'Once the dots stop moving find and click on the target dots and they will turn the original color.'),
+                locale.translate('visual_tracking.once_the_dots_stop_moving'),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -123,7 +120,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
                   });
                 },
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -144,7 +141,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('results:  ')}$continuousVisualTrackingScore',
+            '${locale.translate('results')}: $continuousVisualTrackingScore',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -402,7 +399,7 @@ class ContinuousVisualTrackingActivityBodyState
   /// Build the main test phase
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     return Scaffold(
         body: Center(
             child: Column(children: [
@@ -438,7 +435,7 @@ class ContinuousVisualTrackingActivityBodyState
                               startTest();
                             },
                             child: Text(
-                              locale.translate('Start'),
+                              locale.translate('start'),
                               style: const TextStyle(fontSize: 18),
                             ),
                           ),
@@ -447,12 +444,12 @@ class ContinuousVisualTrackingActivityBodyState
                   : finished
                       ? Center(
                           child: Text(
-                          locale.translate('Click next to continue'),
+                          locale.translate('continue'),
                           style: const TextStyle(fontSize: 18),
                         ))
                       : Center(
-                          child: Text(locale.translate(
-                              'Press the previously colored dots')))))
+                          child: Text(locale
+                              .translate('visual_tracking.press_previously')))))
     ])));
   }
 }

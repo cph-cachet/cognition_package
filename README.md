@@ -5,12 +5,12 @@
 [![github stars](https://img.shields.io/github/stars/cph-cachet/cognition_package.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://github.com/cph-cachet/cognition_package)
 [![MIT License](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
-Cognition Package is a Flutter [package](https://pub.dartlang.org/packages/cognition_package) for building cognitive tests for study apps on Android and iOS built using the [Research Package](https://pub.dartlang.org/packages/research_package).
+[Cognition Package](https://carp.cachet.dk/cognition-package/) is a Flutter [package](https://pub.dartlang.org/packages/cognition_package) for building cognitive tests for study apps on Android and iOS built using the [Research Package](https://pub.dartlang.org/packages/research_package).
 
 The overarching goal of Cognition Package is to enable developers and researchers to design and build cross-platform (iOS and Android) cognitive assessment applications that rely on validated gold-standard cognitive tests.
 When combined with [Research Package](https://pub.dartlang.org/packages/research_package), Cognition Package meets the requirements of most scientific research, including capturing participant consent, extensible input tasks, and the security and privacy needs necessary for IRB approval.
 
-Cognition Package is a Flutter implementation of a Cognitive test battery including 14 validated gold-standard cognitive tests spanning all 8 neurocognitive domains:
+Cognition Package is a Flutter implementation of a cognitive test battery including 14 validated gold-standard cognitive tests spanning all 8 neurocognitive domains:
 
 1. Sensation
 2. Perception
@@ -56,31 +56,32 @@ There is a set of tutorials, describing:
 - the overall [software architecture](https://carp.cachet.dk/research-package/) of Research Package
 - the overall [software architecture](https://carp.cachet.dk/cognition-package/) of Cognition Package
 - how to create a [cognitive test](https://carp.cachet.dk/creating-cognitive-tests/)
-- the [cognition_package Flutter API](https://pub.dev/documentation/cognition_package/latest/) is available (and maintained) as part of the package release at pub.dev.
+- the [cognition_package Flutter API](https://pub.dev/documentation/cognition_package/latest/) is available (and maintained) as part of the package release at pub.dev
+- [localization](https://carp.cachet.dk/localization/) support in Research Package which also applies for Cognition Package
 
 ## Example Application
 
 There is an [example app](https://github.com/cph-cachet/cognition_package/tree/main/example) which demonstrates the different features of Cognition Package as implemented in a Flutter app.
 
-The cognitive test to be shown in the example app can be configured in the `survey_config.dart` file:
+The cognitive test to be shown in the example app can be configured in the `cognition_config.dart` file:
 
 ```dart
-/// Here the list of cognitive test are added to an RP ordered task.
-/// Uncomment the ones you want to see a demo of.
-RPOrderedTask surveyTask = RPOrderedTask(
-  identifier: 'surveyTaskID',
+// Here the list of cognitive test are added to an RP ordered task.
+// Uncomment the ones you want to see a demo of.
+RPOrderedTask cognitionTask = RPOrderedTask(
+  identifier: 'cognition_demo_task',
   steps: [
-    reactionTimeStep,
-    pairedAssociatesLearningStep,
-    tappingStep,
+    reactionTime,
+    pairedAssociatesLearning,
+    tapping,
     corsiBlockTapping,
     stroopEffect,
-    rapidVisualInfoProcessingStep,
-    activityStepTrail,
+    rapidVisualInfoProcessing,
+    trailMaking,
     continuousVisualTracking,
     wordRecall,
     pictureSequenceMemory,
-    activityStepLetterTapping,
+    letterTapping,
     flanker,
     visualArrayChange,
     delayedRecall,
@@ -89,7 +90,15 @@ RPOrderedTask surveyTask = RPOrderedTask(
 );
 ```
 
-The `surveyTask` defines the list of cognitive tasks to be shown and you may include the ones you want to see.
+The `cognitionTask` defines the list of cognitive tasks to be shown and you may include the ones you want to see.
+
+## Localization
+
+Cognition Package support localization via the [localization support in Research Package](https://carp.cachet.dk/localization/). Currently, the package supports English (`en`), Danish (`da`), French (`fr`), and Portuguese (`pt`).
+
+> **Note:** The sounds used in the Letter Tapping test and Word Recall tests for now only use English letters and words. This might be translated in a future version of the package and PRs for this is most welcome.
+
+In order to support localization in your app, add the `RPLocalizations.delegate` and the `CPLocalizations.delegate` delegates to your list of delegates in your `MaterialApp` configuration. See the [`main.dart`](https://github.com/cph-cachet/cognition_package/blob/main/example/lib/main.dart) in the example app for how this can be done.
 
 ## Who is backing this project?
 

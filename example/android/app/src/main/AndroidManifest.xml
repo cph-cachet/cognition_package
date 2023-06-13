@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cognition_demo_app">
    <application
+        android:name="${applicationName}"
         android:label="cognition_demo_app"
         android:icon="@mipmap/ic_launcher">
         <activity

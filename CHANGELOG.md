@@ -1,5 +1,9 @@
-## 1.4.2
-- Added translation support. The "lang" files are the ones in Research Package (limitation on the RPLocations).
+## 1.5.0
+
+- Added translation support for English (`en`), Danish (`da`), French (`fr`), and Portuguese (`pt`).
+- Upgrade to research_package 1.3.2
+- Fix of misc. issues.
+- Update to documentation and example app.
 
 ## 1.4.1
 

@@ -63,7 +63,7 @@ class RPUIVisualArrayChangeActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -72,7 +72,7 @@ class RPUIVisualArrayChangeActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('Memorize the colors of the shapes.'),
+                locale.translate('visual_array.memorize_colors'),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -82,8 +82,7 @@ class RPUIVisualArrayChangeActivityBodyState
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
-                locale
-                    .translate('Once ready the shapes will change positions.'),
+                locale.translate('visual_array.shapes_will_change_positions'),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -93,8 +92,7 @@ class RPUIVisualArrayChangeActivityBodyState
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
-                locale.translate(
-                    'Indicate if ANY of the shapes changed color or if ALL shapes remained the same'),
+                locale.translate('visual_array.indicate_changed'),
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -135,7 +133,7 @@ class RPUIVisualArrayChangeActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('Ready'),
+                  locale.translate('ready'),
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -154,7 +152,7 @@ class RPUIVisualArrayChangeActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('results:  ')}$visualArrayChangeScore',
+            '${locale.translate('results')}: $visualArrayChangeScore',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -533,7 +531,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
 
   @override
   Widget build(BuildContext context) {
-    RPLocalizations locale = RPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context)!;
     return Scaffold(
         body: Center(
             child: Column(children: [
@@ -577,7 +575,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                             startTest();
                           },
                           child: Text(
-                            locale.translate('Start'),
+                            locale.translate('start'),
                             style: const TextStyle(fontSize: 18),
                           ),
                         ),
@@ -589,7 +587,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                 : finished
                     ? Center(
                         child: Text(
-                        locale.translate('Click next to continue'),
+                        locale.translate('continue'),
                         style: const TextStyle(fontSize: 18),
                       ))
                     : Row(children: [
@@ -611,7 +609,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                                 same();
                               },
                               child: Text(
-                                locale.translate('Same'),
+                                locale.translate('visual_array.same'),
                                 style: const TextStyle(fontSize: 18),
                               ),
                             )),
@@ -631,7 +629,7 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
                             different();
                           },
                           child: Text(
-                            locale.translate('Different'),
+                            locale.translate('visual_array.different'),
                             style: const TextStyle(fontSize: 18),
                           ),
                         ),
