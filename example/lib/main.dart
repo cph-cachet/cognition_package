@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         Locale('en'),
         Locale('da'),
         Locale('fr'),
+        Locale('pt'),
       ],
       localizationsDelegates: [
         // Research Package (RP) and Cognition Package (CP) translations.

@@ -24,7 +24,7 @@
   "visual_tracking.follow_the_target": "Follow the blue target dots around the screen.",
   "visual_tracking.once_the_dots_stop_moving": "Once the dots stop moving, find and click on the target dots and they will turn into their original blue color.",
   "visual_tracking.press_previously": "Press the dots which previously were blue.",
-  "corsi_block.9_tiles": "On the following screen you will see 9 tiles. Some of the tiles will be highlighted in a specific order. When the light in the top of the screen is green, and reads 'Go', you should press the tiles in the same order as they were highlighted. As the test progress, more and more tiles are highlighted.",
+  "corsi_block.9_tiles": "On the following screen, you will see 9 tiles. Some of the tiles will be highlighted in a specific order. When the light in the top of the screen is green, and reads 'Go', you should press the tiles in the same order as they were highlighted. As the test progress, more and more tiles are highlighted.",
   "corsi_block.span": "Your Corsi Span was",
   "delayed_recall.remember_words": "Can you remember the words you recalled from the listening exercise earlier?",
   "delayed_recall.remember_write": "Please write down the words you recall now and click",
