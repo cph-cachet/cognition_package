@@ -1,8 +1,9 @@
 import 'package:research_package/research_package.dart';
 import 'package:cognition_package/cognition_package.dart';
 import 'package:flutter/material.dart';
-import 'package:cognition_package_demo_app/user_demographics_page.dart';
+// import 'package:cognition_package_demo_app/user_demographics_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:cognition_package_demo_app/cognition_page.dart';
 
 Future main() async {
   // Initialize cognition package.
@@ -124,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute<dynamic>(
-                      builder: (context) => UserDemographicsPage()));
+                      builder: (context) => CognitionPage()));
                 },
               ),
             ),

@@ -3,5 +3,7 @@
   "app_info": "TO pacote Flutter 'Cognition Package' permite que você crie e use testes cognitivos pré-fabricados.",
   "home.start": "Começar",
   "home.welcome": "Bem-vindo à demonstração do Cognition Package, desenvolvido pelo Copenhagen Center for Health Technology.",
-  "home.questions": "Se você tiver alguma dúvida, entre em contato conosco em"
+  "home.questions": "Se você tiver alguma dúvida, entre em contato conosco em",
+  "completion_title": "Finalizado",
+  "completion_text": "Obrigado por fazer os testes."
 }

@@ -1,22 +1,22 @@
 import 'package:cognition_package/model.dart';
 import 'package:research_package/model.dart';
 
-/// Here the list of cognitive test are added to an RP ordered task.
-/// Uncomment the ones you want to see a demo of.
+// Here the list of cognitive test are added to an RP ordered task.
+// Uncomment the ones you want to see a demo of.
 RPOrderedTask cognitionTask = RPOrderedTask(
   identifier: 'cognition_demo_task',
   steps: [
-    // reactionTimeStep,
-    pairedAssociatesLearningStep,
-    tappingStep,
-    corsiBlockTapping,
-    stroopEffect,
-    // rapidVisualInfoProcessingStep,
-    // activityStepTrail,
+    // reactionTime,
+    // pairedAssociatesLearning,
+    // tapping,
+    // corsiBlockTapping,
+    // stroopEffect,
+    // rapidVisualInfoProcessing,
+    // trailMaking,
     // continuousVisualTracking,
-    wordRecall,
+    // wordRecall,
     // pictureSequenceMemory,
-    // activityStepLetterTapping,
+    // letterTapping,
     // flanker,
     // visualArrayChange,
     // delayedRecall,
@@ -24,78 +24,70 @@ RPOrderedTask cognitionTask = RPOrderedTask(
   ],
 );
 
-RPCompletionStep completionStep =
-    RPCompletionStep(identifier: 'completionID', title: 'Finished')
-      ..title = 'Finished'
-      ..text = 'Thank you for taking the tests.';
+// Note how steps can be localized by using a translation key and adding
+// the translation to the locale files in the 'assets/lang' folder.
+final completionStep = RPCompletionStep(
+    identifier: 'completion_step',
+    title: 'completion_title',
+    text: 'completion_text');
 
-RPActivityStep tappingStep = RPTappingActivity(
-  identifier: 'Tapping step ID',
-);
+final tapping = RPTappingActivity(identifier: 'tapping_step');
 
-RPActivityStep reactionTimeStep = RPReactionTimeActivity(
-  identifier: 'Reaction Time step ID',
-);
+final reactionTime = RPReactionTimeActivity(identifier: 'reaction_time_step');
 
-RPActivityStep rapidVisualInfoProcessingStep =
-    RPRapidVisualInfoProcessingActivity(
-        identifier: 'RVIP step ID', lengthOfTest: 10);
+final rapidVisualInfoProcessing = RPRapidVisualInfoProcessingActivity(
+    identifier: 'RVIP_step', lengthOfTest: 10);
 
-RPActivityStep activityStepTrail = RPTrailMakingActivity(
-    identifier: 'Trail Making step ID',
+final trailMaking = RPTrailMakingActivity(
+    identifier: 'trail_making_step',
     trailType: TrailType.B,
     includeResults: false);
 
-RPActivityStep activityStepLetterTapping = RPLetterTappingActivity(
-    identifier: 'Letter Tapping step ID', includeResults: false);
+final letterTapping = RPLetterTappingActivity(
+    identifier: 'letter_tapping_step', includeResults: false);
 
-RPActivityStep pairedAssociatesLearningStep =
-    RPPairedAssociatesLearningActivity(
-  identifier: 'PAL step ID',
-);
+final pairedAssociatesLearning =
+    RPPairedAssociatesLearningActivity(identifier: 'PAL_step');
 
-RPActivityStep corsiBlockTapping = RPCorsiBlockTappingActivity(
-  identifier: 'Corsi Block Tapping step ID',
-);
+final corsiBlockTapping =
+    RPCorsiBlockTappingActivity(identifier: 'corsi_block_step');
 
-RPActivityStep stroopEffect = RPStroopEffectActivity(
-  identifier: 'Stroop Effect step ID',
-);
+final stroopEffect = RPStroopEffectActivity(identifier: 'stroop_ffect_step');
 
-RPActivityStep flanker = RPFlankerActivity(
-    identifier: 'Flanker step ID',
-    lengthOfTest: 45 /* 300 */,
+final flanker = RPFlankerActivity(
+    identifier: 'flanker_step',
+    lengthOfTest: 45,
     numberOfCards: 10,
     includeResults: true);
 
-RPActivityStep pictureSequenceMemory = RPPictureSequenceMemoryActivity(
-    identifier: 'PictureSequenceMemory step ID',
+final pictureSequenceMemory = RPPictureSequenceMemoryActivity(
+    identifier: 'PSM_step',
     lengthOfTest: 180,
     numberOfTests: 1,
     numberOfPics: 6,
     includeResults: false);
 
-RPActivityStep wordRecall = RPWordRecallActivity(
-    identifier: 'WordRecall step ID',
+final wordRecall = RPWordRecallActivity(
+    identifier: 'word_recall_step',
     lengthOfTest: 180,
     numberOfTests: 3,
     includeResults: false);
 
-RPActivityStep delayedRecall = RPDelayedRecallActivity(
-    identifier: 'DelayedRecall step ID',
+final delayedRecall = RPDelayedRecallActivity(
+    identifier: 'delayed_recall_step',
     lengthOfTest: 180,
     numberOfTests: 3,
     includeResults: false);
 
-RPActivityStep visualArrayChange = RPVisualArrayChangeActivity(
-    identifier: 'VisualArrayChange step ID',
+final visualArrayChange = RPVisualArrayChangeActivity(
+    identifier: 'VAC_step',
     lengthOfTest: 180,
     numberOfTests: 3,
     waitTime: 3,
     includeResults: false);
 
-RPActivityStep continuousVisualTracking = RPContinuousVisualTrackingActivity(
-    identifier: 'ContinuousVisualTracking step ID',
+final continuousVisualTracking = RPContinuousVisualTrackingActivity(
+    identifier: 'CVT_step',
     numberOfTests: 3,
     amountOfDots: 15,
     dotSize: 40,

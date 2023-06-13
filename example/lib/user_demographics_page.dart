@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cognition_package_demo_app/cognition_page.dart';
 
+/// A page for collecting demographics data from test users.
+///
+/// Only used when this app is used for cognitive testing. Not part
+/// of the demo app.
 class UserDemographicsPage extends StatefulWidget {
   @override
   UserDemographicsPageState createState() => UserDemographicsPageState();

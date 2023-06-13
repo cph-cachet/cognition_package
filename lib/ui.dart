@@ -6,7 +6,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:convert';
 
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:cognition_package/model.dart';
 import 'package:reorderables/reorderables.dart';

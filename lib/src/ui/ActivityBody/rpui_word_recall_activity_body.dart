@@ -176,10 +176,10 @@ class WordRecall extends StatefulWidget {
   final int numberOfTests;
 
   const WordRecall({
-    Key? key,
+    super.key,
     required this.widget,
     required this.numberOfTests,
-  }) : super(key: key);
+  });
 
   @override
   WordRecallState createState() => WordRecallState(widget, numberOfTests);
@@ -193,17 +193,18 @@ class WordRecallState extends State<WordRecall> {
   List<String> resultsList1 = [];
   List<String> resultsList2 = [];
 
-  List<String> wordlist = ['banana', 'icecream', 'violin', 'desk', 'green'];
-  List<String> wordlist2 = ['', '', '', '', ''];
+  List<String> words = ['banana', 'icecream', 'violin', 'desk', 'green'];
+  List<String> wordBuffer = ['', '', '', '', ''];
   bool waiting = false;
   bool guess = false;
   bool finished = false;
   int time = 0;
-  SoundService? soundService;
+
+  final player = AudioPlayer();
 
   WordRecallState(this.sWidget, this.numberOfTests);
 
-  void resetTest() async {
+  Future<void> resetTest() async {
     setState(() {
       seconds = 0;
       waiting = false;
@@ -212,24 +213,18 @@ class WordRecallState extends State<WordRecall> {
     startTest();
   }
 
-  void startTest() async {
+  Future<void> startTest() async {
     setState(() {
       currentNum += 1;
       waiting = true;
     });
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService
-        ?.play('../packages/cognition_package/assets/sounds/BANANA.mp3');
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService
-        ?.play('../packages/cognition_package/assets/sounds/ICECREAM.mp3');
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService
-        ?.play('../packages/cognition_package/assets/sounds/VIOLIN.mp3');
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService?.play('../packages/cognition_package/assets/sounds/DESK.mp3');
-    await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
-    soundService?.play('../packages/cognition_package/assets/sounds/GREEN.mp3');
+
+    for (var word in words) {
+      await Future<dynamic>.delayed(const Duration(milliseconds: 1200));
+      await player.setAsset(
+          '../packages/cognition_package/assets/sounds/${word.toUpperCase()}.mp3');
+      await player.play();
+    }
 
     await Future<dynamic>.delayed(const Duration(seconds: 1));
     setState(() {
@@ -259,16 +254,16 @@ class WordRecallState extends State<WordRecall> {
 
   void makeGuess() {
     if (currentNum > 2) {
-      resultsList2 = wordlist2;
+      resultsList2 = wordBuffer;
       sWidget.eventLogger.testEnded();
       timesTaken.add(seconds);
       timer?.cancel();
       wordRecallScore = sWidget.activity
-          .calculateScore({'wordsList': wordlist, 'resultsList': resultsList2});
+          .calculateScore({'wordsList': words, 'resultsList': resultsList2});
       RPWordRecallResult result =
           RPWordRecallResult(identifier: 'WordRecallResult');
       var taskResults = result.makeResult(
-          wordlist, resultsList1, resultsList2, timesTaken, wordRecallScore);
+          words, resultsList1, resultsList2, timesTaken, wordRecallScore);
 
       sWidget.onResultChange(taskResults.results);
       if (sWidget.activity.includeResults) {
@@ -282,8 +277,8 @@ class WordRecallState extends State<WordRecall> {
         });
       }
     } else {
-      resultsList1 = wordlist2;
-      wordlist2 = ['', '', '', '', ''];
+      resultsList1 = wordBuffer;
+      wordBuffer = ['', '', '', '', ''];
       timesTaken.add(seconds);
       timer?.cancel();
       resetTest();
@@ -293,17 +288,6 @@ class WordRecallState extends State<WordRecall> {
   @override
   initState() {
     super.initState();
-    List<String> alphabet = [
-      'FACE',
-      'VELVET',
-      'CHURCH',
-      'DAISY',
-      'RED',
-    ];
-    soundService = SoundService(alphabet
-        .map(
-            (item) => ('../packages/cognition_package/assets/sounds/$item.mp3'))
-        .toList());
     startTest();
   }
 
@@ -349,7 +333,7 @@ class WordRecallState extends State<WordRecall> {
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
-                              wordlist2[0] = text;
+                              wordBuffer[0] = text;
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
@@ -360,7 +344,7 @@ class WordRecallState extends State<WordRecall> {
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
-                              wordlist2[1] = text;
+                              wordBuffer[1] = text;
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
@@ -371,7 +355,7 @@ class WordRecallState extends State<WordRecall> {
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
-                              wordlist2[2] = text;
+                              wordBuffer[2] = text;
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
@@ -382,7 +366,7 @@ class WordRecallState extends State<WordRecall> {
                         child: TextField(
                             textInputAction: TextInputAction.next,
                             onChanged: (text) {
-                              wordlist2[3] = text;
+                              wordBuffer[3] = text;
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),
@@ -393,7 +377,7 @@ class WordRecallState extends State<WordRecall> {
                         child: TextField(
                             textInputAction: TextInputAction.done,
                             onChanged: (text) {
-                              wordlist2[4] = text;
+                              wordBuffer[4] = text;
                             },
                             decoration: const InputDecoration(
                                 border: OutlineInputBorder()))),

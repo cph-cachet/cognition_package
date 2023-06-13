@@ -138,10 +138,10 @@ class DelayedRecall extends StatefulWidget {
   final int numberOfTests;
 
   const DelayedRecall({
-    Key? key,
+    super.key,
     required this.sWidget,
     required this.numberOfTests,
-  }) : super(key: key);
+  });
 
   @override
   DelayedRecallState createState() =>
@@ -154,13 +154,12 @@ class DelayedRecallState extends State<DelayedRecall> {
   var timesTaken2 = [];
   List<String> resultsList3 = [];
   var timesTaken = [];
-  List<String> wordlist = ['banana', 'icecream', 'violin', 'desk', 'green'];
-  List<String> wordlist2 = ['', '', '', '', ''];
+  List<String> words = ['banana', 'icecream', 'violin', 'desk', 'green'];
+  List<String> wordBuffer = ['', '', '', '', ''];
   bool waiting = false;
   bool guess = false;
   bool finished = false;
   int time = 0;
-  late SoundService soundService;
 
   DelayedRecallState(this.sWidget, this.numberOfTests);
 
@@ -199,14 +198,14 @@ class DelayedRecallState extends State<DelayedRecall> {
     sWidget.eventLogger.testEnded();
     timesTaken.add(seconds);
     timer?.cancel();
-    resultsList3 = wordlist2;
+    resultsList3 = wordBuffer;
     var delayedRecallScore = sWidget.activity
-        .calculateScore({'wordsList': wordlist, 'resultsList': resultsList3});
+        .calculateScore({'wordsList': words, 'resultsList': resultsList3});
 
     RPDelayedRecallResult result =
         RPDelayedRecallResult(identifier: 'DelayedRecallResult');
     var taskResults =
-        result.makeResult(wordlist, resultsList3, seconds, delayedRecallScore);
+        result.makeResult(words, resultsList3, seconds, delayedRecallScore);
 
     sWidget.onResultChange(taskResults.results);
     if (sWidget.activity.includeResults) {
@@ -259,7 +258,7 @@ class DelayedRecallState extends State<DelayedRecall> {
                 child: TextField(
                     textInputAction: TextInputAction.next,
                     onChanged: (text) {
-                      wordlist2[0] = text;
+                      wordBuffer[0] = text;
                     },
                     decoration:
                         const InputDecoration(border: OutlineInputBorder()))),
@@ -270,7 +269,7 @@ class DelayedRecallState extends State<DelayedRecall> {
                 child: TextField(
                     textInputAction: TextInputAction.next,
                     onChanged: (text) {
-                      wordlist2[1] = text;
+                      wordBuffer[1] = text;
                     },
                     decoration:
                         const InputDecoration(border: OutlineInputBorder()))),
@@ -281,7 +280,7 @@ class DelayedRecallState extends State<DelayedRecall> {
                 child: TextField(
                     textInputAction: TextInputAction.next,
                     onChanged: (text) {
-                      wordlist2[2] = text;
+                      wordBuffer[2] = text;
                     },
                     decoration:
                         const InputDecoration(border: OutlineInputBorder()))),
@@ -292,7 +291,7 @@ class DelayedRecallState extends State<DelayedRecall> {
                 child: TextField(
                     textInputAction: TextInputAction.next,
                     onChanged: (text) {
-                      wordlist2[3] = text;
+                      wordBuffer[3] = text;
                     },
                     decoration:
                         const InputDecoration(border: OutlineInputBorder()))),
@@ -303,7 +302,7 @@ class DelayedRecallState extends State<DelayedRecall> {
                 child: TextField(
                     textInputAction: TextInputAction.done,
                     onChanged: (text) {
-                      wordlist2[4] = text;
+                      wordBuffer[4] = text;
                     },
                     decoration:
                         const InputDecoration(border: OutlineInputBorder()))),

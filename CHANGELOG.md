@@ -2,6 +2,8 @@
 
 - Added translation support for English (`en`), Danish (`da`), French (`fr`), and Portuguese (`pt`).
 - Upgrade to research_package 1.4.0 and audioplayers 4.0.0
+- Fix of misc. issues.
+- Update to documentation and example app.
 
 ## 1.4.1
 
