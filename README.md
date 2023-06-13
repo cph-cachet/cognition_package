@@ -66,22 +66,22 @@ There is an [example app](https://github.com/cph-cachet/cognition_package/tree/m
 The cognitive test to be shown in the example app can be configured in the `cognition_config.dart` file:
 
 ```dart
-/// Here the list of cognitive test are added to an RP ordered task.
-/// Uncomment the ones you want to see a demo of.
+// Here the list of cognitive test are added to an RP ordered task.
+// Uncomment the ones you want to see a demo of.
 RPOrderedTask cognitionTask = RPOrderedTask(
   identifier: 'cognition_demo_task',
   steps: [
-    reactionTimeStep,
-    pairedAssociatesLearningStep,
-    tappingStep,
+    reactionTime,
+    pairedAssociatesLearning,
+    tapping,
     corsiBlockTapping,
     stroopEffect,
-    rapidVisualInfoProcessingStep,
-    activityStepTrail,
+    rapidVisualInfoProcessing,
+    trailMaking,
     continuousVisualTracking,
     wordRecall,
     pictureSequenceMemory,
-    activityStepLetterTapping,
+    letterTapping,
     flanker,
     visualArrayChange,
     delayedRecall,
