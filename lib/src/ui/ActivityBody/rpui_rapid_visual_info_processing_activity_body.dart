@@ -148,7 +148,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -158,7 +158,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate(texthint),
+                locale?.translate(texthint) ?? 'Hint',
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -201,7 +201,7 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('ready'),
+                  locale?.translate('ready') ?? 'Ready',
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -216,14 +216,14 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('${locale.translate('sequence')}:',
+                  Text('${locale?.translate('sequence') ?? 'Sequence'}:',
                       style: const TextStyle(fontSize: 24)),
                   Text(seq1s, style: const TextStyle(fontSize: 32)),
                   Container(height: 40),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('${locale.translate('number')}:',
+                      Text('${locale?.translate('number') ?? 'Number'}:',
                           style: const TextStyle(fontSize: 24)),
                       Text('$newNum', style: const TextStyle(fontSize: 40)),
                     ],
@@ -234,16 +234,11 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
                       width: 160,
                       child: OutlinedButton(
                         child: Text(
-                          locale.translate('guess'),
+                          locale?.translate('guess') ?? 'Guess',
                           style: const TextStyle(fontSize: 18),
                         ),
-
-                        // child: const SizedBox(
-                        //   width: 160,
-                        //   height: 80,
-                        // ),
                         onPressed: () {
-                          //on pressed - time is tracked if sequence has actually passed, otherwise no
+                          // time is tracked if sequence has actually passed, otherwise no
                           if (seqPassed) {
                             seqPassed = false;
                             goodTaps++;
@@ -269,10 +264,10 @@ class RPUIRapidVisualInfoProcessingActivityBodyState
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(locale.translate('test_done'),
+                  Text(locale?.translate('test_done') ?? "The test is done.",
                       style: const TextStyle(fontSize: 22)),
                   Text(
-                    '${locale.translate('you_had')} $goodTaps ${locale.translate('rapid_visual_info.correct_taps')} ${locale.translate('and')} $badTaps ${locale.translate('rapid_visual_info.wrong_ones')}.',
+                    '${locale?.translate('you_had') ?? "You had"} $goodTaps ${locale?.translate('rapid_visual_info.correct_taps') ?? "correct guesses"} ${locale?.translate('and') ?? 'and'} $badTaps ${locale?.translate('rapid_visual_info.wrong_ones') ?? "wrong ones"}.',
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 22),
                     overflow: TextOverflow.ellipsis,

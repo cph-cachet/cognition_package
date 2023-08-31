@@ -38,11 +38,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
   /// Build the activity with instructions, test and results
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
-    // print(locale);
-    // print(locale.translate(
-    //     'Find the blue dots on the next screen. These are the targets dots.'));
-    // print(RPLocalizations.of(context)!.locale.languageCode);
+    var locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -51,7 +47,8 @@ class RPUIContinuousVisualTrackingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                locale.translate('visual_tracking.blue_dots'),
+                locale?.translate('visual_tracking.blue_dots') ??
+                    'Find the blue dots on the next screen. These are the targets dots.',
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -61,7 +58,8 @@ class RPUIContinuousVisualTrackingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                locale.translate("visual_tracking.press_start"),
+                locale?.translate("visual_tracking.press_start") ??
+                    "Once ready, press 'Start' and the target dots will turn grey and start moving.",
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -71,7 +69,8 @@ class RPUIContinuousVisualTrackingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                locale.translate('visual_tracking.follow_the_target'),
+                locale?.translate('visual_tracking.follow_the_target') ??
+                    'Follow the blue target dots around the screen.',
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -81,7 +80,9 @@ class RPUIContinuousVisualTrackingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
-                locale.translate('visual_tracking.once_the_dots_stop_moving'),
+                locale?.translate(
+                        'visual_tracking.once_the_dots_stop_moving') ??
+                    'Once the dots stop moving, find and click on the target dots and they will turn into their original blue color.',
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -120,7 +121,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
                   });
                 },
                 child: Text(
-                  locale.translate('ready'),
+                  locale?.translate('ready') ?? 'Ready',
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -141,7 +142,7 @@ class RPUIContinuousVisualTrackingActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('results')}: $continuousVisualTrackingScore',
+            '${locale?.translate('results') ?? 'results'}: $continuousVisualTrackingScore',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -207,13 +208,13 @@ class ContinuousVisualTrackingActivityBodyState
   bool finished = false;
   List<bool> dots = [];
   List<bool> distractors = [];
-  var visualScoreList = [];
+  List<int> visualScoreList = [];
   int conCurrentNum = 1;
 
   // fill list of dots with random values and add 2 to track the correct and wrong answers
   // amount: amount of dots to add
   // constraint: the constraint of the list
-  // avatarsize: the size of the dots
+  // avatarSize: the size of the dots
   List<AnimatedPositioned> getDots(
     int amount,
     int targetAmount,
@@ -399,7 +400,7 @@ class ContinuousVisualTrackingActivityBodyState
   /// Build the main test phase
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
     return Scaffold(
         body: Center(
             child: Column(children: [
@@ -435,7 +436,7 @@ class ContinuousVisualTrackingActivityBodyState
                               startTest();
                             },
                             child: Text(
-                              locale.translate('start'),
+                              locale?.translate('start') ?? 'Start',
                               style: const TextStyle(fontSize: 18),
                             ),
                           ),
@@ -444,12 +445,14 @@ class ContinuousVisualTrackingActivityBodyState
                   : finished
                       ? Center(
                           child: Text(
-                          locale.translate('continue'),
+                          locale?.translate('continue') ??
+                              "Click 'Next' to continue",
                           style: const TextStyle(fontSize: 18),
                         ))
                       : Center(
-                          child: Text(locale
-                              .translate('visual_tracking.press_previously')))))
+                          child: Text(locale?.translate(
+                                  'visual_tracking.press_previously') ??
+                              'Press the dots which previously were blue.'))))
     ])));
   }
 }

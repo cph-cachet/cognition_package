@@ -237,7 +237,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
     //consists of a column with 5 rows of content
     switch (activityStatus) {
       case ActivityStatus.Instruction:
@@ -247,7 +247,8 @@ class RPUIPairedAssociatesLearningActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('paired_associate.screen_with_6_tiles'),
+                locale?.translate('paired_associate.screen_with_6_tiles') ??
+                    "The next screen will shown six tiles. Different figures hiding underneath some of the tiles will be revealed one by one. When all figures under each tile have been revealed, you should click the tile matching the figure in the middle.",
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -283,7 +284,7 @@ class RPUIPairedAssociatesLearningActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('ready'),
+                  locale?.translate('ready') ?? 'Ready',
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -346,10 +347,12 @@ class RPUIPairedAssociatesLearningActivityBodyState
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(locale.translate('test_done'),
+                        Text(
+                            locale?.translate('test_done') ??
+                                "The test is done.",
                             style: const TextStyle(fontSize: 22)),
                         Text(
-                            '${locale.translate('correct')}: $successes, ${locale.translate('wrong')}: $mistakes',
+                            '${locale?.translate('correct') ?? 'Correct'}: $successes, ${locale?.translate('wrong') ?? 'Wrong'}: $mistakes',
                             style: const TextStyle(fontSize: 22)),
                       ]),
                 ]));

@@ -161,12 +161,12 @@ class RPUIStroopEffectActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
     possColorsString = [
-      locale.translate('BLUE'),
-      locale.translate('GREEN'),
-      locale.translate('RED'),
-      locale.translate('YELLOW'),
+      locale?.translate('BLUE') ?? 'BLUE',
+      locale?.translate('GREEN') ?? 'GREEN',
+      locale?.translate('RED') ?? 'RED',
+      locale?.translate('YELLOW') ?? 'YELLOW',
     ];
 
     switch (activityStatus) {
@@ -178,7 +178,8 @@ class RPUIStroopEffectActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('stroop.tap_color'),
+                locale?.translate('stroop.tap_color') ??
+                    "Tap the color of the word you see on screen. For example, tap the box that says 'GREEN' when a green word appears.",
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -214,7 +215,7 @@ class RPUIStroopEffectActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('ready'),
+                  locale?.translate('ready') ?? 'Ready',
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -259,17 +260,17 @@ class RPUIStroopEffectActivityBodyState
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          locale.translate('test_done'),
+                          locale?.translate('test_done') ?? "The test is done.",
                           style: const TextStyle(fontSize: 22),
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          '${locale.translate('stroop.correct_answers')}: $correctTaps',
+                          '${locale?.translate('stroop.correct_answers') ?? "Correct"}: $correctTaps',
                           style: const TextStyle(fontSize: 22),
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          '${locale.translate('stroop.mistakes_made')}: $mistakes',
+                          '${locale?.translate('stroop.mistakes_made') ?? "Wrong"}: $mistakes',
                           style: const TextStyle(fontSize: 22),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 20,
@@ -281,7 +282,6 @@ class RPUIStroopEffectActivityBodyState
   }
 
   Widget _makeButton(int buttonNum) {
-    //make material buttons for possible colors
     String buttonCode = possColorsString[buttonNum];
     return (SizedBox(
         height: 75,

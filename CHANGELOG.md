@@ -1,6 +1,7 @@
-## 1.5.0
+## 1.5.1
 
 - Added translation support for English (`en`), Danish (`da`), French (`fr`), and Portuguese (`pt`).
+- Fix of misc. null check bugs
 - Upgrade to research_package 1.3.2
 - Fix of misc. issues.
 - Update to documentation and example app.
