@@ -110,7 +110,7 @@ class RPUIReactionTimeActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -120,7 +120,8 @@ class RPUIReactionTimeActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('reaction_time.tap_screen_green'),
+                locale?.translate('reaction_time.tap_screen_green') ??
+                    "Tap the screen as fast as possible when it turns from red to green.",
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 5,
@@ -162,7 +163,7 @@ class RPUIReactionTimeActivityBodyState
                   lightRegulator();
                 },
                 child: Text(
-                  locale.translate('ready'),
+                  locale?.translate('ready') ?? 'Ready',
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -199,7 +200,9 @@ class RPUIReactionTimeActivityBodyState
                           widget.eventLogger.addWrongGesture('Wrong Screen Tap',
                               'Tapped the screen before the screen was green');
                           setState(() {
-                            alert = locale.translate('reaction_time.too_quick');
+                            alert =
+                                locale?.translate('reaction_time.too_quick') ??
+                                    "Not so quick.";
                           });
                           await Future<dynamic>.delayed(
                               const Duration(seconds: 1)); //display feedback
@@ -234,7 +237,7 @@ class RPUIReactionTimeActivityBodyState
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  '${locale.translate('reaction_time.time_up')} $result ${locale.translate('reaction_time.final_score')}',
+                  '${locale?.translate('reaction_time.time_up') ?? "Time is up."} $result ${locale?.translate('reaction_time.final_score') ?? "is your average reaction time (in milliseconds)."}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 22),
                   overflow: TextOverflow.ellipsis,

@@ -139,7 +139,7 @@ class RPUILetterTappingActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -149,7 +149,8 @@ class RPUILetterTappingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('letter_tapping.turn_on_sound'),
+                locale?.translate('letter_tapping.turn_on_sound') ??
+                    "Turn your sound on.",
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -159,7 +160,8 @@ class RPUILetterTappingActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('letter_tapping.tap_A_button'),
+                locale?.translate('letter_tapping.tap_A_button') ??
+                    "Then, tap the button on the next screen, whenever you hear the letter 'A' being said.",
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 20,
@@ -195,7 +197,7 @@ class RPUILetterTappingActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('ready'),
+                  locale?.translate('ready') ?? 'Ready',
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -274,7 +276,7 @@ class RPUILetterTappingActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('you_had')} $errors ${locale.translate('mistakes')}',
+            '${locale?.translate('you_had') ?? 'You had'} $errors ${locale?.translate('mistakes') ?? 'mistakes'}',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),

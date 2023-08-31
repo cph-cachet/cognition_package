@@ -1,3 +1,7 @@
+## 1.6.0
+
+- fix of misc. null check bugs
+
 ## 1.5.0
 
 - Added translation support for English (`en`), Danish (`da`), French (`fr`), and Portuguese (`pt`).

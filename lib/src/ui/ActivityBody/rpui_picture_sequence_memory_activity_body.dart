@@ -59,7 +59,7 @@ class RPUIPictureSequenceMemoryActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -68,7 +68,8 @@ class RPUIPictureSequenceMemoryActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('picture_sequence.memorize_order'),
+                locale?.translate('picture_sequence.memorize_order') ??
+                    "In this test you should memorize the order of six images.",
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -82,16 +83,18 @@ class RPUIPictureSequenceMemoryActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text: locale
-                              .translate('picture_sequence.once_memorized'),
+                          text: locale?.translate(
+                                  'picture_sequence.once_memorized') ??
+                              "Once memorized click the",
                           style: const TextStyle(fontSize: 16)),
                       TextSpan(
-                          text: " '${locale.translate('start')}' ",
+                          text: " '${locale?.translate('start') ?? 'Start'}' ",
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       TextSpan(
-                          text: locale.translate(
-                              'picture_sequence.images_change_positions'),
+                          text: locale?.translate(
+                                  'picture_sequence.images_change_positions') ??
+                              "button and the images will change positions.",
                           style: const TextStyle(fontSize: 16)),
                     ]),
                 overflow: TextOverflow.ellipsis,
@@ -106,11 +109,12 @@ class RPUIPictureSequenceMemoryActivityBodyState
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
                       TextSpan(
-                          text: locale
-                              .translate('picture_sequence.drag_and_drop'),
+                          text: locale?.translate(
+                                  'picture_sequence.drag_and_drop') ??
+                              "Drag and drop the images to their original positions and press",
                           style: const TextStyle(fontSize: 16)),
                       TextSpan(
-                          text: " '${locale.translate('guess')}'.",
+                          text: " '${locale?.translate('guess') ?? 'Guess'}'.",
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                     ]),
@@ -138,7 +142,7 @@ class RPUIPictureSequenceMemoryActivityBodyState
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
-                  locale.translate('ready'),
+                  locale?.translate('ready') ?? 'Ready',
                   style: const TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
@@ -163,7 +167,7 @@ class RPUIPictureSequenceMemoryActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('results')}: $pictureSequenceScore',
+            '${locale?.translate('results') ?? 'results'}: $pictureSequenceScore',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -201,10 +205,10 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   bool finished = false;
   int time = 0;
 
-  var pictureScoreList = [];
-  var pictureTimesList = [];
-  var pictureMovesList = [];
-  var memorySecondList = [];
+  List<int> pictureScoreList = [];
+  List<int> pictureTimesList = [];
+  List<int> pictureMovesList = [];
+  List<int> memorySecondList = [];
   var picCurrentNum = 1;
   var pictureScore = 0;
   var moves = 0;
@@ -226,7 +230,11 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   ];
 
   PictureSequenceMemoryState(
-      this.sWidget, this.numberOfTestsPIC, this.numberOfPics);
+    this.sWidget,
+    this.numberOfTestsPIC,
+    this.numberOfPics,
+  );
+
   ScrollController scrollController = ScrollController();
 
   List<Picture> getPictures(int start, int end, int num) => List.generate(
@@ -433,7 +441,7 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
 
     void onReorder(int oldIndex, int newIndex) {
       setState(() {
@@ -466,14 +474,14 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
                 ? Center(child: wrap)
                 : Center(
                     child: Text(
-                    locale.translate('wait'),
+                    locale?.translate('wait') ?? 'Wait',
                     style: const TextStyle(fontSize: 25),
                   ))
             : !waiting
                 ? Center(child: wrap)
                 : Center(
                     child: Text(
-                    locale.translate('wait'),
+                    locale?.translate('wait') ?? 'Wait',
                     style: const TextStyle(fontSize: 25),
                   )),
       ),
@@ -499,7 +507,7 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
                         startTest();
                       },
                       child: Text(
-                        locale.translate('start'),
+                        locale?.translate('start') ?? 'Start',
                         style: const TextStyle(fontSize: 18),
                       ),
                     ),
@@ -507,7 +515,7 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
             : finished
                 ? Center(
                     child: Text(
-                    locale.translate('continue'),
+                    locale?.translate('continue') ?? "Click 'Next' to continue",
                     style: const TextStyle(fontSize: 18),
                   ))
                 : OutlinedButton(
@@ -526,7 +534,7 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
                       makeGuess();
                     },
                     child: Text(
-                      locale.translate('guess'),
+                      locale?.translate('guess') ?? 'Guess',
                       style: const TextStyle(fontSize: 18),
                     ),
                   ),

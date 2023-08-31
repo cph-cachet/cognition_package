@@ -42,7 +42,7 @@ class RPUIDelayedRecallActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -51,7 +51,8 @@ class RPUIDelayedRecallActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('delayed_recall.remember_words'),
+                locale?.translate('delayed_recall.remember_words') ??
+                    'Can you remember the words you recalled from the listening exercise earlier?',
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -66,10 +67,10 @@ class RPUIDelayedRecallActivityBodyState
                     children: <TextSpan>[
                       TextSpan(
                           text:
-                              '${locale.translate('delayed_recall.remember_write')} ',
+                              '${locale?.translate('delayed_recall.remember_write') ?? 'Please write down the words you recall now and click'} ',
                           style: const TextStyle(fontSize: 16)),
                       TextSpan(
-                          text: " '${locale.translate('guess')}'.",
+                          text: " '${locale?.translate('guess') ?? 'Guess'}'.",
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                     ]),
@@ -98,7 +99,7 @@ class RPUIDelayedRecallActivityBodyState
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
-                  locale.translate('ready'),
+                  locale?.translate('ready') ?? 'Ready',
                   style: const TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
@@ -122,7 +123,7 @@ class RPUIDelayedRecallActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('results')}: $score',
+            '${locale?.translate('results') ?? 'results'}: $score',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
@@ -151,9 +152,9 @@ class DelayedRecall extends StatefulWidget {
 class DelayedRecallState extends State<DelayedRecall> {
   final RPUIDelayedRecallActivityBody sWidget;
   final int numberOfTests;
-  var timesTaken2 = [];
+  final List<int> timesTaken = [];
+  final List<int> timesTaken2 = [];
   List<String> resultsList3 = [];
-  var timesTaken = [];
   List<String> words = ['banana', 'icecream', 'violin', 'desk', 'green'];
   List<String> wordBuffer = ['', '', '', '', ''];
   bool waiting = false;
@@ -234,7 +235,7 @@ class DelayedRecallState extends State<DelayedRecall> {
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
     return Scaffold(
         body: Center(
             child: Column(children: [
@@ -247,7 +248,8 @@ class DelayedRecallState extends State<DelayedRecall> {
                 padding: const EdgeInsets.only(left: 25, bottom: 10, top: 20),
                 child: Row(children: <Widget>[
                   Text(
-                    locale.translate('delayed_recall.enter_words'),
+                    locale?.translate('delayed_recall.enter_words') ??
+                        'Enter the words you recall.',
                     style: const TextStyle(fontSize: 16),
                     textAlign: TextAlign.left,
                   )
@@ -315,7 +317,7 @@ class DelayedRecallState extends State<DelayedRecall> {
         child: finished
             ? Center(
                 child: Text(
-                locale.translate('continue'),
+                locale?.translate('continue') ?? "Click 'Next' to continue",
                 style: const TextStyle(fontSize: 18),
               ))
             : OutlinedButton(
@@ -333,7 +335,7 @@ class DelayedRecallState extends State<DelayedRecall> {
                   makeGuess();
                 },
                 child: Text(
-                  locale.translate('guess'),
+                  locale?.translate('guess') ?? 'Guess',
                   style: const TextStyle(fontSize: 18),
                 ),
               ),

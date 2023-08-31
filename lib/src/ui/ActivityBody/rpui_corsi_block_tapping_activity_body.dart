@@ -127,7 +127,7 @@ class RPUICorsiActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context)!;
+    var locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -136,7 +136,8 @@ class RPUICorsiActivityBodyState
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                locale.translate('corsi_block.9_tiles'),
+                locale?.translate('corsi_block.9_tiles') ??
+                    "On the following screen, you will see 9 tiles. Some of the tiles will be highlighted in a specific order. When the light in the top of the screen is green, and reads 'Go', you should press the tiles in the same order as they were highlighted. As the test progress, more and more tiles are highlighted.",
                 style: const TextStyle(fontSize: 16),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 10,
@@ -177,7 +178,7 @@ class RPUICorsiActivityBodyState
                   startTest();
                 },
                 child: Text(
-                  locale.translate('ready'),
+                  locale?.translate('ready') ?? 'Ready',
                   style: const TextStyle(fontSize: 18),
                 ),
               ),
@@ -223,7 +224,7 @@ class RPUICorsiActivityBodyState
       case ActivityStatus.Result:
         return Center(
           child: Text(
-            '${locale.translate('corsi_block.span')} $corsiSpan',
+            '${locale?.translate('corsi_block.span') ?? "Your Corsi Span was"} $corsiSpan',
             style: const TextStyle(fontSize: 22),
             textAlign: TextAlign.center,
           ),
