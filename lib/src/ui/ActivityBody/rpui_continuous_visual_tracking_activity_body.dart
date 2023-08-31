@@ -213,7 +213,7 @@ class ContinuousVisualTrackingActivityBodyState
   // fill list of dots with random values and add 2 to track the correct and wrong answers
   // amount: amount of dots to add
   // constraint: the constraint of the list
-  // avatarsize: the size of the dots
+  // avatarSize: the size of the dots
   List<AnimatedPositioned> getDots(
     int amount,
     int targetAmount,
