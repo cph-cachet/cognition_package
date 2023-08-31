@@ -1,10 +1,10 @@
 name: cognition_package_demo_app
 description: A demo application for the Cognition Package
 publish_to: none
-version: 1.5.0
+version: 1.5.1
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=3.0.6 <4.0.0'
   flutter: ">=3.0.0"
 
 dependencies:
