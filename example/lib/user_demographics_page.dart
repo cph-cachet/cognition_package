@@ -7,6 +7,8 @@ import 'package:cognition_package_demo_app/cognition_page.dart';
 /// Only used when this app is used for cognitive testing. Not part
 /// of the demo app.
 class UserDemographicsPage extends StatefulWidget {
+  const UserDemographicsPage({super.key});
+
   @override
   UserDemographicsPageState createState() => UserDemographicsPageState();
 }
@@ -33,7 +35,7 @@ class UserDemographicsPageState extends State<UserDemographicsPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Column(
+            const Column(
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(left: 60, right: 60, top: 40),
@@ -47,7 +49,7 @@ class UserDemographicsPageState extends State<UserDemographicsPage> {
             ),
             Column(
               children: <Widget>[
-                Padding(
+                const Padding(
                     padding: EdgeInsets.only(left: 25, bottom: 10, top: 20),
                     child: Row(children: <Widget>[
                       Text(
@@ -57,7 +59,8 @@ class UserDemographicsPageState extends State<UserDemographicsPage> {
                       )
                     ])),
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
                     child: TextField(
                       onChanged: (text) {
                         name = text;
@@ -66,7 +69,7 @@ class UserDemographicsPageState extends State<UserDemographicsPage> {
                           border: OutlineInputBorder(),
                           hintText: 'Enter your name'),
                     )),
-                Padding(
+                const Padding(
                     padding: EdgeInsets.only(left: 25, bottom: 10, top: 20),
                     child: Row(children: <Widget>[
                       Text(
@@ -76,10 +79,11 @@ class UserDemographicsPageState extends State<UserDemographicsPage> {
                       )
                     ])),
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
                     child: TextField(
                       keyboardType:
-                          TextInputType.numberWithOptions(signed: true),
+                          const TextInputType.numberWithOptions(signed: true),
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                       ],
@@ -90,7 +94,7 @@ class UserDemographicsPageState extends State<UserDemographicsPage> {
                           border: OutlineInputBorder(),
                           hintText: 'Enter your age'),
                     )),
-                Padding(
+                const Padding(
                     padding: EdgeInsets.only(left: 25, bottom: 10, top: 20),
                     child: Row(children: <Widget>[
                       Text(
@@ -100,7 +104,8 @@ class UserDemographicsPageState extends State<UserDemographicsPage> {
                       )
                     ])),
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
                     child: TextField(
                       onChanged: (loc) {
                         location = loc;
@@ -116,10 +121,10 @@ class UserDemographicsPageState extends State<UserDemographicsPage> {
               padding: const EdgeInsets.only(top: 25, bottom: 5),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xffC32C39),
+                  backgroundColor: const Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                 ),
-                child: Text(
+                child: const Text(
                   'Continue to Survey',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -137,13 +142,13 @@ class UserDemographicsPageState extends State<UserDemographicsPage> {
                 padding: const EdgeInsets.only(bottom: 20, left: 25, right: 25),
                 child: Column(
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'By continuing I confirm that I have read and agree to this',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16),
                     ),
                     Container(height: 5),
-                    Text(
+                    const Text(
                       'informed consent',
                       textAlign: TextAlign.center,
                       style: TextStyle(

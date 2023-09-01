@@ -10,10 +10,12 @@ Future main() async {
   // Needed if you load a cognition configuration from a json file
   CognitionPackage.ensureInitialized();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,24 +56,26 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       title: 'Cognition Package Demo',
-      home: MyHomePage(),
+      home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var locale = RPLocalizations.of(context);
 
     return Scaffold(
-      backgroundColor: Color(0xff003F6E),
+      backgroundColor: const Color(0xff003F6E),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -92,16 +96,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     Text(
                       locale?.translate("home.welcome") ?? "Welcome",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     Container(height: 5),
                     Text(
                       locale?.translate("home.questions") ?? "Questions?",
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     Container(height: 5),
-                    Text(
+                    const Text(
                       "cph_cachet@gmail.com",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -116,16 +120,16 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.only(top: 50),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xffC32C39),
+                  backgroundColor: const Color(0xffC32C39),
                   fixedSize: const Size(300, 60),
                 ),
                 child: Text(
                   locale?.translate("home.start") ?? "Get started",
-                  style: TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute<dynamic>(
-                      builder: (context) => CognitionPage()));
+                      builder: (context) => const CognitionPage()));
                 },
               ),
             ),

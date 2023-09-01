@@ -92,5 +92,5 @@ final continuousVisualTracking = RPContinuousVisualTrackingActivity(
     amountOfDots: 15,
     dotSize: 40,
     lengthOfTest: 180,
-    trackingSpeed: Duration(seconds: 5),
+    trackingSpeed: const Duration(seconds: 5),
     includeResults: false);

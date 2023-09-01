@@ -1,3 +1,7 @@
+## 1.5.2
+
+- PR #18 (translations to Portuguese)
+
 ## 1.5.1
 
 - Added translation support for English (`en`), Danish (`da`), French (`fr`), and Portuguese (`pt`).
