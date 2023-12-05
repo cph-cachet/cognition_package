@@ -40,7 +40,7 @@
     "picture_sequence.once_memorized": "Une fois mémorisé cliquez sur le",
     "picture_sequence.images_change_positions": "et les images changeront de position.",
     "picture_sequence.drag_and_drop": "Faites glisser et déposez les images à leurs positions d'origine et appuyez sur",
-    "rapid_visual_info.tap_button": "L'écran suivant affichera une séquence de trois chiffres. Ci-dessous une série de chiffres seront affichés, un par un. Vous devez appuyer sur le bouton lorsque les trois chiffres de la séquence ont été affichés dans le bon ordre.",
+    "rapid_visual_info.tap_button": "L'écran suivant affiche une séquence de trois chiffres. En dessous, une série de chiffres sera affichée, un par un. Vous devez appuyer sur le bouton lorsque les trois chiffres de la séquence ont été affichés dans le même ordre que celui de la séquence. Ces chiffres ne vont pas forcément apparaître de manière successive.",
     "rapid_visual_info.correct_taps": "suppositions correctes",
     "rapid_visual_info.wrong_ones": "les mauvais",
     "reaction_time.tap_screen_green": "Touchez l'écran aussi vite que possible lorsqu'il passe du rouge au vert.",

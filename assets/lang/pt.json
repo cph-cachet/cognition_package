@@ -40,7 +40,7 @@
     "picture_sequence.once_memorized": "Uma vez memorizada, clique em",
     "picture_sequence.images_change_positions": "botão e as imagens mudarão de posição.",
     "picture_sequence.drag_and_drop": "Arraste e largue as imagens para as suas posições originais e prima o botão",
-    "rapid_visual_info.tap_button": "O próximo ecrã mostrará uma sequência de três números. Em baixo será mostrada uma série de números, um por um. Deverá pressionar o botão quando todos os três números da sequência forem exibidos na ordem correta.",
+    "rapid_visual_info.tap_button": "O ecrã seguinte mostrará uma sequência de três números. Em baixo, será apresentada uma série de números, um a um. Deverá premir o botão quando os três números da sequência anterior tiverem sido apresentados pela mesma ordem que na sequência. Poderão aparecer outros números a meio da sequência.",
     "rapid_visual_info.correct_taps": "cliques corretos",
     "rapid_visual_info.wrong_ones": "erros",
     "reaction_time.tap_screen_green": "Toque no ecrã sempre que este mudar de vermelho para verde, o mais rapidamente possível.",

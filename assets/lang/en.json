@@ -40,7 +40,7 @@
   "picture_sequence.once_memorized": "Once memorized click the",
   "picture_sequence.images_change_positions": "button and the images will change positions.",
   "picture_sequence.drag_and_drop": "Drag and drop the images to their original positions and press",
-  "rapid_visual_info.tap_button": "The next screen will show a sequence of three numbers. Below a series of numbers will be shown, one by one. You should press the button when all the three numbers in the sequence have been shown in the correct order.",
+  "rapid_visual_info.tap_button": "The next screen will show a sequence of three numbers. Below, a series of numbers will be shown, one by one. You should press the button when all three numbers in the sequence above have been shown in the same order as the one in the sequence above. Some other numbers can appear in the middle of the sequence.",
   "rapid_visual_info.correct_taps": "correct guesses",
   "rapid_visual_info.wrong_ones": "wrong ones",
   "reaction_time.tap_screen_green": "Tap the screen as fast as possible when it turns from red to green.",
