@@ -63,7 +63,7 @@
     "visual_array.different": "Différent",
     "word_recall.turn_on_sound": "Activez le son pour cette tâche.",
     "word_recall.list_of_words": "Une liste de mots sera lue à haute voix en anglais. Essayez de mémoriser la liste de mots.",
-    "word_recall.asked_to_recall": "Après que les mots ont été lus à voix haute, vous devrez les rappeler.",
-    "word_recall.write_words": "Écrivez les mots que vous vous souvenez dans les cases dans n'importe quel ordre et cliquez sur",
+    "word_recall.asked_to_recall": "Après que les mots aient été lus à voix haute, vous devrez les rappeler.",
+    "word_recall.write_words": "Écrivez les mots dont vous vous souvenez dans les cases dans n'importe quel ordre et cliquez sur",
     "word_recall.listen": "Ècouter"
 }
