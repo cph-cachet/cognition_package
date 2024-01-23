@@ -34,6 +34,7 @@ class RPUICorsiActivityBodyState
   bool failedLast = false;
   String taskInfo = '';
   int numberOfBlocks = 2;
+  var locale;
 
   @override
   initState() {
@@ -51,7 +52,7 @@ class RPUICorsiActivityBodyState
 
   void startTest() async {
     setState(() {
-      taskInfo = 'Wait';
+      taskInfo = locale?.translate('corsi_block.wait') ?? "Wait";
       readyForTap = false;
       tapOrder.clear();
       blocks.shuffle();
@@ -69,7 +70,7 @@ class RPUICorsiActivityBodyState
       setState(() {
         highlightedBlockID = 500;
         readyForTap = true;
-        taskInfo = 'Go';
+        taskInfo = locale?.translate('corsi_block.go') ?? 'Go';
       });
     }
   }
@@ -89,7 +90,7 @@ class RPUICorsiActivityBodyState
           widget.eventLogger.addWrongGesture('Button tap',
               'Test Finished after second fail - Tapped the order: $tapOrder. The correct order was: ${blocks.getRange(0, numberOfBlocks)}');
           setState(() {
-            taskInfo = 'Finished';
+            taskInfo = locale?.translate('corsi_block.finished') ?? 'Finished';
           });
           await Future<dynamic>.delayed(const Duration(milliseconds: 700));
           widget.onResultChange(corsiSpan);
@@ -105,7 +106,7 @@ class RPUICorsiActivityBodyState
               'Failed first try - Tapped the order: $tapOrder. The correct order was: ${blocks.getRange(0, numberOfBlocks)}');
           failedLast = true;
           setState(() {
-            taskInfo = 'Try again';
+            taskInfo = locale?.translate('corsi_block.try_again') ?? 'Try again';
           });
           await Future<dynamic>.delayed(const Duration(milliseconds: 700));
           startTest();
@@ -115,7 +116,7 @@ class RPUICorsiActivityBodyState
             'Succeeded test in ${!failedLast ? 'first' : 'second'} try. Tap order was: $tapOrder');
         setState(() {
           failedLast = false;
-          taskInfo = 'Well done';
+          taskInfo = locale?.translate('corsi_block.well_done') ?? 'Well done!';
         });
         corsiSpan = numberOfBlocks;
         numberOfBlocks++;
@@ -127,7 +128,7 @@ class RPUICorsiActivityBodyState
 
   @override
   Widget build(BuildContext context) {
-    var locale = CPLocalizations.of(context);
+    locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -149,11 +150,13 @@ class RPUICorsiActivityBodyState
               child: Container(
                 height: MediaQuery.of(context).size.height / 2.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: AssetImage(
-                            'packages/cognition_package/assets/images/Corsiintro.png'))),
+                        // todo use locale to determine which image to use. but how in CPLocalizations?
+                        image: locale?.translate('corsi_block.go')  == 'Démarrer'? AssetImage(
+                            'packages/cognition_package/assets/images/corsi_fr.png'): AssetImage(
+                            'packages/cognition_package/assets/images/corsi_en.png'))),
               ),
             ),
             SizedBox(
@@ -193,7 +196,7 @@ class RPUICorsiActivityBodyState
             children: [
               Container(
                 height: 70,
-                width: 200,
+                width: 400,
                 color: readyForTap ? Colors.green : Colors.red,
                 child: Center(
                   child: Text(
