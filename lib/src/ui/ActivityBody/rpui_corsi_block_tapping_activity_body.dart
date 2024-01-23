@@ -154,7 +154,7 @@ class RPUICorsiActivityBodyState
                     image: DecorationImage(
                         fit: BoxFit.fill,
                         // todo use locale to determine which image to use. but how in CPLocalizations?
-                        image: locale?.translate('corsi_block.go')  == 'Démarrer'? AssetImage(
+                        image: locale?.translate('corsi_block.go')  == 'Allez-y'? AssetImage(
                             'packages/cognition_package/assets/images/corsi_fr.png'): AssetImage(
                             'packages/cognition_package/assets/images/corsi_en.png'))),
               ),
