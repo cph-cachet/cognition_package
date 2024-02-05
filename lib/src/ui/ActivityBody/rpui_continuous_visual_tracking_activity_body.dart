@@ -175,14 +175,14 @@ class ContinuousVisualTrackingActivityBody extends StatefulWidget {
 
   /// the [continuousVisualTrackingActivityBody] constructor
   const ContinuousVisualTrackingActivityBody({
-    Key? key,
+    super.key,
     required this.topLevelWidget,
     required this.numberOfTests,
     required this.amountOfDots,
     required this.amountOfTargets,
     required this.dotSize,
     required this.trackingSpeed,
-  }) : super(key: key);
+  });
 
   @override
   ContinuousVisualTrackingActivityBodyState createState() =>
@@ -370,12 +370,10 @@ class ContinuousVisualTrackingActivityBodyState
 
       continuousVisualTrackingScore =
           sWidget.activity.calculateScore({'mistakes': mistakes});
-
       RPVisualTrackingResult visualTrackingResult =
-          RPVisualTrackingResult(identifier: 'visualTrackingTaskResult');
-      var taskResults = visualTrackingResult.makeResult(
-          mistakes, visualScoreList, continuousVisualTrackingScore);
-      sWidget.onResultChange(taskResults.results);
+          RPVisualTrackingResult.fromResults(
+              mistakes, visualScoreList, continuousVisualTrackingScore);
+      sWidget.onResultChange(visualTrackingResult.results);
       if (sWidget.activity.includeResults) {
         sWidget.eventLogger.resultsShown();
         setState(() {

@@ -22,7 +22,7 @@ class RPFlankerActivity extends RPActivityStep {
     dynamic Function(dynamic) onResultChange,
     RPActivityEventLogger eventLogger,
   ) =>
-      RPUIFlankerActivityBody(this, eventLogger, onResultChange);
+      RPUIFlankerActivity(this, eventLogger, onResultChange);
 
   /// The result is the number of mistakes made during the test.
   /// If the number of mistakes > 2, the test is failed and a score of 0 is

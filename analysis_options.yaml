@@ -18,4 +18,5 @@ linter:
     avoid_print: false
     file_names: false
     no_logic_in_create_state: false
+    use_string_in_part_of_directives: false
 

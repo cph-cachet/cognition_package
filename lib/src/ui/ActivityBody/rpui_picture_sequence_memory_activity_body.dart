@@ -183,11 +183,10 @@ class PictureSequenceMemory extends StatefulWidget {
   final int numberOfTests;
   final int numberOfPics;
   const PictureSequenceMemory(
-      {Key? key,
+      {super.key,
       required this.sWidget,
       required this.numberOfTests,
-      required this.numberOfPics})
-      : super(key: key);
+      required this.numberOfPics});
 
   @override
   PictureSequenceMemoryState createState() =>
@@ -368,10 +367,7 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
 
       pictureSequenceScore =
           sWidget.activity.calculateScore({'pairs': pictureScoreList});
-
-      RPPictureSequenceResult pictureSequenceResult =
-          RPPictureSequenceResult(identifier: 'PictureSequenceResult');
-      var taskResults = pictureSequenceResult.makeResult(
+      var pictureSequenceResult = RPPictureSequenceResult.fromResults(
           pictureMovesList,
           pictureScoreList,
           pictureTimesList,
@@ -380,7 +376,7 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
           original,
           pictures);
 
-      sWidget.onResultChange(taskResults.results);
+      sWidget.onResultChange(pictureSequenceResult.results);
 
       if (sWidget.activity.includeResults) {
         picTimer?.cancel();

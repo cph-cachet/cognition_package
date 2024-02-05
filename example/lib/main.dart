@@ -125,7 +125,7 @@ class MyHomePageState extends State<MyHomePage> {
                 ),
                 child: Text(
                   locale?.translate("home.start") ?? "Get started",
-                  style: const TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18, color: Colors.white),
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute<dynamic>(

@@ -1,3 +1,8 @@
+## 1.5.4
+
+- Small updates to translations
+- Fix of cumulative results in Flanker task (issue [#158](https://github.com/cph-cachet/carp-studies-app/issues/158))
+
 ## 1.5.2
 
 - PR #18 (translations to Portuguese)

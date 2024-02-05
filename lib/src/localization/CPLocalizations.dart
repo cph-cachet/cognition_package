@@ -13,7 +13,7 @@ class CPLocalizations extends AssetLocalizations {
   static const String assetPath = 'cognition_package/assets/lang';
 
   /// Create a localization based on [locale].
-  CPLocalizations(Locale locale) : super(locale);
+  CPLocalizations(super.locale);
 
   /// Returns the localized resources object of type [CPLocalizations] for the
   /// widget tree that corresponds to the given [context].

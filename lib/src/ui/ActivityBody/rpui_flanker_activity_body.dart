@@ -1,19 +1,19 @@
 part of cognition_package_ui;
 
-/// The [RPUIFlankerActivityBody] class defines the UI for the
+/// The [RPUIFlankerActivity] class defines the UI for the
 /// instructions and test phase of the continuous visual tracking task.
-class RPUIFlankerActivityBody extends StatefulWidget {
-  /// The [RPUIFlankerActivityBody] activity.
+class RPUIFlankerActivity extends StatefulWidget {
+  /// The [RPUIFlankerActivity] activity.
   final RPFlankerActivity activity;
 
-  /// The results function for the [RPUIFlankerActivityBody].
+  /// The results function for the [RPUIFlankerActivity].
   final void Function(dynamic) onResultChange;
 
-  /// the [RPActivityEventLogger] for the [RPUIFlankerActivityBody].
+  /// the [RPActivityEventLogger] for the [RPUIFlankerActivity].
   final RPActivityEventLogger eventLogger;
 
-  /// The [RPUIFlankerActivityBody] constructor.
-  const RPUIFlankerActivityBody(
+  /// The [RPUIFlankerActivity] constructor.
+  const RPUIFlankerActivity(
     this.activity,
     this.eventLogger,
     this.onResultChange, {
@@ -21,11 +21,23 @@ class RPUIFlankerActivityBody extends StatefulWidget {
   });
 
   @override
-  RPUIFlankerActivityBodyState createState() => RPUIFlankerActivityBodyState();
+  RPUIFlankerActivityState createState() => RPUIFlankerActivityState();
 }
 
-class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
+class RPUIFlankerActivityState extends State<RPUIFlankerActivity> {
   ActivityStatus activityStatus = ActivityStatus.Instruction;
+
+  /// Score counter for the flanker task used in [RPUIFlankerActivity]
+  int flankerScore = 0;
+
+  /// Counter for the wrong swipes in the flanker task used in [RPUIFlankerActivity]
+  int wrongSwipe = 0;
+
+  /// Counter for the right swipes in the flanker task used in [RPUIFlankerActivity]
+  int rightSwipe = 0;
+
+  List<int> congruentTimes = [];
+  List<int> incongruentTimes = [];
 
   @override
   initState() {
@@ -82,27 +94,21 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       if (mounted) {
         widget.eventLogger.testEnded();
-        print("flanker scoring begins 2");
         var flankerScore = widget.activity.calculateScore({
           'mistakes': wrongSwipe,
           'correct': rightSwipe,
           'congruentTimes': congruentTimes,
           'incongruentTimes': incongruentTimes
         });
-        print("done the score");
-        RPFlankerResult flankerResult =
-            RPFlankerResult(identifier: 'FlankerTaskResult');
-        var taskResults = flankerResult.makeResult(
+        var flankerResult = RPFlankerResult.fromResults(
             wrongSwipe, rightSwipe, seconds, flankerScore);
         testTimer?.cancel();
         flankerTimer?.cancel();
         seconds = 0;
-        widget.onResultChange(taskResults.results);
+        widget.onResultChange(flankerResult.results);
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
-          setState(() {
-            activityStatus = ActivityStatus.Result;
-          });
+          setState(() => activityStatus = ActivityStatus.Result);
         }
       }
     });
@@ -122,26 +128,20 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
       flankerScore = 0;
       if (mounted) {
         widget.eventLogger.testEnded();
-        print("flanker scoring begins 3");
         var flankerScore = widget.activity.calculateScore({
           'mistakes': wrongSwipe,
           'correct': rightSwipe,
           'congruentTimes': congruentTimes,
           'incongruentTimes': incongruentTimes
         });
-        print("done the score");
-        RPFlankerResult flankerResult =
-            RPFlankerResult(identifier: 'FlankerTaskResult');
-        var taskResults = flankerResult.makeResult(
+        var flankerResult = RPFlankerResult.fromResults(
             wrongSwipe, rightSwipe, seconds, flankerScore);
         testTimer?.cancel();
         flankerTimer?.cancel();
-        widget.onResultChange(taskResults.results);
+        widget.onResultChange(flankerResult.results);
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
-          setState(() {
-            activityStatus = ActivityStatus.Result;
-          });
+          setState(() => activityStatus = ActivityStatus.Result);
         }
       }
     }
@@ -230,7 +230,7 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
           body: Center(
               child: Flanker(
                   numberOfCards: widget.activity.numberOfCards,
-                  parentClass: this)),
+                  flankerState: this)),
         );
       case ActivityStatus.Result:
         return Center(
@@ -246,32 +246,26 @@ class RPUIFlankerActivityBodyState extends State<RPUIFlankerActivityBody> {
   }
 }
 
-/// score counter for the flanker task used in [RPUIFlankerActivityBody]
-int flankerScore = 0;
-
-/// counter for the wrong swipes in the flanker task used in [RPUIFlankerActivityBody]
-int wrongSwipe = 0;
-
-/// counter for the right swipes in the flanker task used in [RPUIFlankerActivityBody]
-int rightSwipe = 0;
-
-List<int> congruentTimes = [];
-List<int> incongruentTimes = [];
-
 class Flanker extends StatefulWidget {
   final int numberOfCards;
-  final RPUIFlankerActivityBodyState parentClass;
-  const Flanker(
-      {super.key, required this.numberOfCards, required this.parentClass});
+  final RPUIFlankerActivityState flankerState;
+
+  const Flanker({
+    super.key,
+    required this.numberOfCards,
+    required this.flankerState,
+  });
 
   @override
-  FlankerState createState() => FlankerState(numberOfCards, parentClass);
+  FlankerState createState() => FlankerState(numberOfCards, flankerState);
 }
 
 class FlankerState extends State<Flanker> {
   final int numberOfCards;
-  final RPUIFlankerActivityBodyState parentClass;
+  final RPUIFlankerActivityState flankerState;
   bool even = false;
+
+  FlankerState(this.numberOfCards, this.flankerState);
 
   List<Widget> flankerCards = [];
   List<FlankerCard> cards(int amount) {
@@ -280,18 +274,15 @@ class FlankerState extends State<Flanker> {
       even = !even;
       if (Random().nextBool()) {
         cards.add(
-          FlankerCard('→', even ? 0xff003F6E : 0xffC32C39, parentClass),
-        );
+            FlankerCard('→', even ? 0xff003F6E : 0xffC32C39, flankerState));
       } else {
-        cards
-            .add(FlankerCard('←', even ? 0xff003F6E : 0xffC32C39, parentClass));
+        cards.add(
+            FlankerCard('←', even ? 0xff003F6E : 0xffC32C39, flankerState));
       }
     }
-    parentClass.startFlankerTimer();
+    flankerState.startFlankerTimer();
     return cards;
   }
-
-  FlankerState(this.numberOfCards, this.parentClass);
 
   @override
   initState() {
@@ -304,9 +295,7 @@ class FlankerState extends State<Flanker> {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.height * 0.7,
-      child: Stack(
-        children: flankerCards,
-      ),
+      child: Stack(children: flankerCards),
     );
   }
 }
@@ -314,8 +303,9 @@ class FlankerState extends State<Flanker> {
 class FlankerCard extends StatelessWidget {
   final int color;
   final String direction;
-  final RPUIFlankerActivityBodyState parentClass;
-  FlankerCard(this.direction, this.color, this.parentClass, {super.key});
+  final RPUIFlankerActivityState flankerState;
+
+  FlankerCard(this.direction, this.color, this.flankerState, {super.key});
 
   final String right = '→';
   final String left = '←';
@@ -341,32 +331,32 @@ class FlankerCard extends StatelessWidget {
 
   void onSwipeRight(offset) {
     if (direction == '→') {
-      rightSwipe = rightSwipe + 1;
+      flankerState.rightSwipe++;
       if (congruent) {
-        congruentTimes.add(parentClass.flankerSeconds);
+        flankerState.congruentTimes.add(flankerState.flankerSeconds);
       } else {
-        incongruentTimes.add(parentClass.flankerSeconds);
+        flankerState.incongruentTimes.add(flankerState.flankerSeconds);
       }
     } else {
-      wrongSwipe = wrongSwipe + 1;
+      flankerState.wrongSwipe++;
     }
-    flankerScore = flankerScore + 1;
-    parentClass.flankerSeconds = 0;
+    flankerState.flankerScore++;
+    flankerState.flankerSeconds = 0;
   }
 
   void onSwipeLeft(offset) {
     if (direction == '←') {
-      rightSwipe = rightSwipe + 1;
+      flankerState.rightSwipe++;
       if (congruent) {
-        congruentTimes.add(parentClass.flankerSeconds);
+        flankerState.congruentTimes.add(flankerState.flankerSeconds);
       } else {
-        incongruentTimes.add(parentClass.flankerSeconds);
+        flankerState.incongruentTimes.add(flankerState.flankerSeconds);
       }
     } else {
-      wrongSwipe = wrongSwipe + 1;
+      flankerState.wrongSwipe++;
     }
-    flankerScore = flankerScore + 1;
-    parentClass.flankerSeconds = 0;
+    flankerState.flankerScore++;
+    flankerState.flankerSeconds = 0;
   }
 
   @override
@@ -467,7 +457,7 @@ class Swipable extends StatefulWidget {
   final bool verticalSwipe;
 
   const Swipable({
-    Key? key,
+    super.key,
     @required this.child,
     this.onSwipeRight,
     this.onSwipeLeft,
@@ -483,7 +473,7 @@ class Swipable extends StatefulWidget {
     this.horizontalSwipe = true,
     this.verticalSwipe = true,
     this.threshold = 0.3,
-  }) : super(key: key);
+  });
 
   @override
   SwipableState createState() => SwipableState();

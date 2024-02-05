@@ -3,15 +3,15 @@ part of cognition_package_model;
 /// Picture Sequence Memory Test Result
 @JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
 class RPPictureSequenceResult extends RPActivityResult {
-  RPPictureSequenceResult({required String identifier})
-      : super(identifier: identifier);
+  RPPictureSequenceResult({required super.identifier});
 
-  /// make result for Picture Sequence Memory Test
-  /// moves: list of the number of moves made to complete the test
-  /// times: time taken for each repetition
-  /// memoryTime: time taken to memorize the sequence of images
-  /// score: score of the test calculated in model class
-  RPActivityResult makeResult(
+  /// Create a [RPPictureSequenceResult] from results for Picture Sequence Memory Test
+  ///
+  ///  * [moves]: list of the number of moves made to complete the test
+  ///  * [times]: time taken for each repetition
+  ///  * [memoryTime]: time taken to memorize the sequence of images
+  ///  * [score]: score of the test calculated in model class
+  factory RPPictureSequenceResult.fromResults(
       List<dynamic> moves,
       List<dynamic> scores,
       List<dynamic> times,
@@ -19,7 +19,7 @@ class RPPictureSequenceResult extends RPActivityResult {
       int score,
       original,
       pictures) {
-    var res = RPActivityResult(identifier: identifier);
+    var res = RPPictureSequenceResult(identifier: 'PictureSequenceResult');
     res.results.addAll({'Amount of moves': moves});
     res.results.addAll({'Amount of correct pairs': scores});
     res.results.addAll({'Time taken to memorize': memoryTimes});

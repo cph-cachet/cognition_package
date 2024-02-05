@@ -267,12 +267,10 @@ class WordRecallState extends State<WordRecall> {
       timer?.cancel();
       wordRecallScore = sWidget.activity
           .calculateScore({'wordsList': words, 'resultsList': resultsList2});
-      RPWordRecallResult result =
-          RPWordRecallResult(identifier: 'WordRecallResult');
-      var taskResults = result.makeResult(
+      var result = RPWordRecallResult.fromResults(
           words, resultsList1, resultsList2, timesTaken, wordRecallScore);
 
-      sWidget.onResultChange(taskResults.results);
+      sWidget.onResultChange(result.results);
       if (sWidget.activity.includeResults) {
         sWidget.eventLogger.resultsShown();
         setState(() {

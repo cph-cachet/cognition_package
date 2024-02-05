@@ -174,12 +174,10 @@ class _VisualArrayChange extends StatefulWidget {
   final int waitTime;
 
   const _VisualArrayChange(
-      {Key? key,
-      required this.sWidget,
+      {required this.sWidget,
       required this.numberOfTests,
       required this.numberOfShapes,
-      required this.waitTime})
-      : super(key: key);
+      required this.waitTime});
 
   @override
   _VisualArrayChangeState createState() =>
@@ -437,12 +435,10 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
 
         visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
-        RPVisualArrayChangeResult visualArrayChangeResult =
-            RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
-        var taskResults = visualArrayChangeResult.makeResult(
+        var visualArrayChangeResult = RPVisualArrayChangeResult.fromResults(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
-        sWidget.onResultChange(taskResults.results);
+        sWidget.onResultChange(visualArrayChangeResult.results);
         if (sWidget.activity.includeResults) {
           sWidget.eventLogger.resultsShown();
           setState(() {
@@ -460,12 +456,10 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
-        RPVisualArrayChangeResult visualArrayChangeResult =
-            RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
-        var taskResults = visualArrayChangeResult.makeResult(
+        var visualArrayChangeResult = RPVisualArrayChangeResult.fromResults(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
-        sWidget.onResultChange(taskResults.results);
+        sWidget.onResultChange(visualArrayChangeResult.results);
         if (sWidget.activity.includeResults) {
           sWidget.eventLogger.resultsShown();
           setState(() {
@@ -489,12 +483,10 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
-        RPVisualArrayChangeResult visualArrayChangeResult =
-            RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
-        var taskResults = visualArrayChangeResult.makeResult(
+        var visualArrayChangeResult = RPVisualArrayChangeResult.fromResults(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
-        sWidget.onResultChange(taskResults.results);
+        sWidget.onResultChange(visualArrayChangeResult.results);
         if (sWidget.activity.includeResults) {
           sWidget.eventLogger.resultsShown();
           setState(() {
@@ -511,12 +503,10 @@ class _VisualArrayChangeState extends State<_VisualArrayChange> {
         sWidget.eventLogger.testEnded();
         var visualArrayChangeScore =
             sWidget.activity.calculateScore({'correct': right, 'wrong': wrong});
-        RPVisualArrayChangeResult visualArrayChangeResult =
-            RPVisualArrayChangeResult(identifier: 'visualArrayChangeResults');
-        var taskResults = visualArrayChangeResult.makeResult(
+        var visualArrayChangeResult = RPVisualArrayChangeResult.fromResults(
             wrong, right, times, memoryTimes, visualArrayChangeScore);
 
-        sWidget.onResultChange(taskResults.results);
+        sWidget.onResultChange(visualArrayChangeResult.results);
         if (sWidget.activity.includeResults) {
           sWidget.eventLogger.resultsShown();
           setState(() {

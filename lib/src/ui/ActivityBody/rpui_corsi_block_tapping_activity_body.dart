@@ -34,7 +34,7 @@ class RPUICorsiActivityBodyState
   bool failedLast = false;
   String taskInfo = '';
   int numberOfBlocks = 2;
-  var locale;
+  CPLocalizations? locale;
 
   @override
   initState() {
@@ -106,7 +106,8 @@ class RPUICorsiActivityBodyState
               'Failed first try - Tapped the order: $tapOrder. The correct order was: ${blocks.getRange(0, numberOfBlocks)}');
           failedLast = true;
           setState(() {
-            taskInfo = locale?.translate('corsi_block.try_again') ?? 'Try again';
+            taskInfo =
+                locale?.translate('corsi_block.try_again') ?? 'Try again';
           });
           await Future<dynamic>.delayed(const Duration(milliseconds: 700));
           startTest();
@@ -129,6 +130,14 @@ class RPUICorsiActivityBodyState
   @override
   Widget build(BuildContext context) {
     locale = CPLocalizations.of(context);
+
+    // try to get language-specific image - EN version as default.
+    var image = Image.asset(
+      'packages/cognition_package/assets/images/corsi_${locale?.locale.languageCode}.png',
+      errorBuilder: (ctx, error, stackTrace) =>
+          Image.asset('packages/cognition_package/assets/images/corsi_en.png'),
+    );
+
     switch (activityStatus) {
       case ActivityStatus.Instruction:
         return Column(
@@ -152,11 +161,9 @@ class RPUICorsiActivityBodyState
                 width: MediaQuery.of(context).size.width / 1.1,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        fit: BoxFit.fill,
-                        // todo use locale to determine which image to use. but how in CPLocalizations?
-                        image: locale?.translate('corsi_block.go')  == 'Allez-y'? AssetImage(
-                            'packages/cognition_package/assets/images/corsi_fr.png'): AssetImage(
-                            'packages/cognition_package/assets/images/corsi_en.png'))),
+                  fit: BoxFit.fill,
+                  image: image.image,
+                )),
               ),
             ),
             SizedBox(

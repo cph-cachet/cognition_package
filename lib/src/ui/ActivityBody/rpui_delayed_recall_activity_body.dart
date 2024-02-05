@@ -203,12 +203,10 @@ class DelayedRecallState extends State<DelayedRecall> {
     var delayedRecallScore = sWidget.activity
         .calculateScore({'wordsList': words, 'resultsList': resultsList3});
 
-    RPDelayedRecallResult result =
-        RPDelayedRecallResult(identifier: 'DelayedRecallResult');
-    var taskResults =
-        result.makeResult(words, resultsList3, seconds, delayedRecallScore);
+    var result = RPDelayedRecallResult.fromResults(
+        words, resultsList3, seconds, delayedRecallScore);
 
-    sWidget.onResultChange(taskResults.results);
+    sWidget.onResultChange(result.results);
     if (sWidget.activity.includeResults) {
       sWidget.eventLogger.resultsShown();
       setState(() {
