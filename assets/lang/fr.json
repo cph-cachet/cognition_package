@@ -27,7 +27,7 @@
     "corsi_block.9_tiles": "Sur l'écran suivant, vous verrez 9 tuiles. Certaines tuiles seront mises en surbrillance dans un ordre spécifique. Lorsque le voyant en haut de l'écran est vert et indique 'Allez-y', vous devez appuyer sur les tuiles dans le même ordre qu'elles ont été mises en surbrillance. Au fur et à mesure que le test progresse, de plus en plus de tuiles sont mises en surbrillance.",
     "corsi_block.span": "Votre portée Corsi était de",
     "corsi_block.wait": "Attendez",
-    "corsi_block.go": "Allez-y",
+    "corsi_block.go": "Allez-y !",
     "corsi_block.finished": "Fini",
     "corsi_block.try_again": "Essayez à nouveau",
     "corsi_block.well_done": "Bravo!",
