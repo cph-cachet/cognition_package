@@ -55,7 +55,7 @@
     "stroop.tap_color": "Appuyez sur la couleur du mot que vous voyez à l'écran. Par exemple, appuyez sur la case indiquant 'VERT' lorsqu'un mot vert apparaît.",
     "stroop.correct_answers": "Correcte",
     "stroop.mistakes_made": "Faux",
-    "tapping.instructions": "Sur l'écran suivant, vous devez appuyer sur les deux boutons autant de fois que possible avec votre index et votre majeur. Vous devriez continuer à le faire pendant",
+    "tapping.instructions": "Posez votre appareil sur une surface plane. Sur l'écran suivant, vous devez appuyer sur les deux boutons autant de fois que possible avec votre index et votre majeur. Commencez après le compte à rebours de 3 secondes qui apparaîtra à l'écran. Vous devriez continuer à le faire pendant",
     "tapping.final_score": "était votre score final.",
     "trail_making.connect_boxes_type_A": "Connectez les boîtes entre elles en traçant des lignes. Commencez par un et suivez les numéros dans l'ordre. Vous devez effectuer la tâche le plus rapidement possible et en faisant le moins d'erreurs possible.",
     "trail_making.connect_boxes_type_B": "Connectez les boîtes entre elles en traçant des lignes. Vous devez effectuer la tâche le plus rapidement possible et en faisant le moins d'erreurs possible.",
