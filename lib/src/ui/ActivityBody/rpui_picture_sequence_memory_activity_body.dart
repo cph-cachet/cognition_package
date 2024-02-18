@@ -62,100 +62,107 @@ class RPUIPictureSequenceMemoryActivityBodyState
     var locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                locale?.translate('picture_sequence.memorize_order') ??
-                    "In this test you should memorize the order of six images.",
-                style: const TextStyle(fontSize: 16),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: RichText(
-                text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: locale?.translate(
-                                  'picture_sequence.once_memorized') ??
-                              "Once memorized click the",
-                          style: const TextStyle(fontSize: 16)),
-                      TextSpan(
-                          text: " '${locale?.translate('start') ?? 'Start'}' ",
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: locale?.translate(
-                                  'picture_sequence.images_change_positions') ??
-                              "button and the images will change positions.",
-                          style: const TextStyle(fontSize: 16)),
-                    ]),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: RichText(
-                text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: locale?.translate(
-                                  'picture_sequence.drag_and_drop') ??
-                              "Drag and drop the images to their original positions and press",
-                          style: const TextStyle(fontSize: 16)),
-                      TextSpan(
-                          text: " '${locale?.translate('guess') ?? 'Guess'}'.",
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
-                    ]),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: Container(
-                height: 200,
-                width: 200,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                            'packages/cognition_package/assets/images/picture_sequence.png'))),
-              ),
-            ),
-            SizedBox(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xffC32C39),
-                  fixedSize: const Size(300, 60),
-                ),
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20),
                 child: Text(
-                  locale?.translate('ready') ?? 'Ready',
-                  style: const TextStyle(fontSize: 18, color: Colors.white),
+                  locale?.translate('picture_sequence.memorize_order') ??
+                      "In this test you should memorize the order of six images.",
+                  style: const TextStyle(fontSize: 16),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 10,
+                  textAlign: TextAlign.center,
                 ),
-                onPressed: () {
-                  widget.eventLogger.instructionEnded();
-                  widget.eventLogger.testStarted();
-                  setState(() {
-                    activityStatus = ActivityStatus.Test;
-                  });
-                  startTest();
-                },
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: RichText(
+                  text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: locale?.translate(
+                                    'picture_sequence.once_memorized') ??
+                                "Once memorized click the",
+                            style: const TextStyle(fontSize: 16)),
+                        TextSpan(
+                            text:
+                                " '${locale?.translate('start') ?? 'Start'}' ",
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        TextSpan(
+                            text: locale?.translate(
+                                    'picture_sequence.images_change_positions') ??
+                                "button and the images will change positions.",
+                            style: const TextStyle(fontSize: 16)),
+                      ]),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 10,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: RichText(
+                  text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: locale?.translate(
+                                    'picture_sequence.drag_and_drop') ??
+                                "Drag and drop the images to their original positions and press",
+                            style: const TextStyle(fontSize: 16)),
+                        TextSpan(
+                            text:
+                                " '${locale?.translate('guess') ?? 'Guess'}'.",
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                      ]),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 10,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage(
+                              'packages/cognition_package/assets/images/picture_sequence.png'))),
+                ),
+              ),
+              SizedBox(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffC32C39),
+                    fixedSize: const Size(300, 60),
+                  ),
+                  child: Text(
+                    locale?.translate('ready') ?? 'Ready',
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                  onPressed: () {
+                    widget.eventLogger.instructionEnded();
+                    widget.eventLogger.testStarted();
+                    setState(() {
+                      activityStatus = ActivityStatus.Test;
+                    });
+                    startTest();
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+            ],
+          ),
         );
       case ActivityStatus.Test:
         return Scaffold(
