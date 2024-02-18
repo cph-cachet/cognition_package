@@ -107,6 +107,8 @@ class RPUIFlankerActivityState extends State<RPUIFlankerActivity> {
           flankerScoreResults[0] as int,
           flankerScoreResults[1] as double,
           flankerScoreResults[2] as double,
+          congruentTimes.length,
+          incongruentTimes.length,
         );
         testTimer?.cancel();
         flankerTimer?.cancel();
@@ -147,6 +149,8 @@ class RPUIFlankerActivityState extends State<RPUIFlankerActivity> {
           flankerScoreResults[0] as int,
           flankerScoreResults[1] as double,
           flankerScoreResults[2] as double,
+          congruentTimes.length,
+          incongruentTimes.length,
         );
         testTimer?.cancel();
         flankerTimer?.cancel();
