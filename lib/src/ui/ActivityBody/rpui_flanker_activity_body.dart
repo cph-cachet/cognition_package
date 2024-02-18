@@ -372,9 +372,12 @@ class FlankerCard extends StatelessWidget {
           color: Color(color),
         ),
         child: Center(
-            child: Text(
-          stimuli(),
-          style: const TextStyle(fontSize: 55, color: Colors.white),
+            child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            stimuli(),
+            style: const TextStyle(fontSize: 55, color: Colors.white),
+          ),
         )),
       ),
     );
