@@ -48,7 +48,7 @@
     "rapid_visual_info.tap_button": "L'écran suivant affiche une séquence de trois chiffres. En dessous, une série de chiffres sera affichée, un par un. Vous devez appuyer sur le bouton lorsque les trois chiffres de la séquence ont été affichés dans le même ordre que celui de la séquence. Ces chiffres ne vont pas forcément apparaître de manière successive.",
     "rapid_visual_info.correct_taps": "suppositions correctes",
     "rapid_visual_info.wrong_ones": "les mauvais",
-    "reaction_time.tap_screen_green": "Touchez l'écran aussi vite que possible lorsqu'il passe du rouge au vert.",
+    "reaction_time.tap_screen_green": "Touchez l'écran aussi vite que possible lorsqu'il passe du bleu au jaune.",
     "reaction_time.too_quick": "Pas si vite.",
     "reaction_time.time_up": "Le temps s'est écoulé.",
     "reaction_time.final_score": "est votre temps de réaction moyen (en millisecondes).",

@@ -121,7 +121,7 @@ class RPUIReactionTimeActivityBodyState
               padding: const EdgeInsets.all(20),
               child: Text(
                 locale?.translate('reaction_time.tap_screen_green') ??
-                    "Tap the screen as fast as possible when it turns from red to green.",
+                    "Tap the screen as fast as possible when it turns from blue to yellow.",
                 style: const TextStyle(fontSize: 20),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 5,
@@ -198,7 +198,7 @@ class RPUIReactionTimeActivityBodyState
                           allowGreen = false;
                           wrongTaps++;
                           widget.eventLogger.addWrongGesture('Wrong Screen Tap',
-                              'Tapped the screen before the screen was green');
+                              'Tapped the screen before the screen was yellow');
                           setState(() {
                             alert =
                                 locale?.translate('reaction_time.too_quick') ??
@@ -216,7 +216,7 @@ class RPUIReactionTimeActivityBodyState
                         }
                       },
                       child: Container(
-                          color: lightOn ? Colors.green : Colors.red,
+                          color: lightOn ? Colors.yellow : Colors.blue,
                           alignment: Alignment.center,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

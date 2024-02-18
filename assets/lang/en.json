@@ -48,7 +48,7 @@
   "rapid_visual_info.tap_button": "The next screen will show a sequence of three numbers. Below, a series of numbers will be shown, one by one. You should press the button when all three numbers in the sequence above have been shown in the same order as the one in the sequence above. Some other numbers can appear in the middle of the sequence.",
   "rapid_visual_info.correct_taps": "correct guesses",
   "rapid_visual_info.wrong_ones": "wrong ones",
-  "reaction_time.tap_screen_green": "Tap the screen as fast as possible when it turns from red to green.",
+  "reaction_time.tap_screen_green": "Tap the screen as fast as possible when it turns from blue to yellow.",
   "reaction_time.too_quick": "Not so quick.",
   "reaction_time.time_up": "Time is up.",
   "reaction_time.final_score": "is your average reaction time (in milliseconds).",
