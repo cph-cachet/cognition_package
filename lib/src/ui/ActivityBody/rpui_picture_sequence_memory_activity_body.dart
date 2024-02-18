@@ -143,7 +143,7 @@ class RPUIPictureSequenceMemoryActivityBodyState
                 ),
                 child: Text(
                   locale?.translate('ready') ?? 'Ready',
-                  style: const TextStyle(fontSize: 18),
+                  style: const TextStyle(fontSize: 18, color: Colors.white),
                 ),
                 onPressed: () {
                   widget.eventLogger.instructionEnded();
