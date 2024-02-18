@@ -94,14 +94,20 @@ class RPUIFlankerActivityState extends State<RPUIFlankerActivity> {
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       if (mounted) {
         widget.eventLogger.testEnded();
-        var flankerScore = widget.activity.calculateScore({
+        var flankerScoreResults = widget.activity.calculateScoreFlanker({
           'mistakes': wrongSwipe,
           'correct': rightSwipe,
           'congruentTimes': congruentTimes,
           'incongruentTimes': incongruentTimes
         });
         var flankerResult = RPFlankerResult.fromResults(
-            wrongSwipe, rightSwipe, seconds, flankerScore);
+          wrongSwipe,
+          rightSwipe,
+          seconds,
+          flankerScoreResults[0] as int,
+          flankerScoreResults[1] as double,
+          flankerScoreResults[2] as double,
+        );
         testTimer?.cancel();
         flankerTimer?.cancel();
         seconds = 0;
@@ -128,14 +134,20 @@ class RPUIFlankerActivityState extends State<RPUIFlankerActivity> {
       flankerScore = 0;
       if (mounted) {
         widget.eventLogger.testEnded();
-        var flankerScore = widget.activity.calculateScore({
+        var flankerScoreResults = widget.activity.calculateScoreFlanker({
           'mistakes': wrongSwipe,
           'correct': rightSwipe,
           'congruentTimes': congruentTimes,
           'incongruentTimes': incongruentTimes
         });
         var flankerResult = RPFlankerResult.fromResults(
-            wrongSwipe, rightSwipe, seconds, flankerScore);
+          wrongSwipe,
+          rightSwipe,
+          seconds,
+          flankerScoreResults[0] as int,
+          flankerScoreResults[1] as double,
+          flankerScoreResults[2] as double,
+        );
         testTimer?.cancel();
         flankerTimer?.cancel();
         widget.onResultChange(flankerResult.results);

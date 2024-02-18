@@ -17,12 +17,16 @@ class RPFlankerResult extends RPActivityResult {
     int right,
     int time,
     int score,
+    double meanCongruent,
+    double meanIncongruent,
   ) {
     var res = RPFlankerResult(identifier: 'FlankerTaskResult');
     res.results.addAll({'wrong swipes': wrong});
     res.results.addAll({'right swipes': right});
     res.results.addAll({'time': time});
     res.results.addAll({'score': score});
+    res.results.addAll({'meanCongruent': meanCongruent});
+    res.results.addAll({'meanIncongruent': meanIncongruent});
     return res;
   }
 
