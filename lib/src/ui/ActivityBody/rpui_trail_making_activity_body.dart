@@ -93,11 +93,11 @@ class RPUITrailMakingActivityBodyState
     taskTime = result;
     if (widget.activity.includeResults) {
       widget.eventLogger.resultsShown();
-      if (mounted) {
-        setState(() {
-          activityStatus = ActivityStatus.Result;
-        });
-      }
+    }
+    if (mounted) {
+      setState(() {
+        activityStatus = ActivityStatus.Result;
+      });
     }
   }
 
@@ -197,14 +197,25 @@ class RPUITrailMakingActivityBodyState
           },
         );
       case ActivityStatus.Result:
-        return Container(
-          alignment: Alignment.center,
-          child: Text(
-            '${locale?.translate('trail_making.completed_task') ?? "You completed the task in"}: $taskTime ${locale?.translate('seconds') ?? 'seconds'}!',
-            style: const TextStyle(fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
-        );
+        if (widget.activity.includeResults) {
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              '${locale?.translate('trail_making.completed_task') ?? "You completed the task in"}: $taskTime ${locale?.translate('seconds') ?? 'seconds'}!',
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        } else {
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              locale?.translate('test_done') ?? "The test is done.",
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
     }
   }
 }

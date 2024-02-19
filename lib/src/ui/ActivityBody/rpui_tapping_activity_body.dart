@@ -67,7 +67,9 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
       //when time is up, change window and set result
       widget.eventLogger.testEnded();
       widget.onResultChange({'Total taps': taps});
-      widget.eventLogger.resultsShown();
+      if (widget.activity.includeResults) {
+        widget.eventLogger.resultsShown();
+      }
       if (mounted) {
         setState(() {
           activityStatus = ActivityStatus.Result;

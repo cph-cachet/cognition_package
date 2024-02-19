@@ -49,10 +49,10 @@ class RPUIPictureSequenceMemoryActivityBodyState
         widget.onResultChange({'Correct swipes': pictureSequenceScore});
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
-          setState(() {
-            activityStatus = ActivityStatus.Result;
-          });
         }
+        setState(() {
+          activityStatus = ActivityStatus.Result;
+        });
       }
     });
   }
@@ -172,13 +172,24 @@ class RPUIPictureSequenceMemoryActivityBodyState
                     numberOfTests: widget.activity.numberOfTests,
                     numberOfPics: widget.activity.numberOfPics)));
       case ActivityStatus.Result:
-        return Center(
-          child: Text(
-            '${locale?.translate('results') ?? 'results'}: $pictureSequenceScore',
-            style: const TextStyle(fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
-        );
+        if (widget.activity.includeResults) {
+          return Center(
+            child: Text(
+              '${locale?.translate('results') ?? 'results'}: $pictureSequenceScore',
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        } else {
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              locale?.translate('test_done') ?? "The test is done.",
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
       default:
         return Container();
     }
