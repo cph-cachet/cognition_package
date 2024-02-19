@@ -94,22 +94,30 @@ class RPUIFlankerActivityState extends State<RPUIFlankerActivity> {
     Timer(Duration(seconds: widget.activity.lengthOfTest), () {
       if (mounted) {
         widget.eventLogger.testEnded();
-        var flankerScore = widget.activity.calculateScore({
+        var flankerScoreResults = widget.activity.calculateScoreFlanker({
           'mistakes': wrongSwipe,
           'correct': rightSwipe,
           'congruentTimes': congruentTimes,
           'incongruentTimes': incongruentTimes
         });
         var flankerResult = RPFlankerResult.fromResults(
-            wrongSwipe, rightSwipe, seconds, flankerScore);
+          wrongSwipe,
+          rightSwipe,
+          seconds,
+          flankerScoreResults[0] as int,
+          flankerScoreResults[1] as double,
+          flankerScoreResults[2] as double,
+          congruentTimes.length,
+          incongruentTimes.length,
+        );
         testTimer?.cancel();
         flankerTimer?.cancel();
         seconds = 0;
         widget.onResultChange(flankerResult.results);
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
-          setState(() => activityStatus = ActivityStatus.Result);
         }
+        setState(() => activityStatus = ActivityStatus.Result);
       }
     });
   }
@@ -128,21 +136,29 @@ class RPUIFlankerActivityState extends State<RPUIFlankerActivity> {
       flankerScore = 0;
       if (mounted) {
         widget.eventLogger.testEnded();
-        var flankerScore = widget.activity.calculateScore({
+        var flankerScoreResults = widget.activity.calculateScoreFlanker({
           'mistakes': wrongSwipe,
           'correct': rightSwipe,
           'congruentTimes': congruentTimes,
           'incongruentTimes': incongruentTimes
         });
         var flankerResult = RPFlankerResult.fromResults(
-            wrongSwipe, rightSwipe, seconds, flankerScore);
+          wrongSwipe,
+          rightSwipe,
+          seconds,
+          flankerScoreResults[0] as int,
+          flankerScoreResults[1] as double,
+          flankerScoreResults[2] as double,
+          congruentTimes.length,
+          incongruentTimes.length,
+        );
         testTimer?.cancel();
         flankerTimer?.cancel();
         widget.onResultChange(flankerResult.results);
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
-          setState(() => activityStatus = ActivityStatus.Result);
         }
+        setState(() => activityStatus = ActivityStatus.Result);
       }
     }
 
@@ -233,13 +249,24 @@ class RPUIFlankerActivityState extends State<RPUIFlankerActivity> {
                   flankerState: this)),
         );
       case ActivityStatus.Result:
-        return Center(
-          child: Text(
-            '${locale?.translate('flanker.correct_swipes') ?? "Correct swipes"}: $rightSwipe',
-            style: const TextStyle(fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
-        );
+        if (widget.activity.includeResults) {
+          return Center(
+            child: Text(
+              '${locale?.translate('flanker.correct_swipes') ?? "Correct swipes"}: $rightSwipe',
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        } else {
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              locale?.translate('test_done') ?? "The test is done.",
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
       default:
         return Container();
     }
@@ -372,9 +399,12 @@ class FlankerCard extends StatelessWidget {
           color: Color(color),
         ),
         child: Center(
-            child: Text(
-          stimuli(),
-          style: const TextStyle(fontSize: 55, color: Colors.white),
+            child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            stimuli(),
+            style: const TextStyle(fontSize: 55, color: Colors.white),
+          ),
         )),
       ),
     );

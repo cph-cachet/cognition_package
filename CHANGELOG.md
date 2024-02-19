@@ -1,3 +1,16 @@
+## 1.5.5
+- Improved the Tapping task: edited the intro image to avoid confusion.
+- Improved the Corsi Block task: corrected the French and the Portuguese translations.
+- Improved the Trail Making task: added "fast and precise" instruction, and removed a duplicate instruction paragraph in case of Trail A.
+- Improved the Reaction Time task: added "place the device on a flat surface" instruction, as recommended by a team of psychologists.
+- Fixed the Flanker, the Picture Sequence, the Tapping, and the Trail Making tasks for the case in which the font size of the system is bigger than the standard - the instructions would overflow vertically.
+- Improved the Flanker task: added the number of congruent and incongruent cards, and the mean reaction time for each type to the results.
+- Changed the button "Guess" to "Submit" after recommendation from a team of psychologists.
+- Changed the font color in the "ready" button of the Picture Sequence task's instructions to force a minimum contrast with the button background.
+- Improved the Reaction Time task: changed the colors to blue and yellow for color blind sensitivity.
+- Improved Picture Sequence Memory task: storing the images locally in the app, so the task is possible to run while offline.
+- Fixed the Tapping, Flanker, Picture Sequence Memory, Reaction Time, and Trail Making tasks not auto finishing when the showResults was false (issue [#24] https://github.com/cph-cachet/cognition_package/issues/24).
+
 ## 1.5.4
 
 - Small updates to translations
