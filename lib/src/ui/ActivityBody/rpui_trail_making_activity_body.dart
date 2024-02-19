@@ -129,9 +129,7 @@ class RPUITrailMakingActivityBodyState
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   isTypeA
-                      ? locale?.translate(
-                              "trail_making.connect_boxes_type_A") ??
-                          "Connect the boxes to each other by drawing lines between them in numerical order, starting at '1'."
+                      ? ""
                       : locale?.translate(
                               'trail_making.alternate_letters_numbers') ??
                           "You must alternate between numbers and letters and should order them alphabetically and numerically, respectively. Start with the number '1'.",
