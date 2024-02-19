@@ -67,13 +67,11 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
       //when time is up, change window and set result
       widget.eventLogger.testEnded();
       widget.onResultChange({'Total taps': taps});
-      if (widget.activity.includeResults) {
-        widget.eventLogger.resultsShown();
-        if (mounted) {
-          setState(() {
-            activityStatus = ActivityStatus.Result;
-          });
-        }
+      widget.eventLogger.resultsShown();
+      if (mounted) {
+        setState(() {
+          activityStatus = ActivityStatus.Result;
+        });
       }
     });
   }
@@ -201,14 +199,25 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
           ],
         );
       case ActivityStatus.Result:
-        return Container(
-          alignment: Alignment.center,
-          child: Text(
-            ' $taps ${locale?.translate('tapping.final_score') ?? "was your final score."}',
-            style: const TextStyle(fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
-        );
+        if (widget.activity.includeResults) {
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              ' $taps ${locale?.translate('tapping.final_score') ?? "was your final score."}',
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        } else {
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              locale?.translate('test_done') ?? "The test is done.",
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
     }
   }
 }
