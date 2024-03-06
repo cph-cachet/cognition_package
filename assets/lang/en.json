@@ -41,7 +41,7 @@
   "letter_tapping.turn_on_sound": "Turn your sound on.",
   "letter_tapping.tap_A_button": "Then, tap the button on the next screen, whenever you hear the letter 'A' being said.",
   "paired_associate.screen_with_6_tiles": "The next screen will shown six tiles. Different figures hiding underneath some of the tiles will be revealed one by one. When all figures under each tile have been revealed, you should click the tile matching the figure in the middle.",
-  "picture_sequence.memorize_order": "In this test you should memorize the order of six images.",
+  "picture_sequence.memorize_order": "In this test you should memorize the original position of six images.",
   "picture_sequence.once_memorized": "Once memorized click the",
   "picture_sequence.images_change_positions": "button and the images will change positions.",
   "picture_sequence.drag_and_drop": "Drag and drop the images to their original positions and press",

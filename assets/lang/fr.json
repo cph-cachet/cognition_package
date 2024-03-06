@@ -41,7 +41,7 @@
     "letter_tapping.turn_on_sound": "Allumez votre son.",
     "letter_tapping.tap_A_button": "Ensuite, appuyez sur le bouton sur l'écran suivant, chaque fois que vous entendez la lettre 'A' être prononcée.",
     "paired_associate.screen_with_6_tiles": "L'écran suivant affichera six tuiles. Différentes figures cachées sous certaines des tuiles seront révélées une par une. Lorsque tous les chiffres sous chaque tuile ont été révélés, vous devez cliquer sur la tuile correspondant à la figure au milieu.",
-    "picture_sequence.memorize_order": "Dans ce test, vous devez mémoriser l'ordre de six images.",
+    "picture_sequence.memorize_order": "Dans ce test, vous devez mémoriser la position originale de six images.",
     "picture_sequence.once_memorized": "Une fois mémorisé cliquez sur le bouton",
     "picture_sequence.images_change_positions": "et les images changeront de position.",
     "picture_sequence.drag_and_drop": "Faites glisser et déposez les images à leurs positions d'origine et appuyez sur",

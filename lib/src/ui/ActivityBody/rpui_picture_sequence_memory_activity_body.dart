@@ -70,7 +70,7 @@ class RPUIPictureSequenceMemoryActivityBodyState
                 padding: const EdgeInsets.all(20),
                 child: Text(
                   locale?.translate('picture_sequence.memorize_order') ??
-                      "In this test you should memorize the order of six images.",
+                      "In this test you should memorize the original position of six images.",
                   style: const TextStyle(fontSize: 16),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 10,
