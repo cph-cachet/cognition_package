@@ -8,7 +8,7 @@ RPOrderedTask cognitionTask = RPOrderedTask(
   steps: [
     // reactionTime,
     // pairedAssociatesLearning,
-    tapping,
+    // tapping,
     // corsiBlockTapping,
     // stroopEffect,
     // rapidVisualInfoProcessing,
