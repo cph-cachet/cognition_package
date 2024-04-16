@@ -27,8 +27,8 @@ class RPFlankerActivity extends RPActivityStep {
   /// The result is the number of mistakes made during the test.
   /// If the number of mistakes > 2, the test is failed and a score of 0 is
   /// returned. Otherwise, a score of 1 is returned.
-  @override
-  int calculateScore(dynamic result) {
+
+  List<dynamic> calculateScoreFlanker(dynamic result) {
     var accuracy = result['correct'] / (result['correct'] + result['mistakes']);
 
     var conSum = result['congruentTimes'].fold(0, (p, c) => p + c);
@@ -45,7 +45,7 @@ class RPFlankerActivity extends RPActivityStep {
       print('$runtimeType - $error');
     }
 
-    return sum;
+    return [sum, meanCongruent, meanIncongruent];
   }
 
   @override

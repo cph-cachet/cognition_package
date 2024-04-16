@@ -69,11 +69,11 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
       widget.onResultChange({'Total taps': taps});
       if (widget.activity.includeResults) {
         widget.eventLogger.resultsShown();
-        if (mounted) {
-          setState(() {
-            activityStatus = ActivityStatus.Result;
-          });
-        }
+      }
+      if (mounted) {
+        setState(() {
+          activityStatus = ActivityStatus.Result;
+        });
       }
     });
   }
@@ -89,55 +89,60 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
     var locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
-        return Column(
-          //entry screen with rules and start button
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                '${locale?.translate('tapping.instructions') ?? "On the next screen you should tap the two buttons as many times as possible with your index and middle finger. You should continue to do this for"} ${widget.activity.lengthOfTest} ${locale?.translate('seconds') ?? 'seconds'}.',
-                style: const TextStyle(fontSize: 20),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 20,
-                textAlign: TextAlign.center,
+        return SingleChildScrollView(
+          child: Column(
+            //entry screen with rules and start button
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  '${locale?.translate('tapping.instructions') ?? "On the next screen you should tap the two buttons as many times as possible with your index and middle finger. You should continue to do this for"} ${widget.activity.lengthOfTest} ${locale?.translate('seconds') ?? 'seconds'}.',
+                  style: const TextStyle(fontSize: 20),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 20,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: Container(
-                height: MediaQuery.of(context).size.height / 2.5,
-                width: MediaQuery.of(context).size.width / 1.1,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                            'packages/cognition_package/assets/images/Tappingintro.png'))),
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 2.5,
+                  width: MediaQuery.of(context).size.width / 1.1,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage(
+                              'packages/cognition_package/assets/images/Tappingintro.png'))),
+                ),
               ),
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: OutlinedButton(
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  ),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2,
+                child: OutlinedButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    ),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
                     ),
                   ),
-                ),
-                onPressed: () async {
-                  startTest();
-                },
-                child: Text(
-                  locale?.translate('ready') ?? 'Ready',
-                  style: const TextStyle(fontSize: 18),
+                  onPressed: () async {
+                    startTest();
+                  },
+                  child: Text(
+                    locale?.translate('ready') ?? 'Ready',
+                    style: const TextStyle(fontSize: 18),
+                  ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 100,
+              ),
+            ],
+          ),
         );
       case ActivityStatus.Test:
         return Column(
@@ -196,14 +201,25 @@ class RPUITappingActivityBodyState extends State<RPUITappingActivityBody> {
           ],
         );
       case ActivityStatus.Result:
-        return Container(
-          alignment: Alignment.center,
-          child: Text(
-            ' $taps ${locale?.translate('tapping.final_score') ?? "was your final score."}',
-            style: const TextStyle(fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
-        );
+        if (widget.activity.includeResults) {
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              ' $taps ${locale?.translate('tapping.final_score') ?? "was your final score."}',
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        } else {
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              locale?.translate('test_done') ?? "The test is done.",
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
     }
   }
 }
