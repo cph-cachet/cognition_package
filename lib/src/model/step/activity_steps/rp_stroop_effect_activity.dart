@@ -1,4 +1,4 @@
-part of cognition_package_model;
+part of '../../../../model.dart';
 
 /// Stroop Effect Test.
 @JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)

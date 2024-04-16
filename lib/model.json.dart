@@ -1,8 +1,6 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// auto generate json code (.g files) with:
-//   flutter pub run build_runner build --delete-conflicting-outputs
-
-part of cognition_package_model;
+// Auto generate json code (.g files) with:
+//   dart run build_runner build --delete-conflicting-outputs
+part of 'model.dart';
 
 bool _fromJsonFunctionsRegistrered = false;
 

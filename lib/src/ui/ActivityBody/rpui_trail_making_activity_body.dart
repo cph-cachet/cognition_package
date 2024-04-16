@@ -1,6 +1,5 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member, invalid_use_of_protected_member
-
-part of cognition_package_ui;
+part of '../../../../ui.dart';
 
 /// The [RPUITrailMakingActivityBody] class defines the UI for the
 /// instructions and test phase of the continuous visual tracking task.

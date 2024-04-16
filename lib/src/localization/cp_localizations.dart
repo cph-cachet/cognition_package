@@ -1,4 +1,4 @@
-part of cognition_package_ui;
+part of '../../../../ui.dart';
 
 /// Localization support for Cognition Package using [LocalizationLoader]
 /// configurations.
