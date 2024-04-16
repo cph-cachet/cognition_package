@@ -1,7 +1,6 @@
 /// The UI library of Cognition Package.
 library cognition_package_ui;
 
-// Imports
 import 'dart:async';
 import 'dart:math';
 import 'dart:convert';
@@ -13,7 +12,7 @@ import 'package:reorderables/reorderables.dart';
 import 'package:research_package/research_package.dart';
 import 'package:flutter/services.dart';
 
-part 'src/localization/CPLocalizations.dart';
+part 'src/localization/cp_localizations.dart';
 part 'src/ui/ActivityBody/rpui_corsi_block_tapping_activity_body.dart';
 part 'src/ui/ActivityBody/rpui_flanker_activity_body.dart';
 part 'src/ui/ActivityBody/rpui_letter_tapping_activity_body.dart';

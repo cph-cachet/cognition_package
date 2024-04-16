@@ -1,4 +1,4 @@
-part of cognition_package_model;
+part of '../../../../model.dart';
 
 /// Delayed Recall Test.
 /// Must be used after a [RPWordRecallActivity]

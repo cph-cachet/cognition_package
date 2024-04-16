@@ -1,4 +1,4 @@
-part of cognition_package_ui;
+part of '../../../../ui.dart';
 
 /// The [RPUIVisualArrayChangeActivityBody] class defines the UI for the
 /// instructions and test phase of the continuous visual tracking task.

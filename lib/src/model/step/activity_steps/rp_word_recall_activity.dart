@@ -1,4 +1,4 @@
-part of cognition_package_model;
+part of '../../../../model.dart';
 
 /// A Verbal Recognition memory Test
 @JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)

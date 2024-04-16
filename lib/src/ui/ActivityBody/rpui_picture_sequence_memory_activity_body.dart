@@ -1,4 +1,4 @@
-part of cognition_package_ui;
+part of '../../../../ui.dart';
 
 /// The [RPUIPictureSequenceMemoryActivityBody] class defines the UI for the
 /// instructions and test phase of the continuous visual tracking task.
@@ -49,10 +49,10 @@ class RPUIPictureSequenceMemoryActivityBodyState
         widget.onResultChange({'Correct swipes': pictureSequenceScore});
         if (widget.activity.includeResults) {
           widget.eventLogger.resultsShown();
-          setState(() {
-            activityStatus = ActivityStatus.Result;
-          });
         }
+        setState(() {
+          activityStatus = ActivityStatus.Result;
+        });
       }
     });
   }
@@ -62,100 +62,107 @@ class RPUIPictureSequenceMemoryActivityBodyState
     var locale = CPLocalizations.of(context);
     switch (activityStatus) {
       case ActivityStatus.Instruction:
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                locale?.translate('picture_sequence.memorize_order') ??
-                    "In this test you should memorize the order of six images.",
-                style: const TextStyle(fontSize: 16),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: RichText(
-                text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: locale?.translate(
-                                  'picture_sequence.once_memorized') ??
-                              "Once memorized click the",
-                          style: const TextStyle(fontSize: 16)),
-                      TextSpan(
-                          text: " '${locale?.translate('start') ?? 'Start'}' ",
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: locale?.translate(
-                                  'picture_sequence.images_change_positions') ??
-                              "button and the images will change positions.",
-                          style: const TextStyle(fontSize: 16)),
-                    ]),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: RichText(
-                text: TextSpan(
-                    style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: locale?.translate(
-                                  'picture_sequence.drag_and_drop') ??
-                              "Drag and drop the images to their original positions and press",
-                          style: const TextStyle(fontSize: 16)),
-                      TextSpan(
-                          text: " '${locale?.translate('guess') ?? 'Guess'}'.",
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold)),
-                    ]),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 10,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: Container(
-                height: 200,
-                width: 200,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage(
-                            'packages/cognition_package/assets/images/picture_sequence.png'))),
-              ),
-            ),
-            SizedBox(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xffC32C39),
-                  fixedSize: const Size(300, 60),
-                ),
+        return SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20),
                 child: Text(
-                  locale?.translate('ready') ?? 'Ready',
-                  style: const TextStyle(fontSize: 18),
+                  locale?.translate('picture_sequence.memorize_order') ??
+                      "In this test you should memorize the original position of six images.",
+                  style: const TextStyle(fontSize: 16),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 10,
+                  textAlign: TextAlign.center,
                 ),
-                onPressed: () {
-                  widget.eventLogger.instructionEnded();
-                  widget.eventLogger.testStarted();
-                  setState(() {
-                    activityStatus = ActivityStatus.Test;
-                  });
-                  startTest();
-                },
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: RichText(
+                  text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: locale?.translate(
+                                    'picture_sequence.once_memorized') ??
+                                "Once memorized click the",
+                            style: const TextStyle(fontSize: 16)),
+                        TextSpan(
+                            text:
+                                " '${locale?.translate('start') ?? 'Start'}' ",
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        TextSpan(
+                            text: locale?.translate(
+                                    'picture_sequence.images_change_positions') ??
+                                "button and the images will change positions.",
+                            style: const TextStyle(fontSize: 16)),
+                      ]),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 10,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: RichText(
+                  text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: locale?.translate(
+                                    'picture_sequence.drag_and_drop') ??
+                                "Drag and drop the images to their original positions and press",
+                            style: const TextStyle(fontSize: 16)),
+                        TextSpan(
+                            text:
+                                " '${locale?.translate('guess') ?? 'Guess'}'.",
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                      ]),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 10,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage(
+                              'packages/cognition_package/assets/images/picture_sequence.png'))),
+                ),
+              ),
+              SizedBox(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffC32C39),
+                    fixedSize: const Size(300, 60),
+                  ),
+                  child: Text(
+                    locale?.translate('ready') ?? 'Ready',
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                  onPressed: () {
+                    widget.eventLogger.instructionEnded();
+                    widget.eventLogger.testStarted();
+                    setState(() {
+                      activityStatus = ActivityStatus.Test;
+                    });
+                    startTest();
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+            ],
+          ),
         );
       case ActivityStatus.Test:
         return Scaffold(
@@ -165,13 +172,24 @@ class RPUIPictureSequenceMemoryActivityBodyState
                     numberOfTests: widget.activity.numberOfTests,
                     numberOfPics: widget.activity.numberOfPics)));
       case ActivityStatus.Result:
-        return Center(
-          child: Text(
-            '${locale?.translate('results') ?? 'results'}: $pictureSequenceScore',
-            style: const TextStyle(fontSize: 22),
-            textAlign: TextAlign.center,
-          ),
-        );
+        if (widget.activity.includeResults) {
+          return Center(
+            child: Text(
+              '${locale?.translate('results') ?? 'results'}: $pictureSequenceScore',
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        } else {
+          return Container(
+            alignment: Alignment.center,
+            child: Text(
+              locale?.translate('test_done') ?? "The test is done.",
+              style: const TextStyle(fontSize: 22),
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
       default:
         return Container();
     }
@@ -213,19 +231,19 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
   var moves = 0;
 
   final urlImages = [
-    'https://images.unsplash.com/photo-1554456854-55a089fd4cb2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80',
-    'https://images.unsplash.com/photo-1467224298296-81a33a3f3022?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1413&q=80',
-    'https://images.unsplash.com/photo-1581889470536-467bdbe30cd0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1564&q=80',
-    'https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1631&q=80',
-    'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=633&q=80',
-    'https://images.unsplash.com/photo-1552058544-f2b08422138a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=644&q=80',
-    'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    'https://images.unsplash.com/photo-1555952517-2e8e729e0b44?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80',
-    'https://images.unsplash.com/photo-1543080853-556086153871?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    'https://images.unsplash.com/photo-1584361853901-dd1904bb7987?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    'https://images.unsplash.com/photo-1548543604-a87c9909abec?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    'https://images.unsplash.com/photo-1548794397-eeedae69ac71?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=634&q=80',
-    'https://images.unsplash.com/photo-1585129819171-80b02d4c85b0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+    'packages/cognition_package/assets/images/picturesequencememory-1.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-2.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-3.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-4.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-5.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-6.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-7.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-8.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-9.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-10.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-11.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-12.jpeg',
+    'packages/cognition_package/assets/images/picturesequencememory-13.jpeg',
   ];
 
   PictureSequenceMemoryState(
@@ -548,7 +566,7 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(20)),
                 image: DecorationImage(
-                  image: NetworkImage(picture.urlImage),
+                  image: AssetImage(picture.urlImage),
                   fit: BoxFit.cover,
                 )),
           )));

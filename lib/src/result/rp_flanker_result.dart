@@ -1,4 +1,4 @@
-part of cognition_package_model;
+part of '../../../../model.dart';
 
 /// Flanker Test Result
 @JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
@@ -17,12 +17,20 @@ class RPFlankerResult extends RPActivityResult {
     int right,
     int time,
     int score,
+    double meanCongruent,
+    double meanIncongruent,
+    int numberCardsCongruent,
+    int numberCardsIncongruent,
   ) {
     var res = RPFlankerResult(identifier: 'FlankerTaskResult');
     res.results.addAll({'wrong swipes': wrong});
     res.results.addAll({'right swipes': right});
     res.results.addAll({'time': time});
     res.results.addAll({'score': score});
+    res.results.addAll({'meanCongruent': meanCongruent});
+    res.results.addAll({'meanIncongruent': meanIncongruent});
+    res.results.addAll({'numberCardsCongruent': numberCardsCongruent});
+    res.results.addAll({'numberCardsIncongruent': numberCardsIncongruent});
     return res;
   }
 
