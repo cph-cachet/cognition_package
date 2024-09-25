@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Flanker Test.
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPFlankerActivity extends RPActivityStep {
   RPFlankerActivity({
     required super.identifier,
@@ -24,10 +25,13 @@ class RPFlankerActivity extends RPActivityStep {
   ) =>
       RPUIFlankerActivity(this, eventLogger, onResultChange);
 
-  /// The result is the number of mistakes made during the test.
+  /// The score is the number of mistakes made during the test.
   /// If the number of mistakes > 2, the test is failed and a score of 0 is
   /// returned. Otherwise, a score of 1 is returned.
+  @override
+  int calculateScore(dynamic result) => (result['mistakes'] as int > 2) ? 0 : 1;
 
+  /// Calculate scores - sum, mean congruent, mean incongruent
   List<dynamic> calculateScoreFlanker(dynamic result) {
     var accuracy = result['correct'] / (result['correct'] + result['mistakes']);
 
@@ -51,7 +55,7 @@ class RPFlankerActivity extends RPActivityStep {
   @override
   Function get fromJsonFunction => _$RPFlankerActivityFromJson;
   factory RPFlankerActivity.fromJson(Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPFlankerActivity;
+      FromJsonFactory().fromJson<RPFlankerActivity>(json);
   @override
   Map<String, dynamic> toJson() => _$RPFlankerActivityToJson(this);
 }

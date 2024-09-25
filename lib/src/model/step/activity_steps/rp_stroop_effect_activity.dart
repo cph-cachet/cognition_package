@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Stroop Effect Test.
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPStroopEffectActivity extends RPActivityStep {
   /// Contructor for creating a Stroop effect Test.
   RPStroopEffectActivity(
@@ -32,7 +33,7 @@ class RPStroopEffectActivity extends RPActivityStep {
   @override
   Function get fromJsonFunction => _$RPStroopEffectActivityFromJson;
   factory RPStroopEffectActivity.fromJson(Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPStroopEffectActivity;
+      FromJsonFactory().fromJson<RPStroopEffectActivity>(json);
   @override
   Map<String, dynamic> toJson() => _$RPStroopEffectActivityToJson(this);
 }

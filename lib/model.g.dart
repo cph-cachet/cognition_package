@@ -16,7 +16,8 @@ RPCorsiBlockTappingActivity _$RPCorsiBlockTappingActivityFromJson(
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPCorsiBlockTappingActivityToJson(
     RPCorsiBlockTappingActivity instance) {
@@ -33,6 +34,7 @@ Map<String, dynamic> _$RPCorsiBlockTappingActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   return val;
@@ -48,7 +50,8 @@ RPLetterTappingActivity _$RPLetterTappingActivityFromJson(
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPLetterTappingActivityToJson(
     RPLetterTappingActivity instance) {
@@ -65,6 +68,7 @@ Map<String, dynamic> _$RPLetterTappingActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   return val;
@@ -76,12 +80,13 @@ RPPairedAssociatesLearningActivity _$RPPairedAssociatesLearningActivityFromJson(
       identifier: json['identifier'] as String,
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
-      maxTestDuration: json['max_test_duration'] as int? ?? 100,
+      maxTestDuration: (json['max_test_duration'] as num?)?.toInt() ?? 100,
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPPairedAssociatesLearningActivityToJson(
     RPPairedAssociatesLearningActivity instance) {
@@ -98,6 +103,7 @@ Map<String, dynamic> _$RPPairedAssociatesLearningActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['max_test_duration'] = instance.maxTestDuration;
@@ -110,17 +116,18 @@ RPRapidVisualInfoProcessingActivity
           identifier: json['identifier'] as String,
           includeInstructions: json['include_instructions'] as bool? ?? true,
           includeResults: json['include_results'] as bool? ?? true,
-          interval: json['interval'] as int? ?? 9,
-          lengthOfTest: json['length_of_test'] as int? ?? 90,
+          interval: (json['interval'] as num?)?.toInt() ?? 9,
+          lengthOfTest: (json['length_of_test'] as num?)?.toInt() ?? 90,
           sequence: (json['sequence'] as List<dynamic>?)
-                  ?.map((e) => e as int)
+                  ?.map((e) => (e as num).toInt())
                   .toList() ??
               const [3, 6, 9],
         )
           ..$type = json['__type'] as String?
           ..title = json['title'] as String
           ..text = json['text'] as String?
-          ..optional = json['optional'] as bool;
+          ..optional = json['optional'] as bool
+          ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPRapidVisualInfoProcessingActivityToJson(
     RPRapidVisualInfoProcessingActivity instance) {
@@ -137,6 +144,7 @@ Map<String, dynamic> _$RPRapidVisualInfoProcessingActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['interval'] = instance.interval;
@@ -151,13 +159,14 @@ RPReactionTimeActivity _$RPReactionTimeActivityFromJson(
       identifier: json['identifier'] as String,
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
-      lengthOfTest: json['length_of_test'] as int? ?? 30,
-      switchInterval: json['switch_interval'] as int? ?? 4,
+      lengthOfTest: (json['length_of_test'] as num?)?.toInt() ?? 30,
+      switchInterval: (json['switch_interval'] as num?)?.toInt() ?? 4,
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPReactionTimeActivityToJson(
     RPReactionTimeActivity instance) {
@@ -174,6 +183,7 @@ Map<String, dynamic> _$RPReactionTimeActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['length_of_test'] = instance.lengthOfTest;
@@ -187,14 +197,15 @@ RPStroopEffectActivity _$RPStroopEffectActivityFromJson(
       identifier: json['identifier'] as String,
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
-      lengthOfTest: json['length_of_test'] as int? ?? 40,
-      displayTime: json['display_time'] as int? ?? 1000,
-      delayTime: json['delay_time'] as int? ?? 750,
+      lengthOfTest: (json['length_of_test'] as num?)?.toInt() ?? 40,
+      displayTime: (json['display_time'] as num?)?.toInt() ?? 1000,
+      delayTime: (json['delay_time'] as num?)?.toInt() ?? 750,
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPStroopEffectActivityToJson(
     RPStroopEffectActivity instance) {
@@ -211,6 +222,7 @@ Map<String, dynamic> _$RPStroopEffectActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['length_of_test'] = instance.lengthOfTest;
@@ -224,12 +236,13 @@ RPTappingActivity _$RPTappingActivityFromJson(Map<String, dynamic> json) =>
       identifier: json['identifier'] as String,
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
-      lengthOfTest: json['length_of_test'] as int? ?? 30,
+      lengthOfTest: (json['length_of_test'] as num?)?.toInt() ?? 30,
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPTappingActivityToJson(RPTappingActivity instance) {
   final val = <String, dynamic>{};
@@ -245,6 +258,7 @@ Map<String, dynamic> _$RPTappingActivityToJson(RPTappingActivity instance) {
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['length_of_test'] = instance.lengthOfTest;
@@ -263,7 +277,8 @@ RPTrailMakingActivity _$RPTrailMakingActivityFromJson(
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPTrailMakingActivityToJson(
     RPTrailMakingActivity instance) {
@@ -280,6 +295,7 @@ Map<String, dynamic> _$RPTrailMakingActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['trail_type'] = _$TrailTypeEnumMap[instance.trailType]!;
@@ -296,13 +312,14 @@ RPFlankerActivity _$RPFlankerActivityFromJson(Map<String, dynamic> json) =>
       identifier: json['identifier'] as String,
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
-      lengthOfTest: json['length_of_test'] as int? ?? 90,
-      numberOfCards: json['number_of_cards'] as int? ?? 25,
+      lengthOfTest: (json['length_of_test'] as num?)?.toInt() ?? 90,
+      numberOfCards: (json['number_of_cards'] as num?)?.toInt() ?? 25,
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPFlankerActivityToJson(RPFlankerActivity instance) {
   final val = <String, dynamic>{};
@@ -318,6 +335,7 @@ Map<String, dynamic> _$RPFlankerActivityToJson(RPFlankerActivity instance) {
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['length_of_test'] = instance.lengthOfTest;
@@ -331,14 +349,15 @@ RPPictureSequenceMemoryActivity _$RPPictureSequenceMemoryActivityFromJson(
       identifier: json['identifier'] as String,
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
-      lengthOfTest: json['length_of_test'] as int? ?? 90,
-      numberOfTests: json['number_of_tests'] as int? ?? 3,
-      numberOfPics: json['number_of_pics'] as int? ?? 3,
+      lengthOfTest: (json['length_of_test'] as num?)?.toInt() ?? 90,
+      numberOfTests: (json['number_of_tests'] as num?)?.toInt() ?? 3,
+      numberOfPics: (json['number_of_pics'] as num?)?.toInt() ?? 3,
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPPictureSequenceMemoryActivityToJson(
     RPPictureSequenceMemoryActivity instance) {
@@ -355,6 +374,7 @@ Map<String, dynamic> _$RPPictureSequenceMemoryActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['length_of_test'] = instance.lengthOfTest;
@@ -369,13 +389,14 @@ RPWordRecallActivity _$RPWordRecallActivityFromJson(
       identifier: json['identifier'] as String,
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
-      lengthOfTest: json['length_of_test'] as int? ?? 90,
-      numberOfTests: json['number_of_tests'] as int? ?? 3,
+      lengthOfTest: (json['length_of_test'] as num?)?.toInt() ?? 90,
+      numberOfTests: (json['number_of_tests'] as num?)?.toInt() ?? 3,
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPWordRecallActivityToJson(
     RPWordRecallActivity instance) {
@@ -392,6 +413,7 @@ Map<String, dynamic> _$RPWordRecallActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['length_of_test'] = instance.lengthOfTest;
@@ -405,13 +427,14 @@ RPDelayedRecallActivity _$RPDelayedRecallActivityFromJson(
       identifier: json['identifier'] as String,
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
-      lengthOfTest: json['length_of_test'] as int? ?? 90,
-      numberOfTests: json['number_of_tests'] as int? ?? 3,
+      lengthOfTest: (json['length_of_test'] as num?)?.toInt() ?? 90,
+      numberOfTests: (json['number_of_tests'] as num?)?.toInt() ?? 3,
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPDelayedRecallActivityToJson(
     RPDelayedRecallActivity instance) {
@@ -428,6 +451,7 @@ Map<String, dynamic> _$RPDelayedRecallActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['length_of_test'] = instance.lengthOfTest;
@@ -441,15 +465,16 @@ RPVisualArrayChangeActivity _$RPVisualArrayChangeActivityFromJson(
       identifier: json['identifier'] as String,
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
-      numberOfShapes: json['number_of_shapes'] as int? ?? 3,
-      lengthOfTest: json['length_of_test'] as int? ?? 90,
-      waitTime: json['wait_time'] as int? ?? 2,
-      numberOfTests: json['number_of_tests'] as int? ?? 3,
+      numberOfShapes: (json['number_of_shapes'] as num?)?.toInt() ?? 3,
+      lengthOfTest: (json['length_of_test'] as num?)?.toInt() ?? 90,
+      waitTime: (json['wait_time'] as num?)?.toInt() ?? 2,
+      numberOfTests: (json['number_of_tests'] as num?)?.toInt() ?? 3,
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPVisualArrayChangeActivityToJson(
     RPVisualArrayChangeActivity instance) {
@@ -466,6 +491,7 @@ Map<String, dynamic> _$RPVisualArrayChangeActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['length_of_test'] = instance.lengthOfTest;
@@ -481,19 +507,20 @@ RPContinuousVisualTrackingActivity _$RPContinuousVisualTrackingActivityFromJson(
       identifier: json['identifier'] as String,
       includeInstructions: json['include_instructions'] as bool? ?? true,
       includeResults: json['include_results'] as bool? ?? true,
-      lengthOfTest: json['length_of_test'] as int? ?? 90,
-      numberOfTests: json['number_of_tests'] as int? ?? 3,
-      amountOfDots: json['amount_of_dots'] as int? ?? 5,
-      amountOfTargets: json['amount_of_targets'] as int? ?? 2,
-      dotSize: json['dot_size'] as int? ?? 100,
+      lengthOfTest: (json['length_of_test'] as num?)?.toInt() ?? 90,
+      numberOfTests: (json['number_of_tests'] as num?)?.toInt() ?? 3,
+      amountOfDots: (json['amount_of_dots'] as num?)?.toInt() ?? 5,
+      amountOfTargets: (json['amount_of_targets'] as num?)?.toInt() ?? 2,
+      dotSize: (json['dot_size'] as num?)?.toInt() ?? 100,
       trackingSpeed: json['tracking_speed'] == null
           ? const Duration(seconds: 5)
-          : Duration(microseconds: json['tracking_speed'] as int),
+          : Duration(microseconds: (json['tracking_speed'] as num).toInt()),
     )
       ..$type = json['__type'] as String?
       ..title = json['title'] as String
       ..text = json['text'] as String?
-      ..optional = json['optional'] as bool;
+      ..optional = json['optional'] as bool
+      ..footnote = json['footnote'] as String?;
 
 Map<String, dynamic> _$RPContinuousVisualTrackingActivityToJson(
     RPContinuousVisualTrackingActivity instance) {
@@ -510,6 +537,7 @@ Map<String, dynamic> _$RPContinuousVisualTrackingActivityToJson(
   val['title'] = instance.title;
   writeNotNull('text', instance.text);
   val['optional'] = instance.optional;
+  writeNotNull('footnote', instance.footnote);
   val['include_instructions'] = instance.includeInstructions;
   val['include_results'] = instance.includeResults;
   val['length_of_test'] = instance.lengthOfTest;
@@ -554,8 +582,8 @@ Map<String, dynamic> _$RPVisualTrackingResultToJson(
   writeNotNull('start_date', instance.startDate?.toIso8601String());
   writeNotNull('end_date', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
-  val['step_times'] = instance.stepTimes;
-  val['interactions'] = instance.interactions;
+  val['step_times'] = instance.stepTimes.toJson();
+  val['interactions'] = instance.interactions.map((e) => e.toJson()).toList();
   return val;
 }
 
@@ -590,8 +618,8 @@ Map<String, dynamic> _$RPFlankerResultToJson(RPFlankerResult instance) {
   writeNotNull('start_date', instance.startDate?.toIso8601String());
   writeNotNull('end_date', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
-  val['step_times'] = instance.stepTimes;
-  val['interactions'] = instance.interactions;
+  val['step_times'] = instance.stepTimes.toJson();
+  val['interactions'] = instance.interactions.map((e) => e.toJson()).toList();
   return val;
 }
 
@@ -628,8 +656,8 @@ Map<String, dynamic> _$RPPictureSequenceResultToJson(
   writeNotNull('start_date', instance.startDate?.toIso8601String());
   writeNotNull('end_date', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
-  val['step_times'] = instance.stepTimes;
-  val['interactions'] = instance.interactions;
+  val['step_times'] = instance.stepTimes.toJson();
+  val['interactions'] = instance.interactions.map((e) => e.toJson()).toList();
   return val;
 }
 
@@ -666,8 +694,8 @@ Map<String, dynamic> _$RPVisualArrayChangeResultToJson(
   writeNotNull('start_date', instance.startDate?.toIso8601String());
   writeNotNull('end_date', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
-  val['step_times'] = instance.stepTimes;
-  val['interactions'] = instance.interactions;
+  val['step_times'] = instance.stepTimes.toJson();
+  val['interactions'] = instance.interactions.map((e) => e.toJson()).toList();
   return val;
 }
 
@@ -702,8 +730,8 @@ Map<String, dynamic> _$RPWordRecallResultToJson(RPWordRecallResult instance) {
   writeNotNull('start_date', instance.startDate?.toIso8601String());
   writeNotNull('end_date', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
-  val['step_times'] = instance.stepTimes;
-  val['interactions'] = instance.interactions;
+  val['step_times'] = instance.stepTimes.toJson();
+  val['interactions'] = instance.interactions.map((e) => e.toJson()).toList();
   return val;
 }
 
@@ -740,7 +768,7 @@ Map<String, dynamic> _$RPDelayedRecallResultToJson(
   writeNotNull('start_date', instance.startDate?.toIso8601String());
   writeNotNull('end_date', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
-  val['step_times'] = instance.stepTimes;
-  val['interactions'] = instance.interactions;
+  val['step_times'] = instance.stepTimes.toJson();
+  val['interactions'] = instance.interactions.map((e) => e.toJson()).toList();
   return val;
 }

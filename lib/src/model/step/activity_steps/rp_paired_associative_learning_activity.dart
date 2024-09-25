@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// A Paired Associates Learning Test
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPPairedAssociatesLearningActivity extends RPActivityStep {
   /// Contructor for creating a Paired Associates Learning Test.
   RPPairedAssociatesLearningActivity({
@@ -26,7 +27,7 @@ class RPPairedAssociatesLearningActivity extends RPActivityStep {
   Function get fromJsonFunction => _$RPPairedAssociatesLearningActivityFromJson;
   factory RPPairedAssociatesLearningActivity.fromJson(
           Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPPairedAssociatesLearningActivity;
+      FromJsonFactory().fromJson<RPPairedAssociatesLearningActivity>(json);
   @override
   Map<String, dynamic> toJson() =>
       _$RPPairedAssociatesLearningActivityToJson(this);

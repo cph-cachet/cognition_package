@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// A Multiple Object Tracking Test
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPContinuousVisualTrackingActivity extends RPActivityStep {
   RPContinuousVisualTrackingActivity({
     required super.identifier,
@@ -68,7 +69,7 @@ class RPContinuousVisualTrackingActivity extends RPActivityStep {
   Function get fromJsonFunction => _$RPContinuousVisualTrackingActivityFromJson;
   factory RPContinuousVisualTrackingActivity.fromJson(
           Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPContinuousVisualTrackingActivity;
+      FromJsonFactory().fromJson<RPContinuousVisualTrackingActivity>(json);
   @override
   Map<String, dynamic> toJson() =>
       _$RPContinuousVisualTrackingActivityToJson(this);

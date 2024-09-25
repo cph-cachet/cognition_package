@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Visual Array Change Test Result
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPVisualArrayChangeResult extends RPActivityResult {
   RPVisualArrayChangeResult({required super.identifier});
 

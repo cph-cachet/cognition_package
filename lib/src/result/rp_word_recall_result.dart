@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Verbal Recognition Memory Test Result
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPWordRecallResult extends RPActivityResult {
   RPWordRecallResult({required super.identifier});
 

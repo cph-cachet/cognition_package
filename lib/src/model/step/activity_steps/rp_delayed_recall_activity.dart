@@ -2,7 +2,8 @@ part of '../../../../model.dart';
 
 /// Delayed Recall Test.
 /// Must be used after a [RPWordRecallActivity]
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPDelayedRecallActivity extends RPWordRecallActivity {
   RPDelayedRecallActivity({
     required super.identifier,
@@ -22,7 +23,7 @@ class RPDelayedRecallActivity extends RPWordRecallActivity {
   @override
   Function get fromJsonFunction => _$RPDelayedRecallActivityFromJson;
   factory RPDelayedRecallActivity.fromJson(Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPDelayedRecallActivity;
+      FromJsonFactory().fromJson<RPDelayedRecallActivity>(json);
   @override
   Map<String, dynamic> toJson() => _$RPDelayedRecallActivityToJson(this);
 }

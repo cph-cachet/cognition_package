@@ -2,7 +2,7 @@
   "app_name": "Cognition Package Demo",
   "app_info": "Med 'Cognition Package' Flutter pakken kan du skabe og anvende eksisterende kognitive tests.",
   "home.start": "Start",
-  "home.welcome": "Welkommen til denne demonstration af Cognition Package, som er udviklet af Copenhagen Center for Health Technology på Danmarks Tekniske Universitet (DTU).",
+  "home.welcome": "Welkommen til denne demonstration af Cognition Package, som er udviklet som en del af Copenhagen Research Platform (CARP) på Danmarks Tekniske Universitet (DTU).",
   "home.questions": "Hvis du har spørgsmål er du velkommen til at kontakte os på",
   "completion_title": "Slut",
   "completion_text": "Tak for din deltagelse i disse test."

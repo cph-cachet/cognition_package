@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Reaction Time Test.
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPReactionTimeActivity extends RPActivityStep {
   /// Contructor for creating a Reaction time Test.
   RPReactionTimeActivity(
@@ -28,7 +29,7 @@ class RPReactionTimeActivity extends RPActivityStep {
   @override
   Function get fromJsonFunction => _$RPReactionTimeActivityFromJson;
   factory RPReactionTimeActivity.fromJson(Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPReactionTimeActivity;
+      FromJsonFactory().fromJson<RPReactionTimeActivity>(json);
   @override
   Map<String, dynamic> toJson() => _$RPReactionTimeActivityToJson(this);
 }
