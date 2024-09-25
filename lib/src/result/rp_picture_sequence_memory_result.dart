@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Picture Sequence Memory Test Result
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPPictureSequenceResult extends RPActivityResult {
   RPPictureSequenceResult({required super.identifier});
 

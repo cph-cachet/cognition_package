@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Corsi Block Tapping Test.
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPCorsiBlockTappingActivity extends RPActivityStep {
   /// Create Corsi Block Tapping Test.
   RPCorsiBlockTappingActivity({
@@ -20,7 +21,7 @@ class RPCorsiBlockTappingActivity extends RPActivityStep {
   @override
   Function get fromJsonFunction => _$RPCorsiBlockTappingActivityFromJson;
   factory RPCorsiBlockTappingActivity.fromJson(Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPCorsiBlockTappingActivity;
+      FromJsonFactory().fromJson<RPCorsiBlockTappingActivity>(json);
   @override
   Map<String, dynamic> toJson() => _$RPCorsiBlockTappingActivityToJson(this);
 }

@@ -1,7 +1,7 @@
 name: cognition_package_demo_app
 description: A demo application for the Cognition Package
 publish_to: none
-version: 1.5.1
+version: 1.6.0
 
 environment:
   sdk: '>=3.0.6 <4.0.0'

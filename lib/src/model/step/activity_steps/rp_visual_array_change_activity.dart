@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Visual Array Change Test
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPVisualArrayChangeActivity extends RPActivityStep {
   RPVisualArrayChangeActivity({
     required super.identifier,
@@ -38,7 +39,7 @@ class RPVisualArrayChangeActivity extends RPActivityStep {
   @override
   Function get fromJsonFunction => _$RPVisualArrayChangeActivityFromJson;
   factory RPVisualArrayChangeActivity.fromJson(Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPVisualArrayChangeActivity;
+      FromJsonFactory().fromJson<RPVisualArrayChangeActivity>(json);
   @override
   Map<String, dynamic> toJson() => _$RPVisualArrayChangeActivityToJson(this);
 }

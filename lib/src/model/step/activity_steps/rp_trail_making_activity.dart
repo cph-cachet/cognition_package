@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Trail Making Test.
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPTrailMakingActivity extends RPActivityStep {
   /// Contructor for creating a Trail Making Test.
   RPTrailMakingActivity({
@@ -29,7 +30,7 @@ class RPTrailMakingActivity extends RPActivityStep {
   @override
   Function get fromJsonFunction => _$RPTrailMakingActivityFromJson;
   factory RPTrailMakingActivity.fromJson(Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPTrailMakingActivity;
+      FromJsonFactory().fromJson<RPTrailMakingActivity>(json);
   @override
   Map<String, dynamic> toJson() => _$RPTrailMakingActivityToJson(this);
 }

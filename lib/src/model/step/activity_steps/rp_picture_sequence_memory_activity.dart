@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Picture Sequence Memory Test
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPPictureSequenceMemoryActivity extends RPActivityStep {
   RPPictureSequenceMemoryActivity({
     required super.identifier,
@@ -47,7 +48,7 @@ class RPPictureSequenceMemoryActivity extends RPActivityStep {
   @override
   Function get fromJsonFunction => _$RPPictureSequenceMemoryActivityFromJson;
   factory RPPictureSequenceMemoryActivity.fromJson(Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPPictureSequenceMemoryActivity;
+      FromJsonFactory().fromJson<RPPictureSequenceMemoryActivity>(json);
   @override
   Map<String, dynamic> toJson() =>
       _$RPPictureSequenceMemoryActivityToJson(this);

@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Multiple Object Tracking Test Result
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPVisualTrackingResult extends RPActivityResult {
   RPVisualTrackingResult({required super.identifier});
 

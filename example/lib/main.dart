@@ -7,7 +7,7 @@ import 'package:cognition_package_demo_app/cognition_page.dart';
 
 Future main() async {
   // Initialize cognition package.
-  // Needed if you load a cognition configuration from a json file
+  // Needed if you load a cognition configurations from a json file
   CognitionPackage.ensureInitialized();
 
   runApp(const MyApp());
@@ -106,7 +106,7 @@ class MyHomePageState extends State<MyHomePage> {
                     ),
                     Container(height: 5),
                     const Text(
-                      "cph_cachet@gmail.com",
+                      "support@carp.dk",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 16,
@@ -140,7 +140,7 @@ class MyHomePageState extends State<MyHomePage> {
           child: Padding(
         padding: const EdgeInsets.all(22.0),
         child: Image.asset(
-          "assets/images/cachet-logo-white.png",
+          "assets/images/carp_logo.png",
           height: 50,
         ),
       )),

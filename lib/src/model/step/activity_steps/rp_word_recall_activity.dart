@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// A Verbal Recognition memory Test
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPWordRecallActivity extends RPActivityStep {
   RPWordRecallActivity({
     required super.identifier,
@@ -45,7 +46,7 @@ class RPWordRecallActivity extends RPActivityStep {
   @override
   Function get fromJsonFunction => _$RPWordRecallActivityFromJson;
   factory RPWordRecallActivity.fromJson(Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPWordRecallActivity;
+      FromJsonFactory().fromJson<RPWordRecallActivity>(json);
   @override
   Map<String, dynamic> toJson() => _$RPWordRecallActivityToJson(this);
 }

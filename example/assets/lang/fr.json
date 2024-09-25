@@ -2,7 +2,7 @@
   "app_name": "Cognition Package Demo",
   "app_info": "Le package Flutter 'Cognition Package' vous permet de créer et d'utiliser des tests cognitifs prédéfinis.",
   "home.start": "Commencer",
-  "home.welcome": "Bienvenue à la démo du Cognition Package, développé par le Copenhagen Centre for Health Technology.",
+  "home.welcome": "Bienvenue à la démo du Cognition Package, développé par le Copenhagen Research Platform (CARP) .",
   "home.questions": "Si vous avez des questions, n'hésitez pas à nous contacter au",
   "completion_title": "Fini",
   "completion_text": "Merci d'avoir passé les tests."

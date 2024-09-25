@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// Tapping Test.
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPTappingActivity extends RPActivityStep {
   /// Contructor for creating a Tapping Test.
   RPTappingActivity(
@@ -23,7 +24,7 @@ class RPTappingActivity extends RPActivityStep {
   @override
   Function get fromJsonFunction => _$RPTappingActivityFromJson;
   factory RPTappingActivity.fromJson(Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPTappingActivity;
+      FromJsonFactory().fromJson<RPTappingActivity>(json);
   @override
   Map<String, dynamic> toJson() => _$RPTappingActivityToJson(this);
 }

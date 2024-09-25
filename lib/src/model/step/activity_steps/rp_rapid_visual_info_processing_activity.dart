@@ -1,7 +1,8 @@
 part of '../../../../model.dart';
 
 /// A Rapid Visual Information Proccesing Test
-@JsonSerializable(fieldRename: FieldRename.snake, includeIfNull: false)
+@JsonSerializable(
+    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
 class RPRapidVisualInfoProcessingActivity extends RPActivityStep {
   RPRapidVisualInfoProcessingActivity(
       {required super.identifier,
@@ -34,7 +35,7 @@ class RPRapidVisualInfoProcessingActivity extends RPActivityStep {
       _$RPRapidVisualInfoProcessingActivityFromJson;
   factory RPRapidVisualInfoProcessingActivity.fromJson(
           Map<String, dynamic> json) =>
-      FromJsonFactory().fromJson(json) as RPRapidVisualInfoProcessingActivity;
+      FromJsonFactory().fromJson<RPRapidVisualInfoProcessingActivity>(json);
   @override
   Map<String, dynamic> toJson() =>
       _$RPRapidVisualInfoProcessingActivityToJson(this);
