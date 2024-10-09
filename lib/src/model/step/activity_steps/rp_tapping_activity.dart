@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// Tapping Test.
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPTappingActivity extends RPActivityStep {
   /// Contructor for creating a Tapping Test.
   RPTappingActivity(

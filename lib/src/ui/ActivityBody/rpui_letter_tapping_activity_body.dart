@@ -125,7 +125,6 @@ class RPUILetterTappingActivityBodyState
       if (letterIndex == mocaLetterList.length) {
         s = '${mocaLetterList.getRange(0, letterIndex - 2)} >A< ${mocaLetterList.getRange(letterIndex - 1, mocaLetterList.length)}';
       } else {
-        print(letterIndex);
         s = '${mocaLetterList.getRange(0, letterIndex - 2)} >A< ${mocaLetterList.getRange(letterIndex - 1, mocaLetterList.length)}';
       }
       widget.eventLogger
@@ -246,8 +245,6 @@ class RPUILetterTappingActivityBodyState
                       errors += 1;
                       widget.eventLogger.addWrongGesture('Button tap',
                           'Tapped letter too many times: ${mocaLetterList.getRange(0, letterIndex - 1)} >A< ${mocaLetterList.getRange(letterIndex, mocaLetterList.length)}');
-//                      print(
-//                          'Error at $lastLetter $currentLetter - Tapped last letter as it was A, but it was already tapped');
                     } else {
                       lastWasTapped = true;
                       widget.eventLogger.addCorrectGesture('Button tap',
@@ -260,8 +257,6 @@ class RPUILetterTappingActivityBodyState
                       errors += 1;
                       widget.eventLogger.addWrongGesture('Button tap',
                           'Tapped letter too many times: ${mocaLetterList.getRange(0, letterIndex - 1)} >A< ${mocaLetterList.getRange(letterIndex + 1, mocaLetterList.length)}');
-//                      print(
-//                          'Error at $lastLetter $currentLetter - Tapped current letter A while wasTapped = true');
                     } else {
                       wasTapped = true;
                       widget.eventLogger.addCorrectGesture('Button tap',

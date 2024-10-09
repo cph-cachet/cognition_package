@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// Reaction Time Test.
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPReactionTimeActivity extends RPActivityStep {
   /// Contructor for creating a Reaction time Test.
   RPReactionTimeActivity(

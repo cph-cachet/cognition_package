@@ -357,21 +357,17 @@ class PictureSequenceMemoryState extends State<PictureSequenceMemory> {
     for (var i = 0; i < pictures.length; i++) {
       if (i > 0 && i < pictures.length - 1) {
         if (pictures[i].left == pictures[i - 1].name) {
-          print("left neighbor correct: $i");
           newScore += 1;
         }
         if (pictures[i].right == pictures[i + 1].name) {
-          print("right neighbor correct: $i");
           newScore += 1;
         }
       } else if (i == 0) {
         if (pictures[i].right == pictures[i + 1].name) {
-          print("left neighbor correct: $i");
           newScore += 1;
         }
       } else if (i == pictures.length - 1) {
         if (pictures[i].left == pictures[i - 1].name) {
-          print("right neighbor correct: $i");
           newScore += 1;
         }
       }

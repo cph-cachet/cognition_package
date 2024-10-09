@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// A Paired Associates Learning Test
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPPairedAssociatesLearningActivity extends RPActivityStep {
   /// Contructor for creating a Paired Associates Learning Test.
   RPPairedAssociatesLearningActivity({

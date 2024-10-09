@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// Flanker Test.
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPFlankerActivity extends RPActivityStep {
   RPFlankerActivity({
     required super.identifier,
@@ -46,7 +45,7 @@ class RPFlankerActivity extends RPActivityStep {
       if ((meanIncongruent - meanCongruent) as double < 500) sum = 1;
       if (accuracy as double < 0.73) sum = 0;
     } catch (error) {
-      print('$runtimeType - $error');
+      print('$runtimeType - Error calculating score: $error');
     }
 
     return [sum, meanCongruent, meanIncongruent];

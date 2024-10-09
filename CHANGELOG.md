@@ -1,6 +1,6 @@
-## 1.6.0
+## 1.6.1
 
-* Upgrade to carp_serialization v. 2.0
+* Upgrade to carp_serialization v. 2.0 - note that we now use **camelCase** for JSON.
 * Fix of bug in calculating score in Flanker
 * Small updates to demo app
 

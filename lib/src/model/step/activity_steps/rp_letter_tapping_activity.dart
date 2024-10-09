@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// Letter Tapping Test
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPLetterTappingActivity extends RPActivityStep {
   /// Create a Letter Tapping Test.
   RPLetterTappingActivity({

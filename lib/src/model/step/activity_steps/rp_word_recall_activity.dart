@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// A Verbal Recognition memory Test
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPWordRecallActivity extends RPActivityStep {
   RPWordRecallActivity({
     required super.identifier,
@@ -38,7 +37,7 @@ class RPWordRecallActivity extends RPActivityStep {
         if (wordList.contains(resultsList[i])) sum++;
       }
     } catch (error) {
-      print('$runtimeType - $error');
+      print('$runtimeType - Error calculating score: $error');
     }
     return sum;
   }
