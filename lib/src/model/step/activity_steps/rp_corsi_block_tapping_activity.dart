@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// Corsi Block Tapping Test.
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPCorsiBlockTappingActivity extends RPActivityStep {
   /// Create Corsi Block Tapping Test.
   RPCorsiBlockTappingActivity({

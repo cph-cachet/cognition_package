@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// Flanker Test Result
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPFlankerResult extends RPActivityResult {
   /// Create an empty Flanker Test result.
   RPFlankerResult({required super.identifier});

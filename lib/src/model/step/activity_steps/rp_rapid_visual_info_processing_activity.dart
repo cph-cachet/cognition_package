@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// A Rapid Visual Information Proccesing Test
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPRapidVisualInfoProcessingActivity extends RPActivityStep {
   RPRapidVisualInfoProcessingActivity(
       {required super.identifier,

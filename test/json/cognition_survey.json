@@ -1,64 +1,64 @@
 {
     "__type": "RPOrderedTask",
     "identifier": "surveyTaskID",
-    "close_after_finished": true,
+    "closeAfterFinished": true,
     "steps": [
         {
             "__type": "RPReactionTimeActivity",
             "identifier": "Reaction Time step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": true,
-            "length_of_test": 30,
-            "switch_interval": 4
+            "includeInstructions": true,
+            "includeResults": true,
+            "lengthOfTest": 30,
+            "switchInterval": 4
         },
         {
             "__type": "RPPairedAssociatesLearningActivity",
             "identifier": "PAL step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": true,
-            "max_test_duration": 100
+            "includeInstructions": true,
+            "includeResults": true,
+            "maxTestDuration": 100
         },
         {
             "__type": "RPTappingActivity",
             "identifier": "Tapping step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": true,
-            "length_of_test": 30
+            "includeInstructions": true,
+            "includeResults": true,
+            "lengthOfTest": 30
         },
         {
             "__type": "RPCorsiBlockTappingActivity",
             "identifier": "Corsi Block Tapping step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": true
+            "includeInstructions": true,
+            "includeResults": true
         },
         {
             "__type": "RPStroopEffectActivity",
             "identifier": "Stroop Effect step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": true,
-            "length_of_test": 40,
-            "display_time": 1000,
-            "delay_time": 750
+            "includeInstructions": true,
+            "includeResults": true,
+            "lengthOfTest": 40,
+            "displayTime": 1000,
+            "delayTime": 750
         },
         {
             "__type": "RPRapidVisualInfoProcessingActivity",
             "identifier": "RVIP step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": true,
+            "includeInstructions": true,
+            "includeResults": true,
             "interval": 9,
-            "length_of_test": 10,
+            "lengthOfTest": 10,
             "sequence": [
                 3,
                 6,
@@ -70,84 +70,84 @@
             "identifier": "Trail Making step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": false,
-            "trail_type": "B"
+            "includeInstructions": true,
+            "includeResults": false,
+            "trailType": "B"
         },
         {
             "__type": "RPContinuousVisualTrackingActivity",
             "identifier": "ContinuousVisualTracking step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": false,
-            "length_of_test": 180,
-            "number_of_tests": 3,
-            "amount_of_dots": 15,
-            "amount_of_targets": 2,
-            "dot_size": 40,
-            "tracking_speed": 5000000
+            "includeInstructions": true,
+            "includeResults": false,
+            "lengthOfTest": 180,
+            "numberOfTests": 3,
+            "amountOfDots": 15,
+            "amountOfTargets": 2,
+            "dotSize": 40,
+            "trackingSpeed": 5000000
         },
         {
             "__type": "RPWordRecallActivity",
             "identifier": "WordRecall step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": false,
-            "length_of_test": 180,
-            "number_of_tests": 3
+            "includeInstructions": true,
+            "includeResults": false,
+            "lengthOfTest": 180,
+            "numberOfTests": 3
         },
         {
             "__type": "RPPictureSequenceMemoryActivity",
             "identifier": "PictureSequenceMemory step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": false,
-            "length_of_test": 180,
-            "number_of_tests": 1,
-            "number_of_pics": 6
+            "includeInstructions": true,
+            "includeResults": false,
+            "lengthOfTest": 180,
+            "numberOfTests": 1,
+            "numberOfPics": 6
         },
         {
             "__type": "RPLetterTappingActivity",
             "identifier": "Letter Tapping step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": false
+            "includeInstructions": true,
+            "includeResults": false
         },
         {
             "__type": "RPFlankerActivity",
             "identifier": "Flanker step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": true,
-            "length_of_test": 45,
-            "number_of_cards": 10
+            "includeInstructions": true,
+            "includeResults": true,
+            "lengthOfTest": 45,
+            "numberOfCards": 10
         },
         {
             "__type": "RPVisualArrayChangeActivity",
             "identifier": "VisualArrayChange step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": false,
-            "length_of_test": 180,
-            "number_of_tests": 3,
-            "number_of_shapes": 3,
-            "wait_time": 3
+            "includeInstructions": true,
+            "includeResults": false,
+            "lengthOfTest": 180,
+            "numberOfTests": 3,
+            "numberOfShapes": 3,
+            "waitTime": 3
         },
         {
             "__type": "RPDelayedRecallActivity",
             "identifier": "DelayedRecall step ID",
             "title": "RPActivityStep",
             "optional": false,
-            "include_instructions": true,
-            "include_results": false,
-            "length_of_test": 180,
-            "number_of_tests": 3
+            "includeInstructions": true,
+            "includeResults": false,
+            "lengthOfTest": 180,
+            "numberOfTests": 3
         },
         {
             "__type": "RPCompletionStep",

@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// Delayed Recall Test Result
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPDelayedRecallResult extends RPActivityResult {
   RPDelayedRecallResult({required super.identifier});
 

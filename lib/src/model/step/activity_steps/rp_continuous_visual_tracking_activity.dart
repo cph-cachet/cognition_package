@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// A Multiple Object Tracking Test
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPContinuousVisualTrackingActivity extends RPActivityStep {
   RPContinuousVisualTrackingActivity({
     required super.identifier,
@@ -60,7 +59,7 @@ class RPContinuousVisualTrackingActivity extends RPActivityStep {
         }
       }
     } catch (error) {
-      print('$runtimeType - $error');
+      print('$runtimeType - Error calculating score: $error');
     }
     return sum;
   }

@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// Stroop Effect Test.
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPStroopEffectActivity extends RPActivityStep {
   /// Contructor for creating a Stroop effect Test.
   RPStroopEffectActivity(

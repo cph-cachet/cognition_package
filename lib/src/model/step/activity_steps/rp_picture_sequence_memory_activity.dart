@@ -1,8 +1,7 @@
 part of '../../../../model.dart';
 
 /// Picture Sequence Memory Test
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPPictureSequenceMemoryActivity extends RPActivityStep {
   RPPictureSequenceMemoryActivity({
     required super.identifier,
@@ -40,7 +39,7 @@ class RPPictureSequenceMemoryActivity extends RPActivityStep {
         sum += pair;
       }
     } catch (error) {
-      print('$runtimeType - $error');
+      print('$runtimeType - Error calculating score: $error');
     }
     return sum;
   }

@@ -2,8 +2,7 @@ part of '../../../../model.dart';
 
 /// Delayed Recall Test.
 /// Must be used after a [RPWordRecallActivity]
-@JsonSerializable(
-    fieldRename: FieldRename.snake, includeIfNull: false, explicitToJson: true)
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class RPDelayedRecallActivity extends RPWordRecallActivity {
   RPDelayedRecallActivity({
     required super.identifier,

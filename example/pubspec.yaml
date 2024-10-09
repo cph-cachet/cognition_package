@@ -15,8 +15,8 @@ dependencies:
 
   cognition_package:
     path: ../../cognition_package
-  # research_package:
-  #   path: ../../research.package/
+  research_package:
+    path: ../../research.package/
 
 dev_dependencies:
   flutter_lints: any
