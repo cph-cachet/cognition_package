@@ -158,11 +158,45 @@ void main() {
   });
 
   group('Results', () {
-    test('RPStepResult -> JSON', () {
-      // print((surveyResult!));
-      // print((surveyResult!.toJson()));
+    test('RPTaskResult -> JSON', () {
       print(toJsonString(surveyResult!));
       expect(surveyResult?.results.length, 5);
+    });
+
+    test('JSON -> Recall RPTaskResult', () async {
+      String plainJson =
+          File('test/json/recall_result.json').readAsStringSync();
+
+      final task =
+          RPTaskResult.fromJson(json.decode(plainJson) as Map<String, dynamic>);
+
+      expect(task.$type, task.runtimeType.toString());
+      expect(task.results.values.first.$type, 'RPDelayedRecallResult');
+      print(toJsonString(task));
+
+      // deep assert
+      final taskJson = toJsonString(task);
+      final taskFromJson =
+          RPTaskResult.fromJson(json.decode(taskJson) as Map<String, dynamic>);
+      expect(toJsonString(taskFromJson), equals(taskJson));
+    });
+
+    test('JSON -> Flanker RPTaskResult', () async {
+      String plainJson =
+          File('test/json/flanker_result.json').readAsStringSync();
+
+      final task =
+          RPTaskResult.fromJson(json.decode(plainJson) as Map<String, dynamic>);
+
+      expect(task.$type, task.runtimeType.toString());
+      expect(task.results.values.first.$type, 'RPActivityResult');
+      print(toJsonString(task));
+
+      // deep assert
+      final taskJson = toJsonString(task);
+      final taskFromJson =
+          RPTaskResult.fromJson(json.decode(taskJson) as Map<String, dynamic>);
+      expect(toJsonString(taskFromJson), equals(taskJson));
     });
   });
 }

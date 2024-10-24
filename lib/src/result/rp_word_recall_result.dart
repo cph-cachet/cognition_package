@@ -27,8 +27,11 @@ class RPWordRecallResult extends RPActivityResult {
     return res;
   }
 
+  @override
+  Function get fromJsonFunction => _$RPWordRecallResultFromJson;
   factory RPWordRecallResult.fromJson(Map<String, dynamic> json) =>
-      _$RPWordRecallResultFromJson(json);
+      FromJsonFactory().fromJson<RPWordRecallResult>(json);
+
   @override
   Map<String, dynamic> toJson() => _$RPWordRecallResultToJson(this);
 }

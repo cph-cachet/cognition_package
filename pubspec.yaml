@@ -12,7 +12,7 @@ dependencies:
     sdk: flutter
 
   carp_serializable: ^2.0.0
-  research_package: ^1.7.0
+  research_package: ^1.7.2
   json_annotation: ^4.8.0
   just_audio: ^0.9.34
   reorderables: ^0.6.0
@@ -25,9 +25,9 @@ dev_dependencies:
 
 # Overriding research package to use the local copy
 # Remove this before release of package
-# dependency_overrides:
-#   research_package:
-#     path: ../research.package/
+dependency_overrides:
+  # research_package:
+  #   path: ../research.package/
 
 # auto generate json code (.g files) with:
 #   dart run build_runner build --delete-conflicting-outputs

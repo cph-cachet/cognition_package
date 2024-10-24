@@ -30,8 +30,11 @@ class RPPictureSequenceResult extends RPActivityResult {
     return res;
   }
 
+  @override
+  Function get fromJsonFunction => _$RPPictureSequenceResultFromJson;
   factory RPPictureSequenceResult.fromJson(Map<String, dynamic> json) =>
-      _$RPPictureSequenceResultFromJson(json);
+      FromJsonFactory().fromJson<RPPictureSequenceResult>(json);
+
   @override
   Map<String, dynamic> toJson() => _$RPPictureSequenceResultToJson(this);
 }

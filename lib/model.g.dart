@@ -554,6 +554,7 @@ RPVisualTrackingResult _$RPVisualTrackingResultFromJson(
     RPVisualTrackingResult(
       identifier: json['identifier'] as String,
     )
+      ..$type = json['__type'] as String?
       ..startDate = json['startDate'] == null
           ? null
           : DateTime.parse(json['startDate'] as String)
@@ -569,9 +570,7 @@ RPVisualTrackingResult _$RPVisualTrackingResultFromJson(
 
 Map<String, dynamic> _$RPVisualTrackingResultToJson(
     RPVisualTrackingResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -579,6 +578,8 @@ Map<String, dynamic> _$RPVisualTrackingResultToJson(
     }
   }
 
+  writeNotNull('__type', instance.$type);
+  val['identifier'] = instance.identifier;
   writeNotNull('startDate', instance.startDate?.toIso8601String());
   writeNotNull('endDate', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
@@ -591,6 +592,7 @@ RPFlankerResult _$RPFlankerResultFromJson(Map<String, dynamic> json) =>
     RPFlankerResult(
       identifier: json['identifier'] as String,
     )
+      ..$type = json['__type'] as String?
       ..startDate = json['startDate'] == null
           ? null
           : DateTime.parse(json['startDate'] as String)
@@ -605,9 +607,7 @@ RPFlankerResult _$RPFlankerResultFromJson(Map<String, dynamic> json) =>
           .toList();
 
 Map<String, dynamic> _$RPFlankerResultToJson(RPFlankerResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -615,6 +615,8 @@ Map<String, dynamic> _$RPFlankerResultToJson(RPFlankerResult instance) {
     }
   }
 
+  writeNotNull('__type', instance.$type);
+  val['identifier'] = instance.identifier;
   writeNotNull('startDate', instance.startDate?.toIso8601String());
   writeNotNull('endDate', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
@@ -628,6 +630,7 @@ RPPictureSequenceResult _$RPPictureSequenceResultFromJson(
     RPPictureSequenceResult(
       identifier: json['identifier'] as String,
     )
+      ..$type = json['__type'] as String?
       ..startDate = json['startDate'] == null
           ? null
           : DateTime.parse(json['startDate'] as String)
@@ -643,9 +646,7 @@ RPPictureSequenceResult _$RPPictureSequenceResultFromJson(
 
 Map<String, dynamic> _$RPPictureSequenceResultToJson(
     RPPictureSequenceResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -653,6 +654,8 @@ Map<String, dynamic> _$RPPictureSequenceResultToJson(
     }
   }
 
+  writeNotNull('__type', instance.$type);
+  val['identifier'] = instance.identifier;
   writeNotNull('startDate', instance.startDate?.toIso8601String());
   writeNotNull('endDate', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
@@ -666,6 +669,7 @@ RPVisualArrayChangeResult _$RPVisualArrayChangeResultFromJson(
     RPVisualArrayChangeResult(
       identifier: json['identifier'] as String,
     )
+      ..$type = json['__type'] as String?
       ..startDate = json['startDate'] == null
           ? null
           : DateTime.parse(json['startDate'] as String)
@@ -681,9 +685,7 @@ RPVisualArrayChangeResult _$RPVisualArrayChangeResultFromJson(
 
 Map<String, dynamic> _$RPVisualArrayChangeResultToJson(
     RPVisualArrayChangeResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -691,6 +693,8 @@ Map<String, dynamic> _$RPVisualArrayChangeResultToJson(
     }
   }
 
+  writeNotNull('__type', instance.$type);
+  val['identifier'] = instance.identifier;
   writeNotNull('startDate', instance.startDate?.toIso8601String());
   writeNotNull('endDate', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
@@ -703,6 +707,7 @@ RPWordRecallResult _$RPWordRecallResultFromJson(Map<String, dynamic> json) =>
     RPWordRecallResult(
       identifier: json['identifier'] as String,
     )
+      ..$type = json['__type'] as String?
       ..startDate = json['startDate'] == null
           ? null
           : DateTime.parse(json['startDate'] as String)
@@ -717,9 +722,7 @@ RPWordRecallResult _$RPWordRecallResultFromJson(Map<String, dynamic> json) =>
           .toList();
 
 Map<String, dynamic> _$RPWordRecallResultToJson(RPWordRecallResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -727,6 +730,8 @@ Map<String, dynamic> _$RPWordRecallResultToJson(RPWordRecallResult instance) {
     }
   }
 
+  writeNotNull('__type', instance.$type);
+  val['identifier'] = instance.identifier;
   writeNotNull('startDate', instance.startDate?.toIso8601String());
   writeNotNull('endDate', instance.endDate?.toIso8601String());
   val['results'] = instance.results;
@@ -740,6 +745,7 @@ RPDelayedRecallResult _$RPDelayedRecallResultFromJson(
     RPDelayedRecallResult(
       identifier: json['identifier'] as String,
     )
+      ..$type = json['__type'] as String?
       ..startDate = json['startDate'] == null
           ? null
           : DateTime.parse(json['startDate'] as String)
@@ -755,9 +761,7 @@ RPDelayedRecallResult _$RPDelayedRecallResultFromJson(
 
 Map<String, dynamic> _$RPDelayedRecallResultToJson(
     RPDelayedRecallResult instance) {
-  final val = <String, dynamic>{
-    'identifier': instance.identifier,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -765,6 +769,8 @@ Map<String, dynamic> _$RPDelayedRecallResultToJson(
     }
   }
 
+  writeNotNull('__type', instance.$type);
+  val['identifier'] = instance.identifier;
   writeNotNull('startDate', instance.startDate?.toIso8601String());
   writeNotNull('endDate', instance.endDate?.toIso8601String());
   val['results'] = instance.results;

@@ -28,8 +28,11 @@ class RPVisualArrayChangeResult extends RPActivityResult {
     return res;
   }
 
+  @override
+  Function get fromJsonFunction => _$RPVisualArrayChangeResultFromJson;
   factory RPVisualArrayChangeResult.fromJson(Map<String, dynamic> json) =>
-      _$RPVisualArrayChangeResultFromJson(json);
+      FromJsonFactory().fromJson<RPVisualArrayChangeResult>(json);
+
   @override
   Map<String, dynamic> toJson() => _$RPVisualArrayChangeResultToJson(this);
 }

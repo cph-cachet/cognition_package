@@ -1,6 +1,7 @@
-## 1.6.1
+## 1.6.2
 
 * Upgrade to carp_serialization v. 2.0 - note that we now use **camelCase** for JSON.
+* Support for deserialization of all `RPResult` classes and sub-classes (polymorphic serialization using the `carp_serializable` package) (issue [#83](https://github.com/cph-cachet/research.package/issues/83))
 * Fix of bug in calculating score in Flanker
 * Small updates to demo app
 
