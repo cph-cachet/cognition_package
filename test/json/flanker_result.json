@@ -1,0 +1,62 @@
+{
+    "__type": "RPTaskResult",
+    "identifier": "cognition_demo_task",
+    "startDate": "2024-10-24T21:27:16.239577",
+    "results": {
+        "PSM_step": {
+            "__type": "RPActivityResult",
+            "identifier": "PSM_step",
+            "endDate": "2024-10-24T21:27:08.380729",
+            "results": {
+                "result": {
+                    "Amount of moves": [
+                        1
+                    ],
+                    "Amount of correct pairs": [
+                        1
+                    ],
+                    "Time taken to memorize": [
+                        0
+                    ],
+                    "Time taken to move pictures": [
+                        1
+                    ],
+                    "score": 1
+                }
+            },
+            "stepTimes": {
+                "instruction_started": "2024-10-24T21:27:02.987686",
+                "instruction_ended": "2024-10-24T21:27:03.775171",
+                "test_started": "2024-10-24T21:27:03.775295",
+                "test_ended": "2024-10-24T21:27:08.378855",
+                "results_shown": "2024-10-24T21:27:08.381592"
+            },
+            "interactions": []
+        },
+        "flanker_step": {
+            "__type": "RPActivityResult",
+            "identifier": "flanker_step",
+            "endDate": "2024-10-24T21:27:14.233695",
+            "results": {
+                "result": {
+                    "wrong swipes": 5,
+                    "right swipes": 5,
+                    "time": 4,
+                    "score": 0,
+                    "meanCongruent": 239.5,
+                    "meanIncongruent": 394.0,
+                    "numberCardsCongruent": 2,
+                    "numberCardsIncongruent": 3
+                }
+            },
+            "stepTimes": {
+                "instruction_started": "2024-10-24T21:27:09.087316",
+                "instruction_ended": "2024-10-24T21:27:09.794153",
+                "test_started": "2024-10-24T21:27:09.794171",
+                "test_ended": "2024-10-24T21:27:14.231180",
+                "results_shown": "2024-10-24T21:27:14.233816"
+            },
+            "interactions": []
+        }
+    }
+}

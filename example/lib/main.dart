@@ -1,9 +1,13 @@
 import 'package:research_package/research_package.dart';
 import 'package:cognition_package/cognition_package.dart';
 import 'package:flutter/material.dart';
-// import 'package:cognition_package_demo_app/user_demographics_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:cognition_package_demo_app/cognition_page.dart';
+import 'package:carp_serializable/carp_serializable.dart';
+import 'package:flutter/services.dart';
+
+part 'cognition_config.dart';
+part 'cognition_page.dart';
+part 'user_demographics_page.dart';
 
 Future main() async {
   // Initialize cognition package.

@@ -25,8 +25,11 @@ class RPDelayedRecallResult extends RPActivityResult {
     return res;
   }
 
+  @override
+  Function get fromJsonFunction => _$RPDelayedRecallResultFromJson;
   factory RPDelayedRecallResult.fromJson(Map<String, dynamic> json) =>
-      _$RPDelayedRecallResultFromJson(json);
+      FromJsonFactory().fromJson<RPDelayedRecallResult>(json);
+
   @override
   Map<String, dynamic> toJson() => _$RPDelayedRecallResultToJson(this);
 }

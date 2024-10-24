@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:research_package/research_package.dart';
-import 'cognition_config.dart';
+part of 'main.dart';
 
 class CognitionPage extends StatelessWidget {
   final int? age;
@@ -37,5 +35,7 @@ class CognitionPage extends StatelessWidget {
       value = value as RPActivityResult;
       print(' $key\t: ${value.results}');
     });
+
+    debugPrint(toJsonString(result));
   }
 }

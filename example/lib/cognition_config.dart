@@ -1,5 +1,4 @@
-import 'package:cognition_package/model.dart';
-import 'package:research_package/model.dart';
+part of 'main.dart';
 
 // Here the list of cognitive test are added to an RP ordered task.
 // Uncomment the ones you want to see a demo of.

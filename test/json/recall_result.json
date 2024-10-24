@@ -1,0 +1,42 @@
+{
+    "__type": "RPTaskResult",
+    "identifier": "surveyTaskID",
+    "startDate": "2024-10-24T21:11:13.683736",
+    "results": {
+        "DelayedRecall step ID": {
+            "__type": "RPDelayedRecallResult",
+            "identifier": "DelayedRecall step ID",
+            "results": {},
+            "stepTimes": {},
+            "interactions": []
+        },
+        "Flanker step ID": {
+            "__type": "RPFlankerResult",
+            "identifier": "Flanker step ID",
+            "results": {},
+            "stepTimes": {},
+            "interactions": []
+        },
+        "PictureSequenceMemory step ID": {
+            "__type": "RPPictureSequenceResult",
+            "identifier": "PictureSequenceMemory step ID",
+            "results": {},
+            "stepTimes": {},
+            "interactions": []
+        },
+        "VisualArrayChange step ID": {
+            "__type": "RPVisualArrayChangeResult",
+            "identifier": "VisualArrayChange step ID",
+            "results": {},
+            "stepTimes": {},
+            "interactions": []
+        },
+        "WordRecall step ID": {
+            "__type": "RPWordRecallResult",
+            "identifier": "WordRecall step ID",
+            "results": {},
+            "stepTimes": {},
+            "interactions": []
+        }
+    }
+}

@@ -22,8 +22,10 @@ class RPVisualTrackingResult extends RPActivityResult {
     return res;
   }
 
+  @override
+  Function get fromJsonFunction => _$RPVisualTrackingResultFromJson;
   factory RPVisualTrackingResult.fromJson(Map<String, dynamic> json) =>
-      _$RPVisualTrackingResultFromJson(json);
+      FromJsonFactory().fromJson<RPVisualTrackingResult>(json);
 
   @override
   Map<String, dynamic> toJson() => _$RPVisualTrackingResultToJson(this);

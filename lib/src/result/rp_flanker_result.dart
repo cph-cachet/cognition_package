@@ -34,8 +34,10 @@ class RPFlankerResult extends RPActivityResult {
     return res;
   }
 
+  @override
+  Function get fromJsonFunction => _$RPFlankerResultFromJson;
   factory RPFlankerResult.fromJson(Map<String, dynamic> json) =>
-      _$RPFlankerResultFromJson(json);
+      FromJsonFactory().fromJson<RPFlankerResult>(json);
 
   @override
   Map<String, dynamic> toJson() => _$RPFlankerResultToJson(this);
