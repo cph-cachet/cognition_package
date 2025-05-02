@@ -1,3 +1,10 @@
+## 1.7.0
+
+- Upgrading gradle major version
+- Upgrading agp version
+- Upgrading kotlin version
+- Updating gradle file structure 
+
 ## 1.6.2
 
 * Upgrade to carp_serialization v. 2.0 - note that we now use **camelCase** for JSON.
