@@ -57,8 +57,8 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
 
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: researchPackageTheme,
+      darkTheme: researchPackageDarkTheme,
       title: 'Cognition Package Demo',
       home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
